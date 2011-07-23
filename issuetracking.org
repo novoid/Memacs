@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-23 17:57:51 vk>
+## Time-stamp: <2011-07-23 18:39:16 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 #+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
 #+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
@@ -86,7 +86,7 @@ To decide (for each Nexus):
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see: id:README-filedatestamp-Nexus
+see: file:README.org::*Filedatestamp-locate-Nexus
 
 #+begin_example
 : ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]  :Memacs:locate:
@@ -110,7 +110,7 @@ see: id:README-filedatestamp-Nexus
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see id:README-delicious-Nexus
+see file:README.org::*delicious-Nexus
 
 #+begin_example
 : ** [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
@@ -133,7 +133,7 @@ see id:README-delicious-Nexus
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see id:README-grabeeter-Nexus
+see file:README.org::*Grabeeter-Nexus
 
 - [[http://grabeeter.tugraz.at/][Grabeeter]]
 
@@ -152,7 +152,7 @@ see id:README-grabeeter-Nexus
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see id:README-Maildir-Nexus
+see file:README.org::*Maildir-Nexus
 
 #+begin_example
 : ** [[file:~/Maildir/cur/emailfile.txt][Urgent: Serverload too high]]   :maildir:Memacs:
@@ -170,7 +170,7 @@ see id:README-Maildir-Nexus
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see id:README-tagstore-Nexus
+see file:README.org::*tagstore-Nexus
 
 #+begin_example
 : ** [[file:~/tagstore/Invoice_0815.pdf][Invoice_0815.pdf]]  :ProjectB:CustomerA:tagstore:Memacs:
@@ -200,8 +200,7 @@ see id:README-tagstore-Nexus
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see id:README-GCal-Nexus
-
+see file:README.org::*GoogleCalendar-Nexus
 
 Those calendar events might be looking like this:
 #+begin_example
@@ -219,7 +218,7 @@ Those calendar events might be looking like this:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see id:README-git-Nexus
+see file:README.org::*git-Nexus
 
 #+begin_example
 : ** myproject (Bob): solved the address field bug         :git:Menacs:
@@ -235,7 +234,7 @@ see id:README-git-Nexus
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see id:README-svn-Nexus
+see file:README.org::*svn-Nexus
 
 #+begin_example
 : ** myproject (Bob) r42: solved the address field bug       :svn:Menacs:
@@ -251,7 +250,7 @@ see id:README-svn-Nexus
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see id:README-SMS-Nexus
+see file:README.org::*SMS-backup-Nexus
 
 #+begin_example
 : ** "Hello brother, how are you?"               :SMS:Memacs:
@@ -268,7 +267,7 @@ e.g. SMSbackupAndRestore (Android)
 
 ** TODO JPilot-todo-Nexus [0/0]                                      :KarlVoit:
 
-see: id:README-JPilot-todo-Nexus
+see file:README.org::*JPilot-todo-Nexus
 
 #+begin_example
 : ** TODO buy new shoes                              :errands:jpilot:Memacs:
@@ -283,7 +282,7 @@ see: id:README-JPilot-todo-Nexus
 :CREATED: <2011-07-23 Sat 17:51>
 :END:
 
-see id:README-JPilot-event-Nexus
+see file:README.org::*JPilot-event-Nexus
 
 #+begin_example
 : ** Meeting with big boss                    :jpilot:Memacs:
@@ -298,7 +297,7 @@ see id:README-JPilot-event-Nexus
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see id:README-serendipity-Nexus
+see file:README.org::*Serendipity-Nexus
 
 #+begin_example
 : ** Why I hate Mondays and what to do about it         :serendipity:Memacs:

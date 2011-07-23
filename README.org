@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-23 17:48:23 vk>
+## Time-stamp: <2011-07-23 18:39:02 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -80,9 +80,6 @@ Each Nexus offers various settings:
   - each Nexus can derive additional tags related to the data source
 
 ** Filedatestamp-locate-Nexus
-:PROPERTIES:
-:ID: README-filedatestamp-Nexus
-:END:
 
 Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
 "2011-02-14T14.35.42_img_0815.jpg" or "2011-02-14 slide GTD tools.jpg"
@@ -103,9 +100,6 @@ entries like this:
 #+end_example
 
 ** delicious-Nexus
-:PROPERTIES:
-:ID: README-delicious-Nexus
-:END:
 
 Bookmarks saved on the social bookmark service of [[http://delicious.com][delicious]] are an
 important source of data. We have not yet decided whether we will
@@ -123,9 +117,6 @@ and "research" at delicious:
 #+end_example
 
 ** Grabeeter-Nexus
-:PROPERTIES:
-:ID: README-grabeeter-Nexus
-:END:
 
 [[http://grabeeter.tugraz.at/][Grabeeter]] is a free online service of [[http://www.TU-Graz.at][Graz University of Technology]]
 where you can search and archive your tweets from [[http://Twitter.com][Twitter]].
@@ -144,14 +135,12 @@ Tweets like this one from user "n0v0id" will appear like this:
 #+end_example
 
 ** Maildir-Nexus
-:PROPERTIES:
-:ID: README-Maildir-Nexus
-:END:
 
 [[http://en.wikipedia.org/wiki/Maildir][Maildir]] is a common standard to store e-mails on disk. Many users do
 have a local mail repository in Maildir format. Accessing e-mails in
 Maildir folders is fairly easy because each e-mail is one file in an
 ordinary folder.
+
 
 We will probably visualize an e-mail from Maildir like this:
 #+begin_example
@@ -164,9 +153,6 @@ We will probably visualize an e-mail from Maildir like this:
 #+end_example
 
 ** tagstore-Nexus
-:PROPERTIES:
-:ID: README-tagstore-Nexus
-:END:
 
 [[http://tagstore.org][tagstore]] is a research software that stores local files using tags and
 derives associative navigational folder structures from the tags of
@@ -184,9 +170,6 @@ generates entries like this: (the file was tagged with "CustomerA" and
 #+end_example
 
 ** GoogleCalendar-Nexus
-:PROPERTIES:
-:ID: README-GCal-Nexus
-:END:
 
 We might be able to provide a Nexus that gets events from a [[http://www.google.com/calendar][Google
 calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]].
@@ -201,9 +184,6 @@ Those calendar events might be looking like this:
 #+end_example
 
 ** git-Nexus
-:PROPERTIES:
-:ID: README-git-Nexus
-:END:
 
 [[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kind of data
 with. [[http://en.wikipedia.org/wiki/Git_(software)][git]] is a modern distributed system that has an enormous feature
@@ -221,9 +201,6 @@ Whenever user "Bob" commits a change set to an example project called
 #+end_example
 
 ** svn-Nexus
-:PROPERTIES:
-:ID: README-svn-Nexus
-:END:
 
 Version control systems]] are quite common to manage all kind of data
 with. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
@@ -242,9 +219,6 @@ like this:
 #+end_example
 
 ** SMS-backup-Nexus
-:PROPERTIES:
-:ID: README-SMS-Nexus
-:END:
 
 We are thinking about a Nexus that extracts [[http://en.wikipedia.org/wiki/SMS][Short Message Service
 (SMS)]] messages from a backup of your [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone. We have to
@@ -261,9 +235,6 @@ Probably such an SMS might look like:
 #+end_example
 
 ** JPilot-todo-Nexus
-:PROPERTIES:
-:ID: README-JPilot-todo-Nexus
-:END:
 
 [[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
 GNU/Linux. It contains your Palm OS agenda, todos, contact
@@ -283,9 +254,6 @@ Such an todo entry might look like this:
 #+end_example
 
 ** JPilot-event-Nexus
-:PROPERTIES:
-:ID: README-JPilot-event-Nexus
-:END:
 
 [[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
 GNU/Linux. It contains your Palm OS agenda, todos, contact
@@ -305,9 +273,6 @@ Such an calendar entry might look like this:
 #+end_example
 
 ** Serendipity-Nexus
-:PROPERTIES:
-:ID: README-serendipity-Nexus
-:END:
 
 [[http://www.s9y.org/][Serendipity]] is a Weblog software tool. This Nexus requires an XML
 backup of a Serendipity export and generates an Org-mode entry for
