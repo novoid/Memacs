@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-23 17:17:09 vk>
+## Time-stamp: <2011-07-23 17:24:57 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -91,7 +91,6 @@ and their paths.
 
 This Nexus filters ISO time stamps and generates a view containing
 entries like this:
-
 #+begin_example
 : ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]  :Memacs:locate:
 :   <2011-02-14 Mon 14:35>
@@ -109,7 +108,6 @@ simply using the file that results from (manual) [[https://secure.delicious.com/
 
 Bookmarks will look like the following which was tagged with "tools"
 and "research" at delicious:
-
 #+begin_example
 : ** [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
 :   <2011-02-14 Mon 14:35>
@@ -131,9 +129,8 @@ but for now we will stick to the faster and more reliable Tweet
 archiving service of Grabeeter.
 
 Tweets like this one from user "n0v0id" will appear like this:
-
 #+begin_example
-: ** [[http://twitter.com/n0v0id/status/64966447897653248][How many push-ups can Chuck Norris really do? All of them!]] :n0v0id:Twitter:Memacs:
+: ** [[http://twitter.com/n0v0id/status/64966447897653248][Hello World!]] :n0v0id:Twitter:Memacs:
 :   <2011-05-02 Mon 16:12>
 :   :PROPERTIES:
 :   :CREATED: <2011-05-02 Mon 16:12>
@@ -151,13 +148,14 @@ Maildir folders is fairly easy because each e-mail is one file in an
 ordinary folder.
 
 We will probably visualize an e-mail from Maildir like this:
-
-*** [[file:~/path/Maildir/archive/emailfile.txt][Urgent: Serverload is too high]]                         :maildir:Memacs:
-<2011-07-23 Sat 15:46>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 15:46>
-:FROM: boss@company.example.com
-:END:
+#+begin_example
+: ** [[file:~/Maildir/cur/emailfile.txt][Urgent: Serverload too high]]   :maildir:Memacs:
+:   <2011-07-23 Sat 15:46>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:46>
+:   :FROM: boss@company.example.com
+:   :END:
+#+end_example
 
 ** tagstore-Nexus
 
@@ -168,12 +166,13 @@ the files.
 This Nexus collects events like adding a new file to a store and
 generates entries like this: (the file was tagged with "CustomerA" and
 "ProjectB")
-
-*** [[file:~/tagstore/storage/Invoice_0815.pdf][Invoice_0815.pdf]]                   :ProjectB:CustomerA:tagstore:Memacs:
-<2011-07-23 Sat 15:50>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 15:50>
-:END:
+#+begin_example
+: ** [[file:~/tagstore/Invoice_0815.pdf][Invoice_0815.pdf]]  :ProjectB:CustomerA:tagstore:Memacs:
+:   <2011-07-23 Sat 15:50>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:50>
+:   :END:
+#+end_example
 
 ** GoogleCalendar-Nexus
 
@@ -181,12 +180,13 @@ We might be able to provide a Nexus that gets events from a [[http://www.google.
 calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]].
 
 Those calendar events might be looking like this:
-
-*** [[http://example.com/link/to/event][Meeting with Customer]]                                     :GCal:Memacs:
-<2011-07-23 Sat 14:00-15:30>
-:PROPERTIES:
-:CREATED: <2011-07-20 Wed 15:55>
-:END:
+#+begin_example
+: *** [[http://example.com/link/to/event][Meeting with Customer]]      :GCal:Memacs:
+:   <2011-07-23 Sat 14:00-15:30>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-20 Wed 15:55>
+:   :END:
+#+end_example
 
 ** git-Nexus
 
@@ -196,13 +196,14 @@ set.
 
 Whenever user "Bob" commits a change set to an example project called
 "myproject", git-Nexus can provide an entry like this:
-
-*** myproject (Bob): solved the address field bug              :git:Menacs:
-<2011-07-23 Sat 16:00>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 16:00>
-:COMMIT: 528bb77ba94592bd86cd4bbe38bcb3ee9dcc276e
-:END:
+#+begin_example
+: ** myproject (Bob): solved the address field bug         :git:Menacs:
+:   <2011-07-23 Sat 16:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:00>
+:   :COMMIT: 528bb77ba94592bd86cd4bbe38bcb3ee9dcc276e
+:   :END:
+#+end_example
 
 ** svn-Nexus
 
@@ -213,13 +214,14 @@ revision control.
 Whenever user "Bob" commits a change set (resulting in revision 42) to
 an example project called "myproject", svn-Nexus can provide an entry
 like this:
-
-*** myproject (Bob) r42: solved the address field bug            :svn:Menacs:
-<2011-07-23 Sat 16:00>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 16:00>
-:REVISION: 42
-:END:
+#+begin_example
+: *** myproject (Bob) r42: solved the address field bug       :svn:Menacs:
+:   <2011-07-23 Sat 16:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:00>
+:   :REVISION: 42
+:   :END:
+#+end_example
 
 ** SMS-backup-Nexus
 
@@ -228,13 +230,14 @@ We are thinking about a Nexus that extracts [[http://en.wikipedia.org/wiki/SMS][
 test various methods before being able to tell more.
 
 Probably such an SMS might look like:
-
-*** "Hello brother, how are you?"                              :SMS:Memacs:
-<2011-07-23 Sat 16:09>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 16:09>
-:FROM-NUMBER: 00436641234567
-:END:
+#+begin_example
+: *** "Hello brother, how are you?"               :SMS:Memacs:
+:   <2011-07-23 Sat 16:09>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:09>
+:   :FROM-NUMBER: 00436641234567
+:   :END:
+#+end_example
 
 ** JPilot-todo-Nexus
 
@@ -247,12 +250,13 @@ their life, this Nexus generates Org-mode entries from J-Pilot export
 data.
 
 Such an todo entry might look like this:
-
-*** TODO buy new shoes                              :errands:jpilot:Memacs:
-DEADLINE: <2011-07-29 Fri>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 16:16>
-:END:
+#+begin_example
+: ** TODO buy new shoes                              :errands:jpilot:Memacs:
+:   DEADLINE: <2011-07-29 Fri>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:16>
+:   :END:
+#+end_example
 
 ** JPilot-event-Nexus
 
@@ -265,24 +269,26 @@ their life, this Nexus generates Org-mode entries from J-Pilot export
 data.
 
 Such an calendar entry might look like this:
-
-*** Meeting with big boss                                   :jpilot:Memacs:
-<2011-07-29 Fri 11:00-14:00>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 16:16>
-:END:
+#+begin_example
+: *** Meeting with big boss                    :jpilot:Memacs:
+:   <2011-07-29 Fri 11:00-14:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:16>
+:   :END:
+#+end_example
 
 ** Serendipity-Nexus
 
 [[http://www.s9y.org/][Serendipity]] is a Weblog software tool. This Nexus requires an XML
 backup of a Serendipity export and generates an Org-mode entry for
 each blog entry submission:
-
-*** Why I hate Mondays and what to do about it         :serendipity:Memacs:
-<2011-07-23 Sat 12:15>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 16:20>
-:END:
+#+begin_example
+: *** Why I hate Mondays and what to do about it         :serendipity:Memacs:
+:   <2011-07-23 Sat 12:15>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:20>
+:   :END:
+#+end_example
 
 * Background
 
