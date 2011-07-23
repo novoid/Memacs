@@ -1,0 +1,314 @@
+## Time-stamp: <2011-07-23 17:57:51 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+#+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
+#+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
+
+* TODO General [0/1]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:38>
+:END:
+
+- German Org-mode links in [[http://suderei.supersized.org/archives/168-Org-mode.html][this blog entry]]
+- [[http://orgmode.org/org.html][Org-mode documentation]]
+- [[http://book.git-scm.com/][Git Community Book]]
+- [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] for coding standard and such
+  - Exception: UTF-8-codec for source files:
+#+begin_src python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#+end_src
+- language used: (US) English
+
+** TODO One common result file OR one result file per Nexus
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:38>
+:END:
+- resulting files:
+  - »memacs.org_archive« OR one file per Nexus
+
+Extension ".org_archive" more or less necessary to avoid performance
+troubles in daily work.
+
+* TODO Memacs (central component) [0/3]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:40>
+:END:
+
+** TODO one or many configuration files
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:40>
+:END:
+
+Format should be INI format because it is human readable and there are
+good libraries to use it. See code of tagstore and TagVizor.
+
+- one configuration file:
+  - everything in one place
+  - Memacs and each Nexus gets an individual section
+  - user(?) can mix up sections or do other harm
+- each Nexus in its own INI file:
+  - clean separation
+  - user has to create (correct) INI files
+
+** TODO tagging concept
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:43>
+:END:
+
+- one (configurable?) tag for everything
+  - default: "Memacs"
+- (configurable?) default tag(s) for each Nexus
+  - in order to tell the user what data source this is
+
+** TODO drawer/properties concept
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:44>
+:END:
+
+[[http://orgmode.org/org.html#Drawers][Drawers]] are good places to store meta data. Most prominent drawer:
+[[http://orgmode.org/org.html#Properties-and-Columns][PROPERTIES]].
+
+Some things that do not appear in header line but are important should
+be in drawers.
+
+To decide (for each Nexus):
+- which data
+- which drawer
+- which format
+
+* TODO Nexuses [0/12]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:51>
+:END:
+
+** TODO Filedatestamp-locate-Nexus [0/0]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:52>
+:END:
+
+see: id:README-filedatestamp-Nexus
+
+#+begin_example
+: ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]  :Memacs:locate:
+:   <2011-02-14 Mon 14:35>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:14>
+:   :END:
+#+end_example
+
+- locate $HOME|egrep YYYY-MM-DD && get timestamp (? might not be of
+    date in filename?)
+  - first example: locate *|egrep "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]"
+- probably: collect everything in one file:
+- if datestamps of filenames corresponds to datestamp of file, add
+  time information
+- combine (uniq) with previous run, adding newer save processes
+- probably best solution: find locate-database and parse directly :-)
+
+** TODO delicious-Nexus [0/1]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:52>
+:END:
+
+see id:README-delicious-Nexus
+
+#+begin_example
+: ** [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
+:   <2011-02-14 Mon 14:35>
+:   :PROPERTIES:
+:   :CREATED: <2011-02-14 Mon 14:35>
+:   :END:
+#+end_example
+
+- delicious: export
+  - HTML-Export entry «ADD_DATE="1253604732"»
+
+*** NEXT use [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or [[https://secure.delicious.com/settings/bookmarks/export][XML export]]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:46>
+:END:
+
+** TODO Grabeeter-Nexus [0/1]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:52>
+:END:
+
+see id:README-grabeeter-Nexus
+
+- [[http://grabeeter.tugraz.at/][Grabeeter]]
+
+#+begin_example
+: ** [[http://twitter.com/n0v0id/status/64966447897653248][Hello World!]] :n0v0id:Twitter:Memacs:
+:   <2011-05-02 Mon 16:12>
+:   :PROPERTIES:
+:   :CREATED: <2011-05-02 Mon 16:12>
+:   :END:
+#+end_example
+
+*** NEXT check out possibilities and stability with [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
+
+** TODO Maildir-Nexus [0/0]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:53>
+:END:
+
+see id:README-Maildir-Nexus
+
+#+begin_example
+: ** [[file:~/Maildir/cur/emailfile.txt][Urgent: Serverload too high]]   :maildir:Memacs:
+:   <2011-07-23 Sat 15:46>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:46>
+:   :FROM: boss@company.example.com
+:   :END:
+#+end_example
+
+- would be very similar to vbox email data! -> maybe derive vbox-Nexus afterwards?
+
+** TODO tagstore-Nexus [0/0]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:53>
+:END:
+
+see id:README-tagstore-Nexus
+
+#+begin_example
+: ** [[file:~/tagstore/Invoice_0815.pdf][Invoice_0815.pdf]]  :ProjectB:CustomerA:tagstore:Memacs:
+:   <2011-07-23 Sat 15:50>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:50>
+:   :END:
+#+end_example
+
+#+begin_example
+:  vk@gary ~ts/.tagstore % head store.tgs
+:  [settings]
+:  config_format=1
+:  
+:  [files]
+:  Antikes%20Rom.png\tags=2011-03
+:  Antikes%20Rom.png\timestamp=2011-03-08 16:56:44
+:  Antikes%20Rom.png\category="2011-03,tourist"
+:  Ausflug%20Alpensee.jpg\tags=2011-03
+:  Ausflug%20Alpensee.jpg\timestamp=2011-03-08 16:56:44
+:  Ausflug%20Alpensee.jpg\category="2011-03,tourist,photos"
+:  vk@gary ~ts/.tagstore %
+#+end_example
+
+** TODO GoogleCalendar-Nexus [0/1]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:53>
+:END:
+
+see id:README-GCal-Nexus
+
+
+Those calendar events might be looking like this:
+#+begin_example
+: ** [[http://example.com/link/to/event][Meeting with Customer]]      :GCal:Memacs:
+:   <2011-07-23 Sat 14:00-15:30>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-20 Wed 15:55>
+:   :END:
+#+end_example
+
+*** NEXT check [[http://www.google.com/calendar][Google calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]]
+
+** TODO git-Nexus [0/0]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:53>
+:END:
+
+see id:README-git-Nexus
+
+#+begin_example
+: ** myproject (Bob): solved the address field bug         :git:Menacs:
+:   <2011-07-23 Sat 16:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:00>
+:   :COMMIT: 528bb77ba94592bd86cd4bbe38bcb3ee9dcc276e
+:   :END:
+#+end_example
+
+** TODO svn-Nexus [0/0]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:53>
+:END:
+
+see id:README-svn-Nexus
+
+#+begin_example
+: ** myproject (Bob) r42: solved the address field bug       :svn:Menacs:
+:   <2011-07-23 Sat 16:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:00>
+:   :REVISION: 42
+:   :END:
+#+end_example
+
+** TODO SMS-backup-Nexus [0/1]
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:53>
+:END:
+
+see id:README-SMS-Nexus
+
+#+begin_example
+: ** "Hello brother, how are you?"               :SMS:Memacs:
+:   <2011-07-23 Sat 16:09>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:09>
+:   :FROM-NUMBER: 00436641234567
+:   :END:
+#+end_example
+
+*** NEXT check methods to get SMS from phone to computer
+
+e.g. SMSbackupAndRestore (Android)
+
+** TODO JPilot-todo-Nexus [0/0]                                      :KarlVoit:
+
+see: id:README-JPilot-todo-Nexus
+
+#+begin_example
+: ** TODO buy new shoes                              :errands:jpilot:Memacs:
+:   DEADLINE: <2011-07-29 Fri>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:16>
+:   :END:
+#+end_example
+
+** TODO JPilot-event-Nexus [0/0]                                     :KarlVoit:
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:51>
+:END:
+
+see id:README-JPilot-event-Nexus
+
+#+begin_example
+: ** Meeting with big boss                    :jpilot:Memacs:
+:   <2011-07-29 Fri 11:00-14:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:16>
+:   :END:
+#+end_example
+
+** TODO Serendipity-Nexus [0/0]                                      :KarlVoit:
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 17:52>
+:END:
+
+see id:README-serendipity-Nexus
+
+#+begin_example
+: ** Why I hate Mondays and what to do about it         :serendipity:Memacs:
+:   <2011-07-23 Sat 12:15>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:20>
+:   :END:
+#+end_example
+
+- Suderei: export
+  - «<pubDate>Sun, 28 Oct 2007 00:09:18 +0200</pubDate>»
+  - probably provide time zone delta for parsing time
+
