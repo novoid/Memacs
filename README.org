@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-23 16:54:37 vk>
+## Time-stamp: <2011-07-23 17:13:12 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -92,11 +92,13 @@ and their paths.
 This Nexus filters ISO time stamps and generates a view containing
 entries like this:
 
-*** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]                        :Memacs:locate:
+#+begin_src emacs-lisp
+** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]                          :Memacs:locate:
 <2011-02-14 Mon 14:35>
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 15:14>
 :END:
+#+end_src
 
 ** delicious-Nexus
 
@@ -108,11 +110,13 @@ simply using the file that results from (manual) [[https://secure.delicious.com/
 Bookmarks will look like the following which was tagged with "tools"
 and "research" at delicious:
 
-*** [[http://tagstore.org][tagstore]]                              :Memacs:delicious:tools:research:
+#+begin_example
+** [[http://tagstore.org][tagstore]]                                :Memacs:delicious:tools:research:
 <2011-02-14 Mon 14:35>
 :PROPERTIES:
 :CREATED: <2011-02-14 Mon 14:35>
 :END:
+#+end_example
 
 ** Grabeeter-Nexus
 :PROPERTIES:
