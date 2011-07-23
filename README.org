@@ -1,0 +1,330 @@
+## Time-stamp: <2011-07-23 16:54:37 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+Memacs extracts metadata from many different existing data sources on
+your computer and generates files which are readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with
+[[http://orgmode.org][Org-mode]].
+
+Memacs - as the central component of the system - is a hub for all the
+connectors that add data from individual data sources. Those connectors
+are called "Nexus".
+
+* Advantages: an Example Use Case
+
+Imagine you are already using a Memacs.
+
+When remembering that day, when you joined an interesting talk about
+"[[http://en.wikipedia.org/wiki/Getting_Things_Done][Getting Things Done]]" (GTD), you start up your GNU Emacs with your main
+Org-mode file. There you go to the Agenda-view and select this
+specific day a couple of months ago.
+
+There it is, from 2 p.m. to 3 p.m. you scheduled this talk in your
+calendar. And then you realize that within this time frame, there
+appear some [[http://en.wikipedia.org/wiki/Jpeg][JPEG files]]: files like "2011-02-14T14.35.42_img_0815.jpg"
+are containing an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp (with periods instead of
+colons - just because the [[http://msdn.microsoft.com/en-us/library/aa365247(v%3Dvs.85).aspx#naming_conventions][ancient limitations of Microsoft based file
+systems]]) are indexed by one Nexus. (Filedatestamp-locate-Nexus)
+
+This image contains a slide you found interesting and which you
+photographed using your sleek smartphone. Who would remember having
+taken a picture during a talk?
+
+Ten minutes after the talk you wrote a short message on [[http://Titter.com][Twitter]] where
+you mentioned useful URLs for your followers. This time those URLs are
+handy for yourself too! (Twitter-Nexus)
+
+On the evening of that day you see an entry of an incoming email from
+the author of the talk. Now you remember having had a cool
+conversation at the end of the talk where he promised you some
+additional information about that nice little GTD tool on his
+computer. Great that you got that link to that email too. Without
+Memacs you would probably never got to that email
+again. (Maildir-Nexus)
+
+And then there were some bookmarks you saved this day, almost all
+related to ideas you got from the GTD talk. (delicious-Nexus)
+
+This small story shows only a few use cases where different Nexuses
+combine given data sources and their information to provide an overall
+view related to an event. Since Org-mode has got links, no actual data
+has to be duplicated (except the small meta data extracted by
+Memacs). Emails, files, bookmarks, and so forth are linked rather than
+copied.
+
+** Scalability
+
+Memacs is generating [[http://orgmode.org/org.html#Archiving][Org-mode archive files]]. That means that in normal
+mode, Memacs information does not interfere with the Org-mode data you
+are processing daily. Only when you choose to get the archive files
+visualized too ([[http://orgmode.org/org.html#Agenda-commands]["v A" in Agenda-view]]) you are confronted with the data
+Memacs extracted for you.
+
+This should not lead to any slow down in your daily work while having
+the tremendous opportunity to get the verbose information on demand.
+
+* Nexuses
+
+This section contains a list of current and future Nexuses which
+extract data from all kinds of data sources.
+
+The exact details are subject of constant development.
+
+Each Nexus offers various settings:
+- configuration is done in one ini file for all Nexuses and Memacs OR
+  separately (not decided yet)
+- time stamp offset in order to "correct" time stamps resulting in
+  wrong server configuration or other time zone
+- default tag
+  - each Memacs entry gets one common tag "Memacs"
+  - each Nexus can define one common tag according to the Nexus
+  - each Nexus can derive additional tags related to the data source
+
+** Filedatestamp-locate-Nexus
+
+Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
+"2011-02-14T14.35.42_img_0815.jpg" or "2011-02-14 slide GTD tools.jpg"
+contain a direct reference to a certain day (or time).
+
+On GNU/Linux systems, you have already an file name indexing tool
+named "[[http://en.wikipedia.org/wiki/Locate_(Unix)][locate]]" which already offers an index of all of your file names
+and their paths.
+
+This Nexus filters ISO time stamps and generates a view containing
+entries like this:
+
+*** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]                        :Memacs:locate:
+<2011-02-14 Mon 14:35>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 15:14>
+:END:
+
+** delicious-Nexus
+
+Bookmarks saved on the social bookmark service of [[http://delicious.com][delicious]] are an
+important source of data. We have not yet decided whether we will
+get the data using the [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or if we are
+simply using the file that results from (manual) [[https://secure.delicious.com/settings/bookmarks/export][XML export]].
+
+Bookmarks will look like the following which was tagged with "tools"
+and "research" at delicious:
+
+*** [[http://tagstore.org][tagstore]]                              :Memacs:delicious:tools:research:
+<2011-02-14 Mon 14:35>
+:PROPERTIES:
+:CREATED: <2011-02-14 Mon 14:35>
+:END:
+
+** Grabeeter-Nexus
+:PROPERTIES:
+:ID: Grabeeter
+:END:
+
+[[http://grabeeter.tugraz.at/][Grabeeter]] is a free online service of [[http://www.TU-Graz.at][Graz University of Technology]]
+where you can search and archive your tweets from [[http://Twitter.com][Twitter]].
+
+Maybe there will be a future Nexus which accesses a [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
+but for now we will stick to the faster and more reliable Tweet
+archiving service of Grabeeter.
+
+Tweets like this one from user "n0v0id" will appear like this:
+
+*** [[http://twitter.com/n0v0id/status/64966447897653248][How many push-ups can Chuck Norris really do? All of them!]] :n0v0id:Twitter:Memacs:
+<2011-05-02 Mon 16:12>
+:PROPERTIES:
+:CREATED: <2011-05-02 Mon 16:12>
+:END:
+
+** Maildir-Nexus
+:PROPERTIES:
+:ID: Maildir
+:END:
+
+[[http://en.wikipedia.org/wiki/Maildir][Maildir]] is a common standard to store e-mails on disk. Many users do
+have a local mail repository in Maildir format. Accessing e-mails in
+Maildir folders is fairly easy because each e-mail is one file in an
+ordinary folder.
+
+We will probably visualize an e-mail from Maildir like this:
+
+*** [[file:~/path/Maildir/archive/emailfile.txt][Urgent: Serverload is too high]]                         :maildir:Memacs:
+<2011-07-23 Sat 15:46>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 15:46>
+:FROM: boss@company.example.com
+:END:
+
+** tagstore-Nexus
+
+[[http://tagstore.org][tagstore]] is a research software that stores local files using tags and
+derives associative navigational folder structures from the tags of
+the files.
+
+This Nexus collects events like adding a new file to a store and
+generates entries like this: (the file was tagged with "CustomerA" and
+"ProjectB")
+
+*** [[file:~/tagstore/storage/Invoice_0815.pdf][Invoice_0815.pdf]]                   :ProjectB:CustomerA:tagstore:Memacs:
+<2011-07-23 Sat 15:50>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 15:50>
+:END:
+
+** GoogleCalendar-Nexus
+
+We might be able to provide a Nexus that gets events from a [[http://www.google.com/calendar][Google
+calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]].
+
+Those calendar events might be looking like this:
+
+*** [[http://example.com/link/to/event][Meeting with Customer]]                                     :GCal:Memacs:
+<2011-07-23 Sat 14:00-15:30>
+:PROPERTIES:
+:CREATED: <2011-07-20 Wed 15:55>
+:END:
+
+** git-Nexus
+
+[[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kind of data
+with. [[http://en.wikipedia.org/wiki/Git_(software)][git]] is a modern distributed system that has an enormous feature
+set.
+
+Whenever user "Bob" commits a change set to an example project called
+"myproject", git-Nexus can provide an entry like this:
+
+*** myproject (Bob): solved the address field bug              :git:Menacs:
+<2011-07-23 Sat 16:00>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:00>
+:COMMIT: 528bb77ba94592bd86cd4bbe38bcb3ee9dcc276e
+:END:
+
+** svn-Nexus
+
+Version control systems]] are quite common to manage all kind of data
+with. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
+revision control.
+
+Whenever user "Bob" commits a change set (resulting in revision 42) to
+an example project called "myproject", svn-Nexus can provide an entry
+like this:
+
+*** myproject (Bob) r42: solved the address field bug            :svn:Menacs:
+<2011-07-23 Sat 16:00>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:00>
+:REVISION: 42
+:END:
+
+** SMS-backup-Nexus
+
+We are thinking about a Nexus that extracts [[http://en.wikipedia.org/wiki/SMS][Short Message Service
+(SMS)]] messages from a backup of your [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone. We have to
+test various methods before being able to tell more.
+
+Probably such an SMS might look like:
+
+*** "Hello brother, how are you?"                              :SMS:Memacs:
+<2011-07-23 Sat 16:09>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:09>
+:FROM-NUMBER: 00436641234567
+:END:
+
+** JPilot-todo-Nexus
+
+[[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
+GNU/Linux. It contains your Palm OS agenda, todos, contact
+informations, and memos.
+
+Since many users still appreciate the [[http://www.pimlicosoftware.com/datebk6.htm][mature software]] to organize
+their life, this Nexus generates Org-mode entries from J-Pilot export
+data.
+
+Such an todo entry might look like this:
+
+*** TODO buy new shoes                              :errands:jpilot:Memacs:
+DEADLINE: <2011-07-29 Fri>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:16>
+:END:
+
+** JPilot-event-Nexus
+
+[[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
+GNU/Linux. It contains your Palm OS agenda, todos, contact
+informations, and memos.
+
+Since many users still appreciate the [[http://www.pimlicosoftware.com/datebk6.htm][mature software]] to organize
+their life, this Nexus generates Org-mode entries from J-Pilot export
+data.
+
+Such an calendar entry might look like this:
+
+*** Meeting with big boss                                   :jpilot:Memacs:
+<2011-07-29 Fri 11:00-14:00>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:16>
+:END:
+
+** Serendipity-Nexus
+
+[[http://www.s9y.org/][Serendipity]] is a Weblog software tool. This Nexus requires an XML
+backup of a Serendipity export and generates an Org-mode entry for
+each blog entry submission:
+
+*** Why I hate Mondays and what to do about it         :serendipity:Memacs:
+<2011-07-23 Sat 12:15>
+:PROPERTIES:
+:CREATED: <2011-07-23 Sat 16:20>
+:END:
+
+* Background
+
+In 1945, [[http://en.wikipedia.org/wiki/Vannevar_Bush][Vannevar Bush]] wrote a famous article "[[http://en.wikipedia.org/wiki/As_We_May_Think][As We May Think]]" where
+he develops the idea of having a "memory extender" called Memex. The
+memex can store all letters, books, and other information which are
+related to a person.
+
+Besides having foreseen several technologies like hypertext, he
+defined a device that holds all metadata and data and provides
+associative trails to access information.
+
+In the last decade of the previous century Microsoft Research had a
+research program that resulted in [[http://en.wikipedia.org/wiki/MyLifeBits][MyLifeBits]]. This software tried to
+store each information of the user like office documents, screenshots,
+name of active windows on the desktop computer, and even automatically
+took photographs ([[http://en.wikipedia.org/wiki/Sensecam][SenseCam]]). This word did not result in any (open)
+software product. Bell and Gemmell wrote a book called "[[http://www.amazon.de/gp/product/0525951342/ref%3Das_li_ss_tl?ie%3DUTF8&tag%3Dkarlssuder-21&linkCode%3Das2&camp%3D1638&creative%3D19454&creativeASIN%3D0525951342][Total Recall]]".
+
+The Memacs project tries to implement the ideas of Vannevar Bush's
+vision with open source and open standards. It's name "Memacs" is the
+obvious combination of "GNU Emacs" and "Memex".
+
+Memacs uses GNU Emacs Org-mode to visualize and access information
+extracted by Memacs Nexuses: using tags, time stamps, full text
+search, and so forth GNU Emacs is able to derive different
+views. The most important view probably is the [[http://orgmode.org/org.html#Agenda-Views][Agenda-view]] where you
+can see anything that happened during a specific day/week/month
+according to the time frame selected. But you can derive other views
+too. For example you can choose to generate a condensed search result
+using a [[http://en.wikipedia.org/wiki/Boolean_algebra_(logic)][boolean combination]] of tags.
+
+Deeply related to Memacs, the project leader developed a research
+software [[http://tagstore.org][tagstore]]. This system allows users to store (local) files
+using tags an not a hierarchy of folders. As a natural extension,
+tagstore targets associative access for (local) files. You might want
+to check out tagstore too. Memacs and tagstore are a very useful
+combination.
+
+
+* Contribute! We are looking for your ideas:
+
+If you want to contribute to this cool project, please fork and
+contribute or write an additional Nexus!
+
+We are sure that there are a *lot* of cool ideas for other Nexuses out
+there!
+
+Memacs is designed with respect to minimal effort for new Nexuses.
+
+We are using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development (TDD)]].
