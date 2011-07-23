@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-23 17:14:52 vk>
+## Time-stamp: <2011-07-23 17:17:09 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -93,11 +93,11 @@ This Nexus filters ISO time stamps and generates a view containing
 entries like this:
 
 #+begin_example
-: ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]                          :Memacs:locate:
-: <2011-02-14 Mon 14:35>
-: :PROPERTIES:
-: :CREATED: <2011-07-23 Sat 15:14>
-: :END:
+: ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]  :Memacs:locate:
+:   <2011-02-14 Mon 14:35>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:14>
+:   :END:
 #+end_example
 
 ** delicious-Nexus
@@ -111,11 +111,11 @@ Bookmarks will look like the following which was tagged with "tools"
 and "research" at delicious:
 
 #+begin_example
-** [[http://tagstore.org][tagstore]]                                :Memacs:delicious:tools:research:
-<2011-02-14 Mon 14:35>
-:PROPERTIES:
-:CREATED: <2011-02-14 Mon 14:35>
-:END:
+: ** [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
+:   <2011-02-14 Mon 14:35>
+:   :PROPERTIES:
+:   :CREATED: <2011-02-14 Mon 14:35>
+:   :END:
 #+end_example
 
 ** Grabeeter-Nexus
@@ -132,11 +132,13 @@ archiving service of Grabeeter.
 
 Tweets like this one from user "n0v0id" will appear like this:
 
-*** [[http://twitter.com/n0v0id/status/64966447897653248][How many push-ups can Chuck Norris really do? All of them!]] :n0v0id:Twitter:Memacs:
-<2011-05-02 Mon 16:12>
-:PROPERTIES:
-:CREATED: <2011-05-02 Mon 16:12>
-:END:
+#+begin_example
+: ** [[http://twitter.com/n0v0id/status/64966447897653248][How many push-ups can Chuck Norris really do? All of them!]] :n0v0id:Twitter:Memacs:
+:   <2011-05-02 Mon 16:12>
+:   :PROPERTIES:
+:   :CREATED: <2011-05-02 Mon 16:12>
+:   :END:
+#+end_example
 
 ** Maildir-Nexus
 :PROPERTIES:
