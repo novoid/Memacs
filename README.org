@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-23 17:13:12 vk>
+## Time-stamp: <2011-07-23 17:14:52 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -92,13 +92,13 @@ and their paths.
 This Nexus filters ISO time stamps and generates a view containing
 entries like this:
 
-#+begin_src emacs-lisp
-** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]                          :Memacs:locate:
-<2011-02-14 Mon 14:35>
-:PROPERTIES:
-:CREATED: <2011-07-23 Sat 15:14>
-:END:
-#+end_src
+#+begin_example
+: ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]                          :Memacs:locate:
+: <2011-02-14 Mon 14:35>
+: :PROPERTIES:
+: :CREATED: <2011-07-23 Sat 15:14>
+: :END:
+#+end_example
 
 ** delicious-Nexus
 
