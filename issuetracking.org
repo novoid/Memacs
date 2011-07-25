@@ -1,9 +1,9 @@
-## Time-stamp: <2011-07-23 18:39:16 vk>
+## Time-stamp: <2011-07-25 11:12:59 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 #+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
 #+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
 
-* TODO General [0/1]
+* TODO General [0/2]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:38>
 :END:
@@ -19,15 +19,35 @@
 #+end_src
 - language used: (US) English
 
-** TODO One common result file OR one result file per Nexus
+** NEXT One common result file OR one result file per Nexus
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:38>
 :END:
+
 - resulting files:
   - »memacs.org_archive« OR one file per Nexus
 
 Extension ".org_archive" more or less necessary to avoid performance
 troubles in daily work.
+
+** NEXT format of the result file(s)
+:PROPERTIES:
+:CREATED: <2011-07-25 Mon 10:45>
+:END:
+
+Possibilities:
+
+#+begin_example
+:  * foobar-Nexus    :default:tags:of:the:nexus:here:
+:    ** entry1         :tags:from:data:source:itself:
+:    ** entry2                           :other:tags:
+#+end_example
+
+#+begin_example
+:  * entry1        :foobar-Nexus:tags:from:data:source:itself:
+:  * entry2                           foobar-Nexus:other:tags:
+#+end_example
+
 
 * TODO Memacs (central component) [0/3]
 :PROPERTIES:
@@ -76,12 +96,21 @@ To decide (for each Nexus):
 - which drawer
 - which format
 
-* TODO Nexuses [0/12]
+
+* TODO Nexuses [0/13]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:51>
 :END:
 
-** TODO Filedatestamp-locate-Nexus [0/0]
+** NEXT Common configuration settings for each Nexus
+:PROPERTIES:
+:CREATED: <2011-07-25 Mon 10:55>
+:END:
+
+- Org mode file name where result gets written (or appended?) to
+- List of default tag(s) to add each entry (or Org-mode header)
+
+** NEXT Filedatestamp-locate-Nexus [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
@@ -96,6 +125,12 @@ see: file:README.org::*Filedatestamp-locate-Nexus
 :   :END:
 #+end_example
 
+Nexus-specific configuration:
+- ? file where locate db is found (if necessary; maybe this file is
+  found at a defined and never changing path?)
+- list of strings which contain all search strings to grab
+
+Implementation issues:
 - locate $HOME|egrep YYYY-MM-DD && get timestamp (? might not be of
     date in filename?)
   - first example: locate *|egrep "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]"
@@ -103,9 +138,10 @@ see: file:README.org::*Filedatestamp-locate-Nexus
 - if datestamps of filenames corresponds to datestamp of file, add
   time information
 - combine (uniq) with previous run, adding newer save processes
-- probably best solution: find locate-database and parse directly :-)
+- probably best solution: find locate-database and parse directly
+  instead of invoking "locate" and parse the output stream :-)
 
-** TODO delicious-Nexus [0/1]
+** NEXT delicious-Nexus [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
@@ -120,6 +156,12 @@ see file:README.org::*delicious-Nexus
 :   :END:
 #+end_example
 
+Nexus-specific configuration:
+- delicious account settings
+  - please try to store password encrypted OR write a warning message
+    to the user that he/she is aware of storing clear text password!
+
+Implementation issues:
 - delicious: export
   - HTML-Export entry «ADD_DATE="1253604732"»
 
@@ -128,7 +170,7 @@ see file:README.org::*delicious-Nexus
 :CREATED: <2011-07-23 Sat 17:46>
 :END:
 
-** TODO Grabeeter-Nexus [0/1]
+** NEXT Grabeeter-Nexus [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
@@ -145,9 +187,15 @@ see file:README.org::*Grabeeter-Nexus
 :   :END:
 #+end_example
 
+Configuration:
+- Grabeeter API URL
+- Org mode file name where result gets written (or appended?) to
+- List of default tag(s) to add each entry (or Org-mode header)
+
+
 *** NEXT check out possibilities and stability with [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
 
-** TODO Maildir-Nexus [0/0]
+** NEXT Maildir-Nexus [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
@@ -163,6 +211,12 @@ see file:README.org::*Maildir-Nexus
 :   :END:
 #+end_example
 
+Nexus-specific configuration:
+- path to local Maildir
+- ? list of addresses or domains to grab
+- ? list of addresses or domains to exclude
+
+Implementation issues:
 - would be very similar to vbox email data! -> maybe derive vbox-Nexus afterwards?
 
 ** TODO tagstore-Nexus [0/0]
@@ -195,6 +249,10 @@ see file:README.org::*tagstore-Nexus
 :  vk@gary ~ts/.tagstore %
 #+end_example
 
+Nexus-specific configuration:
+- list of paths to stores which should be included
+  - list of all possible stores: $tagstorebinaries/tsressources/conf/tagstore.conf
+
 ** TODO GoogleCalendar-Nexus [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
@@ -210,6 +268,13 @@ Those calendar events might be looking like this:
 :   :CREATED: <2011-07-20 Wed 15:55>
 :   :END:
 #+end_example
+
+Nexus-specific configuration:
+- Google account settings
+  - please try to store password encrypted OR write a warning message
+    to the user that he/she is aware of storing clear text password!
+- List of calendars to grab
+- List of event (sub-)strings to exclude
 
 *** NEXT check [[http://www.google.com/calendar][Google calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]]
 
@@ -229,6 +294,10 @@ see file:README.org::*git-Nexus
 :   :END:
 #+end_example
 
+Nexus-specific configuration:
+- list of local repositories to include
+- option to include only own commits (and not everyones)
+
 ** TODO svn-Nexus [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
@@ -244,6 +313,11 @@ see file:README.org::*svn-Nexus
 :   :REVISION: 42
 :   :END:
 #+end_example
+
+Nexus-specific configuration:
+- list of local repositories to include
+- option to include only own commits (and not everyones)
+- 
 
 ** TODO SMS-backup-Nexus [0/1]
 :PROPERTIES:
@@ -261,11 +335,17 @@ see file:README.org::*SMS-backup-Nexus
 :   :END:
 #+end_example
 
+Nexus-specific configuration:
+- path to SMS backup file of tool FIXXME
+
 *** NEXT check methods to get SMS from phone to computer
 
 e.g. SMSbackupAndRestore (Android)
 
-** TODO JPilot-todo-Nexus [0/0]                                      :KarlVoit:
+** WISH JPilot-todo-Nexus [0/0]                                   :KarlVoit:
+:PROPERTIES:
+:CREATED: <2011-07-25 Mon 11:12>
+:END:
 
 see file:README.org::*JPilot-todo-Nexus
 
@@ -277,7 +357,10 @@ see file:README.org::*JPilot-todo-Nexus
 :   :END:
 #+end_example
 
-** TODO JPilot-event-Nexus [0/0]                                     :KarlVoit:
+Nexus-specific configuration:
+- 
+
+** WISH JPilot-event-Nexus [0/0]                                  :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:51>
 :END:
@@ -292,7 +375,10 @@ see file:README.org::*JPilot-event-Nexus
 :   :END:
 #+end_example
 
-** TODO Serendipity-Nexus [0/0]                                      :KarlVoit:
+Nexus-specific configuration:
+- 
+
+** WISH Serendipity-Nexus [0/0]                                   :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
@@ -306,6 +392,9 @@ see file:README.org::*Serendipity-Nexus
 :   :CREATED: <2011-07-23 Sat 16:20>
 :   :END:
 #+end_example
+
+Nexus-specific configuration:
+- 
 
 - Suderei: export
   - «<pubDate>Sun, 28 Oct 2007 00:09:18 +0200</pubDate>»
