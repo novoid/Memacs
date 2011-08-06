@@ -1,5 +1,4 @@
-## Time-stamp: <2011-08-06 14:25:21 vk>
-#+TODO: WISH(w!) PLANNING(p!) DEVELOPMENT(d!) EXPERIMENTAL(e!) | USABLE(u!) STABLE(s!) CANCELED(c@)
+## Time-stamp: <2011-08-06 14:27:29 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -81,13 +80,7 @@ Each Nexus offers various settings:
   - each Nexus can define one common tag according to the Nexus
   - each Nexus can derive additional tags related to the data source
 
-** PLANNING Filedatestamp-locate-Nexus
-:LOGBOOK:
-- State "PLANNING"   from ""           [2011-08-06 Sat 14:23]
-:END:
-:PROPERTIES:
-:CREATED: <2011-08-06 Sat 14:23>
-:END:
+** NEXT Filedatestamp-locate-Nexus
 
 Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
 "2011-02-14T14.35.42_img_0815.jpg" or "2011-02-14 slide GTD tools.jpg"
@@ -142,13 +135,7 @@ Tweets like this one from user "n0v0id" will appear like this:
 :   :END:
 #+end_example
 
-** DEVELOPMENT Maildir-Nexus
-:LOGBOOK:
-- State "DEVELOPMENT" from ""           [2011-08-06 Sat 14:25]
-:END:
-:PROPERTIES:
-:CREATED: <2011-08-06 Sat 14:25>
-:END:
+** NEXT Maildir-Nexus
 
 [[http://en.wikipedia.org/wiki/Maildir][Maildir]] is a common standard to store e-mails on disk. Many users do
 have a local mail repository in Maildir format. Accessing e-mails in
@@ -286,13 +273,7 @@ Such an calendar entry might look like this:
 :   :END:
 #+end_example
 
-** WISH Serendipity-Nexus
-:LOGBOOK:
-- State "WISH"       from ""           [2011-08-06 Sat 14:25]
-:END:
-:PROPERTIES:
-:CREATED: <2011-08-06 Sat 14:25>
-:END:
+** SOMETIME Serendipity-Nexus
 
 [[http://www.s9y.org/][Serendipity]] is a Weblog software tool. This Nexus requires an XML
 backup of a Serendipity export and generates an Org-mode entry for
