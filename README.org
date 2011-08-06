@@ -1,4 +1,5 @@
-## Time-stamp: <2011-07-25 10:37:05 vk>
+## Time-stamp: <2011-08-06 14:23:27 vk>
+#+TODO: WISH(w!) PLANNING(p!) DEVELOPMENT(d!) EXPERIMENTAL(e!) | USABLE(u!) STABLE(s!) CANCELED(c@)
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 Memacs extracts metadata from many different existing data sources on
@@ -80,7 +81,13 @@ Each Nexus offers various settings:
   - each Nexus can define one common tag according to the Nexus
   - each Nexus can derive additional tags related to the data source
 
-** NEXT Filedatestamp-locate-Nexus
+** PLANNING NEXT Filedatestamp-locate-Nexus
+:LOGBOOK:
+- State "PLANNING"   from ""           [2011-08-06 Sat 14:23]
+:END:
+:PROPERTIES:
+:CREATED: <2011-08-06 Sat 14:23>
+:END:
 
 Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
 "2011-02-14T14.35.42_img_0815.jpg" or "2011-02-14 slide GTD tools.jpg"
