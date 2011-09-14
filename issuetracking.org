@@ -1,4 +1,4 @@
-## Time-stamp: <2011-07-25 11:12:59 vk>
+## Time-stamp: <2011-09-13 14:59:20 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 #+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
 #+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
@@ -351,7 +351,7 @@ see file:README.org::*JPilot-todo-Nexus
 
 #+begin_example
 : ** TODO buy new shoes                              :errands:jpilot:Memacs:
-:   DEADLINE: <2011-07-29 Fri>
+:   DEA%DLINE: <2011-07-29 Fri>
 :   :PROPERTIES:
 :   :CREATED: <2011-07-23 Sat 16:16>
 :   :END:

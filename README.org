@@ -1,15 +1,23 @@
-## Time-stamp: <2011-09-01 11:15:55 vk>
+## Time-stamp: <2011-09-14 16:20:01 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-Memacs extracts metadata from many different existing data sources on
-your computer and generates files which are readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with
-[[http://orgmode.org][Org-mode]].
+What did you do on February 14th of 2007? On which tasks were you
+working on that day you met your girl friend? When had you the last
+appointments with your dentist? Who called you on telephone during
+that meeting with your customer last month?
+
+Most people can not answer such questions. With Memacs you can!
+
+Memacs extracts metadata (subjects, timestamps, contact information,
+...) from many different existing data sources (file names, emails,
+tweets, bookmarks, ...) on your computer and generates files which are
+readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org][Org-mode]].
 
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
 are called "Nexus".
 
-* Advantages: an Example Use Case
+* Example Story
 
 Imagine you are already using a Memacs.
 
@@ -18,12 +26,12 @@ When remembering that day, when you joined an interesting talk about
 Org-mode file. There you go to the Agenda-view and select this
 specific day a couple of months ago.
 
-There it is, from 2 p.m. to 3 p.m. you scheduled this talk in your
+There it is, from 2pm to 3pm you scheduled this talk in your
 calendar. And then you realize that within this time frame, there
-appear some [[http://en.wikipedia.org/wiki/Jpeg][JPEG files]]: files like "2011-02-14T14.35.42_img_0815.jpg"
-are containing an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp (with periods instead of
-colons - just because the [[http://msdn.microsoft.com/en-us/library/aa365247(v%3Dvs.85).aspx#naming_conventions][ancient limitations of Microsoft based file
-systems]]) are indexed by one Nexus. (Filedatestamp-locate-Nexus)
+appear some [[http://en.wikipedia.org/wiki/Jpeg][JPEG files]] containing an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp (with periods
+instead of colons - just because the [[http://msdn.microsoft.com/en-us/library/aa365247(v%3Dvs.85).aspx#naming_conventions][ancient limitations of Microsoft
+based file systems]]; like "2011-02-14T14.35.42 ideas.jpg") are indexed
+by one Nexus. (Filedatestamp-locate-Nexus)
 
 This image contains a slide you found interesting and which you
 photographed using your sleek smartphone. Who would remember having
@@ -216,6 +224,23 @@ Probably such an SMS might look like:
 :   <2011-07-23 Sat 16:09>
 :   :PROPERTIES:
 :   :CREATED: <2011-07-23 Sat 16:09>
+:   :FROM-NUMBER: 00436641234567
+:   :END:
+#+end_example
+
+** TODO mobile-call-backup-Nexus
+
+Any [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone logs your phone calls. Various software tools
+let you backup those call logs to your computer. This Nexus takes
+those call logs and puts it into your Agenda - right where it belongs
+to.
+
+Probably a mobile phone call might look like:
+#+begin_example
+: ** call from: 00436641234567               :phone:Memacs:
+:   <2011-07-23 Sat 16:19>-<2011-07-23 Sat 16:21>
+:   :PROPERTIES:
+:   :CREATED: <2011-09-23 Fri 14:09>
 :   :FROM-NUMBER: 00436641234567
 :   :END:
 #+end_example
