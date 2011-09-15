@@ -1,8 +1,8 @@
-## Time-stamp: <2011-09-14 16:20:01 vk>
+## Time-stamp: <2011-09-15 10:08:34 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-What did you do on February 14th of 2007? On which tasks were you
-working on that day you met your girl friend? When had you the last
+What were you doing on February 14th of 2007? On which tasks were you
+working on that very day you met your girl friend? When was the last
 appointments with your dentist? Who called you on telephone during
 that meeting with your customer last month?
 
