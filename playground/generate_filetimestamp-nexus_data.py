@@ -140,8 +140,11 @@ def generate_orgmode_file_timestamp(filename):
         if check_if_days_in_timestamps_are_same(filename, basename, datestampcomponents):
             logging.debug("day of timestamps is different, have to assume time")
 
+            assumedtime = ""  ## no special time assumed; file gets shown as time-independent
+            #assumedtime = " 12:00" ## files with no special time gets shown at noon
+
             datestamp = "<" + str(datestampcomponents.group(1)) + "-" + str(datestampcomponents.group(2)) + \
-                "-" + str(datestampcomponents.group(3)) + " 12:00>"
+                "-" + str(datestampcomponents.group(3)) + assumedtime + ">"
         
             logging.debug("datestamp (day): " + datestamp)
         
