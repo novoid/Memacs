@@ -141,9 +141,8 @@ def generate_output_line(timestamp, fromline, emailaddress, filename, messageid,
     if fromline == "":
         fromline = emailaddress
 
-    string = "** " + "[[contact:" + fromline + "][" + fromline + "]]: "
+    string = "** " + timestamp + " [[contact:" + fromline + "][" + fromline + "]]: "
     string += "[[file:" + filename + "::" + messageid + "][" + subject + "]]"
-    string += "\n" + timestamp + "\n"
     return string
 
 
@@ -195,11 +194,13 @@ def parse_mbox(filename, outputfile):
             logging.debug("subject: " + last_subject)
 
         elif is_header and fromcomponents:
-            last_from = fromcomponents.group(1)
+            last_from =  fromcomponents.group(1).replace('"', '').replace("'", "")
             logging.debug("from: " + last_from)
 
         elif is_header and messageidcomponents:
-            last_message_id = line.strip()
+            last_message_id = messageidcomponents.group(1).replace('<', '').replace(">", "")
+            if last_message_id == "":
+                logging.error("Sorry, this entry had no correct message-id and is not jumpable in Orgmode.")
             logging.debug(last_message_id)
 
         if is_header and last_orgmodetimestamp != "" and last_subject != "" and last_message_id != "":
