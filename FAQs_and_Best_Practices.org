@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 14:03:46 vk>
+## Time-stamp: <2011-09-20 14:21:22 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -28,12 +28,12 @@ the tremendous opportunity to get the verbose information on demand.
 By using [[http://en.wikipedia.org/wiki/Ssd][SSD]]s instead of hard disks, you get a huge performance
 boost. For example lets see following command:
 
-#+begin_src sh
+#+begin_example
 find /home -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | \
 egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/filets-nexus-tmp && \
 ~/bin/generate_filetimestamp-nexus_data.py -f /tmp/filets-nexus-tmp \
        -w -o ~/org-mode/memacs/files.org_archive
-#+end_src
+#+end_example
 
 It crawls over 132,000 files of my home folder, filters using an
 [[http://en.wikipedia.org/wiki/Regex][regular expression]], removes paths containing temporary or restricted
@@ -49,7 +49,18 @@ The more Memacs modules you are using, the more files (*.org and
 *.org_archive) you get in your (single?) Orgmode-folder.
 
 You might want to create a separate Memacs folder containing all
-generated Memacs Orgmode files.
+generated Memacs Orgmode files:
+
+#+begin_verse
+/home/user/orgmode/work.org
+/home/user/orgmode/work.org_archive
+/home/user/orgmode/private.org
+/home/user/orgmode/private.org_archive
+/home/user/orgmode/memacs/module1.org
+/home/user/orgmode/memacs/module1.org_archive
+/home/user/orgmode/memacs/module2.org
+/home/user/orgmode/memacs/module2.org_archive
+#+end_verse
 
 ** Power Consumption while being on battery
 
@@ -59,35 +70,35 @@ certain cron jobs while being on battery power only.
 Ubuntu GNU/Linux is using the [[http://en.wikipedia.org/wiki/Procfs][proc file system]] where you can access
 many hardware-related information such as battery state:
 
-#+begin_example
-vk@gary ~ % cat /proc/acpi/battery/BAT0/state
-present:                 yes
-capacity state:          ok
-charging state:          charged
-present rate:            0 mW
-remaining capacity:      35290 mWh
-present voltage:         12526 mV
-vk@gary ~ % 
-
-## now I disconnect the battery from external power supply
-
-vk@gary ~ % cat /proc/acpi/battery/BAT0/state
-present:                 yes
-capacity state:          ok
-charging state:          discharging
-present rate:            18452 mW
-remaining capacity:      35270 mWh
-present voltage:         12426 mV
-vk@gary ~ %
-#+end_example
+#+begin_verse
+: vk@gary ~ % cat /proc/acpi/battery/BAT0/state
+: present:                 yes
+: capacity state:          ok
+: charging state:          charged
+: present rate:            0 mW
+: remaining capacity:      35290 mWh
+: present voltage:         12526 mV
+: vk@gary ~ % 
+: 
+: ## now I disconnect the battery from external power supply
+: 
+: vk@gary ~ % cat /proc/acpi/battery/BAT0/state
+: present:                 yes
+: capacity state:          ok
+: charging state:          discharging
+: present rate:            18452 mW
+: remaining capacity:      35270 mWh
+: present voltage:         12426 mV
+: vk@gary ~ %
+#+end_verse
 
 With a simple shell script named «no-power-supply.sh», you can execute cron job commands only
 when having external power supply:
 
-#+begin_src sh
+#+begin_verse
 #!/bin/sh
-grep discharging /proc/acpi/battery/BAT0/state >/dev/null
-#+end_src
+: grep discharging /proc/acpi/battery/BAT0/state >/dev/null
+#+end_verse
 
 Then some example cron jobs look like:
 
