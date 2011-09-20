@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 14:30:13 vk>
+## Time-stamp: <2011-09-20 14:31:03 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 What were you doing on February 14th of 2007? On which tasks were you
@@ -60,7 +60,7 @@ Memacs). Emails, files, bookmarks, and so forth are linked rather than
 copied.
 
 For best practices, frequently asked questions and their answers
-please refer to the file [[https://github.com/novoid/Memacs/blob/master/FAQs_and_Best_Practices.org][FAQs_and_Best_Practices.org]]
+please refer to the file [[https://github.com/novoid/Memacs/blob/master/FAQs_and_Best_Practices.html][FAQs_and_Best_Practices.org]]
 
 * Memacs Modules
 
