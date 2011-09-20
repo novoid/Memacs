@@ -263,9 +263,9 @@ def main():
                      ". Any modifications will be overwritten upon next invocation!\n"
 
     if options.newsgroup:
-        string += "* newsgroup Nexus of " + options.mboxname + "                    :Memacs:news:email:"
+        string += "* Memacs module for newsgroup postings: " + options.mboxname + "                    :Memacs:news:email:"
     else:
-        string += "* mbox Nexus of " + options.mboxname + "                         :Memacs:mbox:email:"
+        string += "* Memacs module for mbox emails: " + options.mboxname + "                         :Memacs:mbox:email:"
 
     if options.outputfile:
         output = open(options.outputfile, 'w')
