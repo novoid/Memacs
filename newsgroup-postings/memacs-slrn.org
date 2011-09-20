@@ -1,0 +1,8 @@
+## Time-stamp: <2011-09-20 16:25:01 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-slrn
+
+If you are using an usenet reader like [[http://en.wikipedia.org/wiki/Slrn][slrn]] it might be possible that
+it is storing your postings in plaintext in an mbox format. If this is
+the case, please refer to emails/mbox/works-for-me-hack/memacs-mbox.org
