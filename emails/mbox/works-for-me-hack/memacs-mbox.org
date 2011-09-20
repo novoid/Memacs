@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 17:04:37 vk>
+## Time-stamp: <2011-09-20 17:23:17 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-mbox
@@ -45,3 +45,60 @@ For usenet postings it looks like that:
 : * newsgroup Memacs module of /home/user/.slrn/My_Posts                    :Memacs:news:email:
 : ** <2003-04-30 Wed 11:19> tu-graz.test: [[file:/home/user/.slrn/My_Posts::slrnbav59k.pr5.devnull@homeunix.com][Re: |z| jkladsfj]]
 : ** <2003-04-30 Wed 12:45> tu-graz.test: [[file:/home/user/.slrn/My_Posts::slrnbavaa6.s8k.devnull@homeunix.com][Re: |z| jkladsfj]]
+
+** Add-on: organizing contacts with Orgmode
+:PROPERTIES:
+:CREATED: <2011-09-20 Tue 17:18>
+:END:
+
+As you can see, this module generates links to contacts like 
+: [[contact:John Connor][John Connor]]
+
+This does not work out of the box at your side!
+
+Let me explain how I am organizing my contacts and how you could
+activate this functionality:
+
+I do have «contacts.org» where each contact (person or company) has
+its header like:
+
+: ** John Connor                         :movie:fictional:JohnConnor:
+: :PROPERTIES:
+: :TYPE: person
+: :TITLE: 
+: :EMAIL: john.connor@example.com
+: :URL: http://john-connor.com
+: :MOBILE: 00436696917585
+: :HOMEPHONE: 
+: :WORKPHONE: 
+: :PHONE: 
+: :COMPANY: 
+: :STREET: 
+: :POSTALCODE: 
+: :CITY: 
+: :COUNTRY: USA
+: :CREATED: <2011-09-15 Thu 17:16>
+: :END:
+: 
+: first contact: in the movie theatre <1984-11-20 Tue>
+: 
+: *** <1985-05-08 Wed +1y> Birth Day (probably)
+: :PROPERTIES:
+: :CREATED: <2011-09-13 Tue 14:28>
+: :END:
+
+In order to get those «contact:» working, you have to add this to your
+.emacs configuration:
+
+: (setq org-link-abbrev-alist
+:       '(
+: 	("contact" . "~/org-mode/contacts.org::/\*.*%s/")
+: 	("tsfile" . "~/org-mode/files.org_archive::/\*.*%s/")
+: 	))
+
+The line with «tsfile» is not related to contacts: with this line you
+can access entries for files in the memacs-filenametimestamp
+module :-)
+
+Whenever you are on a «contact:» link, you can use the primary mouse
+button or «C-c C-o» to follow the link.
