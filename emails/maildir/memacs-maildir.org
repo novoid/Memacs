@@ -1,0 +1,34 @@
+## Time-stamp: <2011-09-20 15:34:39 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-maildir
+
+** Current status
+
+Will be developed within the next weeks.
+
+** Data Source
+
+[[http://en.wikipedia.org/wiki/Maildir][Maildir]] is a popular standard format to store emails. Many email
+clients can handle this format including [[http://en.wikipedia.org/wiki/Gnus][Gnus]], [[http://en.wikipedia.org/wiki/Mutt_(e-mail_client)][mutt]], [[http://en.wikipedia.org/wiki/KMail][KMail]], and [[http://en.wikipedia.org/wiki/Opera_Mail][Opera
+Mail]].
+
+Many users do have a local mail repository in Maildir
+format. Accessing e-mails in Maildir folders is fairly easy because
+each e-mail is one file in a folder.
+
+** Example Invocation
+
+work in progress
+
+** Example Orgmode entries
+
+We will probably visualize an e-mail from Maildir like this:
+
+: ** [[file:~/Maildir/cur/emailfile.txt][Urgent: Serverload too high]]   :maildir:Memacs:
+:   <2011-07-23 Sat 15:46>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:46>
+:   :ID: <this_is_the_original_message-id@example.com>
+:   :FROM: boss@company.example.com
+:   :END:

@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 14:33:19 vk>
+## Time-stamp: <2011-09-20 15:38:55 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 What were you doing on February 14th of 2007? On which tasks were you
@@ -16,6 +16,10 @@ readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgm
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
 are called «Memacs modules» or short «module».
+
+For best practices, frequently asked questions and their answers
+please refer to the file FAQs_and_Best_Practices.org
+
 
 * Example Story
 
@@ -59,57 +63,29 @@ has to be duplicated (except the small meta data extracted by
 Memacs). Emails, files, bookmarks, and so forth are linked rather than
 copied.
 
-For best practices, frequently asked questions and their answers
-please refer to the file [[https://github.com/novoid/Memacs/blob/master/FAQs_and_Best_Practices.html][FAQs_and_Best_Practices.org]]
 
 * Memacs Modules
 
-This section contains a list of current (state: DONE) and future
-(states: TODO, WAITING, SOMEDAY) Modules which extract data from all
-kinds of data sources.
+This section contains a list of current and future modules which
+extract data from all kinds of data sources.
 
-The exact details are subject of constant development.
+Existing modules:
 
-Each module offers various settings:
-- configuration is done in one ini file for all modules and Memacs OR
-  separately (not decided yet)
-- time stamp offset in order to "correct" time stamps resulting in
-  wrong server configuration or other time zone
-- default tag
-  - each Memacs entry gets one common tag "Memacs"
-  - each module can define one common tag according to the module
-  - each module can derive additional tags related to the data source
+- file name timestamps
+  - see filenametimestamps/works-for-me-hack/memacs-filenametimestamps.org
+- emails/mbox-format
+  - see emails/mbox_and_newsgroup_postings/works-for-me-hack/memacs-mbox.org
 
-** NEXT filenametimestamp
+Those modules will be developed in the next weeks or months:
 
-Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
-"2011-02-14T14.35.42_img_0815.jpg" or "2011-02-14 slide GTD tools.jpg"
-contain a direct reference to a certain day (or time).
+- bookmarks/delicious
+  - see bookmarks/delicious/memacs-delicious.org
 
-On GNU/Linux systems, you have already an file name indexing tool
-named "[[http://en.wikipedia.org/wiki/Locate_(Unix)][locate]]" which already offers an index of all of your file names
-and their paths.
-
-This module filters ISO time stamps and generates a view containing
-entries like this:
-
-: ** <2011-02-14 Mon 14:35> [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]  :Memacs:locate:
+- emails/Maildir
+  - see emails/maildir/memacs-maildir.org
 
 
-** NEXT bookmarks/delicious
-
-Bookmarks saved on the social bookmark service of [[http://delicious.com][delicious]] are an
-important source of data. We have not yet decided whether we will
-get the data using the [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or if we are
-simply using the file that results from (manual) [[https://secure.delicious.com/settings/bookmarks/export][XML export]].
-
-Bookmarks will look like the following which was tagged with "tools"
-and "research" at delicious:
-
-: ** <2011-02-14 Mon 14:35> [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
-
-
-** NEXT twitter/grabeeter
+** twitter/grabeeter
 
 [[http://grabeeter.tugraz.at/][Grabeeter]] is a free online service of [[http://www.TU-Graz.at][Graz University of Technology]]
 where you can search and archive your tweets from [[http://Twitter.com][Twitter]].
@@ -121,25 +97,6 @@ archiving service of Grabeeter.
 Tweets like this one from user "n0v0id" will appear like this:
 
 : ** <2011-05-02 Mon 16:12> [[http://twitter.com/n0v0id/status/64966447897653248][Hello World!]] :n0v0id:Twitter:Memacs:
-
-
-** NEXT Maildir
-
-[[http://en.wikipedia.org/wiki/Maildir][Maildir]] is a common standard to store e-mails on disk. Many users do
-have a local mail repository in Maildir format. Accessing e-mails in
-Maildir folders is fairly easy because each e-mail is one file in an
-ordinary folder.
-
-
-We will probably visualize an e-mail from Maildir like this:
-
-: ** [[file:~/Maildir/cur/emailfile.txt][Urgent: Serverload too high]]   :maildir:Memacs:
-:   <2011-07-23 Sat 15:46>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 15:46>
-:   :ID: <this_is_the_original_message-id@example.com>
-:   :FROM: boss@company.example.com
-:   :END:
 
 
 ** TODO tagstore

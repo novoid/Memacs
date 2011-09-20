@@ -1,0 +1,47 @@
+## Time-stamp: <2011-09-20 15:25:35 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-mbox
+
+** Current status
+
+This module currently is a quick hack with status «works for me». Feel
+free to improve this module.
+
+** Data Source
+
+[[http://en.wikipedia.org/wiki/Mbox][mbox]] is a widely used format to store emails. This module parses a
+valid mbox file directly.
+
+Some [[http://en.wikipedia.org/wiki/Usenet][usenet]] clients such as [[http://en.wikipedia.org/wiki/Slrn][slrn]] are using mbox style files to store
+usenet postings. This module can handle those files as well. Please
+use the «-n» option for those mbox files since there is no «To:»
+header but a «Newsgroups:» header instead.
+
+** Example Invocation
+
+The simplest example is when you are processing only one mbox file:
+
+: ~/bin/memacs-mbox.py -f ~/mails/inbox >>~/org-mode/mbox.org
+
+If you have multiple mbox files you want to process, you can stick to
+following example. First, the old Memacs file is removed. Then several
+files are parsed and the [[http://en.wikipedia.org/wiki/Stdout#Standard_output_.28stdout.29][stdout]] is written to the new Memacs file:
+
+: rm ~/org-mode/mbox.org; for file in ~/emails/mails* ; do ~/bin/memacs-mbox.py -f "${file}" >>~/org-mode/mbox.org ; done
+
+For usenet postings please choose the command line switch «-n» accordingly:
+
+: ~/bin/memacs-mbox.py -f ~/.slrn/My_Posts -o ~/org-mode/news.org -w -n
+
+** Example Orgmode entries
+
+: * mbox Nexus of /home/user/inbox                                :Memacs:mbox:email:
+: ** <2010-05-07 Fri 13:54> [[contact:John Connor][John Connor]]: [[file:/home/user/inbox::4BE40D77.9040457@gmx.at][Re: Review process]]
+: ** <2010-05-19 Wed 09:58> [[contact:guy@server.example.com][guy@server.example.com]]: [[file:/home/user/inbox::2010-05-19T10-57-03@devnull.example.com][Re: Future project]]
+
+For usenet postings it looks like that:
+
+: * newsgroup Memacs module of /home/user/.slrn/My_Posts                    :Memacs:news:email:
+: ** <2003-04-30 Wed 11:19> tu-graz.test: [[file:/home/user/.slrn/My_Posts::slrnbav59k.pr5.devnull@homeunix.com][Re: |z| jkladsfj]]
+: ** <2003-04-30 Wed 12:45> tu-graz.test: [[file:/home/user/.slrn/My_Posts::slrnbavaa6.s8k.devnull@homeunix.com][Re: |z| jkladsfj]]

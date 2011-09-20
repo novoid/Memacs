@@ -1,0 +1,27 @@
+## Time-stamp: <2011-09-20 15:24:12 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-delicious
+
+** Current status
+
+This module will be developed in the next months.
+
+** Data Source
+
+Bookmarks saved on the social bookmark service of [[http://delicious.com][delicious]] are an
+important source of data. We have not yet decided whether we will
+get the data using the [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or if we are
+simply using the file that results from (manual) [[https://secure.delicious.com/settings/bookmarks/export][XML export]].
+
+** Example Invocation
+
+: find /home/ -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | egrep -v '(/s/|Rohpanorama|/\.|/restricted/)' > /tmp/filets-nexus-tmp && ~/bin/memacs-filenametimestamps.py -f /tmp/filets-nexus-tmp -w -o ~/org-mode/files.org
+
+** Example Orgmode entries
+
+Bookmarks will look like the following which was tagged with «tools»
+and «research» at delicious:
+
+: * Memacs for delicious                                              :Memacs:delicious:
+: ** <2011-02-14 Mon 14:35> [[http://tagstore.org][tagstore]]           :tools:research:
