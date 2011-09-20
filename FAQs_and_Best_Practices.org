@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 14:21:22 vk>
+## Time-stamp: <2011-09-20 14:28:25 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -51,16 +51,16 @@ The more Memacs modules you are using, the more files (*.org and
 You might want to create a separate Memacs folder containing all
 generated Memacs Orgmode files:
 
-#+begin_verse
-/home/user/orgmode/work.org
-/home/user/orgmode/work.org_archive
-/home/user/orgmode/private.org
-/home/user/orgmode/private.org_archive
-/home/user/orgmode/memacs/module1.org
-/home/user/orgmode/memacs/module1.org_archive
-/home/user/orgmode/memacs/module2.org
-/home/user/orgmode/memacs/module2.org_archive
-#+end_verse
+
+: /home/user/orgmode/work.org
+: /home/user/orgmode/work.org_archive
+: /home/user/orgmode/private.org
+: /home/user/orgmode/private.org_archive
+: /home/user/orgmode/memacs/module1.org
+: /home/user/orgmode/memacs/module1.org_archive
+: /home/user/orgmode/memacs/module2.org
+: /home/user/orgmode/memacs/module2.org_archive
+
 
 ** Power Consumption while being on battery
 
