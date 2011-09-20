@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 15:24:52 vk>
+## Time-stamp: <2011-09-20 17:05:02 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
@@ -23,7 +23,7 @@ an ISO datestamp. «egrep» is used to filter out all file and path
 names which should not be included. Finally the Memacs module is used
 to generate the Orgmode file:
 
-: find /home/ -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | egrep -v '(/s/|Rohpanorama|/\.|/restricted/)' > /tmp/filets-nexus-tmp && ~/bin/memacs-filenametimestamps.py -f /tmp/filets-nexus-tmp -w -o ~/org-mode/files.org
+: find /home/ -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | egrep -v '(/s/|Rohpanorama|/\.|/restricted/)' > /tmp/files-tmp && ~/bin/memacs-filenametimestamps.py -f /tmp/files-tmp -w -o ~/org-mode/files.org
 
 ** Example Orgmode entries
 

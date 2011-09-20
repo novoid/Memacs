@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 15:25:35 vk>
+## Time-stamp: <2011-09-20 17:04:37 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-mbox
@@ -36,7 +36,7 @@ For usenet postings please choose the command line switch «-n» accordingly:
 
 ** Example Orgmode entries
 
-: * mbox Nexus of /home/user/inbox                                :Memacs:mbox:email:
+: * Memacs mbox of /home/user/inbox                                :Memacs:mbox:email:
 : ** <2010-05-07 Fri 13:54> [[contact:John Connor][John Connor]]: [[file:/home/user/inbox::4BE40D77.9040457@gmx.at][Re: Review process]]
 : ** <2010-05-19 Wed 09:58> [[contact:guy@server.example.com][guy@server.example.com]]: [[file:/home/user/inbox::2010-05-19T10-57-03@devnull.example.com][Re: Future project]]
 

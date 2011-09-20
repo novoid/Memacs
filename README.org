@@ -1,12 +1,12 @@
-## Time-stamp: <2011-09-20 16:28:36 vk>
+## Time-stamp: <2011-09-20 16:59:19 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-What were you doing on February 14th of 2007? On which tasks were you
-working on that very day you met your girl friend? When was the last
-appointments with your dentist? Who called you on telephone during
-that meeting with your customer last month?
+*What were you doing* on February 14th of 2007? On *which tasks* were
+you working on that very day you met your girl friend? When was the
+*last appointments* with your dentist? *Who called* you on telephone
+during that meeting with your customer last month?
 
-Most people can not answer such questions. With Memacs you can!
+Most people can not answer such questions. *With Memacs you can!*
 
 Memacs extracts metadata (subjects, timestamps, contact information,
 ...) from many different existing data sources (file names, emails,
@@ -17,17 +17,19 @@ Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
 are called «Memacs modules» or short «module».
 
-For best practices, frequently asked questions and their answers
+For usage, best practices, frequently asked questions and their answers
 *please refer to the file FAQs_and_Best_Practices.org*
 
 
 * Memacs Modules
 
-*Existing* modules:
+*Existing modules*:
 
-- file name timestamps: see filenametimestamps/works-for-me-hack/memacs-filenametimestamps.org
+- *file name timestamps*: see filenametimestamps/works-for-me-hack/memacs-filenametimestamps.org
 - emails:
-  - [[http://en.wikipedia.org/wiki/Mbox][mbox]]-format: see emails/mbox/works-for-me-hack/memacs-mbox.org
+  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see emails/mbox/works-for-me-hack/memacs-mbox.org
+- newsgroups:
+  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see emails/mbox/works-for-me-hack/memacs-mbox.org
 
 Those modules will be developed in the *next weeks or months*:
 
@@ -103,7 +105,7 @@ copied.
 * Background
 
 In 1945, [[http://en.wikipedia.org/wiki/Vannevar_Bush][Vannevar Bush]] wrote a famous article «[[http://en.wikipedia.org/wiki/As_We_May_Think][As We May Think]]» where
-he develops the idea of having a «memory extender» called Memex. The
+he develops the idea of having a «memory extender» called *Memex*. The
 memex can store all letters, books, and other information which are
 related to a person.
 
@@ -120,7 +122,7 @@ software product. Bell and Gemmell wrote a book called «[[http://www.amazon.de/
 
 The Memacs project tries to implement the ideas of Vannevar Bush's
 vision with open source and open standards. It's name «Memacs» is the
-obvious combination of «GNU Emacs» and «Memex».
+obvious combination of «[[http://www.gnu.org/software/emacs/][GNU Emacs]]» and «Memex».
 
 Memacs uses GNU Emacs Org-mode to visualize and access information
 extracted by Memacs modules: using tags, time stamps, full text
@@ -132,7 +134,7 @@ too. For example you can choose to generate a condensed search result
 using a [[http://en.wikipedia.org/wiki/Boolean_algebra_(logic)][boolean combination]] of tags.
 
 Deeply related to Memacs, the project leader developed a research
-software [[http://tagstore.org][tagstore]]. This system allows users to store (local) files
+software *[[http://tagstore.org][tagstore]]*. This system allows users to store (local) files
 using tags an not a hierarchy of folders. As a natural extension,
 tagstore targets associative access for (local) files. You might want
 to check out tagstore too. Memacs and tagstore are a very useful
@@ -145,7 +147,7 @@ If you want to contribute to this cool project, please fork and
 contribute or write an additional module!
 
 We are sure that there are a *lot* of cool ideas for other modules out
-there!
+there! This is just the beginning!
 
 Memacs is designed with respect to minimal effort for new modules.
 

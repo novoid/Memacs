@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 16:47:34 vk>
+## Time-stamp: <2011-09-20 17:06:36 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -87,8 +87,8 @@ By using [[http://en.wikipedia.org/wiki/Ssd][SSD]]s instead of hard disks, you g
 boost. For example lets see following command:
 
 : find /home -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | \
-: egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/filets-nexus-tmp && \
-: ~/bin/generate_filetimestamp-nexus_data.py -f /tmp/filets-nexus-tmp \
+: egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/files-tmp && \
+: ~/bin/memacs-filenametimestamps.py -f /tmp/files-tmp \
 :        -w -o ~/org-mode/memacs/files.org_archive
 
 It crawls over 132,000 files of my home folder, filters using an
