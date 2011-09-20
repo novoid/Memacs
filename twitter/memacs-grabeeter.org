@@ -1,0 +1,27 @@
+## Time-stamp: <2011-09-20 15:49:34 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-grabeeter
+
+** Current status
+
+This module will be developed within he next months.
+
+** Data Source
+
+[[http://grabeeter.tugraz.at/][Grabeeter]] is a free online service of [[http://www.TU-Graz.at][Graz University of Technology]]
+where you can search and archive your tweets from [[http://Twitter.com][Twitter]].
+
+Maybe there will be a future module which accesses a [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
+but for now we will stick to the faster and more reliable Tweet
+archiving service of Grabeeter.
+
+** Example Invocation
+
+work in progress
+
+** Example Orgmode entries
+
+Tweets like this one from user "n0v0id" will appear like this:
+
+: ** <2011-05-02 Mon 16:12> [[http://twitter.com/n0v0id/status/64966447897653248][Hello World!]] :n0v0id:Twitter:Memacs:

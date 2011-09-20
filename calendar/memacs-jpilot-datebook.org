@@ -1,0 +1,32 @@
+## Time-stamp: <2011-09-20 16:10:37 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-jpilot-datebook
+
+** Current status
+
+feel free to implement
+
+** Data Source
+
+[[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
+GNU/Linux. It contains your Palm OS agenda, todos, contact
+informations, and memos.
+
+Since many users still appreciate the [[http://www.pimlicosoftware.com/datebk6.htm][mature software]] to organize
+their life, this module generates Org-mode entries from J-Pilot export
+data.
+
+** Example Invocation
+
+to be done
+
+** Example Orgmode entries
+
+Such an calendar entry might look like this:
+
+: ** Meeting with big boss                    :jpilot:Memacs:
+:   <2011-07-29 Fri 11:00-14:00>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:16>
+:   :END:

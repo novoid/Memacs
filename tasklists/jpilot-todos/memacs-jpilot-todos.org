@@ -1,0 +1,32 @@
+## Time-stamp: <2011-09-20 16:12:41 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-jpilot-todos
+
+** Current status
+
+feel free to implement
+
+** Data Source
+
+[[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
+GNU/Linux. It contains your Palm OS agenda, todos, contact
+informations, and memos.
+
+Since many users still appreciate the [[http://www.pimlicosoftware.com/datebk6.htm][mature software]] to organize
+their life, this module generates Org-mode entries from J-Pilot export
+data.
+
+** Example Invocation
+
+to be done
+
+** Example Orgmode entries
+
+Such an todo entry might look like this:
+
+: ** TODO buy new shoes                              :errands:jpilot:Memacs:
+:   DEADLINE: <2011-07-29 Fri>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:16>
+:   :END:

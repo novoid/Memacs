@@ -1,0 +1,30 @@
+## Time-stamp: <2011-09-20 15:53:17 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-tagstore
+
+** Current status
+
+work in progress
+
+** Data Source
+
+[[http://tagstore.org][tagstore]] is a research software that stores local files using tags and
+derives associative navigational folder structures from the tags of
+the files.
+
+This module collects events like adding a new file to a store and
+generates entries like this: (the file was tagged with "CustomerA" and
+"ProjectB")
+
+** Example Invocation
+
+work in progress
+
+** Example Orgmode entries
+
+: ** [[file:~/tagstore/Invoice_0815.pdf][Invoice_0815.pdf]]  :ProjectB:CustomerA:tagstore:Memacs:
+:   <2011-07-23 Sat 15:50>
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 15:50>
+:   :END:

@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 15:38:55 vk>
+## Time-stamp: <2011-09-20 16:15:41 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 What were you doing on February 14th of 2007? On which tasks were you
@@ -66,184 +66,39 @@ copied.
 
 * Memacs Modules
 
-This section contains a list of current and future modules which
-extract data from all kinds of data sources.
+*Existing* modules:
 
-Existing modules:
+- file name timestamps: see filenametimestamps/works-for-me-hack/memacs-filenametimestamps.org
+- emails:
+  - [[http://en.wikipedia.org/wiki/Mbox][mbox]]-format: see emails/mbox/works-for-me-hack/memacs-mbox.org
 
-- file name timestamps
-  - see filenametimestamps/works-for-me-hack/memacs-filenametimestamps.org
-- emails/mbox-format
-  - see emails/mbox_and_newsgroup_postings/works-for-me-hack/memacs-mbox.org
+Those modules will be developed in the *next weeks or months*:
 
-Those modules will be developed in the next weeks or months:
+- bookmarks:
+  - [[http://delicious.com][delicious]]: see bookmarks/delicious/memacs-delicious.org
+- emails:
+  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs-maildir.org
+- [[http://Twitter.com][twitter]]:
+  - [[http://grabeeter.tugraz.at/][grabeeter]]: see twitter/memacs-grabeeter.org
+- [[http://tagstore.org][tagstore]]: see tagstore/memacs-tagstore.org
+- calendar:
+  - Google Calendar: see calendar/memacs-googlecalendar.org
+- versioning systems:
+  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see versioning_systems/git/memacs-git.org
+  - Subversion: see versioning_systems/svn/memacs-svn.org
+- short message system (SMS): see sms/memacs-sms.org
+- calls:
+  - mobile phone: see phone-calls/memacs-mobilecalls.org
 
-- bookmarks/delicious
-  - see bookmarks/delicious/memacs-delicious.org
+Following modules exist as a rough idea only and might get implemented
+some day (by you?):
 
-- emails/Maildir
-  - see emails/maildir/memacs-maildir.org
-
-
-** twitter/grabeeter
-
-[[http://grabeeter.tugraz.at/][Grabeeter]] is a free online service of [[http://www.TU-Graz.at][Graz University of Technology]]
-where you can search and archive your tweets from [[http://Twitter.com][Twitter]].
-
-Maybe there will be a future module which accesses a [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
-but for now we will stick to the faster and more reliable Tweet
-archiving service of Grabeeter.
-
-Tweets like this one from user "n0v0id" will appear like this:
-
-: ** <2011-05-02 Mon 16:12> [[http://twitter.com/n0v0id/status/64966447897653248][Hello World!]] :n0v0id:Twitter:Memacs:
-
-
-** TODO tagstore
-
-[[http://tagstore.org][tagstore]] is a research software that stores local files using tags and
-derives associative navigational folder structures from the tags of
-the files.
-
-This module collects events like adding a new file to a store and
-generates entries like this: (the file was tagged with "CustomerA" and
-"ProjectB")
-
-: ** [[file:~/tagstore/Invoice_0815.pdf][Invoice_0815.pdf]]  :ProjectB:CustomerA:tagstore:Memacs:
-:   <2011-07-23 Sat 15:50>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 15:50>
-:   :END:
-
-
-** TODO GoogleCalendar
-
-We might be able to provide a module that gets events from a [[http://www.google.com/calendar][Google
-calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]].
-
-Those calendar events might be looking like this:
-
-: ** <2011-07-23 Sat 14:00-15:30> [[http://example.com/link/to/event][Meeting with Customer]]      :GCal:Memacs:
-
-
-** TODO git
-
-[[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kind of data
-with. [[http://en.wikipedia.org/wiki/Git_(software)][git]] is a modern distributed system that has an enormous feature
-set.
-
-Whenever user "Bob" commits a change set to an example project called
-"myproject", git-module can provide an entry like this:
-
-: ** myproject (Bob): solved the address field bug         :git:Menacs:
-:   <2011-07-23 Sat 16:00>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 16:00>
-:   :COMMIT: 528bb77ba94592bd86cd4bbe38bcb3ee9dcc276e
-:   :END:
-
-
-** TODO Subversion (versioning_system/svn)
-
-Version control systems]] are quite common to manage all kind of data
-with. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
-revision control.
-
-Whenever user "Bob" commits a change set (resulting in revision 42) to
-an example project called "myproject", svn-module can provide an entry
-like this:
-
-: ** myproject (Bob) r42: solved the address field bug       :svn:Menacs:
-:   <2011-07-23 Sat 16:00>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 16:00>
-:   :REVISION: 42
-:   :END:
-
-
-** TODO SMS
-
-We are thinking about a module that extracts [[http://en.wikipedia.org/wiki/SMS][Short Message Service
-(SMS)]] messages from a backup of your [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone. We have to
-test various methods before being able to tell more.
-
-Probably such an SMS might look like:
-
-: ** "Hello brother, how are you?"               :SMS:Memacs:
-:   <2011-07-23 Sat 16:09>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 16:09>
-:   :FROM-NUMBER: 00436641234567
-:   :END:
-
-
-** TODO mobile-calls
-
-Any [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone logs your phone calls. Various software tools
-let you backup those call logs to your computer. This module takes
-those call logs and puts it into your Agenda - right where it belongs
-to.
-
-Probably a mobile phone call might look like:
-
-: ** call from: 00436641234567               :phone:Memacs:
-:   <2011-07-23 Sat 16:19>-<2011-07-23 Sat 16:21>
-:   :PROPERTIES:
-:   :CREATED: <2011-09-23 Fri 14:09>
-:   :FROM-NUMBER: 00436641234567
-:   :END:
-
-
-** SOMETIME JPilot-todo
-
-[[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
-GNU/Linux. It contains your Palm OS agenda, todos, contact
-informations, and memos.
-
-Since many users still appreciate the [[http://www.pimlicosoftware.com/datebk6.htm][mature software]] to organize
-their life, this module generates Org-mode entries from J-Pilot export
-data.
-
-Such an todo entry might look like this:
-
-: ** TODO buy new shoes                              :errands:jpilot:Memacs:
-:   DEADLINE: <2011-07-29 Fri>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 16:16>
-:   :END:
-
-
-** SOMETIME JPilot-events
-
-[[http://www.jpilot.org/][J-Pilot]] is a software that were used by many [[http://en.wikipedia.org/wiki/Palm_OS][Palm OS]] users on
-GNU/Linux. It contains your Palm OS agenda, todos, contact
-informations, and memos.
-
-Since many users still appreciate the [[http://www.pimlicosoftware.com/datebk6.htm][mature software]] to organize
-their life, this module generates Org-mode entries from J-Pilot export
-data.
-
-Such an calendar entry might look like this:
-
-: ** Meeting with big boss                    :jpilot:Memacs:
-:   <2011-07-29 Fri 11:00-14:00>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 16:16>
-:   :END:
-
-
-** SOMETIME blog_systems/serendipity
-
-[[http://www.s9y.org/][Serendipity]] is a Weblog software tool. This module requires an XML
-backup of a Serendipity export and generates an Org-mode entry for
-each blog entry submission:
-
-: ** Why I hate Mondays and what to do about it         :serendipity:Memacs:
-:   <2011-07-23 Sat 12:15>
-:   :PROPERTIES:
-:   :CREATED: <2011-07-23 Sat 16:20>
-:   :END:
-
+- calendar:
+  - [[http://www.jpilot.org/][JPilot]]-datebook: see calendar/memacs-jpilot-datebook.org
+- tasks:
+  - [[http://www.jpilot.org/][JPilot]]-todos: see tasklists/jpilot-todos/memacs-jpilot-todos.org
+- blog_systems:
+  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see blog_systems/serendipity/memacs-serendipity.org
 
 * Background
 

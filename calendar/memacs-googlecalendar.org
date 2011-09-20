@@ -1,0 +1,23 @@
+## Time-stamp: <2011-09-20 15:56:30 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-googlecalendar
+
+** Current status
+
+work in progress
+
+** Data Source
+
+We might be able to provide a module that gets events from a [[http://www.google.com/calendar][Google
+calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]].
+
+** Example Invocation
+
+work in progress
+
+** Example Orgmode entries
+
+Those calendar events might be looking like this:
+
+: ** <2011-07-23 Sat 14:00-15:30> [[http://example.com/link/to/event][Meeting with Customer]]      :GCal:Memacs:
