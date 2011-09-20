@@ -1,0 +1,106 @@
+## Time-stamp: <2011-09-20 14:03:46 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* Best Practices
+
+** Performance and Scalability
+
+*** File names of generated Memacs files: archive
+
+Memacs is usually generating [[http://orgmode.org/org.html#Archiving][Org-mode archive files]]:
+
+- «emails.org» ... only a stub
+- «emails.org_archive» ... containing Orgmode heading lines with
+  Memacs data
+
+This has following advantage: in normal mode, Memacs entries do
+not interfere with the Org-mode data you are processing daily. It is
+as fast as usual.
+
+Only when you choose to view also the archive files ([[http://orgmode.org/org.html#Agenda-commands]["v A" in
+Agenda-view]]) you get the data Memacs displayed in your Orgmode Agenda.
+
+This should not lead to any slow down in your daily work while having
+the tremendous opportunity to get the verbose information on demand.
+
+*** SSD versus HDD
+
+By using [[http://en.wikipedia.org/wiki/Ssd][SSD]]s instead of hard disks, you get a huge performance
+boost. For example lets see following command:
+
+#+begin_src sh
+find /home -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | \
+egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/filets-nexus-tmp && \
+~/bin/generate_filetimestamp-nexus_data.py -f /tmp/filets-nexus-tmp \
+       -w -o ~/org-mode/memacs/files.org_archive
+#+end_src
+
+It crawls over 132,000 files of my home folder, filters using an
+[[http://en.wikipedia.org/wiki/Regex][regular expression]], removes paths containing temporary or restricted
+folders, and generates Orgmode Memacs entries for over 24,000 files
+resulting in four and a half megabytes of file size.
+
+This command does not take longer than *two and a half* seconds on an
+SSD which is quite remarkable.
+
+** File organization
+
+The more Memacs modules you are using, the more files (*.org and
+*.org_archive) you get in your (single?) Orgmode-folder.
+
+You might want to create a separate Memacs folder containing all
+generated Memacs Orgmode files.
+
+** Power Consumption while being on battery
+
+When you are using Memacs on a notebook, you might not want to execute
+certain cron jobs while being on battery power only.
+
+Ubuntu GNU/Linux is using the [[http://en.wikipedia.org/wiki/Procfs][proc file system]] where you can access
+many hardware-related information such as battery state:
+
+#+begin_example
+vk@gary ~ % cat /proc/acpi/battery/BAT0/state
+present:                 yes
+capacity state:          ok
+charging state:          charged
+present rate:            0 mW
+remaining capacity:      35290 mWh
+present voltage:         12526 mV
+vk@gary ~ % 
+
+## now I disconnect the battery from external power supply
+
+vk@gary ~ % cat /proc/acpi/battery/BAT0/state
+present:                 yes
+capacity state:          ok
+charging state:          discharging
+present rate:            18452 mW
+remaining capacity:      35270 mWh
+present voltage:         12426 mV
+vk@gary ~ %
+#+end_example
+
+With a simple shell script named «no-power-supply.sh», you can execute cron job commands only
+when having external power supply:
+
+#+begin_src sh
+#!/bin/sh
+grep discharging /proc/acpi/battery/BAT0/state >/dev/null
+#+end_src
+
+Then some example cron jobs look like:
+
+#+begin_verse
+5-59/10 1,8-23 * * * /usr/local/bin/no-power-supply.sh || /home/vk/bin/do_some_things.sh
+10 * * * * /usr/local/bin/no-power-supply.sh || { find ....  | egrep '...' > tmpfile && do_that.sh }
+#+end_verse
+
+Whenever your notebook is in state «discharge» those cronjobs are not
+being executed.
+
+
+* FAQs
+
+There are no FAQs yet. If you have one, please contact «Karl dot Voit
+at IST dot TUGraz dot at» and he is happy to answer it.

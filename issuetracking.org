@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-13 14:59:20 vk>
+## Time-stamp: <2011-09-20 14:12:51 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 #+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
 #+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
@@ -19,13 +19,13 @@
 #+end_src
 - language used: (US) English
 
-** NEXT One common result file OR one result file per Nexus
+** NEXT One common result file OR one result file per Module
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:38>
 :END:
 
 - resulting files:
-  - »memacs.org_archive« OR one file per Nexus
+  - »memacs.org_archive« OR one file per Module
 
 Extension ".org_archive" more or less necessary to avoid performance
 troubles in daily work.
@@ -38,14 +38,14 @@ troubles in daily work.
 Possibilities:
 
 #+begin_example
-:  * foobar-Nexus    :default:tags:of:the:nexus:here:
+:  * foobar-Module    :default:tags:of:the:module:here:
 :    ** entry1         :tags:from:data:source:itself:
 :    ** entry2                           :other:tags:
 #+end_example
 
 #+begin_example
-:  * entry1        :foobar-Nexus:tags:from:data:source:itself:
-:  * entry2                           foobar-Nexus:other:tags:
+:  * entry1        :foobar-Module:tags:from:data:source:itself:
+:  * entry2                           foobar-Module:other:tags:
 #+end_example
 
 
@@ -64,9 +64,9 @@ good libraries to use it. See code of tagstore and TagVizor.
 
 - one configuration file:
   - everything in one place
-  - Memacs and each Nexus gets an individual section
+  - Memacs and each Module gets an individual section
   - user(?) can mix up sections or do other harm
-- each Nexus in its own INI file:
+- each Module in its own INI file:
   - clean separation
   - user has to create (correct) INI files
 
@@ -77,7 +77,7 @@ good libraries to use it. See code of tagstore and TagVizor.
 
 - one (configurable?) tag for everything
   - default: "Memacs"
-- (configurable?) default tag(s) for each Nexus
+- (configurable?) default tag(s) for each Module
   - in order to tell the user what data source this is
 
 ** TODO drawer/properties concept
@@ -91,18 +91,18 @@ good libraries to use it. See code of tagstore and TagVizor.
 Some things that do not appear in header line but are important should
 be in drawers.
 
-To decide (for each Nexus):
+To decide (for each Module):
 - which data
 - which drawer
 - which format
 
 
-* TODO Nexuses [0/13]
+* TODO Modules [0/13]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:51>
 :END:
 
-** NEXT Common configuration settings for each Nexus
+** NEXT Common configuration settings for each Module
 :PROPERTIES:
 :CREATED: <2011-07-25 Mon 10:55>
 :END:
@@ -110,12 +110,12 @@ To decide (for each Nexus):
 - Org mode file name where result gets written (or appended?) to
 - List of default tag(s) to add each entry (or Org-mode header)
 
-** NEXT Filedatestamp-locate-Nexus [0/0]
+** NEXT Filedatestamp-locate-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see: file:README.org::*Filedatestamp-locate-Nexus
+see: file:README.org::*Filedatestamp-locate-Module
 
 #+begin_example
 : ** [[file:~/path/2011-02-14T14.35.42_img_0815.jpg][2011-02-14T14.35.42_img_0815.jpg]]  :Memacs:locate:
@@ -125,7 +125,7 @@ see: file:README.org::*Filedatestamp-locate-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - ? file where locate db is found (if necessary; maybe this file is
   found at a defined and never changing path?)
 - list of strings which contain all search strings to grab
@@ -141,12 +141,12 @@ Implementation issues:
 - probably best solution: find locate-database and parse directly
   instead of invoking "locate" and parse the output stream :-)
 
-** NEXT delicious-Nexus [0/0]
+** NEXT delicious-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see file:README.org::*delicious-Nexus
+see file:README.org::*delicious-Module
 
 #+begin_example
 : ** [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
@@ -156,7 +156,7 @@ see file:README.org::*delicious-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - delicious account settings
   - please try to store password encrypted OR write a warning message
     to the user that he/she is aware of storing clear text password!
@@ -170,12 +170,12 @@ Implementation issues:
 :CREATED: <2011-07-23 Sat 17:46>
 :END:
 
-** NEXT Grabeeter-Nexus [0/1]
+** NEXT Grabeeter-Module [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see file:README.org::*Grabeeter-Nexus
+see file:README.org::*Grabeeter-Module
 
 - [[http://grabeeter.tugraz.at/][Grabeeter]]
 
@@ -195,12 +195,12 @@ Configuration:
 
 *** NEXT check out possibilities and stability with [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
 
-** NEXT Maildir-Nexus [0/0]
+** NEXT Maildir-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see file:README.org::*Maildir-Nexus
+see file:README.org::*Maildir-Module
 
 #+begin_example
 : ** [[file:~/Maildir/cur/emailfile.txt][Urgent: Serverload too high]]   :maildir:Memacs:
@@ -211,20 +211,20 @@ see file:README.org::*Maildir-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - path to local Maildir
 - ? list of addresses or domains to grab
 - ? list of addresses or domains to exclude
 
 Implementation issues:
-- would be very similar to vbox email data! -> maybe derive vbox-Nexus afterwards?
+- would be very similar to vbox email data! -> maybe derive vbox-Module afterwards?
 
-** TODO tagstore-Nexus [0/0]
+** TODO tagstore-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see file:README.org::*tagstore-Nexus
+see file:README.org::*tagstore-Module
 
 #+begin_example
 : ** [[file:~/tagstore/Invoice_0815.pdf][Invoice_0815.pdf]]  :ProjectB:CustomerA:tagstore:Memacs:
@@ -249,16 +249,16 @@ see file:README.org::*tagstore-Nexus
 :  vk@gary ~ts/.tagstore %
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - list of paths to stores which should be included
   - list of all possible stores: $tagstorebinaries/tsressources/conf/tagstore.conf
 
-** TODO GoogleCalendar-Nexus [0/1]
+** TODO GoogleCalendar-Module [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see file:README.org::*GoogleCalendar-Nexus
+see file:README.org::*GoogleCalendar-Module
 
 Those calendar events might be looking like this:
 #+begin_example
@@ -269,7 +269,7 @@ Those calendar events might be looking like this:
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - Google account settings
   - please try to store password encrypted OR write a warning message
     to the user that he/she is aware of storing clear text password!
@@ -278,12 +278,12 @@ Nexus-specific configuration:
 
 *** NEXT check [[http://www.google.com/calendar][Google calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]]
 
-** TODO git-Nexus [0/0]
+** TODO git-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see file:README.org::*git-Nexus
+see file:README.org::*git-Module
 
 #+begin_example
 : ** myproject (Bob): solved the address field bug         :git:Menacs:
@@ -294,16 +294,16 @@ see file:README.org::*git-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - list of local repositories to include
 - option to include only own commits (and not everyones)
 
-** TODO svn-Nexus [0/0]
+** TODO svn-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see file:README.org::*svn-Nexus
+see file:README.org::*svn-Module
 
 #+begin_example
 : ** myproject (Bob) r42: solved the address field bug       :svn:Menacs:
@@ -314,17 +314,17 @@ see file:README.org::*svn-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - list of local repositories to include
 - option to include only own commits (and not everyones)
 - 
 
-** TODO SMS-backup-Nexus [0/1]
+** TODO SMS-backup-Module [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
 :END:
 
-see file:README.org::*SMS-backup-Nexus
+see file:README.org::*SMS-backup-Module
 
 #+begin_example
 : ** "Hello brother, how are you?"               :SMS:Memacs:
@@ -335,19 +335,19 @@ see file:README.org::*SMS-backup-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - path to SMS backup file of tool FIXXME
 
 *** NEXT check methods to get SMS from phone to computer
 
 e.g. SMSbackupAndRestore (Android)
 
-** WISH JPilot-todo-Nexus [0/0]                                   :KarlVoit:
+** WISH JPilot-todo-Module [0/0]                                   :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-25 Mon 11:12>
 :END:
 
-see file:README.org::*JPilot-todo-Nexus
+see file:README.org::*JPilot-todo-Module
 
 #+begin_example
 : ** TODO buy new shoes                              :errands:jpilot:Memacs:
@@ -357,15 +357,15 @@ see file:README.org::*JPilot-todo-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - 
 
-** WISH JPilot-event-Nexus [0/0]                                  :KarlVoit:
+** WISH JPilot-event-Module [0/0]                                  :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:51>
 :END:
 
-see file:README.org::*JPilot-event-Nexus
+see file:README.org::*JPilot-event-Module
 
 #+begin_example
 : ** Meeting with big boss                    :jpilot:Memacs:
@@ -375,15 +375,15 @@ see file:README.org::*JPilot-event-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - 
 
-** WISH Serendipity-Nexus [0/0]                                   :KarlVoit:
+** WISH Serendipity-Module [0/0]                                   :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :END:
 
-see file:README.org::*Serendipity-Nexus
+see file:README.org::*Serendipity-Module
 
 #+begin_example
 : ** Why I hate Mondays and what to do about it         :serendipity:Memacs:
@@ -393,7 +393,7 @@ see file:README.org::*Serendipity-Nexus
 :   :END:
 #+end_example
 
-Nexus-specific configuration:
+Module-specific configuration:
 - 
 
 - Suderei: export
