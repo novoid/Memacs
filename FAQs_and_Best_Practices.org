@@ -1,7 +1,30 @@
-## Time-stamp: <2011-09-20 14:32:15 vk>
+## Time-stamp: <2011-09-20 16:47:34 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
+
+** Invocation
+
+Most of the time you probably want to invoke Memacs modules
+automatically and periodically. Here are some tips for achieving this.
+
+*** GNU/Linux (like Ubuntu, SuSE, RedHat, Debian, ...)
+
+You are lucky because [[http://en.wikipedia.org/wiki/Cron][cron]] is providing a fairly easy to use interface
+for this!
+
+Wikipedia is offering [[http://en.wikipedia.org/wiki/Cron#Predefined_scheduling_definitions][a cool example section]] on how to generate
+cronjob entries. Most of the time you only have to call «crontab -e»
+and you can start entering a line.
+
+*** Mac OS X
+
+Older versions of Mac OS X used to support cron. But since OS X
+10.4 «Tiger» you have to use [[http://en.wikipedia.org/wiki/Launchd][launchd]] instead.
+
+*** Microsoft Windows
+
+Please refer to [[http://support.microsoft.com/kb/308569][Windows Task Scheduler]].
 
 ** Performance and Scalability
 
@@ -22,6 +45,41 @@ Agenda-view]]) you get the data Memacs displayed in your Orgmode Agenda.
 
 This should not lead to any slow down in your daily work while having
 the tremendous opportunity to get the verbose information on demand.
+
+**** How to use archive files
+
+1. generate a stub file like «~/org-mode/files.org»
+2. you might want to enter some information there but you can as well
+   leave the file empty
+3. let Memacs generate your Org-mode archive file like «~/org-mode/files.org_archive»
+4. open «~/org-mode/files.org» in your GNU Emacs and invoke «M-x org-agenda-file-to-front»
+5. You successfully added this Memacs module to your Org-mode Agenda
+6. Whenever you want to see the entries of «files.org_archive» (or any
+   other archive file) in your Agenda, invoke «v A» when you are in
+   your normal Agenda view.
+
+See:  [[http://orgmode.org/org.html#Agenda-commands]["v A" in Agenda-view]]
+
+*** Performance of Agenda
+
+I am using Org-mode with following archive files:
+
+:   lines kByte file
+:   24493  4476 files.org_archive
+:    5919  1222 mbox.org_archive
+:    5117   927 news.org_archive
+: ---------------------------------
+:   35529  6625 total
+
+Starting the «normal» Agenda (without archive files activated) is not
+affected by the *.org_archive files at all.
+
+When I am in agenda view and I switch to the agenda entries as well
+(using «v A»), I face a delay of less than four seconds.
+
+After that it depends on how many entries you have got for that
+specific view (day, week, ...). I get only a slightly worse feedback
+then. But it is perfectly usable to me.
 
 *** SSD versus HDD
 
