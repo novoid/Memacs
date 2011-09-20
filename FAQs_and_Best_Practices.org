@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 14:28:25 vk>
+## Time-stamp: <2011-09-20 14:32:15 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -28,12 +28,10 @@ the tremendous opportunity to get the verbose information on demand.
 By using [[http://en.wikipedia.org/wiki/Ssd][SSD]]s instead of hard disks, you get a huge performance
 boost. For example lets see following command:
 
-#+begin_example
-find /home -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | \
-egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/filets-nexus-tmp && \
-~/bin/generate_filetimestamp-nexus_data.py -f /tmp/filets-nexus-tmp \
-       -w -o ~/org-mode/memacs/files.org_archive
-#+end_example
+: find /home -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | \
+: egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/filets-nexus-tmp && \
+: ~/bin/generate_filetimestamp-nexus_data.py -f /tmp/filets-nexus-tmp \
+:        -w -o ~/org-mode/memacs/files.org_archive
 
 It crawls over 132,000 files of my home folder, filters using an
 [[http://en.wikipedia.org/wiki/Regex][regular expression]], removes paths containing temporary or restricted
@@ -70,7 +68,6 @@ certain cron jobs while being on battery power only.
 Ubuntu GNU/Linux is using the [[http://en.wikipedia.org/wiki/Procfs][proc file system]] where you can access
 many hardware-related information such as battery state:
 
-#+begin_verse
 : vk@gary ~ % cat /proc/acpi/battery/BAT0/state
 : present:                 yes
 : capacity state:          ok
@@ -90,22 +87,17 @@ many hardware-related information such as battery state:
 : remaining capacity:      35270 mWh
 : present voltage:         12426 mV
 : vk@gary ~ %
-#+end_verse
 
 With a simple shell script named «no-power-supply.sh», you can execute cron job commands only
 when having external power supply:
 
-#+begin_verse
-#!/bin/sh
+: #!/bin/sh
 : grep discharging /proc/acpi/battery/BAT0/state >/dev/null
-#+end_verse
 
 Then some example cron jobs look like:
 
-#+begin_verse
-5-59/10 1,8-23 * * * /usr/local/bin/no-power-supply.sh || /home/vk/bin/do_some_things.sh
-10 * * * * /usr/local/bin/no-power-supply.sh || { find ....  | egrep '...' > tmpfile && do_that.sh }
-#+end_verse
+: 5-59/10 1,8-23 * * * /usr/local/bin/no-power-supply.sh || /home/vk/bin/do_some_things.sh
+: 10 * * * * /usr/local/bin/no-power-supply.sh || { find ....  | egrep '...' > tmpfile && do_that.sh }
 
 Whenever your notebook is in state «discharge» those cronjobs are not
 being executed.
