@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 17:06:36 vk>
+## Time-stamp: <2011-09-24 16:04:18 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -96,8 +96,9 @@ It crawls over 132,000 files of my home folder, filters using an
 folders, and generates Orgmode Memacs entries for over 24,000 files
 resulting in four and a half megabytes of file size.
 
-This command does not take longer than *two and a half* seconds on an
-SSD which is quite remarkable.
+This command does not take longer than *two and a half seconds* on an
+SSD which is quite remarkable. Using a normal hard disk, a comparable
+call takes *one minute and fifteen seconds*.
 
 ** File organization
 
