@@ -165,6 +165,7 @@ def parse_mbox(filename, outputfile):
 
     was_empty_line = True
     is_header = False
+    last_firstline = "" ## holds the "From .*" line which is the first line of a new email/posting
     last_from = ""  ## holds real name for emails OR newsgroup name(s) for postings
     last_email = ""
     last_subject = ""
@@ -194,6 +195,7 @@ def parse_mbox(filename, outputfile):
             ## is followed by a line that matches HEADERSTART_REGEX
             is_header = True
             last_email = fromlinecomponents.group(1)
+            last_firstline = line
             last_from = ""
             last_subject = ""
             last_message_id = ""
@@ -230,7 +232,20 @@ def parse_mbox(filename, outputfile):
             
         if line == "":
             was_empty_line = True
-            is_header = False
+            if is_header and last_message_id == "":
+                ## recover if only message-id was not found:
+                ## (some NNTP-clients do not generate those and let the NNTP-server do it)
+                last_message_id = last_firstline
+                logging.warn("Current entry does not provide a Message-ID, using first From-line instead: " + last_firstline)
+            elif is_header:
+                logging.error("Current entry was not recognized as an entry. Missing value(s)?")
+                if last_orgmodetimestamp:
+                    logging.error("  timestamp:  " + last_orgmodetimestamp )
+                else:
+                    logging.error("  NO timestamp recognized!")
+                logging.error("  subject:    " + last_subject )
+                logging.error("  message-id: " + last_message_id )
+                is_header = False
         else:
             was_empty_line = False
 

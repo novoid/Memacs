@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 17:23:17 vk>
+## Time-stamp: <2011-09-20 17:24:40 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-mbox
@@ -47,9 +47,6 @@ For usenet postings it looks like that:
 : ** <2003-04-30 Wed 12:45> tu-graz.test: [[file:/home/user/.slrn/My_Posts::slrnbavaa6.s8k.devnull@homeunix.com][Re: |z| jkladsfj]]
 
 ** Add-on: organizing contacts with Orgmode
-:PROPERTIES:
-:CREATED: <2011-09-20 Tue 17:18>
-:END:
 
 As you can see, this module generates links to contacts like 
 : [[contact:John Connor][John Connor]]
