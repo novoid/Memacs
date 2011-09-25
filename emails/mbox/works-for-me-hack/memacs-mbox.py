@@ -8,6 +8,12 @@ import time
 import logging
 from optparse import OptionParser
 
+## TODO:
+## - add command line argument to define link name to real content
+##   currently: "file:INPUTFILE::ID" is used
+##   desired:   "mylinkname:INPUTFILE::ID" should be used
+##   additional: add explanation to readme (setq org-link-abbrev-alist)
+
 PROG_VERSION_NUMBER = "0.1"
 PROG_VERSION_DATE = "2011-09-16"
 INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
@@ -278,7 +284,7 @@ def main():
                      ". Any modifications will be overwritten upon next invocation!\n"
 
     if options.newsgroup:
-        string += "* Memacs module for newsgroup postings: " + options.mboxname + "                    :Memacs:news:email:"
+        string += "* Memacs module for newsgroup postings: " + options.mboxname + "                    :Memacs:news:"
     else:
         string += "* Memacs module for mbox emails: " + options.mboxname + "                         :Memacs:mbox:email:"
 
