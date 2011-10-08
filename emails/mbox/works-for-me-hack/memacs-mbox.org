@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 17:24:40 vk>
+## Time-stamp: <2011-10-08 11:08:45 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-mbox
@@ -99,3 +99,7 @@ module :-)
 
 Whenever you are on a «contact:» link, you can use the primary mouse
 button or «C-c C-o» to follow the link.
+
+You can find a more detailed description on how to efficiently
+organize contact information [[http://article.gmane.org/gmane.emacs.orgmode/47478][in this post on the Org-mode mailing list
+archive]].
