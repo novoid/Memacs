@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-09 12:55:36 vk>
+# Time-stamp: <2011-10-10 15:13:31 vk>
 
 import os
 import sys
@@ -98,7 +98,6 @@ def extract_datestamp_from_eventday(daystring):
     """extracts day, month, year from string like «DD.MM.YYYY»"""
 
     components = DATESTAMP_REGEX.match(daystring)
-    ## FIXXME: here I assume a match, add handling for no match!
 
     if not components:
         logging.error("ERROR: could not parse date field: [" + daystring + "]")

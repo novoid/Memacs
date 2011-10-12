@@ -8,8 +8,8 @@ import time
 import logging
 from optparse import OptionParser
 
-PROG_VERSION_NUMBER = "0.1"
-PROG_VERSION_DATE = "2011-08-30"
+PROG_VERSION_NUMBER = "0.2"
+PROG_VERSION_DATE = "2011-10-10"
 INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
 MATCHING_LEVEL = {'day': 1, 'minutes': 2, 'seconds': 3, 'notmatching': 4}
 
@@ -17,7 +17,7 @@ MATCHING_LEVEL = {'day': 1, 'minutes': 2, 'seconds': 3, 'notmatching': 4}
 TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d).([012345]\d)(.([012345]\d))?")
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
 
-## FIXXME: modify RegEx to match more exactly
+## RegEx matches more exactly:
 ##         reason: avoid 2011-01-00 (day is zero) or month is >12, ...
 ##         problem: mathing groups will change as well!
 ##   also fix in: vktimestamp2filedate
@@ -120,16 +120,16 @@ def generate_orgmode_file_timestamp(filename):
     ## also working in Org-mode agenda: <2011-07-16 9:00>
 
     basename = os.path.basename(filename)
-    components = TIMESTAMP_REGEX.match(basename)
+    timestampcomponents = TIMESTAMP_REGEX.match(basename)
     ## "2010-06-12T13.08.42_test..." -> ('2010', '06', '12', '13', '08', '.42', '42')
     ## filenametimestampcomponents.group(1) -> '2010'
 
     datestampcomponents = DATESTAMP_REGEX.match(basename)
     
-    if components:
+    if timestampcomponents:
 
-        datestamp = "<" + str(components.group(1)) + "-" + str(components.group(2)) + "-" + str(components.group(3)) + \
-            " " + str(components.group(4)) + ":" + str(components.group(5)) + ">"
+        datestamp = "<" + str(timestampcomponents.group(1)) + "-" + str(timestampcomponents.group(2)) + "-" + str(timestampcomponents.group(3)) + \
+            " " + str(timestampcomponents.group(4)) + ":" + str(timestampcomponents.group(5)) + ">"
     
         logging.debug("datestamp (time): " + datestamp)
     
@@ -194,7 +194,7 @@ def handle_filelist_line(line, output):
 
 
 def main():
-    """Main function [make pylint happy :)]"""
+    """Main function"""
 
     if options.version:
         print os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE
