@@ -5,3 +5,4 @@ sms/smsbackuprestore/sms.xml
 phone-calls/calllogbackuprestore/calls.xml
 .project
 .pydevproject
+.settings
