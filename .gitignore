@@ -6,3 +6,4 @@ phone-calls/calllogbackuprestore/calls.xml
 .project
 .pydevproject
 .settings
+*.pyc
