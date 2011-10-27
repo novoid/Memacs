@@ -6,11 +6,8 @@ import unittest
 from tests.common.test_outputwriter import TestOutputWriter
 
 
-
-
 def main():
     unittest.TestLoader.loadTestsFromTestCase(TestOutputWriter)    
-    
     
 if __name__ == "__main__":
     main()
