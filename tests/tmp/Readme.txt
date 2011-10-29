@@ -1,1 +1,0 @@
-This folder is used for test-files from unittesting.

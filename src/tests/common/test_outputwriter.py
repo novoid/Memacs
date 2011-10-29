@@ -11,7 +11,7 @@ class TestOutputWriter(unittest.TestCase):
     def setUp(self):
         # setting tmpfolder to "../tmp"
         self.TMPFOLDER = os.path.normpath(os.path.dirname(os.path.abspath(__file__))
-                                           + os. path.sep + os.path.pardir)
+                                           + os.path.sep + os.path.pardir + os.path.sep +"tmp") + os.sep
         
     def test_tmpfolderexists(self):
         """
@@ -24,7 +24,7 @@ class TestOutputWriter(unittest.TestCase):
         """
         Simple Test
         """
-        test_filename = self.TMPFOLDER + "testfile.org"
+        test_filename = self.TMPFOLDER+ "testfile.org"
         
         # writing test output
         writer = outputwriter.OutputWriter(test_filename)
@@ -47,6 +47,24 @@ class TestOutputWriter(unittest.TestCase):
 
         #cleaning up
         os.remove(self.TMPFOLDER + "testfile.org")
+    def test_utf8(self):
+        test_filename = self.TMPFOLDER + "testutf8.org"
+        
+        # writing test output
+        writer = outputwriter.OutputWriter(test_filename)
+        writer.write(u"☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵\n")
+        writer.close()
+        
+        # read and check the file
+        file = codecs.open(test_filename, "r", "utf-8")
+        input = file.readlines()
+        print test_filename
+        self.assertEqual(input[0], u"## -*- coding: utf-8 -*-\n", "incorrect header")
+        self.assertEqual(input[1], u"☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵\n","utf-8 failure")
+        self.assertEqual(input[2][:24], u"* successfully parsed by", "incorrect footer()")
+
+        #cleaning up
+        os.remove(self.TMPFOLDER + "testutf8.org")
         
 if __name__ == '__main__':
     unittest.main()

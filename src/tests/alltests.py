@@ -3,7 +3,7 @@
 # Time-stamp: <2011-10-26 22:13:31 awieser>
 
 import unittest
-from tests.common.test_outputwriter import TestOutputWriter
+from common.test_outputwriter import TestOutputWriter
 
 
 def main():
