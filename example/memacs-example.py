@@ -40,7 +40,7 @@ def main():
         logging.debug("Output file specified: " + options.outputfile)
         output_file = options.outputfile
     
-    writer = OrgOutputWriter(output_file);
+    writer = OrgOutputWriter(short_description=SHORT_DESCRIPTION, tag=TAG,file_name=output_file);
     # do stuff
     
     # end do stuff 

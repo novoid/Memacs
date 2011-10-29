@@ -39,8 +39,3 @@ class MemacsOptionParser(OptionParser):
     
     def get_version(self):
         return self.version
-                
-
-
-    
-    
