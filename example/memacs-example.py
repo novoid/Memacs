@@ -16,31 +16,20 @@ Then an Org-mode file is generated that contains links to the files.
 """
 
 def main():
-    ###########################################################################
     parser = MemacsOptionParser(prog_version=PROG_VERSION_NUMBER,
                                 prog_version_date=PROG_VERSION_DATE,
                                 description=DESCRIPTION)
     # adding additional options
-    parser.add_option("-f", "--folderlist", dest="folderlist",
-                      help="path to one or more folders seperated with \"|\","+\
-                      "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
+    #parser.add_option("-f", "--folderlist", dest="folderlist",
+    #                  help="path to one or more folders seperated with \"|\","+\
+    #                 "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
     # do parsing  
     (options, args) = parser.parse_args()
     handle_logging(options.verbose)
     logging.debug("options specified:") 
     logging.debug(options)
     
-    ### outputfile        
-    if not options.folderlist:
-        parser.error("Please provide a folder or a " +\
-                     "folderlist(\"/path/to/folder1|/path/to/folder2|..\")!")
-    
-    folders = options.folderlist.split("|")
-    for f in folders:
-        if not os.path.isdir(f):
-            parser.error("Check the folderlist - one or more aren't folders")
-    logging.debug("folders:")
-    logging.debug(folders)
+    # handle additional options        
     
     if os.path.exists(options.outputfile) and not os.access(options.outputfile, os.W_OK):
         parser.error("Output file is not writeable!")
