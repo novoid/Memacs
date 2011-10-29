@@ -48,7 +48,7 @@ def main():
     logging.debug(folders)
     
     
-    if not os.access(options.outputfile, os.W_OK):
+    if os.path.exists(options.outputfile) and not os.access(options.outputfile, os.W_OK):
         parser.error("Output file is not writeable!")
     output_file = None
     if options.outputfile:

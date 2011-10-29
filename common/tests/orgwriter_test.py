@@ -5,7 +5,6 @@
 import unittest
 import os
 import codecs
-import sys
 from common.orgwriter import OrgOutputWriter
 
 
@@ -42,7 +41,7 @@ class TestOutputWriter(unittest.TestCase):
         
         
         self.assertEqual(input_handler[0], u"## -*- coding: utf-8 -*-\n", "incorrect header")
-        self.assertEqual(input_handler[2], u"## abc\n", "incorrect write()")
+        self.assertEqual(input_handler[2], u"## ab\n", "incorrect write()")
         self.assertEqual(input_handler[3], u"## abc\n", "incorrect writeln()")
         self.assertEqual(input_handler[4], u"## abc\n", "incorrect write_comment()")
         self.assertEqual(input_handler[5], u"## abc\n", "incorrect write_commentln()")

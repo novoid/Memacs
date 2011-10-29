@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-26 15:13:31 awieser>
 
-import time
 import codecs
 import sys
 import time
