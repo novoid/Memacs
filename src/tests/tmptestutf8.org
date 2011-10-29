@@ -1,4 +1,0 @@
-## -*- coding: utf-8 -*-
-☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵* successfully parsed by /home/armin/.eclipse/org.eclipse.platform_3.5.0_155965261/plugins/org.python.pydev.debug_1.6.5.2011020317/pysrc/runfiles.py at 2011-10-27T19:39:13.
-
-

@@ -2,12 +2,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
-from optparse import OptionParser
-from common.optparser import MemacsOptionParser
+import os
 import logging
 from common.loggingsettings import *  
 from common.orgwriter import OrgOutputWriter
-import os
+from common.optparser import MemacsOptionParser
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"

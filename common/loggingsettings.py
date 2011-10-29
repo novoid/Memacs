@@ -3,7 +3,6 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import logging
-from ansistrm import ColorizingStreamHandler 
 
 
 def handle_logging(verbose=False):
