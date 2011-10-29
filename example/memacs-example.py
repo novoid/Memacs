@@ -10,12 +10,7 @@ from common.optparser import MemacsOptionParser
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
-DESCRIPTION = """This script parses a text file containing absolute paths to files
-with ISO datestamps and timestamps in their file names:x
-
-Examples:  "2010-03-29T20.12 Divegraph.tiff"
-           "2010-12-31T23.59_Cookie_recipies.pdf"
-           "2011-08-29T08.23.59_test.pdf"
+DESCRIPTION = """This script ....
 
 Then an Org-mode file is generated that contains links to the files.
 """
@@ -47,7 +42,6 @@ def main():
     logging.debug("folders:")
     logging.debug(folders)
     
-    
     if not os.access(options.outputfile, os.W_OK):
         parser.error("Output file is not writeable!")
     output_file = None
@@ -57,10 +51,7 @@ def main():
     
     writer = OrgOutputWriter(output_file);
     # do stuff
-    for folder in folders:
-        for root,dirs,files in os.walk(folder):
-            for file in files:
-                print root + file
+    
     # end do stuff 
     writer.close();
     
