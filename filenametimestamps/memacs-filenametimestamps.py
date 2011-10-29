@@ -10,7 +10,9 @@ from common.optparser import MemacsOptionParser
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
-DESCRIPTION = """This script parses a text file containing absolute paths to files
+SHORT_DESCRIPTION=u"Memacs for file name time stamp"
+TAG=u"filedatestamps"
+DESCRIPTION = u"""This script parses a text file containing absolute paths to files
 with ISO datestamps and timestamps in their file names:x
 
 Examples:  "2010-03-29T20.12 Divegraph.tiff"
@@ -24,7 +26,8 @@ def main():
     ###########################################################################
     parser = MemacsOptionParser(prog_version=PROG_VERSION_NUMBER,
                                 prog_version_date=PROG_VERSION_DATE,
-                                description=DESCRIPTION)
+                                description=DESCRIPTION,
+                                )
     # adding additional options
     parser.add_option("-f", "--folderlist", dest="folderlist",
                       help="path to one or more folders seperated with \"|\","+\
@@ -55,7 +58,7 @@ def main():
         logging.debug("Output file specified: " + options.outputfile)
         output_file = options.outputfile
     
-    writer = OrgOutputWriter(output_file);
+    writer = OrgOutputWriter(file_name=output_file,short_description=SHORT_DESCRIPTION,tag=TAG);
     # do stuff
     for folder in folders:
         for root,dirs,files in os.walk(folder):

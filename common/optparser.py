@@ -16,6 +16,7 @@ class MemacsOptionParser(OptionParser):
                               version=version,
                               add_help_option=True,
                               epilog=EPILOG + prog_version + " from "+prog_version_date + "\n")
+     
         
         self.add_option("-v", "--verbose", dest="verbose", action="store_true",
                         help="enable verbose mode")

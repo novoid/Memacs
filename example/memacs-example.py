@@ -10,6 +10,8 @@ from common.optparser import MemacsOptionParser
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
+SHORT_DESCRIPTION=u"Memacs for ..."
+TAG=u"example"
 DESCRIPTION = """This script ....
 
 Then an Org-mode file is generated that contains links to the files.
