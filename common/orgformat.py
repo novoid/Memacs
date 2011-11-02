@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Time-stamp: <2011-11-02 15:13:31 aw>
+
+import time
 
 class OrgFormat(object):
     
     @staticmethod
     def link(link, description=None):
         """
-        returns a link in org-format
+        returns string of a link in org-format
         @param link link to i.e. file
         @param description optional  
         """
@@ -17,10 +22,28 @@ class OrgFormat(object):
             return u"[[" + link + u"]]"
     
     @staticmethod
-    def date(year,month,day,hour,minute):
+    def date(tuple_date,show_time=False):
+        """
+        returns a date string in org format
+        i.e.: * <YYYY-MM-DD Sun>        
+              * <YYYY-MM-DD Sun HH:MM>
+        @param tuple_date: has to be a time.struct_time
+        @param show_time: optional show time also
+        """
         # <YYYY-MM-DD hh:mm>
+        assert tuple_date.__class__ == time.struct_time
+
+        if show_time:
+            return time.strftime("<%Y-%m-%d %a %H:%M>",tuple_date)
+        else:
+            return time.strftime("<%Y-%m-%d %a>",tuple_date)
+    
+    @staticmethod
+    def datetime(tuple_datetime):
+        """
+        returns a date+time string in org format
+        wrapper for OrgFormat.date(show_time=True)
         
-        
-        return u"<%s-%s-%s %s:%s>" % (year,month,day,hour,minute)
-        #return u"<""> "
-        
+        @param tuple_datetime has to be a time.struct_time 
+        """
+        OrgFormat.date(tuple_datetime,show_time=True)

@@ -12,8 +12,8 @@ from common.orgformat import OrgFormat
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
-SHORT_DESCRIPTION=u"Memacs for file name time stamp"
-TAG=u"filedatestamps"
+SHORT_DESCRIPTION = u"Memacs for file name time stamp"
+TAG = u"filedatestamps"
 DESCRIPTION = u"""This script parses a text file containing absolute paths to files
 with ISO datestamps and timestamps in their file names:x
 
@@ -35,7 +35,7 @@ def main():
                                 )
     # adding additional options
     parser.add_option("-f", "--folderlist", dest="folderlist",
-                      help="link to one or more folders seperated with \"|\","+\
+                      help="link to one or more folders seperated with \"|\"," + \
                       "i.e.:\"/link/to/folder1|/link/to/folder2|..\"")
     # do parsing  
     (options, args) = parser.parse_args()
@@ -45,7 +45,7 @@ def main():
     
     ### outputfile        
     if not options.folderlist:
-        parser.error("Please provide a folder or a " +\
+        parser.error("Please provide a folder or a " + \
                      "folderlist(\"/link/to/folder1|/link/to/folder2|..\")!")
     
     folders = options.folderlist.split("|")
@@ -63,14 +63,15 @@ def main():
         logging.debug("Output file specified: " + options.outputfile)
         output_file = options.outputfile
     
-    writer = OrgOutputWriter(file_name=output_file,short_description=SHORT_DESCRIPTION,tag=TAG);
+    writer = OrgOutputWriter(file_name=output_file, short_description=SHORT_DESCRIPTION, tag=TAG);
     # do stuff
     for folder in folders:
-        for rootdir,dirs,files in os.walk(folder):
+        for rootdir, dirs, files in os.walk(folder):
             for file in files: 
                 if DATESTAMP_REGEX.match(file):
-                    link=rootdir+os.sep + file
-                    writer.write_org_subitem(OrgFormat.date() + OrgFormat.link(link=link, description=file))
+                    link = rootdir + os.sep + file
+                    writer.write_org_subitem(OrgFormat.date() + 
+                                             OrgFormat.link(link=link, description=file))
                     logging.debug(link)
     # end do stuff 
     writer.close();

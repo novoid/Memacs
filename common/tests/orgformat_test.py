@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Time-stamp: <2011-11-02 15:13:31 aw>
 
 import unittest
+import time
 from common.orgformat import OrgFormat
-
 
 class TestOrgFormat(unittest.TestCase):
     
@@ -17,11 +20,12 @@ class TestOrgFormat(unittest.TestCase):
         """
         test Org date
         """
-        
-        date = OrgFormat.date(year=2011,
-                                        month=11,
-                                        day=02,
-                                        hour=11,
-                                        minute=12)
-        self.assertEqual("<2011-11-02 11:12>",date,"date error")
+        t = time.strptime("2011-11-02T20:38", "%Y-%m-%dT%H:%M")
+        date = OrgFormat.date(t)
+        datetime = OrgFormat.date(t, show_time=True)
+        self.assertEqual("<2011-11-02 Wed>", date, "date error")
+        self.assertEqual("<2011-11-02 Wed 20:38>", datetime, "datetime error")
+
+
+            
         
