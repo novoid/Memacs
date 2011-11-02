@@ -7,6 +7,8 @@ import logging
 from common.loggingsettings import *  
 from common.orgwriter import OrgOutputWriter
 from common.optparser import MemacsOptionParser
+import re
+from common.orgformat import OrgFormat
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
@@ -22,6 +24,9 @@ Examples:  "2010-03-29T20.12 Divegraph.tiff"
 Then an Org-mode file is generated that contains links to the files.
 """
 
+#TODO: DELTE?
+DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
+
 def main():
     ###########################################################################
     parser = MemacsOptionParser(prog_version=PROG_VERSION_NUMBER,
@@ -30,8 +35,8 @@ def main():
                                 )
     # adding additional options
     parser.add_option("-f", "--folderlist", dest="folderlist",
-                      help="path to one or more folders seperated with \"|\","+\
-                      "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
+                      help="link to one or more folders seperated with \"|\","+\
+                      "i.e.:\"/link/to/folder1|/link/to/folder2|..\"")
     # do parsing  
     (options, args) = parser.parse_args()
     handle_logging(options.verbose)
@@ -41,7 +46,7 @@ def main():
     ### outputfile        
     if not options.folderlist:
         parser.error("Please provide a folder or a " +\
-                     "folderlist(\"/path/to/folder1|/path/to/folder2|..\")!")
+                     "folderlist(\"/link/to/folder1|/link/to/folder2|..\")!")
     
     folders = options.folderlist.split("|")
     for f in folders:
@@ -61,9 +66,12 @@ def main():
     writer = OrgOutputWriter(file_name=output_file,short_description=SHORT_DESCRIPTION,tag=TAG);
     # do stuff
     for folder in folders:
-        for root,dirs,files in os.walk(folder):
-            for file in files:
-                print root + file
+        for rootdir,dirs,files in os.walk(folder):
+            for file in files: 
+                if DATESTAMP_REGEX.match(file):
+                    link=rootdir+os.sep + file
+                    writer.write_org_subitem(OrgFormat.date() + OrgFormat.link(link=link, description=file))
+                    logging.debug(link)
     # end do stuff 
     writer.close();
     
