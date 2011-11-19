@@ -1,0 +1,21 @@
+## Time-stamp: <2011-11-19 11:49:30 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-rss
+
+** Current status
+
+This module will be developed within he next months.
+
+** Data Source
+
+[[http://en.wikipedia.org/wiki/Rss][RSS]] is a widely used standard to distribute updates and content over
+the internet.
+
+** Example Invocation
+
+work in progress
+
+** Example Orgmode entries
+
+work in progress
