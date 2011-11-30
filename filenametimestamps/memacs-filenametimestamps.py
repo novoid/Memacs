@@ -70,8 +70,8 @@ def main():
             for file in files: 
                 if DATESTAMP_REGEX.match(file):
                     link = rootdir + os.sep + file
-                    writer.write_org_subitem(OrgFormat.date() + 
-                                             OrgFormat.link(link=link, description=file))
+                    orgdate = OrgFormat.strdate(DATESTAMP_REGEX.match(file).group())
+                    writer.write_org_subitem(orgdate + " " +OrgFormat.link(link=link, description=file))
                     logging.debug(link)
     # end do stuff 
     writer.close();

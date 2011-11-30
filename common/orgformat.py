@@ -22,7 +22,7 @@ class OrgFormat(object):
             return u"[[" + link + u"]]"
     
     @staticmethod
-    def date(tuple_date,show_time=False):
+    def date(tuple_date, show_time=False):
         """
         returns a date string in org format
         i.e.: * <YYYY-MM-DD Sun>        
@@ -34,9 +34,9 @@ class OrgFormat(object):
         assert tuple_date.__class__ == time.struct_time
 
         if show_time:
-            return time.strftime("<%Y-%m-%d %a %H:%M>",tuple_date)
+            return time.strftime("<%Y-%m-%d %a %H:%M>", tuple_date)
         else:
-            return time.strftime("<%Y-%m-%d %a>",tuple_date)
+            return time.strftime("<%Y-%m-%d %a>", tuple_date)
     
     @staticmethod
     def datetime(tuple_datetime):
@@ -46,4 +46,28 @@ class OrgFormat(object):
         
         @param tuple_datetime has to be a time.struct_time 
         """
-        OrgFormat.date(tuple_datetime,show_time=True)
+        OrgFormat.date(tuple_datetime, show_time=True)
+        
+    @staticmethod
+    def strdate(date_string):
+        """
+        returns a date string in org format
+        i.e.: * <YYYY-MM-DD Sun>        
+        @param date-string: has to be a str in following format:  YYYY-MM-DD
+        """
+        assert date_string.__class__ == str
+        tuple_date = time.strptime(date_string, "%Y-%m-%d")
+        return OrgFormat.date(tuple_date, show_time=False)
+        
+    @staticmethod
+    def strdatetime(datetime_string):
+        """
+        returns a date string in org format
+        i.e.: * <YYYY-MM-DD Sun HH:MM>
+        @param date-string: has to be a str in following format: YYYY-MM-DD HH:MM
+        """
+        assert datetime_string.__class__ == str
+        tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
+        return OrgFormat.date(tuple_date, show_time=True)
+        
+        

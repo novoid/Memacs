@@ -9,8 +9,10 @@ EPILOG=""":copyright: (c) 2011 by Karl Voit <tools@Karl-Voit.at>
 :bugreports: <tools@Karl-Voit.at>
 :version: """
 class MemacsOptionParser(OptionParser):
+    
     def __init__(self,prog_version,prog_version_date,description):
         version="%prog v" +prog_version + " from " + prog_version_date 
+        
         OptionParser.__init__(self,
                               description=description,
                               version=version,
