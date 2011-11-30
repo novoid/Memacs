@@ -34,7 +34,10 @@ class OrgFormat(object):
         assert tuple_date.__class__ == time.struct_time
 
         if show_time:
-            return time.strftime("<%Y-%m-%d %a %H:%M>", tuple_date)
+            if tuple_date.tm_sec == 0:
+                return time.strftime("<%Y-%m-%d %a %H:%M>", tuple_date)
+            else:
+                return time.strftime("<%Y-%m-%d %a %H:%M:%S>", tuple_date)
         else:
             return time.strftime("<%Y-%m-%d %a>", tuple_date)
     
@@ -68,6 +71,21 @@ class OrgFormat(object):
         """
         assert datetime_string.__class__ == str
         tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
-        return OrgFormat.date(tuple_date, show_time=True)
+        return OrgFormat.date(tuple_date,show_time=True)
+    
+    @staticmethod
+    def strdatetimeiso8601(datetime_string):
+        """
+        returns a date string in org format
+        i.e.: * <YYYY-MM-DD Sun HH:MM>
+        @param date-string: has to be a str in following format: YYYY-MM-DDTHH.MM.SS or
+                                                                 YYYY-MM-DDTHH.MM  
+        """
+        assert datetime_string.__class__ == str
+        try:
+            tuple_date = time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
+        except ValueError:
+            tuple_date = time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
+        return OrgFormat.date(tuple_date,show_time=True)
         
         

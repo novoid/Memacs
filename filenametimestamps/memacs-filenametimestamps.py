@@ -15,17 +15,20 @@ PROG_VERSION_DATE = u"2011-10-28"
 SHORT_DESCRIPTION = u"Memacs for file name time stamp"
 TAG = u"filedatestamps"
 DESCRIPTION = u"""This script parses a text file containing absolute paths to files
-with ISO datestamps and timestamps in their file names:x
+with ISO datestamps and timestamps in their file names:
 
 Examples:  "2010-03-29T20.12 Divegraph.tiff"
            "2010-12-31T23.59_Cookie_recipies.pdf"
            "2011-08-29T08.23.59_test.pdf"
+
+Emacs tmp-files like file~ are automatically ignored
 
 Then an Org-mode file is generated that contains links to the files.
 """
 
 #TODO: DELTE?
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
+TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d)[.]([012345]\d)([.]([012345]\d))?")
 
 def main():
     ###########################################################################
@@ -35,8 +38,15 @@ def main():
                                 )
     # adding additional options
     parser.add_option("-f", "--folderlist", dest="folderlist",
-                      help="link to one or more folders seperated with \"|\"," + \
-                      "i.e.:\"/link/to/folder1|/link/to/folder2|..\"")
+                      help="path to one or more folders seperated with \"|\"," + \
+                      "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
+    
+    parser.add_option("-x", "--exclude", dest="excludelist",
+                      help="path to one or more folders seperated with \"|\"," + \
+                      "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
+    
+    parser.add_option("-l", "--follow-links", dest="follow_links", action="store_true",
+                      help="follow symbolics links, default False")
     # do parsing  
     (options, args) = parser.parse_args()
     handle_logging(options.verbose)
@@ -58,21 +68,43 @@ def main():
     
     if os.path.exists(options.outputfile) and not os.access(options.outputfile, os.W_OK):
         parser.error("Output file is not writeable!")
+        
     output_file = None
     if options.outputfile:
         logging.debug("Output file specified: " + options.outputfile)
         output_file = options.outputfile
     
+    if options.excludelist:
+        exclude_folders = options.excludelist.split("|")
+    else:
+        exclude_folders = []
+    
+    # follow symbolic links ?
+    if options.follow_links: 
+        followlinks=True
+    else:
+        followlinks=False
+    
     writer = OrgOutputWriter(file_name=output_file, short_description=SHORT_DESCRIPTION, tag=TAG);
     # do stuff
     for folder in folders:
-        for rootdir, dirs, files in os.walk(folder):
-            for file in files: 
-                if DATESTAMP_REGEX.match(file):
-                    link = rootdir + os.sep + file
-                    orgdate = OrgFormat.strdate(DATESTAMP_REGEX.match(file).group())
-                    writer.write_org_subitem(orgdate + " " +OrgFormat.link(link=link, description=file))
-                    logging.debug(link)
+        for rootdir, dirs, files in os.walk(folder,followlinks=followlinks):
+            if rootdir in exclude_folders:
+                logging.info("ignoring dir: "+ rootdir)
+            else:
+                for file in files: 
+                    if DATESTAMP_REGEX.match(file) and file[-1:] != '~': #  don't handle emacs tmp files (file~)
+                        link = rootdir + os.sep + file
+                        logging.debug(link)
+                        if TIMESTAMP_REGEX.match(file):
+                            # if we found a timestamp too, take hours,minutes and optionally seconds from this timestamp
+                            orgdate = OrgFormat.strdatetimeiso8601(TIMESTAMP_REGEX.match(file).group())
+                            logging.debug("found timestamp: " + orgdate)
+                        else:
+                            # TODO check file times ... 
+                            orgdate = OrgFormat.strdate(DATESTAMP_REGEX.match(file).group())
+                        writer.write_org_subitem(orgdate + " " +OrgFormat.link(link=link, description=file))
+                        
     # end do stuff 
     writer.close();
     

@@ -28,9 +28,16 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual("<2011-11-02 Wed>", date, "date error")
         self.assertEqual("<2011-11-02 Wed 20:38>", datetime, "datetime error")
         
+    def test_strings(self):
         # testing strings
         self.assertEqual("<2011-11-03 Thu>",OrgFormat.strdate("2011-11-3"),"date string error")
         self.assertEqual("<2011-11-03 Thu 11:52>",OrgFormat.strdatetime("2011-11-3 11:52"),"datetime string error")
+        
+    def test_iso8601(self):
+        # testing iso8601
+        self.assertEqual("<2011-11-30 Wed 21:06>",    OrgFormat.strdatetimeiso8601("2011-11-30T21.06"),    "datetimeiso8601 error")
+        self.assertEqual("<2011-11-30 Wed 21:06>",    OrgFormat.strdatetimeiso8601("2011-11-30T21.06.00"), "datetimeiso8601 error")
+        self.assertEqual("<2011-11-30 Wed 21:06:02>", OrgFormat.strdatetimeiso8601("2011-11-30T21.06.02"), "datetimeiso8601 error")
         
     
 
