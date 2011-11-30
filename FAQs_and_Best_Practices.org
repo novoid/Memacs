@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-24 16:04:18 vk>
+## Time-stamp: <2011-10-18 10:56:50 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -19,8 +19,7 @@ and you can start entering a line.
 
 *** Mac OS X
 
-Older versions of Mac OS X used to support cron. But since OS X
-10.4 «Tiger» you have to use [[http://en.wikipedia.org/wiki/Launchd][launchd]] instead.
+Older versions of Mac OS X used to support cron. But since OS X 10.4 «Tiger» you have to use [[http://en.wikipedia.org/wiki/Launchd][launchd]] instead.
 
 *** Microsoft Windows
 

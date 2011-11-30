@@ -1,4 +1,4 @@
-## Time-stamp: <2011-10-09 15:52:36 vk>
+## Time-stamp: <2011-11-19 11:45:19 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -39,6 +39,7 @@ Those modules will be developed in the *next weeks or months*:
   - [[http://delicious.com][delicious]]: see bookmarks/delicious/memacs-delicious.org
 - emails:
   - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs-maildir.org
+- RSS: see rss/memacs-rss.org
 - [[http://Twitter.com][twitter]]:
   - [[http://grabeeter.tugraz.at/][grabeeter]]: see twitter/memacs-grabeeter.org
 - [[http://tagstore.org][tagstore]]: see tagstore/memacs-tagstore.org
