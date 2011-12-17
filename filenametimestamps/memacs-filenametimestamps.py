@@ -6,7 +6,7 @@ import os
 import logging
 from common.loggingsettings import *  
 from common.orgwriter import OrgOutputWriter
-from common.optparser import MemacsOptionParser
+from common.argparser import MemacsArgumentParser
 import re
 from common.orgformat import OrgFormat
 import time
@@ -27,62 +27,62 @@ Emacs tmp-files like file~ are automatically ignored
 Then an Org-mode file is generated that contains links to the files.
 """
 
-#TODO: DELTE?
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
 TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d)[.]([012345]\d)([.]([012345]\d))?")
 
 def main():
     ###########################################################################
-    parser = MemacsOptionParser(prog_version=PROG_VERSION_NUMBER,
-                                prog_version_date=PROG_VERSION_DATE,
-                                description=DESCRIPTION,
-                                )
-    # adding additional options
-    parser.add_option("-f", "--folderlist", dest="folderlist",
-                      help="path to one or more folders seperated with \"|\"," + \
-                      "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
+    parser = MemacsArgumentParser(prog_version=PROG_VERSION_NUMBER,
+                                  prog_version_date=PROG_VERSION_DATE,
+                                  description=DESCRIPTION,
+                                  )
+    # adding additional arguments
+    parser.add_argument("-f", "--folderlist", dest="folderlist",
+                        help="path to one or more folders seperated with \"|\"," + \
+                        "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
     
-    parser.add_option("-x", "--exclude", dest="excludelist",
-                      help="path to one or more folders seperated with \"|\"," + \
-                      "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
+    parser.add_argument("-x", "--exclude", dest="excludelist",
+                        help="path to one or more folders seperated with \"|\"," + \
+                        "i.e.:\"/path/to/folder1|/path/to/folder2|..\"")
     
-    parser.add_option("-l", "--follow-links", dest="follow_links", action="store_true",
-                      help="follow symbolics links, default False")
+    parser.add_argument("-l", "--follow-links", dest="follow_links", action="store_true",
+                        help="follow symbolics links, default False")
     # do parsing  
-    (options, args) = parser.parse_args()
-    handle_logging(options.verbose)
-    logging.debug("options specified:") 
-    logging.debug(options)
+    args = parser.parse_args()
+    
+    handle_logging(args.verbose)
+    logging.debug("args specified:") 
+    logging.debug(args)
     
     ### outputfile        
-    if not options.folderlist:
+    if not args.folderlist:
         parser.error("Please provide a folder or a " + \
                      "folderlist(\"/link/to/folder1|/link/to/folder2|..\")!")
     
-    folders = options.folderlist.split("|")
+    folders = args.folderlist.split("|")
     for f in folders:
         if not os.path.isdir(f):
             parser.error("Check the folderlist - one or more aren't folders")
     logging.debug("folders:")
     logging.debug(folders)
     
-    if not options.outputfile:
+    if not args.outputfile:
         parser.error("Please provide a output file")
-    if os.path.exists(options.outputfile) and not os.access(options.outputfile, os.W_OK):
+    if os.path.exists(args.outputfile) and not os.access(args.outputfile, os.W_OK):
         parser.error("Output file is not writeable!")
         
     output_file = None
-    if options.outputfile:
-        logging.debug("Output file specified: " + options.outputfile)
-        output_file = options.outputfile
+    if args.outputfile:
+        logging.debug("Output file specified: " + args.outputfile)
+        output_file = args.outputfile
     
-    if options.excludelist:
-        exclude_folders = options.excludelist.split("|")
+    if args.excludelist:
+        exclude_folders = agrs.excludelist.split("|")
     else:
         exclude_folders = []
     
     # follow symbolic links ?
-    if options.follow_links: 
+    if args.follow_links: 
         followlinks = True
     else:
         followlinks = False

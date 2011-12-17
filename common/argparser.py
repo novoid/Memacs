@@ -2,30 +2,30 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-27 15:13:31 aw>
 
-from optparse import OptionParser
+from argparse import ArgumentParser
 
 EPILOG=""":copyright: (c) 2011 by Karl Voit <tools@Karl-Voit.at>
 :license: GPL v2 or any later version
 :bugreports: <tools@Karl-Voit.at>
 :version: """
-class MemacsOptionParser(OptionParser):
+class MemacsArgumentParser(ArgumentParser):
     
     def __init__(self,prog_version,prog_version_date,description):
         version="%prog v" +prog_version + " from " + prog_version_date 
         
-        OptionParser.__init__(self,
+        ArgumentParser.__init__(self,
                               description=description,
-                              version=version,
-                              add_help_option=True,
+                              add_help=True,
                               epilog=EPILOG + prog_version + " from "+prog_version_date + "\n")
      
+        self.add_argument('--version', action='version', version=version)
         
-        self.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                        help="enable verbose mode")
-        self.add_option("-o", "--output", dest="outputfile",
-                      help="Org-mode file that will be generated (see above)." +\
-                           "If no output file is given, result gets printed to stdout",
-                           metavar="FILE")
+        self.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                          help="enable verbose mode")
+        self.add_argument("-o", "--output", dest="outputfile",
+                          help="Org-mode file that will be generated (see above)." +\
+                         "If no output file is given, result gets printed to stdout",
+                         metavar="FILE")
         
     def format_epilog(self,formatter):
         """
