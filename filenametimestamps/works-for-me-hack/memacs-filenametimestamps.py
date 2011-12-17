@@ -70,7 +70,7 @@ parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   help="enable verbose mode")
 
 (options, args) = parser.parse_args()
-
+# if we found a timestamp too, take hours,minutes and optionally seconds from this timestamp
 
 def handle_logging():
     """Log handling and configuration"""

@@ -49,8 +49,8 @@ class OrgFormat(object):
         
         @param tuple_datetime has to be a time.struct_time 
         """
-        OrgFormat.date(tuple_datetime, show_time=True)
-        
+        return OrgFormat.date(tuple_datetime, show_time=True)
+    
     @staticmethod
     def strdate(date_string):
         """
@@ -59,7 +59,7 @@ class OrgFormat(object):
         @param date-string: has to be a str in following format:  YYYY-MM-DD
         """
         assert date_string.__class__ == str
-        tuple_date = time.strptime(date_string, "%Y-%m-%d")
+        tuple_date = OrgFormat.datetupeliso8601(date_string)
         return OrgFormat.date(tuple_date, show_time=False)
         
     @staticmethod
@@ -82,10 +82,18 @@ class OrgFormat(object):
                                                                  YYYY-MM-DDTHH.MM  
         """
         assert datetime_string.__class__ == str
-        try:
-            tuple_date = time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
-        except ValueError:
-            tuple_date = time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
+        tuple_date = OrgFormat.datetimetupeliso8601(datetime_string)
         return OrgFormat.date(tuple_date,show_time=True)
         
+    @staticmethod
+    def datetimetupeliso8601(datetime_string):
+        assert datetime_string.__class__ == str
+        try:
+            return time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
+        except ValueError:
+            return time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
         
+    @staticmethod
+    def datetupeliso8601(datetime_string):
+        assert datetime_string.__class__ == str
+        return time.strptime(datetime_string, "%Y-%m-%d")

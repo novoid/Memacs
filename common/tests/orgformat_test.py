@@ -39,8 +39,17 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual("<2011-11-30 Wed 21:06>",    OrgFormat.strdatetimeiso8601("2011-11-30T21.06.00"), "datetimeiso8601 error")
         self.assertEqual("<2011-11-30 Wed 21:06:02>", OrgFormat.strdatetimeiso8601("2011-11-30T21.06.02"), "datetimeiso8601 error")
         
+    def test_iso8601_datetimetupel(self):
+        self.assertEqual(2011, OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02").tm_year, "datetimeiso8601 error")
+        self.assertEqual(11  , OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02").tm_mon, "datetimeiso8601 error")
+        self.assertEqual(30  , OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02").tm_mday, "datetimeiso8601 error")
+        self.assertEqual(21  , OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02").tm_hour, "datetimeiso8601 error")
+        self.assertEqual(6   , OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02").tm_min, "datetimeiso8601 error")
+        self.assertEqual(2   , OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02").tm_sec, "datetimeiso8601 error")
     
-
-
+    def test_iso8601_datetupel(self):
+        self.assertEqual(2011, OrgFormat.datetupeliso8601("2011-11-30").tm_year, "datetimeiso8601 error")
+        self.assertEqual(11  , OrgFormat.datetupeliso8601("2011-11-30").tm_mon, "datetimeiso8601 error")
+        self.assertEqual(30  , OrgFormat.datetupeliso8601("2011-11-30").tm_mday, "datetimeiso8601 error")
             
         

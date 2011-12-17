@@ -9,6 +9,7 @@ from common.orgwriter import OrgOutputWriter
 from common.optparser import MemacsOptionParser
 import re
 from common.orgformat import OrgFormat
+import time
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
@@ -65,7 +66,8 @@ def main():
     logging.debug("folders:")
     logging.debug(folders)
     
-    
+    if not options.outputfile:
+        parser.error("Please provide a output file")
     if os.path.exists(options.outputfile) and not os.access(options.outputfile, os.W_OK):
         parser.error("Output file is not writeable!")
         
@@ -81,30 +83,36 @@ def main():
     
     # follow symbolic links ?
     if options.follow_links: 
-        followlinks=True
+        followlinks = True
     else:
-        followlinks=False
+        followlinks = False
     
     writer = OrgOutputWriter(file_name=output_file, short_description=SHORT_DESCRIPTION, tag=TAG);
     # do stuff
     for folder in folders:
-        for rootdir, dirs, files in os.walk(folder,followlinks=followlinks):
+        for rootdir, dirs, files in os.walk(folder, followlinks=followlinks):
             if rootdir in exclude_folders:
-                logging.info("ignoring dir: "+ rootdir)
+                logging.info("ignoring dir: " + rootdir)
             else:
                 for file in files: 
                     if DATESTAMP_REGEX.match(file) and file[-1:] != '~': #  don't handle emacs tmp files (file~)
                         link = rootdir + os.sep + file
                         logging.debug(link)
                         if TIMESTAMP_REGEX.match(file):
-                            # if we found a timestamp too, take hours,minutes and optionally seconds from this timestamp
+                            # if we found a timestamp too,take hours,minutes and optionally seconds from this timestamp
                             orgdate = OrgFormat.strdatetimeiso8601(TIMESTAMP_REGEX.match(file).group())
                             logging.debug("found timestamp: " + orgdate)
                         else:
-                            # TODO check file times ... 
                             orgdate = OrgFormat.strdate(DATESTAMP_REGEX.match(file).group())
-                        writer.write_org_subitem(orgdate + " " +OrgFormat.link(link=link, description=file))
-                        
+                            orgdate_time_tupel = OrgFormat.datetupeliso8601(DATESTAMP_REGEX.match(file).group())
+                            file_datetime = time.localtime(os.path.getmtime(link))
+                            # check if the file - time information matches year,month,day , then update time
+                            if  file_datetime.tm_year is orgdate_time_tupel.tm_year and \
+                                file_datetime.tm_mon  is orgdate_time_tupel.tm_mon  and \
+                                file_datetime.tm_mday is orgdate_time_tupel.tm_mday:
+                                logger.debug("found a time in file. setting time from %s to %s", orgdate, file_datetime)
+                                orgdate = file_datetime    
+                        writer.write_org_subitem(orgdate + " " + OrgFormat.link(link=link, description=file))    
     # end do stuff 
     writer.close();
     
