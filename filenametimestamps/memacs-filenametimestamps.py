@@ -107,11 +107,11 @@ def main():
                             orgdate_time_tupel = OrgFormat.datetupeliso8601(DATESTAMP_REGEX.match(file).group())
                             file_datetime = time.localtime(os.path.getmtime(link))
                             # check if the file - time information matches year,month,day , then update time
-                            if  file_datetime.tm_year is orgdate_time_tupel.tm_year and \
-                                file_datetime.tm_mon  is orgdate_time_tupel.tm_mon  and \
-                                file_datetime.tm_mday is orgdate_time_tupel.tm_mday:
-                                logger.debug("found a time in file. setting time from %s to %s", orgdate, file_datetime)
-                                orgdate = file_datetime    
+                            if  file_datetime.tm_year == orgdate_time_tupel.tm_year and \
+                                file_datetime.tm_mon  == orgdate_time_tupel.tm_mon  and \
+                                file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
+                                logging.debug("found a time in file. setting time from %s to %s", orgdate, OrgFormat.date(file_datetime,True))
+                                orgdate = OrgFormat.date(file_datetime,True)
                         writer.write_org_subitem(orgdate + " " + OrgFormat.link(link=link, description=file))    
     # end do stuff 
     writer.close();
