@@ -162,6 +162,8 @@ being executed.
 
 
 * FAQs
-
+** Emacs always complains what to do with changed org files
+Solution is to add this to your emacs config file (.emacs):
+: (global-auto-revert-mode t)
 There are no FAQs yet. If you have one, please contact «Karl dot Voit
 at IST dot TUGraz dot at» and he is happy to answer it.
