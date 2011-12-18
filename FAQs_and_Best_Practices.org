@@ -152,6 +152,11 @@ when having external power supply:
 : #!/bin/sh
 : grep discharging /proc/acpi/battery/BAT0/state >/dev/null
 
+or if you have more than one battery:
+
+: #!/bin/sh
+: grep discharging /proc/acpi/battery/BAT0/state /proc/acpi/battery/BAT1/state >/dev/null
+
 Then some example cron jobs look like:
 
 : 5-59/10 1,8-23 * * * /usr/local/bin/no-power-supply.sh || /home/vk/bin/do_some_things.sh
