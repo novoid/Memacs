@@ -1,0 +1,4 @@
+* Requirements
+icalendar Python package
+install it with 
+: $ easy install icalendar
