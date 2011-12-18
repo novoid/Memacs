@@ -3,19 +3,19 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import os
-import logging
+import logging 
 from common.loggingsettings import *  
 from common.orgwriter import OrgOutputWriter
+from common.orgformat import OrgFormat
 from common.argparser import MemacsArgumentParser
+from common import orgwriter
 import re
 import codecs
-from common.orgformat import OrgFormat
-import urllib2
-from urllib2 import HTTPError, URLError
+from urllib2 import HTTPError, URLError, urlopen
 import sys
-from common import orgwriter
 import time
 import calendar
+import traceback
 
 try:
     from icalendar import Calendar
@@ -69,7 +69,7 @@ def main():
     # do parsing  
     args = parser.parse_args()
     
-    handle_logging(args.verbose)
+    handle_logging(args.verbose,args.outputfile) 
     logging.debug("args specified:") 
     logging.debug(args)
     
@@ -107,7 +107,7 @@ def main():
             
     elif args.calendar_url:
         try:
-            req = urllib2.urlopen(args.calendar_url, None, 10)
+            req = urlopen(args.calendar_url, None, 10)
             data = req.read()
         except HTTPError:
             logging.error("Error at opening url: %s" % args.calendar_url)
@@ -135,9 +135,6 @@ def main():
             dtstart  = unicode(component.get('dtstart')) # format: 20091207T180000Z or 20100122
             dtend    = unicode(component.get('dtend'))   # format: 20091207T180000Z or 20100122
             dtstamp  = unicode(component.get('dtstamp')) # format: 20091207T180000Z
-#            logging.debug(summary)
-#            logging.debug(dtstart)
-#            logging.debug(dtend)
             orgdatecreated = OrgFormat.date(OrgFormat.datetupelutctimestamp(dtstamp))
             orgdate = OrgFormat.utcrange(dtstart, dtend)
             logging.debug(orgdate + " " + summary)
@@ -151,10 +148,14 @@ def main():
             writer.writeln("   :END:")
         else:
             logging.info("Not handling component: "+component.name)
+            
 
-    
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
         logging.info("Received KeyboardInterrupt")
+    except:
+        error_lines = traceback.format_exc().splitlines()
+        logging.error("\n   ".join(map(str,error_lines)))
+        raise # re raise exception    
