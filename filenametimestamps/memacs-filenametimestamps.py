@@ -52,7 +52,7 @@ def main():
     # do parsing  
     args = parser.parse_args()
     
-    handle_logging(args.verbose)
+    handle_logging(args.verbose,args.outputfile) 
     logging.debug("args specified:") 
     logging.debug(args)
     
@@ -123,3 +123,10 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         logging.info("Received KeyboardInterrupt")
+    except SystemExit:
+        # if we get an sys.exit() do exit!
+        pass
+    except:
+        error_lines = traceback.format_exc().splitlines()
+        logging.error("\n   ".join(map(str,error_lines)))
+        raise # re raise exception   
