@@ -51,5 +51,10 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual(2011, OrgFormat.datetupeliso8601("2011-11-30").tm_year, "datetimeiso8601 error")
         self.assertEqual(11  , OrgFormat.datetupeliso8601("2011-11-30").tm_mon, "datetimeiso8601 error")
         self.assertEqual(30  , OrgFormat.datetupeliso8601("2011-11-30").tm_mday, "datetimeiso8601 error")
-            
+        
+    def test_date_ranges(self):
+        self.assertEqual(True,False)
+    
+    def test_utc_time(self):
+        self.assertEqual(True,False)        
         

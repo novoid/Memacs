@@ -12,14 +12,23 @@ import codecs
 from common.orgformat import OrgFormat
 import urllib2
 from urllib2 import HTTPError, URLError
-from symbol import xor_expr
+import sys
+from common import orgwriter
+import time
+import calendar
+
+try:
+    from icalendar import Calendar
+except ImportError:
+    print "please install python package \"icalendar\""
+    sys.exit(3)
 
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2011-10-28"
 # TODO set real description and so on
 SHORT_DESCRIPTION = u"Memacs for file name time stamp"
-TAG = u"filedatestamps"
+TAG = u"calendar"
 DESCRIPTION = u"""This script parses a text file containing absolute paths to files
 with ISO datestamps and timestamps in their file names:
 
@@ -89,11 +98,12 @@ def main():
     # do stuff
     if args.calendar_file:
         try:
-            file = codecs.open(args.calendar_file, 'rb', "utf_8")
+            file = codecs.open(args.calendar_file, 'rb')
             data = file.read()
             file.close()
         except IOError:
             logging.error("Error at opening file: %s" % args.calendar_file)
+            sys.exit(1)
             
     elif args.calendar_url:
         try:
@@ -101,32 +111,47 @@ def main():
             data = req.read()
         except HTTPError:
             logging.error("Error at opening url: %s" % args.calendar_url)
+            sys.exit(1)
         except URLError:
             logging.error("Error at opening url: %s" % args.calendar_url)
+            sys.exit(1)
+        except ValueError:
+            logging.error("Error - no valid url: %s" % args.calendar_url)
+            sys.exit(1)
     
-    #print VEVENT_REGEX.findall(data)
-    for vevent in  REGEX_VEVENT.findall(data):
-        print vevent
-        # dstart 
-        dtstart_search = REGEX_VEVENT_DTSTART.search(vevent)
-        if dtstart_search:
-            dtstart = dtstart_search.group(1)
+    cal = Calendar.from_string(data);
+    
+    for component in cal.walk():
+        if component.name == "VCALENDAR":
+            # Set timezone
+            timezone = component.get('x-wr-timezone')
+            logging.debug("Setting timezone to: " + timezone)
+            os.environ['TZ'] = timezone;
+            time.tzset()
+        elif component.name == "VEVENT":
+            summary  = unicode(component.get('summary'))
+            location = unicode(component.get('location'))
+            description = unicode(component.get('description'))
+            dtstart  = unicode(component.get('dtstart')) # format: 20091207T180000Z or 20100122
+            dtend    = unicode(component.get('dtend'))   # format: 20091207T180000Z or 20100122
+            dtstamp  = unicode(component.get('dtstamp')) # format: 20091207T180000Z
+#            logging.debug(summary)
+#            logging.debug(dtstart)
+#            logging.debug(dtend)
+            orgdatecreated = OrgFormat.date(OrgFormat.datetupelutctimestamp(dtstamp))
+            orgdate = OrgFormat.utcrange(dtstart, dtend)
+            logging.debug(orgdate + " " + summary)
+            writer.write_org_subitem(summary)
+            writer.writeln("   " +orgdate)
+            writer.writeln("   :PROPERTIES:")
+            if location:
+                writer.writeln("   :LOCATION:" +location)
+            if description:
+                writer.writeln("   :DESCRIPTION:" +description)
+            writer.writeln("   :END:")
         else:
-            dtstart = REGEX_VEVENT_DTSTARTALLDAY.search(vevent).group(1)
-        #dtend       =  REGEX_VEVENT_DTEND.search(vevent).group(1)
-        #description =  REGEX_VEVENT_DESCRIPTION.search(vevent).group(1)
-        summary     =  REGEX_VEVENT_SUMMARY.search(vevent).group(1)
-        #location    =  REGEX_VEVENT_LOCATION.search(vevent).group(1)
-        
-        print dtstart
-        #print dtend
-        #print description
-        #print summary
-    
-    
-    #writer.write_org_subitem(orgdate + " " + OrgFormat.link(link=link, description=file))    
-    # end do stuff 
-    writer.close();
+            logging.info("Not handling component: "+component.name)
+
     
 if __name__ == "__main__":
     try:
