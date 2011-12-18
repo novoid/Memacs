@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2011-12-18 15:13:31 aw>
 
-import os
+import sys,os
+# needed to import common.*
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import logging 
 from common.loggingsettings import *  
 from common.orgwriter import OrgOutputWriter
@@ -12,7 +15,6 @@ from common import orgwriter
 import re
 import codecs
 from urllib2 import HTTPError, URLError, urlopen
-import sys
 import time
 import calendar
 import traceback
@@ -25,20 +27,14 @@ except ImportError:
 
 
 PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-10-28"
+PROG_VERSION_DATE = u"2011-12-18"
 # TODO set real description and so on
-SHORT_DESCRIPTION = u"Memacs for file name time stamp"
+SHORT_DESCRIPTION = u"Memacs for ical Calendars"
 TAG = u"calendar"
-DESCRIPTION = u"""This script parses a text file containing absolute paths to files
-with ISO datestamps and timestamps in their file names:
-
-Examples:  "2010-03-29T20.12 Divegraph.tiff"
-           "2010-12-31T23.59_Cookie_recipies.pdf"
-           "2011-08-29T08.23.59_test.pdf"
+DESCRIPTION = u"""This script parses a *.ics file and generates 
+Entries for VEVENTS
 
 Emacs tmp-files like file~ are automatically ignored
-
-Then an Org-mode file is generated that contains links to the files.
 """
 
 REGEX_VEVENT               = re.compile("BEGIN:VEVENT(.*?)END:VEVENT", re.DOTALL)
@@ -155,6 +151,9 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         logging.info("Received KeyboardInterrupt")
+    except SystemExit:
+        # if we get an sys.exit() do exit!
+        pass
     except:
         error_lines = traceback.format_exc().splitlines()
         logging.error("\n   ".join(map(str,error_lines)))
