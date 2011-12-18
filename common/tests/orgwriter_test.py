@@ -3,8 +3,9 @@
 # Time-stamp: <2011-10-26 22:13:31 awieser>
 
 import unittest
-import os
+import os,sys
 import codecs
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from common.orgwriter import OrgOutputWriter
 
 

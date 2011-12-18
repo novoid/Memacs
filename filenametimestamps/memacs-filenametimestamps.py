@@ -2,17 +2,19 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
-import os
+import sys,os
+# needed to import common.*
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import logging
 from common.loggingsettings import *  
 from common.orgwriter import OrgOutputWriter
 from common.argparser import MemacsArgumentParser
-import re
 from common.orgformat import OrgFormat
+import re
 import time
 
 PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-10-28"
+PROG_VERSION_DATE = u"2011-12-18"
 SHORT_DESCRIPTION = u"Memacs for file name time stamp"
 TAG = u"filedatestamps"
 DESCRIPTION = u"""This script parses a text file containing absolute paths to files
