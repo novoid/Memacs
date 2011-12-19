@@ -12,12 +12,12 @@ import sys
 class Memacs(object):
     
     def __init__(self
-                 , prog_version
-                 , prog_version_date
-                 , prog_description
-                 , prog_short_description
-                 , prog_tag
-                 , argv = sys.argv
+                 , prog_version="no version specified"
+                 , prog_version_date="no date specified"
+                 , prog_description="no description specified"
+                 , prog_short_description="no short-description specified"
+                 , prog_tag="no tag specified"
+                 , argv = sys.argv[1:]
                  , write_footer=False
                  ):
         self.__prog_version = prog_version
@@ -27,7 +27,7 @@ class Memacs(object):
         self.__prog_tag = prog_tag
         self.__write_footer = write_footer
         self.__argv = argv
-    def __init(self):
+    def __init(self,test=False):
         self._parser = MemacsArgumentParser(prog_version=self.__prog_version,
                                   prog_version_date=self.__prog_version_date,
                                   prog_description=self.__prog_description,
@@ -44,7 +44,8 @@ class Memacs(object):
         
         self._writer = OrgOutputWriter(file_name=self._args.outputfile,
                                       short_description=self.__prog_short_description,
-                                      tag=self.__prog_tag);
+                                      tag=self.__prog_tag,
+                                      test=test);
     def __main(self):
         pass
     
@@ -59,11 +60,12 @@ class Memacs(object):
         """
         In subclass we do additional parsing on arguments
         """
-        self._args = self._parser.parse_args(self.__argv[1:]) 
+        self._args = self._parser.parse_args(self.__argv) 
         
-    #__parser_add_arguments = _parser_add_arguments
-    #__parser_parse_args = parser_parse_args
-    
+    def __get_writer_data(self):
+        return self._writer.get_test_result()
+        
+        
     def handle_main(self):    
         try:
             self.__init()
@@ -77,4 +79,19 @@ class Memacs(object):
         except:
             error_lines = traceback.format_exc().splitlines()
             logging.error("\n   ".join(map(str, error_lines)))
-            raise # re raise exception   
+            raise # re raise exception
+        
+    def test_get_all(self):
+        self.__init(test=True)
+        self._main()
+        self._writer.close(self.__write_footer)   
+        return self.__get_writer_data()
+        
+    def test_get_entries(self):
+        data = self.test_get_all()
+        ret_data = []
+        for d in data.splitlines():
+            if d[:3] == "** ":
+                ret_data.append(d)
+        return ret_data
+        

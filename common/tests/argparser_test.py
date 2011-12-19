@@ -10,7 +10,7 @@ class TestArgParser(unittest.TestCase):
         self.description = "descriptionbla"
         self.parser = MemacsArgumentParser(
             prog_version=self.prog_version,
-            description=self.description,
+            prog_description=self.description,
             prog_version_date=self.prog_version_date)
         self.TMPFOLDER = os.path.normpath(os.path.dirname(os.path.abspath(__file__))
                                            + os.path.sep + "tmp") + os.sep

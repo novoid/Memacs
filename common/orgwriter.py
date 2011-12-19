@@ -7,19 +7,26 @@ import time
 
 INVOCATION_TIME = time.strftime(u"%Y-%m-%dT%H:%M:%S", time.gmtime())
 
-class OrgOutputWriter:
+class OrgOutputWriter(object):
     __handler = None
+    __test = False
     
-    def __init__(self,short_description, tag, file_name=None):
+    def __init__(self,short_description, tag, file_name=None,test=False):
         """
         @param file_name:  
         """
+        self.__test = test
+        self.__test_data = ""
         if file_name:            
             self.__handler = codecs.open(file_name, 'w', u"utf-8")
         self.__time = time.time()
         self.short_description = short_description
         self.tag = tag
         self.__write_header()
+        
+    
+    def get_test_result(self):
+        return self.__test_data
         
     def write(self, output):
         """
@@ -28,7 +35,10 @@ class OrgOutputWriter:
         if self.__handler:
             self.__handler.write(unicode(output))
         else:
-            print output, # don't remove the comma(otherwise there will be a \n)
+            if self.__test:
+                self.__test_data += output
+            else:
+                print output, # don't remove the comma(otherwise there will be a \n)
     
     def writeln(self, output):
         """

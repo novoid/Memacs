@@ -33,7 +33,6 @@ class FileNameTimeStamps(Memacs):
                 self._parser.error("Check the folderlist - one or more aren't folders")
     
     def _main(self):
-        print "main called"
         for folder in self._args.filenametimestamps_folder:
             for rootdir, dirs, files in os.walk(folder, followlinks=self._args.follow_links):
                 if self._args.exclude_folder and rootdir in self._args.exclude_folder:
@@ -59,4 +58,3 @@ class FileNameTimeStamps(Memacs):
                                     orgdate = OrgFormat.date(file_datetime, True)
                             # write entry to org file
                             self._writer.write_org_subitem(orgdate + " " + OrgFormat.link(link=link, description=file))
-

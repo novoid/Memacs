@@ -24,9 +24,11 @@ Then an Org-mode file is generated that contains links to the files.
 """
 
 if __name__ == "__main__":
+    
     memacs = FileNameTimeStamps(prog_version=PROG_VERSION_NUMBER
                            , prog_version_date=PROG_VERSION_DATE
                            , prog_description=PROG_DESCRIPTION
                            , prog_short_description=PROG_SHORT_DESCRIPTION
-                           , prog_tag=PROG_TAG)
+                           , prog_tag=PROG_TAG
+                           , write_footer=True)
     memacs.handle_main()
