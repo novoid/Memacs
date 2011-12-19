@@ -1,3 +1,6 @@
+# -*- coding: utf-8 mode: org -*-
+# Time-stamp: <2011-12-19 15:13:31 aw>
+
 * Requirements
 icalendar Python package
 install it with 
