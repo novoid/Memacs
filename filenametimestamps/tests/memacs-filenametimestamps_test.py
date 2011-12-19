@@ -7,7 +7,7 @@ import time
 import sys,os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from common.orgformat import OrgFormat
-from filenametimestamps.filenametimestamps import FileNameTimeStamps
+from filenametimestamps.memacs_filenametimestamps import FileNameTimeStamps
 
 class TestFileNameTimeStamps(unittest.TestCase):
     
