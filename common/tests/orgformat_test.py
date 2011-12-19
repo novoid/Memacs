@@ -4,7 +4,7 @@
 
 import unittest
 import time
-import sys,os
+import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from common.orgformat import OrgFormat
 
@@ -22,7 +22,6 @@ class TestOrgFormat(unittest.TestCase):
         """
         test Org date
         """
-        
         # testing tuples
         t = time.strptime("2011-11-02T20:38", "%Y-%m-%dT%H:%M")
         date = OrgFormat.date(t)
@@ -32,13 +31,13 @@ class TestOrgFormat(unittest.TestCase):
         
     def test_strings(self):
         # testing strings
-        self.assertEqual("<2011-11-03 Thu>",OrgFormat.strdate("2011-11-3"),"date string error")
-        self.assertEqual("<2011-11-03 Thu 11:52>",OrgFormat.strdatetime("2011-11-3 11:52"),"datetime string error")
+        self.assertEqual("<2011-11-03 Thu>", OrgFormat.strdate("2011-11-3"), "date string error")
+        self.assertEqual("<2011-11-03 Thu 11:52>", OrgFormat.strdatetime("2011-11-3 11:52"), "datetime string error")
         
     def test_iso8601(self):
         # testing iso8601
-        self.assertEqual("<2011-11-30 Wed 21:06>",    OrgFormat.strdatetimeiso8601("2011-11-30T21.06"),    "datetimeiso8601 error")
-        self.assertEqual("<2011-11-30 Wed 21:06>",    OrgFormat.strdatetimeiso8601("2011-11-30T21.06.00"), "datetimeiso8601 error")
+        self.assertEqual("<2011-11-30 Wed 21:06>", OrgFormat.strdatetimeiso8601("2011-11-30T21.06"), "datetimeiso8601 error")
+        self.assertEqual("<2011-11-30 Wed 21:06>", OrgFormat.strdatetimeiso8601("2011-11-30T21.06.00"), "datetimeiso8601 error")
         self.assertEqual("<2011-11-30 Wed 21:06:02>", OrgFormat.strdatetimeiso8601("2011-11-30T21.06.02"), "datetimeiso8601 error")
         
     def test_iso8601_datetimetupel(self):
@@ -55,8 +54,16 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual(30  , OrgFormat.datetupeliso8601("2011-11-30").tm_mday, "datetimeiso8601 error")
         
     def test_date_ranges(self):
-        self.assertEqual(True,False)
+        daterange = OrgFormat.daterange(OrgFormat.datetupeliso8601("2011-11-29")
+                                        , OrgFormat.datetupeliso8601("2011-11-30"))
+        self.assertEqual(daterange, "<2011-11-29 Tue>--<2011-11-30 Wed>")
+        datetimerange = OrgFormat.datetimerange(OrgFormat.datetimetupeliso8601("2011-11-30T21.06.02")
+                                        , OrgFormat.datetimetupeliso8601("2011-11-30T22.06.02"))
+        self.assertEqual(datetimerange, "<2011-11-30 Wed 21:06:02>--<2011-11-30 Wed 22:06:02>")
     
     def test_utc_time(self):
-        self.assertEqual(True,False)        
+        self.assertEqual(OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219T205510Z"), True), "<2011-12-19 Mon 21:55:10>")
+        self.assertEqual(OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219T205510"), True), "<2011-12-19 Mon 20:55:10>")
+        self.assertEqual(OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219"), False), "<2011-12-19 Mon>")
+                
         

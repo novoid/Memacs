@@ -10,6 +10,27 @@ from common.loggingsettings import handle_logging
 import sys
 
 class Memacs(object):
+    """
+    Memacs class 
+    
+    With this class it is easier to make a Memacs module 
+    because it handles common things like 
+    * default arguments + parsing 
+        - orgoutputfile
+        - version
+        - verbose
+        - suppress-messages
+    * set logging information
+        - write error logs to error.org_archive if 
+          orgfile is specified
+    
+    use handle_main() to start Memacs
+    
+    Testing:
+    * use test_get_all()     for getting whole org output
+    * use test_get_entries() for getting only org entries
+    """
+    
     
     def __init__(self
                  , prog_version="no version specified"
@@ -17,56 +38,94 @@ class Memacs(object):
                  , prog_description="no description specified"
                  , prog_short_description="no short-description specified"
                  , prog_tag="no tag specified"
-                 , argv = sys.argv[1:]
-                 , write_footer=False
+                 , argv=sys.argv[1:]
+                 , append_orgfile=False
                  ):
+        """
+        Ctor
+        
+        Please set Memacs information like version, description, ... 
+        
+        set argv when you want to test class
+        
+        set write_footer i        
+        
+        """
         self.__prog_version = prog_version
         self.__prog_version_date = prog_version_date
         self.__prog_description = prog_description
         self.__prog_short_description = prog_short_description
         self.__prog_tag = prog_tag
-        self.__write_footer = write_footer
+        self.__write_footer = not append_orgfile
+        self.__writer_append = append_orgfile
         self.__argv = argv
-    def __init(self,test=False):
-        self._parser = MemacsArgumentParser(prog_version=self.__prog_version,
-                                  prog_version_date=self.__prog_version_date,
-                                  prog_description=self.__prog_description,
-                                  )
-        # add additional arguments
+    def __init(self, test=False):
+        """
+        we use this method to initialize because here it could be, that
+        Exceptions are thrown. in __init__() we could not catch them 
+        see handle_main() to understand
+        
+        @param test: used in test_get_all
+        """
+        self._parser = MemacsArgumentParser(prog_version=self.__prog_version
+                                            , prog_version_date=self.__prog_version_date
+                                            , prog_description=self.__prog_description
+                                            )
+        # adding additional arguments from our sublcass
         self._parser_add_arguments()
         # parse all arguments
         self._parser_parse_args()
         # set logging configuration
         handle_logging(self._args.verbose, self._args.suppressmessages, self._args.outputfile)
         
+        # for testing purposes it's good to see which args ar secified
         logging.debug("args specified:") 
         logging.debug(self._args)
         
-        self._writer = OrgOutputWriter(file_name=self._args.outputfile,
-                                      short_description=self.__prog_short_description,
-                                      tag=self.__prog_tag,
-                                      test=test);
-    def __main(self):
+        self._writer = OrgOutputWriter(file_name=self._args.outputfile
+                                       , short_description=self.__prog_short_description
+                                       , tag=self.__prog_tag
+                                       , test=test
+                                       , append=self.__writer_append
+                                       );
+    def _main(self):
+        """
+        does nothing in this (super) class
+        this method should be overwritten by subclass 
+        """
         pass
     
     def _parser_add_arguments(self):
         """
-        does nothing in super class,
+        does nothing in this (super) class,
         In subclass we add arguments to the parser 
         """
         pass
     
     def _parser_parse_args(self):
         """
-        In subclass we do additional parsing on arguments
+        Let's parse the default arguments
+        In subclass we have to do additional 
+        parsing on (the additional) arguments
         """
         self._args = self._parser.parse_args(self.__argv) 
         
     def __get_writer_data(self):
+        """
+        @return org_file_data (only when on testing) 
+        """
         return self._writer.get_test_result()
         
         
-    def handle_main(self):    
+    def handle_main(self): 
+        """
+        this should be called instead of main() 
+        
+        With this method we can catch exceptions
+        and log them as error
+        
+        logging.error makes a org-agenda-entry too if a outputfile was specified :)
+        """
         try:
             self.__init()
             self._main()
@@ -82,12 +141,22 @@ class Memacs(object):
             raise # re raise exception
         
     def test_get_all(self):
+        """
+        Use this for Testing
+        
+        @param return: whole org-file
+        """
         self.__init(test=True)
         self._main()
         self._writer.close(self.__write_footer)   
         return self.__get_writer_data()
         
     def test_get_entries(self):
+        """
+        Use this for Testing
+        
+        @param return: org-file without header +footer (only entries)
+        """
         data = self.test_get_all()
         ret_data = []
         for d in data.splitlines():

@@ -27,8 +27,6 @@ class TestFileNameTimeStamps(unittest.TestCase):
         argv = "-s -f " +self.TMPFOLDER
         memacs = FileNameTimeStamps(argv=argv.split())
         data = memacs.test_get_entries()
-        print entry
-        print data[0]
         
         os.remove(file)
         self.assertEqual(data[0], entry, "filenametimestamps - error")
