@@ -65,11 +65,9 @@ def main():
     # do parsing  
     args = parser.parse_args()
     
-    handle_logging(args.verbose,args.outputfile) 
+    handle_logging(args.verbose,args.suppressmessages,args.outputfile) 
     logging.debug("args specified:") 
     logging.debug(args)
-    
-    ### outputfile
     
     if not args.calendar_url and not args.calendar_file:
         parser.error("specify a calendar url or calendar file")
@@ -80,17 +78,7 @@ def main():
     if args.calendar_file and not os.path.exists(args.calendar_file):
         parser.error("calendar path not exists")
     
-    if not args.outputfile:
-        parser.error("Please provide a output file")
-    if os.path.exists(args.outputfile) and not os.access(args.outputfile, os.W_OK):
-        parser.error("Output file is not writeable!")
-        
-    output_file = None
-    if args.outputfile:
-        logging.debug("Output file specified: " + args.outputfile)
-        output_file = args.outputfile
-    
-    writer = OrgOutputWriter(file_name=output_file, short_description=SHORT_DESCRIPTION, tag=TAG);
+    writer = OrgOutputWriter(file_name=args.outputfile, short_description=SHORT_DESCRIPTION, tag=TAG);
     # do stuff
     if args.calendar_file:
         try:

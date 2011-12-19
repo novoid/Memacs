@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-26 15:13:31 awieser>
 
@@ -15,7 +14,7 @@ class OrgOutputWriter:
         """
         @param file_name:  
         """
-        if file_name != None:            
+        if file_name:            
             self.__handler = codecs.open(file_name, 'w', u"utf-8")
         self.__time = time.time()
         self.short_description = short_description

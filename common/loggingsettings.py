@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
@@ -6,14 +5,15 @@ import logging
 import sys
 import os
 
-def handle_logging(verbose=False,org_file=""):
+def handle_logging(verbose=False,suppressmessages=False,org_file=""):
     """
     Handle/format logging regarding boolean parameter verbose  
     
     @param verbose: options from OptionParser 
     """
-   
-    if verbose:
+    if suppressmessages == True:
+        logging.basicConfig(level=logging.ERROR)  
+    elif verbose:
         FORMAT = "%(levelname)-8s %(asctime)-15s %(message)s"
         logging.basicConfig(level=logging.DEBUG, format=FORMAT)
     else:

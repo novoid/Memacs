@@ -14,13 +14,8 @@ class TestOutputWriter(unittest.TestCase):
         # setting tmpfolder to "./tmp"
         self.TMPFOLDER = os.path.normpath(os.path.dirname(os.path.abspath(__file__))
                                            + os.path.sep +"tmp") + os.sep
-        
-    def test_tmpfolderexists(self):
-        """
-        Check if the tmp-folder exists, otherwise we cannot make tests
-        """
-        #print os.path.abspath(__file__)
-        self.assertTrue(os.path.exists(self.TMPFOLDER), "please check if folder tests/tmp exists")
+        if not os.path.exists(self.TMPFOLDER):
+            os.makedirs(self.TMPFOLDER)
     
     def test_ouput_to_file(self):
         """
