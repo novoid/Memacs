@@ -3,6 +3,7 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import sys, os
+import logging
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
