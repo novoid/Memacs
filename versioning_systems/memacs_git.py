@@ -33,8 +33,9 @@ class Commit(object):
         self.__subject = ""
         self.__body = ""
         self.__properties = OrgProperties()
+        self.__datetime = ""
         
-    def __set_created(self,line):
+    def __set_created(self, line):
         """
         extracts the date + time from line: 
         author Forename Lastname <mail> 1234567890 +0000
@@ -43,8 +44,10 @@ class Commit(object):
         date_info = line[-16:]  #1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
         timezone_info = date_info[11:]
-        print time.localtime(seconds_since_epoch)
-        print timezone_info
+        #os.environ['tz'] = timezone_info
+        self.__datetime = OrgFormat.datetime(time.localtime(seconds_since_epoch))
+        self.__properties.add_property("CREATED", self.__datetime)
+        
     
     def add_header(self, line):
         whitespace = line.find(" ")
@@ -56,9 +59,12 @@ class Commit(object):
             
     
     def add_body(self, line):
+        line = line.strip()
         if line != "":
-            if self.__subject == "":
-                self.__subject = line + "\n"
+            if line[:14] == "Signed-off-by:":
+              self.__properties.add_property("SIGNED-OFF-BY", line[15:])  
+            elif self.__subject == "":
+                self.__subject = line
             else:
                 self.__body += line + "\n"
     
@@ -117,9 +123,9 @@ class GitMemacs(Memacs):
             #output, properties, note = commits[len(commits) - 1].get_output()
             output, properties, note = commit.get_output()
             
-#            self._writer.write_org_subitem(output=output,
-#                                           properties=properties,
-#                                           note=note)
+            self._writer.write_org_subitem(output=output,
+                                           properties=properties,
+                                           note=note)
         
 if __name__ == "__main__":
     memacs = GitMemacs(
