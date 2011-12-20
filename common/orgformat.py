@@ -41,7 +41,7 @@ class OrgFormat(object):
                 return time.strftime("<%Y-%m-%d %a %H:%M:%S>", tuple_date)
         else:
             return time.strftime("<%Y-%m-%d %a>", tuple_date)
-     
+
     @staticmethod
     def inactive_date(tuple_date, show_time=False):
         """
@@ -71,7 +71,7 @@ class OrgFormat(object):
         @param tuple_datetime has to be a time.struct_time
         """
         return OrgFormat.date(tuple_datetime, show_time=True)
-    
+
     @staticmethod
     def inactive_datetime(tuple_datetime):
         """

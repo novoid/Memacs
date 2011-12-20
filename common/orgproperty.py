@@ -58,16 +58,16 @@ class OrgProperties(object):
         width = 7
         for p in self.__properties:
             if width < len(p.tag):
-                width = len(p.tag) 
+                width = len(p.tag)
         return width
 
     def __format_tag(self,tag):
-        num_whitespaces = self.__get_property_max_tag_width() - len(tag) 
+        num_whitespaces = self.__get_property_max_tag_width() - len(tag)
         whitespaces = ""
         for w in range(num_whitespaces):
             whitespaces += " "
         return "  :" + tag +": " + whitespaces
-    
+
 
     def __unicode__(self):
         """
@@ -99,4 +99,4 @@ class OrgProperty(object):
         """
         self.tag = tag.strip()
         self.value = value.strip()
-    
+

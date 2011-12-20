@@ -28,18 +28,18 @@ Then an Org-mode file is generated that contains all commit message
 """
 
 class Commit(object):
-    
+
     def __init__(self):
         self.__subject = ""
         self.__body = ""
         self.__properties = OrgProperties()
         self.__datetime = ""
-        
+
     def __set_created(self, line):
         """
-        extracts the date + time from line: 
+        extracts the date + time from line:
         author Forename Lastname <mail> 1234567890 +0000
-        
+
         """
         date_info = line[-16:]  #1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
@@ -48,8 +48,8 @@ class Commit(object):
         self.__datetime = OrgFormat.datetime(time.localtime(seconds_since_epoch))
         self.__author = line[7:line.find("<")].strip()
         self.__properties.add_property("CREATED", self.__datetime)
-        
-    
+
+
     def add_header(self, line):
         whitespace = line.find(" ")
         tag = line[:whitespace].upper()
@@ -57,21 +57,21 @@ class Commit(object):
         self.__properties.add_property(tag, value)
         if tag == "AUTHOR":
             self.__set_created(line)
-            
-    
+
+
     def add_body(self, line):
         line = line.strip()
         if line != "":
             if line[:14] == "Signed-off-by:":
-                self.__properties.add_property("SIGNED-OFF-BY", line[15:])  
+                self.__properties.add_property("SIGNED-OFF-BY", line[15:])
             elif self.__subject == "":
                 self.__subject = line
             else:
                 self.__body += line + "\n"
-    
+
     def get_output(self):
         output = self.__author + ": " + self.__subject
-        return output, self.__properties, self.__body 
+        return output, self.__properties, self.__body
 
 class GitMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -99,12 +99,12 @@ class GitMemacs(Memacs):
         file = codecs.open(self._args.gitrevfile)
         data = file.read()
         file.close()
-        
+
         in_header = True
         in_body = False
         commit = Commit()
         commits = []
-        
+
         for line in data.splitlines():
             if line == "" and in_header:
                 in_header = False
@@ -113,22 +113,22 @@ class GitMemacs(Memacs):
                 in_header = True
                 in_body = False
                 commits.append(commit)
-                commit = Commit()                
+                commit = Commit()
             elif in_body:
                 commit.add_body(line)
             elif in_header:
                 commit.add_header(line)
-        
+
         logging.debug("got %d commits", len(commits))
-        
+
         for commit in commits:
             #output, properties, note = commits[len(commits) - 1].get_output()
             output, properties, note = commit.get_output()
-            
+
             self._writer.write_org_subitem(output=output,
                                            properties=properties,
                                            note=note)
-        
+
 if __name__ == "__main__":
     memacs = GitMemacs(
         prog_version=PROG_VERSION_NUMBER,
