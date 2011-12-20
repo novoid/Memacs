@@ -34,10 +34,12 @@ class Foo(Memacs):
     def _parser_parse_args(self):
         Memacs._parser_parse_args(self)
         # parse additional arguments:
-        # self._args.example == ...
+        # if self._args.example == ...:
+        #     self._parser.error("could not parse foo")
 
     def _main(self):
-        # do all the stupff
+        # do all the stuff
+        # this function is automatically called to start
         self._writer.write_org_subitem("foo")
         self._writer.write_org_subitem("bar")
 
