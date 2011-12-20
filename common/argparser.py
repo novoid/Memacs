@@ -66,7 +66,7 @@ class MemacsArgumentParser(ArgumentParser):
             if not os.path.exists(os.path.dirname(args.outputfile)):
                 self.error("Output file path(%s) does not exist!" %
                            args.outputfile)
-            if os.access(args.outputfile, os.W_OK):
+            if not os.access(args.outputfile, os.W_OK):
                 self.error("Output file %s is not writeable!" %
                            args.outputfile)
 
