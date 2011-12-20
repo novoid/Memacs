@@ -4,11 +4,11 @@
 
 import sys
 import os
-from common.orgproperty import OrgProperties
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
 from common.orgformat import OrgFormat
+from common.orgproperty import OrgProperties
 import codecs
 from urllib2 import urlopen, HTTPError, URLError
 import logging

@@ -60,7 +60,7 @@ class OrgProperties(object):
         """
         if not self.__has_property("CREATED"):
             self.add(OrgProperty("CREATED",
-                                 OrgFormat.datetime(time.localtime())))
+                                 OrgFormat.inactive_datetime(time.localtime())))
         ret = unicode(OrgProperty("PROPERTIES"))
         for p in self.__properties:
             ret += unicode(p)

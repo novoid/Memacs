@@ -41,6 +41,26 @@ class OrgFormat(object):
                 return time.strftime("<%Y-%m-%d %a %H:%M:%S>", tuple_date)
         else:
             return time.strftime("<%Y-%m-%d %a>", tuple_date)
+     
+    @staticmethod
+    def inactive_date(tuple_date, show_time=False):
+        """
+        returns a date string in org format
+        i.e.: * [YYYY-MM-DD Sun]
+              * [YYYY-MM-DD Sun HH:MM]
+        @param tuple_date: has to be a time.struct_time
+        @param show_time: optional show time also
+        """
+        # <YYYY-MM-DD hh:mm>
+        assert tuple_date.__class__ == time.struct_time
+
+        if show_time:
+            if tuple_date.tm_sec == 0:
+                return time.strftime("[%Y-%m-%d %a %H:%M]", tuple_date)
+            else:
+                return time.strftime("[%Y-%m-%d %a %H:%M:%S]", tuple_date)
+        else:
+            return time.strftime("[%Y-%m-%d %a]", tuple_date)
 
     @staticmethod
     def datetime(tuple_datetime):
@@ -51,6 +71,16 @@ class OrgFormat(object):
         @param tuple_datetime has to be a time.struct_time
         """
         return OrgFormat.date(tuple_datetime, show_time=True)
+    
+    @staticmethod
+    def inactive_datetime(tuple_datetime):
+        """
+        returns a date+time string in org format
+        wrapper for OrgFormat.inactive_date(show_time=True)
+
+        @param tuple_datetime has to be a time.struct_time
+        """
+        return OrgFormat.inactive_date(tuple_datetime, show_time=True)
 
     @staticmethod
     def daterange(begin, end):

@@ -39,6 +39,17 @@ class TestOrgFormat(unittest.TestCase):
         datetime = OrgFormat.date(t, show_time=True)
         self.assertEqual("<2011-11-02 Wed>", date, "date error")
         self.assertEqual("<2011-11-02 Wed 20:38>", datetime, "datetime error")
+    
+    def test_inactive_date(self):
+        """
+        test Org inactive_date
+        """
+        # testing tuples
+        t = time.strptime("2011-11-02T20:38", "%Y-%m-%dT%H:%M")
+        date = OrgFormat.inactive_date(t)
+        datetime = OrgFormat.inactive_datetime(t)
+        self.assertEqual("[2011-11-02 Wed]", date, "date error")
+        self.assertEqual("[2011-11-02 Wed 20:38]", datetime, "datetime error")
 
     def test_strings(self):
         # testing strings
