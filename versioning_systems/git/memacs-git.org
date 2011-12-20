@@ -9,6 +9,7 @@ work in progress
 
 ** Data Source
 
+: git rev-list --all --pretty=raw > /tmp/git-foo.raw
 [[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kind of data
 with. [[http://en.wikipedia.org/wiki/Git_(software)][git]] is a modern distributed system that has an enormous feature
 set.
