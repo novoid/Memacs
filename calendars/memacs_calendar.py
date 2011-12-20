@@ -174,14 +174,15 @@ class CalendarMemacs(Memacs):
         logging.debug(orgdate + " " + summary)
 
         org_properties = OrgProperties()
-        
+
         if location != None:
             org_properties.add_property("LOCATION", location)
         if description != None:
             org_properties.add_property("DESCRIPTION", description)
-            
-        self._writer.write_org_subitem(summary,note=orgdate,properties=org_properties)
 
+        self._writer.write_org_subitem(summary,
+                                       note=orgdate,
+                                       properties=org_properties)
 
     def _main(self):
         # getting data

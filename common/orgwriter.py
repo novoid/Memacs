@@ -112,7 +112,7 @@ class OrgOutputWriter(object):
         self.writeln("** " + output)
         if note != "":
             for n in note.splitlines():
-                self.writeln("  " + n )
+                self.writeln("  " + n)
         self.writeln(unicode(properties))
 
     def close(self, write_footer=False):

@@ -20,13 +20,13 @@ class TestOrgProperty(unittest.TestCase):
         empty_property = OrgProperty(u"TAG")
         self.assertEqual(unicode(empty_property),
                          u"  :TAG: \n", "empty property failed")
-        
+
     def test_property(self):
         empty_property = OrgProperty("TAG", "value")
         self.assertEqual(unicode(empty_property),
                  u"  :TAG: value\n")
-        
-        
+
+
 class TestOrgProperties(unittest.TestCase):
 
     def test_properties_default_ctor(self):

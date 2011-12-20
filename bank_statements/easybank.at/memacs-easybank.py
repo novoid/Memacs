@@ -24,11 +24,11 @@ TIMESTAMP_REGEX = re.compile(".*(([012]\d)|(30|31))\.((0\d)|(10|11|12))\..*UM ([
 ## group 1: DD
 TIMESTAMP_REGEX_DAYINDEX = 1  ## 2 is not always found
 ## group 2: DD
-## group 3: 
+## group 3:
 ## group 4: MM
 TIMESTAMP_REGEX_MONTHINDEX = 4  ## 5 is not always found
 ## group 5: MM
-## group 6: 
+## group 6:
 ## group 7: HH
 TIMESTAMP_REGEX_HOURINDEX = 7
 ## group 8: MM
@@ -125,7 +125,7 @@ def generate_orgmodetimestamp(day, month, year, hour, minute):
     if hour and minute:
         timestring = " " + hour + ":" + minute
     else:
-        timestring = ""                             
+        timestring = ""
     return "<" + year + "-" + month + "-" + day + timestring + ">"
 
 
@@ -172,12 +172,12 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
         logging.debug("found special case \"Vergütung für Kontoführung\"")
         name = "easybank"
         shortdescription = u"Vergütung für Kontoführung"
-        
+
     elif len(descriptionparts)>1 and descriptionparts[1] == u'Entgelt für Kontoführung':
         logging.debug("found special case \"Entgelt für Kontoführung\"")
         name = "easybank"
         shortdescription = u"Entgelt für Kontoführung"
-        
+
     if name:
         logging.debug("changed name to: " + name)
     if shortdescription:
@@ -268,7 +268,7 @@ def parse_csvfile(filename, handler):
             print detail
             logging.error("corresponding line is: [" + unicode(str(row)) + "]")
             sys.exit(4)
-            
+
         ## derived data:
         timestampparts = TIMESTAMP_REGEX.match(longdescription)
         year = month = day = hour = minute = None
@@ -317,13 +317,13 @@ def main():
 
     if not options.csvfilename:
         parser.error("Please provide an input file!")
-    
+
     if not os.path.isfile(options.csvfilename):
     	print USAGE
     	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.csvfilename) + \
                           "\" is not an normal file!\n")
         sys.exit(2)
-    
+
     if not options.overwrite and options.outputfile and os.path.isfile(options.outputfile):
     	print USAGE
     	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + \
@@ -360,5 +360,5 @@ if __name__ == "__main__":
         logging.info("Received KeyboardInterrupt")
 
 ## END OF FILE #################################################################
-          
+
 #end

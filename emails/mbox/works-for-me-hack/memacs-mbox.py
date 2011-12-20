@@ -45,7 +45,7 @@ HEADERSTART_REGEX = re.compile("From (.*) (Mon|Tue|Wed|Thu|Fri|Sat|Sun) (Jan|Feb
 ## From foo@student.tugraz.at Fri May 21 16:01:09 2010
 ## From foo@bank.at Wed May  5 20:15:27 2010
 
-## dd = " 1"..31: (([12]\d)|( 1| 2| 3| 4| 5| 5| 6| 7| 8| 9|30|31)) 
+## dd = " 1"..31: (([12]\d)|( 1| 2| 3| 4| 5| 5| 6| 7| 8| 9|30|31))
 ## hh = 01..24: (([01]\d)|(20|21|22|23))
 ## mm = 00..59: ([012345]\d)
 ## ss = 00..59: ([012345]\d)
@@ -209,7 +209,7 @@ def parse_mbox(filename, outputfile):
             messageidcomponents = None
             last_orgmodetimestamp = get_timestamp_from_components(fromlinecomponents)
             logging.debug("new email: " + last_email + " ... at " + last_orgmodetimestamp)
-            
+
         elif is_header and subjectcomponents:
             last_subject = subjectcomponents.group(1).replace('[', '|').replace("]", "|")
             logging.debug("subject: " + last_subject)
@@ -235,7 +235,7 @@ def parse_mbox(filename, outputfile):
                 print generate_output_line(last_orgmodetimestamp, last_from, last_email, \
                                                        filename, last_message_id, last_subject).strip()
             is_header = False
-            
+
         if line == "":
             was_empty_line = True
             if is_header and last_message_id == "":
@@ -267,13 +267,13 @@ def main():
 
     if not options.mboxname:
         parser.error("Please provide an input file!")
-    
+
     if not os.path.isfile(options.mboxname):
     	print USAGE
     	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.mboxname) + \
                           "\" is not an normal file!\n")
         sys.exit(2)
-    
+
     if not options.overwrite and options.outputfile and os.path.isfile(options.outputfile):
     	print USAGE
     	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + \
@@ -313,5 +313,5 @@ if __name__ == "__main__":
         logging.info("Received KeyboardInterrupt")
 
 ## END OF FILE #################################################################
-          
+
 #end

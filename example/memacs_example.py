@@ -20,7 +20,7 @@ PROG_TAG = u"mytag"
 PROG_DESCRIPTION = u"""
 this class will do ....
 
-Then an Org-mode file is generated that contains .... 
+Then an Org-mode file is generated that contains ....
 """
 
 
@@ -44,13 +44,13 @@ class Foo(Memacs):
     def _main(self):
         # do all the stuff
         # this function is automatically called to start
-        
+
         self._writer.write_org_subitem("foo")
         #** foo
-        #  :PROPERTIES: 
+        #  :PROPERTIES:
         #  :CREATED: <current timestamp>
-        #  :END: 
-        
+        #  :END:
+
         notes = "bar notes\nfoo notes"
         p = OrgProperties()
         p.add_property("DESCRIPTION", "foooo")
@@ -59,11 +59,11 @@ class Foo(Memacs):
         #** bar
         #  bar notes
         #  foo notes
-        #  :PROPERTIES: 
+        #  :PROPERTIES:
         #  :DESCRIPTION: foooo
         #  :CREATED: <1970-01-01 Thu 00:00>
-        #  :END: 
- 
+        #  :END:
+
 if __name__ == "__main__":
     memacs = Foo(
         prog_version=PROG_VERSION_NUMBER,

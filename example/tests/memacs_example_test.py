@@ -21,7 +21,7 @@ class TestFoo(unittest.TestCase):
         argv = "-s"
         memacs = Foo(argv=argv.split())
         data = memacs.test_get_entries()
-        
+
         # generate assertEquals :)
         #for d in range(len(data)):
         #    print "self.assertEqual(data[%d], \"%s\")" % \
@@ -40,6 +40,6 @@ class TestFoo(unittest.TestCase):
         self.assertEqual(data[10], "  :CREATED: <1970-01-01 Thu 00:00>")
         self.assertEqual(data[11], "  :END: ")
         self.assertEqual(data[12], "")
-        
+
     def tearDown(self):
         pass

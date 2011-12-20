@@ -21,9 +21,9 @@ DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
 ##         reason: avoid 2011-01-00 (day is zero) or month is >12, ...
 ##         problem: mathing groups will change as well!
 ##   also fix in: vktimestamp2filedate
-## dd = 01..31: ( ([12]\d) | (01|02|03|04|05|05|06|07|08|09|30|31) ) 
-## mm = 01..12: ( ([0]\d) | (10|11|12) ) 
-## hh = 00..23: ( ([01]\d) | (20|21|22|23) ) 
+## dd = 01..31: ( ([12]\d) | (01|02|03|04|05|05|06|07|08|09|30|31) )
+## mm = 01..12: ( ([0]\d) | (10|11|12) )
+## hh = 00..23: ( ([01]\d) | (20|21|22|23) )
 
 USAGE = "\n\
          "+sys.argv[0]+"\n\
@@ -94,7 +94,7 @@ def check_if_days_in_timestamps_are_same(filename, basename, filenamedatestampco
 
     filetimestamp = get_timestamp_from_file(filename)[0:3]
     logging.debug( "filetimestamp " + str( filetimestamp ))
-        
+
     filenamedatestampcomponentslist = map(lambda x: int(x), filenamedatestampcomponents.groups())  ## converts strings to integers
     filenamedatestampcomponentslist = list( filenamedatestampcomponentslist )  ## converts tuple to list
 
@@ -125,16 +125,16 @@ def generate_orgmode_file_timestamp(filename):
     ## filenametimestampcomponents.group(1) -> '2010'
 
     datestampcomponents = DATESTAMP_REGEX.match(basename)
-    
+
     if timestampcomponents:
 
         datestamp = "<" + str(timestampcomponents.group(1)) + "-" + str(timestampcomponents.group(2)) + "-" + str(timestampcomponents.group(3)) + \
             " " + str(timestampcomponents.group(4)) + ":" + str(timestampcomponents.group(5)) + ">"
-    
+
         logging.debug("datestamp (time): " + datestamp)
-    
+
         return "** " + datestamp + " [[file:" + filename + "][" + basename + "]]\n"
-    
+
     elif datestampcomponents:
 
         if check_if_days_in_timestamps_are_same(filename, basename, datestampcomponents):
@@ -145,9 +145,9 @@ def generate_orgmode_file_timestamp(filename):
 
             datestamp = "<" + str(datestampcomponents.group(1)) + "-" + str(datestampcomponents.group(2)) + \
                 "-" + str(datestampcomponents.group(3)) + assumedtime + ">"
-        
+
             logging.debug("datestamp (day): " + datestamp)
-        
+
             return "** " + datestamp + " [[file:" + filename + "][" + basename + "]]\n"
 
         else:
@@ -158,9 +158,9 @@ def generate_orgmode_file_timestamp(filename):
 
             datestamp = "<" + str(datestampcomponents.group(1)) + "-" + str(datestampcomponents.group(2)) + \
                 "-" + str(datestampcomponents.group(3)) + " " + str(timestamp) + ">"
-        
+
             logging.debug("datestamp (day): " + datestamp)
-        
+
             return "** " + datestamp + " [[file:" + filename + "][" + basename + "]]\n"
 
     else:
@@ -204,15 +204,15 @@ def main():
 
     if not options.filelistname:
         parser.error("Please provide an input file!")
-    
+
     if not options.outputfile:
         parser.error("Please provide an output file!")
-    
+
     if not os.path.isfile(options.filelistname):
     	print USAGE
     	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.filelistname) + "\" is not an normal file!\n")
         sys.exit(2)
-    
+
     if not options.overwrite and os.path.isfile(options.outputfile):
     	print USAGE
     	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + "\" already exists!\n")
@@ -238,5 +238,5 @@ if __name__ == "__main__":
         logging.info("Received KeyboardInterrupt")
 
 ## END OF FILE #################################################################
-          
+
 #end
