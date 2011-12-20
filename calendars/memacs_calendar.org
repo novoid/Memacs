@@ -2,10 +2,10 @@
 # Time-stamp: <2011-12-19 15:13:31 aw>
 
 * Requirements
-icalendar Python package
-install it with 
-: $ easy install icalendar
+- icalendar Python package
+  install it with 
+  : $ easy install icalendar
 
 * What will not work
-** Repeating events
+- Repeating events
   Because Org-mode don't support repeating events in datetime ranges
