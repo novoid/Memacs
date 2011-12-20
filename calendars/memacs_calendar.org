@@ -5,3 +5,7 @@
 icalendar Python package
 install it with 
 : $ easy install icalendar
+
+* What will not work
+** Repeating events
+  Because Org-mode don't support repeating events in datetime ranges

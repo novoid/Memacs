@@ -58,66 +58,149 @@ class CalendarMemacs(Memacs):
         and not os.path.exists(self._args.calendar_file):
             self._parser.error("calendar path not exists")
 
+    def __read_file(self, file):
+        """
+        reads a file
+
+        @param file: path to file
+        @return: returns data
+        """
+        try:
+            file = codecs.open(self._args.calendar_file, 'rb')
+            data = file.read()
+            file.close()
+            return data
+        except IOError:
+            logging.error("Error at opening file: %s" %
+                          self._args.calendar_file)
+            sys.exit(1)
+
+    def __read_url(self, url):
+        """
+        reads from a url
+
+        @param url: url to read
+        @returns: returns data
+        """
+        try:
+            req = urlopen(self._args.calendar_url, None, 10)
+            return req.read()
+        except HTTPError:
+            logging.error("Error at opening url: %s" %
+                          self._args.calendar_url)
+            sys.exit(1)
+        except URLError:
+            logging.error("Error at opening url: %s" %
+                          self._args.calendar_url)
+            sys.exit(1)
+        except ValueError:
+            logging.error("Error - no valid url: %s" %
+                          self._args.calendar_url)
+            sys.exit(1)
+
+    def __handle_vcalendar(self, component):
+        """
+        handles a VCALENDAR Component
+
+        sets timezone to calendar's timezone
+
+        @param component: icalendar component
+        """
+        # Set timezone
+        timezone = component.get('x-wr-timezone')
+        logging.debug("Setting timezone to: " + timezone)
+        os.environ['TZ'] = timezone
+        time.tzset()
+
+    def __handle_rrule(self, component):
+        """
+        Handles calendars rrule (used for reoccuring events)
+
+        returns org string for reoccuring date
+        """
+        freq = self.__vtext_to_unicode(component.get('freq'))
+
+        if freq == "MINUTELY":
+            raise NotImplemented
+        elif freq == "HOURLY":
+            raise NotImplemented
+        elif freq == "DAILY":
+            return "+1d"
+        elif freq == "WEEKLY":
+            return "+1w"
+        elif freq == "YEARLY":
+            return "+1y"
+        else:
+            return ""
+
+    def __vtext_to_unicode(self, vtext, nonetype=None):
+        """
+        @return unicode-string
+                None: otherwise
+        """
+        if vtext:
+            return unicode(vtext)
+        else:
+            return nonetype
+
+    def __handle_vevent(self, component):
+        """
+        handles a VCALENDAR Component
+
+        sets timezone to calendar's timezone
+
+        @param component: icalendar component
+        """
+
+        logging.debug(component)
+        summary = self.__vtext_to_unicode(component.get('summary'),
+                                          nonetype="")
+        location = self.__vtext_to_unicode(component.get('location'))
+        description = self.__vtext_to_unicode(component.get('description'))
+        # format: 20091207T180000Z or 20100122
+        dtstart = self.__vtext_to_unicode(component.get('dtstart'))
+        # format: 20091207T180000Z or 20100122
+        dtend = self.__vtext_to_unicode(component.get('dtend'))
+        # format: 20091207T180000Z
+        # not used: Datestamp created
+        #dtstamp = self.__vtext_to_unicode(component.get('dtstamp'))
+
+        # handle repeating events
+        # not implemented due to org-mode datestime-range cannot be repeated
+        # component.get('rrule')
+
+        orgdate = OrgFormat.utcrange(dtstart, dtend)
+        logging.debug(orgdate + " " + summary)
+
+        # writing to org file
+        self._writer.write_org_subitem(summary)
+        self._writer.writeln("   " + orgdate)
+        properties = []
+        if location != None:
+            properties.append("   :LOCATION:" + location)
+        if description != None:
+            properties.append("   :DESCRIPTION:" + description)
+
+        if len(properties) > 0:
+            self._writer.writeln("   :PROPERTIES:")
+            for p in properties:
+                self._writer.writeln(p)
+            self._writer.writeln("   :END:")
+
     def _main(self):
         # getting data
         if self._args.calendar_file:
-            try:
-                file = codecs.open(self._args.calendar_file, 'rb')
-                data = file.read()
-                file.close()
-            except IOError:
-                logging.error("Error at opening file: %s" %
-                              self._args.calendar_file)
-                sys.exit(1)
-
+            data = self.__read_file(self._args.calendar_file)
         elif self._args.calendar_url:
-            try:
-                req = urlopen(self._args.calendar_url, None, 10)
-                data = req.read()
-            except HTTPError:
-                logging.error("Error at opening url: %s" %
-                              self._args.calendar_url)
-                sys.exit(1)
-            except URLError:
-                logging.error("Error at opening url: %s" %
-                              self._args.calendar_url)
-                sys.exit(1)
-            except ValueError:
-                logging.error("Error - no valid url: %s" %
-                              self._args.calendar_url)
-                sys.exit(1)
+            data = self.__read_url(self._args.caleandar_url)
 
         # read and go through calendar
         cal = Calendar.from_string(data)
         for component in cal.walk():
             if component.name == "VCALENDAR":
-                # Set timezone
-                timezone = component.get('x-wr-timezone')
-                logging.debug("Setting timezone to: " + timezone)
-                os.environ['TZ'] = timezone
-                time.tzset()
+                self.__handle_vcalendar(component)
             elif component.name == "VEVENT":
-                summary = unicode(component.get('summary'))
-                location = unicode(component.get('location'))
-                description = unicode(component.get('description'))
-                # format: 20091207T180000Z or 20100122
-                dtstart = unicode(component.get('dtstart'))
-                # format: 20091207T180000Z or 20100122
-                dtend = unicode(component.get('dtend'))
-                # format: 20091207T180000Z
-                dtstamp = unicode(component.get('dtstamp'))
-                orgdatecreated = OrgFormat.date(
-                    OrgFormat.datetupelutctimestamp(dtstamp))
-                orgdate = OrgFormat.utcrange(dtstart, dtend)
-                logging.debug(orgdate + " " + summary)
-                self._writer.write_org_subitem(summary)
-                self._writer.writeln("   " + orgdate)
-                self._writer.writeln("   :PROPERTIES:")
-                if location:
-                    self._writer.writeln("   :LOCATION:" + location)
-                if description:
-                    self._writer.writeln("   :DESCRIPTION:" + description)
-                self._writer.writeln("   :END:")
+                self.__handle_vevent(component)
             else:
                 logging.info("Not handling component: " + component.name)
 
