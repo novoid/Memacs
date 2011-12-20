@@ -27,6 +27,7 @@ $ git rev-list --all --pretty=raw > /path/to/input file
 Then an Org-mode file is generated that contains all commit message
 """
 
+
 class Commit(object):
 
     def __init__(self):
@@ -41,14 +42,14 @@ class Commit(object):
         author Forename Lastname <mail> 1234567890 +0000
 
         """
-        date_info = line[-16:]  #1234567890 +0000
+        date_info = line[-16:]  # 1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
         timezone_info = date_info[11:]
         #os.environ['tz'] = timezone_info
-        self.__datetime = OrgFormat.datetime(time.localtime(seconds_since_epoch))
+        self.__datetime = OrgFormat.datetime(
+                            time.localtime(seconds_since_epoch))
         self.__author = line[7:line.find("<")].strip()
         self.__properties.add_property("CREATED", self.__datetime)
-
 
     def add_header(self, line):
         whitespace = line.find(" ")
@@ -57,7 +58,6 @@ class Commit(object):
         self.__properties.add_property(tag, value)
         if tag == "AUTHOR":
             self.__set_created(line)
-
 
     def add_body(self, line):
         line = line.strip()
@@ -72,6 +72,7 @@ class Commit(object):
     def get_output(self):
         output = self.__author + ": " + self.__subject
         return output, self.__properties, self.__body
+
 
 class GitMemacs(Memacs):
     def _parser_add_arguments(self):

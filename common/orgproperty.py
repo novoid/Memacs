@@ -61,13 +61,12 @@ class OrgProperties(object):
                 width = len(p.tag)
         return width
 
-    def __format_tag(self,tag):
+    def __format_tag(self, tag):
         num_whitespaces = self.__get_property_max_tag_width() - len(tag)
         whitespaces = ""
         for w in range(num_whitespaces):
             whitespaces += " "
-        return "  :" + tag +": " + whitespaces
-
+        return "  :" + tag + ": " + whitespaces
 
     def __unicode__(self):
         """
@@ -75,7 +74,7 @@ class OrgProperties(object):
         """
         if not self.__has_property("CREATED"):
             self.add(OrgProperty("CREATED",
-                                 OrgFormat.inactive_datetime(time.localtime())))
+                OrgFormat.inactive_datetime(time.localtime())))
         ret = "  :PROPERTIES:\n"
 
         for p in self.__properties:
@@ -99,4 +98,3 @@ class OrgProperty(object):
         """
         self.tag = tag.strip()
         self.value = value.strip()
-
