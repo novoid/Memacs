@@ -99,6 +99,38 @@ This command does not take longer than *two and a half seconds* on an
 SSD which is quite remarkable. Using a normal hard disk, a comparable
 call takes *one minute and fifteen seconds*.
 
+** Error Handling 
+Because we let our memacs-modules automatically run, it would be difficult 
+to get informed in case of an error. So memacs-modules have a nice error handling:
+
+When you specify an outputfile like this:
+
+: memacs-module.py -o /path/to/output.org_archive
+
+Then errors are automatically added to 
+: /path/to/error.org_archive
+
+- Create the file containing following information:
+  : ## -*- coding: utf-8 mode: org -*-
+  : ## this file is for error-messages of Memacs 
+  : ## to add this file to your org-agenda open error.org with emacs and: M-x org-agenda-file-to-front
+  : ##
+  : ## Main idea of this file:
+  : ## if a memacs-module has an error following entry will be generated:#
+  : ## ** <TIMESTAMP-ERROR-occured +1d> memacs-foo had a problem: <error-msg> #
+  : ## the "+1d" means that this entry will appear in org agenda view until the entry is deleted from this file
+  : ##
+  : * Memacs error 					      :Memacs:ERROR:
+  : # start deleting from here:
+
+- Create a stub file 
+  : /path/to/error.org 
+  - open it in emacs and M-x org-agenda-file-to-front
+
+If an error occurs it will be added to the error.org_archive with an repeating timestamp every day. 
+You have to delete the error manually.
+
+
 ** File organization
 
 The more Memacs modules you are using, the more files (*.org and
@@ -116,8 +148,8 @@ generated Memacs Orgmode files:
 : /home/user/orgmode/memacs/module1.org_archive
 : /home/user/orgmode/memacs/module2.org
 : /home/user/orgmode/memacs/module2.org_archive
-
-
+: /home/user/orgmode/memacs/error.org          <- See Section 
+: /home/user/orgmode/memacs/error.org_archive  <- Error Handling
 ** Power Consumption while being on battery
 
 When you are using Memacs on a notebook, you might not want to execute
