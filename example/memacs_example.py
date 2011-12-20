@@ -5,9 +5,13 @@
 import sys
 import os
 import logging
+import time
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from common.orgproperty import OrgProperties
+from common.orgformat import OrgFormat
 from common.memacs import Memacs
+
 
 PROG_VERSION_NUMBER = u"0.0"
 PROG_VERSION_DATE = u"2011-12-18"
@@ -40,9 +44,26 @@ class Foo(Memacs):
     def _main(self):
         # do all the stuff
         # this function is automatically called to start
+        
         self._writer.write_org_subitem("foo")
-        self._writer.write_org_subitem("bar")
-
+        #** foo
+        #  :PROPERTIES: 
+        #  :CREATED: <current timestamp>
+        #  :END: 
+        
+        notes = "bar notes\nfoo notes"
+        p = OrgProperties()
+        p.add_property("DESCRIPTION", "foooo")
+        p.add_property("CREATED", OrgFormat.datetime(time.gmtime(0)))
+        self._writer.write_org_subitem("bar", note=notes, properties=p)
+        #** bar
+        #  bar notes
+        #  foo notes
+        #  :PROPERTIES: 
+        #  :DESCRIPTION: foooo
+        #  :CREATED: <1970-01-01 Thu 00:00>
+        #  :END: 
+ 
 if __name__ == "__main__":
     memacs = Foo(
         prog_version=PROG_VERSION_NUMBER,

@@ -4,6 +4,7 @@
 import codecs
 import sys
 import time
+from common.orgproperty import OrgProperties
 
 INVOCATION_TIME = time.strftime(u"%Y-%m-%dT%H:%M:%S", time.gmtime())
 
@@ -102,13 +103,17 @@ class OrgOutputWriter(object):
         """
         self.writeln("* " + output)
 
-    def write_org_subitem(self, output):
+    def write_org_subitem(self, output, note="", properties=OrgProperties()):
         """
         Writes an org item line.
 
         i.e: * <output>\n
         """
         self.writeln("** " + output)
+        if note != "":
+            for n in note.splitlines():
+                self.writeln("  " + n )
+        self.writeln(unicode(properties))
 
     def close(self, write_footer=False):
         """

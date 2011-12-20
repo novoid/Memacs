@@ -4,6 +4,7 @@
 
 import sys
 import os
+from common.orgproperty import OrgProperties
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
@@ -172,20 +173,15 @@ class CalendarMemacs(Memacs):
         orgdate = OrgFormat.utcrange(dtstart, dtend)
         logging.debug(orgdate + " " + summary)
 
-        # writing to org file
-        self._writer.write_org_subitem(summary)
-        self._writer.writeln("   " + orgdate)
-        properties = []
+        org_properties = OrgProperties()
+        
         if location != None:
-            properties.append("   :LOCATION:" + location)
+            org_properties.add_property("LOCATION", location)
         if description != None:
-            properties.append("   :DESCRIPTION:" + description)
+            org_properties.add_property("DESCRIPTION", description)
+            
+        self._writer.write_org_subitem(summary,note=orgdate,properties=org_properties)
 
-        if len(properties) > 0:
-            self._writer.writeln("   :PROPERTIES:")
-            for p in properties:
-                self._writer.writeln(p)
-            self._writer.writeln("   :END:")
 
     def _main(self):
         # getting data
