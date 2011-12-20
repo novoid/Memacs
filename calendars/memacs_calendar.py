@@ -189,7 +189,7 @@ class CalendarMemacs(Memacs):
         if self._args.calendar_file:
             data = self.__read_file(self._args.calendar_file)
         elif self._args.calendar_url:
-            data = self.__read_url(self._args.caleandar_url)
+            data = self.__read_url(self._args.calendar_url)
 
         # read and go through calendar
         cal = Calendar.from_string(data)
