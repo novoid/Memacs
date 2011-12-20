@@ -131,6 +131,5 @@ if __name__ == "__main__":
                                 prog_version_date=PROG_VERSION_DATE,
                                 prog_description=PROG_DESCRIPTION,
                                 prog_short_description=PROG_SHORT_DESCRIPTION,
-                                prog_tag=PROG_TAG,
-                                write_footer=True)
+                                prog_tag=PROG_TAG)
     memacs.handle_main()

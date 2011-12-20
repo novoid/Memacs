@@ -25,15 +25,16 @@ class Foo(Memacs):
         Memacs._parser_add_arguments(self)
         # add additional arguments
 
-        self._parser.add_argument(
-            "-f", "--folder", dest="filenametimestamps_folder",
-            action="append",
-            help="path to a folder to search for filenametimestamps, " +
-            "multiple folders can be specified: -f /path1 -f /path2")
+        #self._parser.add_argument(
+        #   "-e", "--example", dest="example",
+        #   action="store_true",
+        #   help="path to a folder to search for filenametimestamps, " +
+        #   "multiple folders can be specified: -f /path1 -f /path2")
 
     def _parser_parse_args(self):
         Memacs._parser_parse_args(self)
-        # parse additional modules
+        # parse additional arguments:
+        # self._args.example == ...
 
     def _main(self):
         # do all the stupff
