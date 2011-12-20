@@ -26,8 +26,12 @@ Then an Org-mode file is generated that contains ....
 
 class Foo(Memacs):
     def _parser_add_arguments(self):
+        """
+        overwritten method of class Memacs
+
+        add additional arguments
+        """
         Memacs._parser_add_arguments(self)
-        # add additional arguments
 
         #self._parser.add_argument(
         #   "-e", "--example", dest="example",
@@ -36,16 +40,23 @@ class Foo(Memacs):
         #   "multiple folders can be specified: -f /path1 -f /path2")
 
     def _parser_parse_args(self):
+        """
+        overwritten method of class Memacs
+
+        all additional arguments are parsed in here
+        """
         Memacs._parser_parse_args(self)
-        # parse additional arguments:
         # if self._args.example == ...:
         #     self._parser.error("could not parse foo")
 
     def _main(self):
+        """
+        get's automatically called from Memacs class
+        """
         # do all the stuff
-        # this function is automatically called to start
 
         self._writer.write_org_subitem("foo")
+        # output:
         #** foo
         #  :PROPERTIES:
         #  :CREATED: <current timestamp>
@@ -56,6 +67,7 @@ class Foo(Memacs):
         p.add_property("DESCRIPTION", "foooo")
         p.add_property("CREATED", OrgFormat.datetime(time.gmtime(0)))
         self._writer.write_org_subitem("bar", note=notes, properties=p)
+        # output:
         #** bar
         #  bar notes
         #  foo notes
