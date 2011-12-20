@@ -16,7 +16,7 @@ PROG_TAG = u"mytag"
 PROG_DESCRIPTION = u"""
 this class will do ....
 
-Then an Org-mode file is generated that contains links to the files.
+Then an Org-mode file is generated that contains .... 
 """
 
 

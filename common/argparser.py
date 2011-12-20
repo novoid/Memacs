@@ -38,6 +38,9 @@ class MemacsArgumentParser(ArgumentParser):
                               "result gets printed to stdout",
                          metavar="FILE")
 
+        self.add_argument("-t", "--tag", dest="tag",
+                          help="overriding tag: :Memacs:<tag>:")
+
     def format_epilog(self, formatter):
         """
         overwriting ArgParser's format_epilog for correct formatting of \n

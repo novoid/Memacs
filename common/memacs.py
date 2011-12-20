@@ -84,10 +84,16 @@ class Memacs(object):
         logging.debug("args specified:")
         logging.debug(self._args)
 
+        # if an tag is specified as argument take that tag
+        if self._args.tag:
+            tag = self._args.tag
+        else:
+            tag = self.__prog_tag
+
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
             short_description=self.__prog_short_description,
-            tag=self.__prog_tag,
+            tag=tag,
             test=test,
             append=self.__writer_append)
 
