@@ -116,7 +116,9 @@ class TestOrgFormat(unittest.TestCase):
             "<2011-11-30 Wed 21:06:02>--<2011-11-30 Wed 22:06:02>")
 
     def test_utc_time(self):
-        self.assertEqual(
+        os.environ['TZ'] = "Europe/Vienna"
+        time.tzset()
+        self.assertEqual(                        
             OrgFormat.date(
                 OrgFormat.datetupelutctimestamp("20111219T205510Z"), True),
             "<2011-12-19 Mon 21:55:10>")

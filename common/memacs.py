@@ -163,6 +163,6 @@ class Memacs(object):
         data = self.test_get_all()
         ret_data = []
         for d in data.splitlines():
-            if d[:3] == "** ":
+            if d[:2] != "* " and d[:1] != "#":
                 ret_data.append(d)
         return ret_data

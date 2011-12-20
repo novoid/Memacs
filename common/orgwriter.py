@@ -80,7 +80,7 @@ class OrgOutputWriter(object):
         """
         self.writeln(u"* successfully parsed by " + \
                      sys.argv[0] + u" at " + INVOCATION_TIME \
-                     + u" in " + self.__time + u".\n\n")
+                     + u" in " + self.__time + u".")
 
     def write_comment(self, output):
         """
