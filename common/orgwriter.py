@@ -70,7 +70,7 @@ class OrgOutputWriter(object):
                 " (file.org) not this file(file.org_archive) with emacs" + \
                 "and do following: M-x org-agenda-file-to-front")
         self.write_org_item(
-            self.__short_description + "        :Memacs:" + self.__tag + ":")
+            self.__short_description + "          :Memacs:" + self.__tag + ":")
 
     def __write_footer(self):
         """

@@ -35,7 +35,7 @@ class OrgProperties(object):
         """
         has_tag = False
         for p in self.__properties:
-            if p.get_tag() == tag:
+            if p.tag == tag:
                 return True
         return False
 
@@ -54,6 +54,21 @@ class OrgProperties(object):
         """
         self.__properties.append(OrgProperty(tag, value))
 
+    def __get_property_max_tag_width(self):
+        width = 7
+        for p in self.__properties:
+            if width < len(p.tag):
+                width = len(p.tag) 
+        return width
+
+    def __format_tag(self,tag):
+        num_whitespaces = self.__get_property_max_tag_width() - len(tag) 
+        whitespaces = ""
+        for w in range(num_whitespaces):
+            whitespaces += " "
+        return "  :" + tag +": " + whitespaces
+    
+
     def __unicode__(self):
         """
         for representig properties in unicode with org formatting
@@ -61,10 +76,12 @@ class OrgProperties(object):
         if not self.__has_property("CREATED"):
             self.add(OrgProperty("CREATED",
                                  OrgFormat.inactive_datetime(time.localtime())))
-        ret = unicode(OrgProperty("PROPERTIES"))
+        ret = "  :PROPERTIES:\n"
+
         for p in self.__properties:
-            ret += unicode(p)
-        ret += unicode(OrgProperty("END"))
+            ret += self.__format_tag(p.tag) + p.value + "\n"
+
+        ret += "  :END:"
         return ret
 
 
@@ -80,24 +97,6 @@ class OrgProperty(object):
         """
         Ctor
         """
-        self.__tag = tag
-        self.__value = value
-
-    def __unicode__(self):
-        """
-        for representig property in unicode with org formatting
-        """
-        return u"  :" + unicode(self.__tag) + u": " + \
-            unicode(self.__value) + u"\n"
-
-    def get_tag(self):
-        """
-        @param return: tag
-        """
-        return self.__tag
-
-    def get_value(self):
-        """
-        @param return: value
-        """
-        return self.__value
+        self.tag = tag.strip()
+        self.value = value.strip()
+    

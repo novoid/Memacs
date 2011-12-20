@@ -46,6 +46,7 @@ class Commit(object):
         timezone_info = date_info[11:]
         #os.environ['tz'] = timezone_info
         self.__datetime = OrgFormat.datetime(time.localtime(seconds_since_epoch))
+        self.__author = line[7:line.find("<")].strip()
         self.__properties.add_property("CREATED", self.__datetime)
         
     
@@ -62,14 +63,15 @@ class Commit(object):
         line = line.strip()
         if line != "":
             if line[:14] == "Signed-off-by:":
-              self.__properties.add_property("SIGNED-OFF-BY", line[15:])  
+                self.__properties.add_property("SIGNED-OFF-BY", line[15:])  
             elif self.__subject == "":
                 self.__subject = line
             else:
                 self.__body += line + "\n"
     
     def get_output(self):
-        return self.__subject, self.__properties, self.__body 
+        output = self.__author + ": " + self.__subject
+        return output, self.__properties, self.__body 
 
 class GitMemacs(Memacs):
     def _parser_add_arguments(self):
