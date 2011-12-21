@@ -37,6 +37,7 @@ class Commit(object):
         """
         Ctor
         """
+        self.__empty = True
         self.__subject = ""
         self.__body = ""
         self.__datetime = ""
@@ -49,6 +50,7 @@ class Commit(object):
         author Forename Lastname <mail> 1234567890 +0000
         @param line
         """
+        self.__empty = False
         date_info = line[-16:]  # 1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
         timezone_info = date_info[11:]
@@ -73,6 +75,8 @@ class Commit(object):
         :COMMIT: <hashtag>
         @param line:
         """
+        self.__empty = False
+
         if line != "":
             whitespace = line.find(" ")
             tag = line[:whitespace].upper()
@@ -88,6 +92,7 @@ class Commit(object):
         if line starts with Signed-off-by,
         also a property of that line is added
         """
+
         line = line.strip()
         if line != "":
             if line[:14] == "Signed-off-by:":
@@ -96,6 +101,13 @@ class Commit(object):
                 self.__subject = line
             else:
                 self.__body += line + "\n"
+                
+    def is_empty(self):
+        """
+        @return: True  - empty commit
+                 False - not empty commit 
+        """
+        return self.__empty
 
     def get_output(self):
         """
@@ -141,7 +153,7 @@ class GitMemacs(Memacs):
         # read file
         if self._args.gitrevfile:
             logging.debug("using as %s input_stream", self._args.gitrevfile)
-            input_stream = codecs.open(self._args.gitrevfile,encoding='utf-8')
+            input_stream = codecs.open(self._args.gitrevfile, encoding='utf-8')
         else:
             logging.debug("using sys.stdin as input_stream")
             input_stream = codecs.getreader('utf-8')(sys.stdin)
@@ -184,7 +196,7 @@ class GitMemacs(Memacs):
             line = input_stream.readline()
         
         # adding last commit
-        if commit not in commits:
+        if not commit.is_empty():
             commits.append(commit)
 
         logging.debug("got %d commits", len(commits))
