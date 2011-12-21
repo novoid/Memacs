@@ -125,10 +125,9 @@ class GitMemacs(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
-        if not self._args.gitrevfile:
-            self._parser.error("no input file specified")
-        if not os.path.exists(self._args.gitrevfile) or not \
-            os.access(self._args.gitrevfile, os.R_OK):
+        if self._args.gitrevfile and not \
+                (os.path.exists(self._args.gitrevfile) or not \
+                     os.access(self._args.gitrevfile, os.R_OK)):
             self._parser.error("input file not found or not readable")
 
     def _main(self):
@@ -136,11 +135,12 @@ class GitMemacs(Memacs):
         get's automatically called from Memacs class
         read the lines from git-rev-list file,parse and write them to org file
         """
-
+        
         # read file
-        file = codecs.open(self._args.gitrevfile)
-        data = file.read()
-        file.close()
+        if self._args.gitrevfile:
+            input_stream = codecs.open(self._args.gitrevfile)
+        else:
+            input_stream = sys.stdin
 
         # now go through the file
         # Logic (see example commit below)
@@ -163,7 +163,7 @@ class GitMemacs(Memacs):
         commit = Commit()
         commits = []
 
-        for line in data.splitlines():
+        for line in input_stream.readline():
             if line == "" and in_header:
                 in_header = False
                 in_body = True
@@ -186,6 +186,9 @@ class GitMemacs(Memacs):
             self._writer.write_org_subitem(output=output,
                                            properties=properties,
                                            note=note)
+        
+        if self._args.gitrevfile:
+            input_stream.close()
 
 if __name__ == "__main__":
     memacs = GitMemacs(
