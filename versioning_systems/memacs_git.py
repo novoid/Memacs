@@ -39,8 +39,9 @@ class Commit(object):
         """
         self.__subject = ""
         self.__body = ""
-        self.__properties = OrgProperties()
         self.__datetime = ""
+        self.__author = ""
+        self.__properties = OrgProperties()
 
     def __set_created(self, line):
         """
@@ -72,12 +73,13 @@ class Commit(object):
         :COMMIT: <hashtag>
         @param line:
         """
-        whitespace = line.find(" ")
-        tag = line[:whitespace].upper()
-        value = line[whitespace:]
-        self.__properties.add_property(tag, value)
-        if tag == "AUTHOR":
-            self.__set_created(line)
+        if line != "":
+            whitespace = line.find(" ")
+            tag = line[:whitespace].upper()
+            value = line[whitespace:]
+            self.__properties.add_property(tag, value)
+            if tag == "AUTHOR":
+                self.__set_created(line)
 
     def add_body(self, line):
         """
@@ -126,7 +128,7 @@ class GitMemacs(Memacs):
         """
         Memacs._parser_parse_args(self)
         if self._args.gitrevfile and not \
-                (os.path.exists(self._args.gitrevfile) or not \
+                (os.path.exists(self._args.gitrevfile) or \
                      os.access(self._args.gitrevfile, os.R_OK)):
             self._parser.error("input file not found or not readable")
 
@@ -135,11 +137,13 @@ class GitMemacs(Memacs):
         get's automatically called from Memacs class
         read the lines from git-rev-list file,parse and write them to org file
         """
-        
+
         # read file
         if self._args.gitrevfile:
+            logging.debug("using as %s input_stream", self._args.gitrevfile)
             input_stream = codecs.open(self._args.gitrevfile)
         else:
+            logging.debug("using sys.stdin as input_stream")
             input_stream = sys.stdin
 
         # now go through the file
@@ -160,22 +164,30 @@ class GitMemacs(Memacs):
 
         in_header = True
         in_body = False
+        was_in_body = False
         commit = Commit()
         commits = []
 
-        for line in input_stream.readline():
-            if line == "" and in_header:
-                in_header = False
-                in_body = True
-            elif line == "" and in_body:
-                in_header = True
-                in_body = False
-                commits.append(commit)
-                commit = Commit()
-            elif in_body:
+        line = input_stream.readline()
+
+        while line:
+            line = line.rstrip()  # removing \n
+            logging.debug("got line: %s", line)
+            if line.strip() == "" or len(line) != len(line.lstrip()):
                 commit.add_body(line)
-            elif in_header:
+                was_in_body = True
+            else:
+                if was_in_body:
+                    commits.append(commit)
+                    commit = Commit()
                 commit.add_header(line)
+                was_in_body = False
+
+            line = input_stream.readline()
+        
+        # adding last commit
+        if commit not in commits:
+            commits.append(commit)
 
         logging.debug("got %d commits", len(commits))
         if len(commits) == 0:
@@ -188,7 +200,7 @@ class GitMemacs(Memacs):
             self._writer.write_org_subitem(output=output,
                                            properties=properties,
                                            note=note)
-        
+
         if self._args.gitrevfile:
             input_stream.close()
 
