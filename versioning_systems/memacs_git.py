@@ -141,10 +141,10 @@ class GitMemacs(Memacs):
         # read file
         if self._args.gitrevfile:
             logging.debug("using as %s input_stream", self._args.gitrevfile)
-            input_stream = codecs.open(self._args.gitrevfile)
+            input_stream = codecs.open(self._args.gitrevfile,encoding='utf-8')
         else:
             logging.debug("using sys.stdin as input_stream")
-            input_stream = sys.stdin
+            input_stream = codecs.getreader('utf-8')(sys.stdin)
 
         # now go through the file
         # Logic (see example commit below)
@@ -162,8 +162,6 @@ class GitMemacs(Memacs):
         #     PEP8
         #     Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
 
-        in_header = True
-        in_body = False
         was_in_body = False
         commit = Commit()
         commits = []
