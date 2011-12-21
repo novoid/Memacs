@@ -178,6 +178,8 @@ class GitMemacs(Memacs):
                 commit.add_header(line)
 
         logging.debug("got %d commits", len(commits))
+        if len(commits) == 0:
+            logging.error("Is there an error? Because i found no commits.")
 
         # time to write all commits to org-file
         for commit in commits:
