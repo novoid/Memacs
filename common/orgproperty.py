@@ -52,7 +52,7 @@ class OrgProperties(object):
         @param tag: property tag
         @param value: property value
         """
-        self.__properties.append(OrgProperty(tag, value))
+        self.__properties.append(OrgProperty(tag.upper(), value))
 
     def __get_property_max_tag_width(self):
         width = 7
