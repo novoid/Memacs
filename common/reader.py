@@ -42,7 +42,7 @@ class CommonReader:
         @returns: returns data
         """
         try:
-            req = urlopen(self._args.calendar_url, None, 10)
+            req = urlopen(url, None, 10)
             return req.read()
         except HTTPError:
             logging.error("ValueError: " % url)
