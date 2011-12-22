@@ -14,6 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
 from common.orgformat import OrgFormat
 from common.orgproperty import OrgProperties
+from common.reader import CommonReader
 
 
 try:
@@ -209,9 +210,9 @@ class CalendarMemacs(Memacs):
     def _main(self):
         # getting data
         if self._args.calendar_file:
-            data = self.__read_file(self._args.calendar_file)
+            data = CommonReader.get_data_from_file(self._args.calendar_file)
         elif self._args.calendar_url:
-            data = self.__read_url(self._args.calendar_url)
+            data = CommonReader.get_data_from_url(self._args.calendar_url)
 
         # read and go through calendar
         cal = Calendar.from_string(data)
