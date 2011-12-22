@@ -4,15 +4,17 @@
 
 import sys
 import os
+import codecs
+from urllib2 import urlopen, HTTPError, URLError
+import logging
+import time
+from datetime import timedelta
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
 from common.orgformat import OrgFormat
 from common.orgproperty import OrgProperties
-import codecs
-from urllib2 import urlopen, HTTPError, URLError
-import logging
-import time
+
 
 try:
     from icalendar import Calendar
@@ -72,7 +74,7 @@ class CalendarMemacs(Memacs):
             file.close()
             return data
         except IOError:
-            logging.error("Error at opening file: %s" %
+            logging.error("Error at opening file: %s" % 
                           self._args.calendar_file)
             sys.exit(1)
 
@@ -87,15 +89,15 @@ class CalendarMemacs(Memacs):
             req = urlopen(self._args.calendar_url, None, 10)
             return req.read()
         except HTTPError:
-            logging.error("Error at opening url: %s" %
+            logging.error("Error at opening url: %s" % 
                           self._args.calendar_url)
             sys.exit(1)
         except URLError:
-            logging.error("Error at opening url: %s" %
+            logging.error("Error at opening url: %s" % 
                           self._args.calendar_url)
             sys.exit(1)
         except ValueError:
-            logging.error("Error - no valid url: %s" %
+            logging.error("Error - no valid url: %s" % 
                           self._args.calendar_url)
             sys.exit(1)
 
@@ -143,6 +145,25 @@ class CalendarMemacs(Memacs):
             return unicode(vtext)
         else:
             return nonetype
+        
+    def __get_datetime_range(self, dtstart, dtend):
+        """
+        @return string: Datetime - Range in Org Format 
+        """
+        begin_tupel = OrgFormat.datetupelutctimestamp(dtstart)
+        end_tupel = OrgFormat.datetupelutctimestamp(dtend) 
+        
+        # handle "all-day" - events
+        if begin_tupel.tm_sec == 0 and \
+                begin_tupel.tm_min == 0 and \
+                begin_tupel.tm_hour == 0 and \
+                end_tupel.tm_sec == 0 and \
+                end_tupel.tm_min == 0 and \
+                end_tupel.tm_hour == 0:
+            # we have to subtract 1 day to get the correct dates
+            end_tupel = time.localtime(time.mktime(end_tupel) - 24 * 60 * 60)
+        
+        return OrgFormat.utcrange(begin_tupel, end_tupel)
 
     def __handle_vevent(self, component):
         """
@@ -169,8 +190,9 @@ class CalendarMemacs(Memacs):
         # handle repeating events
         # not implemented due to org-mode datestime-range cannot be repeated
         # component.get('rrule')
-
-        orgdate = OrgFormat.utcrange(dtstart, dtend)
+        
+        orgdate = self.__get_datetime_range(dtstart, dtend)
+        
         logging.debug(orgdate + " " + summary)
 
         org_properties = OrgProperties()

@@ -3,6 +3,7 @@
 
 import time
 import calendar
+import logging
 
 
 class OrgFormat(object):
@@ -107,7 +108,7 @@ class OrgFormat(object):
                            OrgFormat.date(end, True))
 
     @staticmethod
-    def utcrange(begin, end):
+    def utcrange(begin_tupel, end_tupel):
         """
         returns a date(time) range string in org format
 
@@ -115,8 +116,6 @@ class OrgFormat(object):
                                                YYYYMMDDTHHMMSST or
                                                YYYYMMDD
         """
-        begin_tupel = OrgFormat.datetupelutctimestamp(begin)
-        end_tupel = OrgFormat.datetupelutctimestamp(end)
 
         if begin_tupel.tm_sec == 0 and \
                 begin_tupel.tm_min == 0 and \
@@ -124,6 +123,7 @@ class OrgFormat(object):
                 end_tupel.tm_sec == 0 and \
                 end_tupel.tm_min == 0 and \
                 end_tupel.tm_hour == 0:
+
             return OrgFormat.daterange(begin_tupel, end_tupel)
         else:
             return OrgFormat.datetimerange(begin_tupel, end_tupel)
