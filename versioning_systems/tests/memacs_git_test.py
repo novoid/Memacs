@@ -10,14 +10,38 @@ sys.path.append(
             os.path.dirname(
                 os.path.abspath(__file__)))))
 from versioning_systems.memacs_git import GitMemacs
+from versioning_systems.memacs_git import Commit
 
 
-class TestFoo(unittest.TestCase):
+class TestCommit(unittest.TestCase):
+    
+    def test_commit_empty(self):
+        c = Commit()
+        self.assertTrue(c.is_empty())
+    
+    def test_commit(self):
+        c = Commit()
+        c.add_header("author Armin Wieser <armin.wieser@example.com> 1324422878 +0100")
+        c.add_body("i'm the subject")
+        c.add_body("i'm in the body")
+        
+        output, properties, note = c.get_output()
+        self.assertEqual(output, "Armin Wieser: i'm the subject")
+        self.assertEqual(note, "i'm in the body\n")
+        
+        p = """  :PROPERTIES:
+  :AUTHOR:  Armin Wieser <armin.wieser@example.com> 1324422878 +0100
+  :CREATED: <2011-12-21 Wed 00:14:38>
+  :END:"""
+        
+        self.assertEqual(unicode(properties), p)
+        print 
+        
+        
 
-    def setUp(self):
-        pass
+class TestGitMemacs(unittest.TestCase):
 
-    def test_all(self):
+    def test_from_file(self):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
             os.sep + "git-rev-list-raw.txt"
         argv = "-s -f " + test_file

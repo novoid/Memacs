@@ -101,11 +101,11 @@ class Commit(object):
                 self.__subject = line
             else:
                 self.__body += line + "\n"
-                
+
     def is_empty(self):
         """
         @return: True  - empty commit
-                 False - not empty commit 
+                 False - not empty commit
         """
         return self.__empty
 
@@ -168,8 +168,8 @@ class GitMemacs(Memacs):
         # commit 6fb35035c5fa7ead66901073413a42742a323e89
         # tree 7027c628031b3ad07ad5401991f5a12aead8237a
         # parent 05ba138e6aa1481db2c815ddd2acb52d3597852f
-        # author Armin Wieser <armin.wieser@gmail.com> 1324422878 +0100
-        # committer Armin Wieser <armin.wieser@gmail.com> 1324422878 +0100
+        # author Armin Wieser <armin.wieser@example.com> 1324422878 +0100
+        # committer Armin Wieser <armin.wieser@example.com> 1324422878 +0100
         #
         #     PEP8
         #     Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
@@ -194,7 +194,7 @@ class GitMemacs(Memacs):
                 was_in_body = False
 
             line = input_stream.readline()
-        
+
         # adding last commit
         if not commit.is_empty():
             commits.append(commit)
