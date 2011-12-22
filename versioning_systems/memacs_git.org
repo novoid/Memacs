@@ -1,0 +1,41 @@
+## Time-stamp: <2011-12-22 Thu aw>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs_git
+
+** Data Source
+
+[[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kind of data
+with. [[http://en.wikipedia.org/wiki/Git_(software)][git]] is a modern distributed system that has an enormous feature
+set.
+
+memacs_git.py parses the output of:
+: git rev-list --all --pretty=raw
+
+** Example Invocation
+*** Example with rev-list file:
+: git rev-list --all --pretty=raw > /tmp/file
+: ./memacs_git.py -f /tmp/file -o /path/to/git-project.org_archive
+
+*** Example Crontab Entry
+Every 60 minutes try to fetch something new from git repository and parse output
+
+: ORG_DIR="/home/user/orgmode/memacs"
+: MEMACS_DIR="/home/user/git/Memacs"
+: */60   *   *   *  *    /home/user/bin/no-power-supply.sh || cd "/home/user/git/Memacs" && git fetch && git rev-list --all --pretty=raw | $MEMACS_DIR/versioning_systems/memacs_git.py -o $ORG_DIR/git-memacs.org_archive
+
+** Example Orgmode entries
+
+Whenever user "Bob" commits a change set to an example project,
+memacs_git can provide an entry like this:
+
+: * Memacs for git files           :Memacs:git:
+: ** Bob Bobman: added utf-8 support for stdin
+:   :PROPERTIES:
+:   :COMMIT:        5503912cde8ac94346a7c78583e2e6a6b9163582
+:   :TREE:          845f83f4678963bad0504ce73161312c60de4d2f
+:   :PARENT:        652601b94e640ea1225c415e603a6c8374219dd1
+:   :AUTHOR:        Bob Bobman <bob@example.com> 1324463332 +0100
+:   :CREATED:       <2011-12-21 Wed 11:28:52>
+:   :COMMITTER:     Bob Bobman <bob@examlpe.com> 1324463332 +0100
+:   :END:
