@@ -29,8 +29,8 @@ class CommonReader:
             data = input_file.read()
             input_file.close()
             return data
-        except IOError:
-            logging.error("Error at opening file: %s" % path)
+        except IOError,e:
+            logging.error("Error at opening file: %s:%s", path,e)
             sys.exit(1)
 
     @staticmethod
@@ -44,12 +44,12 @@ class CommonReader:
         try:
             req = urlopen(url, None, 10)
             return req.read()
-        except HTTPError:
-            logging.error("ValueError: " % url)
+        except HTTPError, e:
+            logging.error("HTTPError: %s", e)
             sys.exit(1)
-        except URLError:
-            logging.error("ValueError: " % url)
+        except URLError, e:
+            logging.error("URLError: %s", e)
             sys.exit(1)
-        except ValueError:
-            logging.error("ValueError: %s" % url)
+        except ValueError, e:
+            logging.error("ValueError: %s", e)
             sys.exit(1)

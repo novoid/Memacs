@@ -55,7 +55,6 @@ class Memacs(object):
         self.__prog_description = prog_description
         self.__prog_short_description = prog_short_description
         self.__prog_tag = prog_tag
-        self.__write_footer = not append_orgfile
         self.__writer_append = append_orgfile
         self.__argv = argv
 
@@ -138,7 +137,7 @@ class Memacs(object):
         try:
             self.__init()
             self._main()
-            self._writer.close(self.__write_footer)
+            self._writer.close()
         except KeyboardInterrupt:
             logging.info("Received KeyboardInterrupt")
         except SystemExit:
@@ -157,7 +156,7 @@ class Memacs(object):
         """
         self.__init(test=True)
         self._main()
-        self._writer.close(self.__write_footer)
+        self._writer.close()
         return self.__get_writer_data()
 
     def test_get_entries(self):

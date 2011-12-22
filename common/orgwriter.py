@@ -4,6 +4,7 @@
 import codecs
 import sys
 import time
+import os
 from common.orgproperty import OrgProperties
 
 INVOCATION_TIME = time.strftime(u"%Y-%m-%dT%H:%M:%S", time.gmtime())
@@ -21,16 +22,19 @@ class OrgOutputWriter(object):
         self.__test = test
         self.__test_data = ""
         self.__append = append
-
-        if file_name:
-            if append:
-                self.__handler = codecs.open(file_name, 'a', u"utf-8")
-            else:
-                self.__handler = codecs.open(file_name, 'w', u"utf-8")
         self.__time = time.time()
         self.__short_description = short_description
         self.__tag = tag
-        self.__write_header()
+
+        if file_name:
+            if append and os.path.exists(file_name):
+                self.__handler = codecs.open(file_name, 'a', u"utf-8")
+                self.writeln()
+            else:
+                self.__handler = codecs.open(file_name, 'w', u"utf-8")
+                self.__write_header()
+        else:
+            self.__write_header()
 
     def get_test_result(self):
         return self.__test_data
@@ -48,7 +52,7 @@ class OrgOutputWriter(object):
                 # don't remove the comma(otherwise there will be a \n)
                 print output,
 
-    def writeln(self, output):
+    def writeln(self, output=""):
         """
         Write "<output>\n"
         """
@@ -58,7 +62,6 @@ class OrgOutputWriter(object):
         """
         Writes the header of the file
 
-        Don't call this function - call instead function close(),
         __init__() does call this function
         """
         self.write_commentln(u"-*- coding: utf-8 mode: org -*-")
@@ -115,13 +118,13 @@ class OrgOutputWriter(object):
                 self.writeln("  " + n)
         self.writeln(unicode(properties))
 
-    def close(self, write_footer=False):
+    def close(self):
         """
         Writes the footer and closes the file
         @param write_footer: write the foother with time ?
         """
         self.__time = "%1fs " % (time.time() - self.__time)
-        if write_footer:
+        if not self.__append:
             self.__write_footer()
         if self.__handler != None:
             self.__handler.close()
