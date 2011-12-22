@@ -34,7 +34,7 @@ class CommonReader:
             sys.exit(1)
 
     @staticmethod
-    def get_data_from_url(self, url):
+    def get_data_from_url(url):
         """
         reads from a url
 
