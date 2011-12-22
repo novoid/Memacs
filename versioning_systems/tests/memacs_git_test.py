@@ -14,30 +14,30 @@ from versioning_systems.memacs_git import Commit
 
 
 class TestCommit(unittest.TestCase):
-    
+
     def test_commit_empty(self):
         c = Commit()
         self.assertTrue(c.is_empty())
-    
+
     def test_commit(self):
         c = Commit()
-        c.add_header("author Armin Wieser <armin.wieser@example.com> 1324422878 +0100")
+        c.add_header("author Armin Wieser <armin.wieser@example.com> " + \
+                     "1324422878 +0100")
         c.add_body("i'm the subject")
         c.add_body("i'm in the body")
-        
+
         output, properties, note = c.get_output()
         self.assertEqual(output, "Armin Wieser: i'm the subject")
         self.assertEqual(note, "i'm in the body\n")
-        
+
         p = """  :PROPERTIES:
   :AUTHOR:  Armin Wieser <armin.wieser@example.com> 1324422878 +0100
   :CREATED: <2011-12-21 Wed 00:14:38>
   :END:"""
-        
+
         self.assertEqual(unicode(properties), p)
-        print 
-        
-        
+        print
+
 
 class TestGitMemacs(unittest.TestCase):
 
