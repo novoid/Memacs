@@ -24,6 +24,16 @@ Every 60 minutes try to fetch something new from git repository and parse output
 : MEMACS_DIR="/home/user/git/Memacs"
 : */60   *   *   *  *    /home/user/bin/no-power-supply.sh || cd "/home/user/git/Memacs" && git fetch && git rev-list --all --pretty=raw | $MEMACS_DIR/versioning_systems/memacs_git.py -o $ORG_DIR/git-memacs.org_archive
 
+*** .gitconfig - alias
+For easily add a contab entry, you can modify your .gitconfig and 
+add an alias i.e. memacs-add-crontab to the [alias] section.
+
+It could look like this: (adjust the paths!) 
+
+: [alias]
+:       ... 
+: 	memacs-add-crontab = "! crontab -l > /tmp/crontab &&  echo \"*/60   *   *   *  *    /home/user/bin/no-power-supply.sh || cd \"$(git rev-parse --show-toplevel)\" && git fetch && git rev-list --all --pretty=raw | /path/to/memacs/versioning_systems/memacs_git.py -o ~/orgmode/memacs/git-$(basename $(git rev-parse --show-toplevel)).org_archive\n\" >> /tmp/crontab && crontab /tmp/crontab && rm /tmp/crontab"
+	
 ** Example Orgmode entries
 
 Whenever user "Bob" commits a change set to an example project,
