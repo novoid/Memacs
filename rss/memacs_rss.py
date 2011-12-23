@@ -7,6 +7,8 @@ import os
 import logging
 import feedparser
 import re
+import calendar
+import time
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.reader import CommonReader
@@ -80,7 +82,12 @@ class RssMemacs(Memacs):
             link = OrgFormat.link(item['link'])
             note = link + "\n"
             note += item['description']
-            updated_time_struct = OrgFormat.datetime(item['updated_parsed'])
+            # old
+            # updated_time_struct = OrgFormat.datetime(item['updated_parsed'])
+            # new one:
+            # converting updated_parsed UTC --> LOCALTIME
+            updated_time_struct = OrgFormat.datetime(
+                time.localtime(calendar.timegm(item['updated_parsed'])))
             properties.add_property("created", updated_time_struct)
             properties.add_property("id", id)
             
