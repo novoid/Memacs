@@ -12,6 +12,18 @@ Done, if you find any errors do not hesitate to contact us.
 [[http://en.wikipedia.org/wiki/Rss][RSS]] is a widely used standard to distribute updates and content over
 the internet.
 
+** Automatic appending
+
+the <guid> property of an <item> in rss becomes following:
+: :PROPERTIES:
+: ...
+: :ID: <id>
+: ... 
+: :END: 
+
+At beginning, if an outputfile exists this memacs module looks for existing id's. 
+Only new items are then appended.
+
 ** Example Invocation
 
 rss from file

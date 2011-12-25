@@ -21,10 +21,25 @@ PROG_VERSION_DATE = u"2011-12-18"
 PROG_SHORT_DESCRIPTION = u"Memacs for rss feeds"
 PROG_TAG = u"rss"
 PROG_DESCRIPTION = u"""
-This Memacs module will parse rss files
-RSS2.0 is required
-TODO
-Then to an Org-mode file is generated that contains ...
+This Memacs module will parse rss files.
+
+rss can be read from file (-f FILE) or url (-u URL)
+
+The items are automatically be appended to the org file.
+
+
+Attention: RSS2.0 is required
+
+Sample Org-entries
+: ** [[http://www.wikipedia.org/][link]]: Example entry
+:   Here is some text containing an interesting description.
+:   :PROPERTIES:
+:   :LINK:    [[http://www.wikipedia.org/]]
+:   :CREATED: <2009-09-06 Sun 18:45>
+:   :ID:      unique string per item
+:   :SUMMARY: Here is some text containing an interesting description.
+:   :ID:      unique string per item
+:   :END:
 """
 
 
