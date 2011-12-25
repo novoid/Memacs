@@ -29,7 +29,6 @@ class OrgOutputWriter(object):
         if file_name:
             if append and os.path.exists(file_name):
                 self.__handler = codecs.open(file_name, 'a', u"utf-8")
-                self.writeln()
             else:
                 self.__handler = codecs.open(file_name, 'w', u"utf-8")
                 self.__write_header()

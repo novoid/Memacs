@@ -99,7 +99,8 @@ class RssMemacs(Memacs):
                           'updated_parsed', 'links']
         for i in  item:
             if i not in dont_parse:
-                if type(i) == unicode and type(item[i]) == unicode:
+                if type(i) == unicode and type(item[i]) == unicode and \
+                item[i] != "":
                     properties.add_property(i, item[i])
 
         return output, note, properties, id
