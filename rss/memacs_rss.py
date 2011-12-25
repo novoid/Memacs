@@ -69,7 +69,7 @@ class RssMemacs(Memacs):
 
     def __get_item_data(self, item):
         """
-        
+
         @return
         """
         try:
@@ -78,23 +78,25 @@ class RssMemacs(Memacs):
             id = item['id']
             if not id:
                 logging.error("got no id")
-            output = item['title']
+
+            short_link = OrgFormat.link(item['link'], "link")
+            output = short_link + ": "
+            output += item['title']
             link = OrgFormat.link(item['link'])
             note = link + "\n"
             note += item['description']
-            # old
+            # was: just take the time (but this is not localtime)
             # updated_time_struct = OrgFormat.datetime(item['updated_parsed'])
-            # new one:
-            # converting updated_parsed UTC --> LOCALTIME
+            # is: converting updated_parsed UTC --> LOCALTIME
             updated_time_struct = OrgFormat.datetime(
                 time.localtime(calendar.timegm(item['updated_parsed'])))
             properties.add_property("created", updated_time_struct)
             properties.add_property("id", id)
-            
+
         except KeyError:
             logging.error("input is not a RSS 2.0")
             sys.exit(1)
-        
+
         dont_parse = ['title', 'description', 'link', 'updated',
                           'updated_parsed', 'links']
         for i in  item:
@@ -106,19 +108,19 @@ class RssMemacs(Memacs):
         return output, note, properties, id
 
     def __get_existing_ids(self):
-        
+
         # if we have no outputfile, then we cannot have existing ids
         if not self._args.outputfile:
             return []
-        
+
         existing_ids = []
-        
+
         data = CommonReader.get_data_from_file(self._args.outputfile)
         for found_id in re.findall(":ID:(.*)", data):
             found_id = found_id.strip()
             if found_id != "":
                 existing_ids.append(found_id)
-        
+
         logging.debug("there are already %d entries", len(existing_ids))
         return existing_ids
 
@@ -135,14 +137,16 @@ class RssMemacs(Memacs):
         rss = feedparser.parse(data)
         logging.info("title: %s", rss['feed']['title'])
         logging.info("there are: %d entries", len(rss.entries))
-        
+
         existing_ids = self.__get_existing_ids()
-        
+
         for item in rss.entries:
             output, note, properties, id = self.__get_item_data(item)
             if id not in existing_ids:
                 logging.debug("appending item to file")
-                self._writer.write_org_subitem(output, note=note, properties=properties)
+                self._writer.write_org_subitem(output,
+                                               note=note,
+                                               properties=properties)
             else:
                 logging.debug("not appending item to file")
 

@@ -29,8 +29,8 @@ class CommonReader:
             data = input_file.read()
             input_file.close()
             return data
-        except IOError,e:
-            logging.error("Error at opening file: %s:%s", path,e)
+        except IOError, e:
+            logging.error("Error at opening file: %s:%s", path, e)
             sys.exit(1)
 
     @staticmethod

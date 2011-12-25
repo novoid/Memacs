@@ -19,9 +19,9 @@ class TestOrgProperties(unittest.TestCase):
     def test_properties_default_ctor(self):
         p = OrgProperties()
         properties = unicode(p).splitlines()
-        self.assertEqual(properties[0], u"  :PROPERTIES:")
-        self.assertEqual(properties[1][:-24], u"  :CREATED: [")
-        self.assertEqual(properties[2], u"  :END:")
+        self.assertEqual(properties[0], u"   :PROPERTIES:")
+        self.assertEqual(properties[1][:-24], u"   :CREATED: [")
+        self.assertEqual(properties[2], u"   :END:")
 
     def test_properties_with_own_created(self):
         p = OrgProperties()
@@ -29,6 +29,6 @@ class TestOrgProperties(unittest.TestCase):
                           OrgFormat.datetime(time.gmtime(0))))
         properties = unicode(p).splitlines()
 
-        self.assertEqual(properties[0], u"  :PROPERTIES:")
-        self.assertEqual(properties[1], u"  :CREATED: <1970-01-01 Thu 00:00>")
-        self.assertEqual(properties[2], u"  :END:")
+        self.assertEqual(properties[0], u"   :PROPERTIES:")
+        self.assertEqual(properties[1], u"   :CREATED: <1970-01-01 Thu 00:00>")
+        self.assertEqual(properties[2], u"   :END:")

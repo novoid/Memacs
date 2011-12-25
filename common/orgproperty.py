@@ -66,7 +66,7 @@ class OrgProperties(object):
         whitespaces = ""
         for w in range(num_whitespaces):
             whitespaces += " "
-        return "  :" + tag + ": " + whitespaces
+        return "   :" + tag + ": " + whitespaces
 
     def __unicode__(self):
         """
@@ -75,12 +75,12 @@ class OrgProperties(object):
         if not self.__has_property("CREATED"):
             self.add(OrgProperty("CREATED",
                 OrgFormat.inactive_datetime(time.localtime())))
-        ret = "  :PROPERTIES:\n"
+        ret = "   :PROPERTIES:\n"
 
         for p in self.__properties:
             ret += self.__format_tag(p.tag) + p.value + "\n"
 
-        ret += "  :END:"
+        ret += "   :END:"
         return ret
 
 

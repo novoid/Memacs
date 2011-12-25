@@ -28,16 +28,16 @@ class TestFoo(unittest.TestCase):
         #        (d, data[d])
 
         self.assertEqual(data[0], "** foo")
-        self.assertEqual(data[1], "  :PROPERTIES:")
+        self.assertEqual(data[1], "   :PROPERTIES:")
         #self.assertEqual(data[2], "  :CREATED: <2011-12-20 Tue 16:55:50>")
-        self.assertEqual(data[3], "  :END:")
+        self.assertEqual(data[3], "   :END:")
         self.assertEqual(data[4], "** bar")
-        self.assertEqual(data[5], "  bar notes")
-        self.assertEqual(data[6], "  foo notes")
-        self.assertEqual(data[7], "  :PROPERTIES:")
-        self.assertEqual(data[8], "  :DESCRIPTION: foooo")
-        self.assertEqual(data[9], "  :CREATED:     <1970-01-01 Thu 00:00>")
-        self.assertEqual(data[10], "  :END:")
+        self.assertEqual(data[5], "   bar notes")
+        self.assertEqual(data[6], "   foo notes")
+        self.assertEqual(data[7], "   :PROPERTIES:")
+        self.assertEqual(data[8], "   :DESCRIPTION: foooo")
+        self.assertEqual(data[9], "   :CREATED:     <1970-01-01 Thu 00:00>")
+        self.assertEqual(data[10], "   :END:")
 
     def tearDown(self):
         pass

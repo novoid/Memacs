@@ -30,10 +30,10 @@ class TestCommit(unittest.TestCase):
         self.assertEqual(output, "Armin Wieser: i'm the subject")
         self.assertEqual(note, "i'm in the body\n")
 
-        p = """  :PROPERTIES:
-  :AUTHOR:  Armin Wieser <armin.wieser@example.com> 1324422878 +0100
-  :CREATED: <2011-12-21 Wed 00:14:38>
-  :END:"""
+        p = """   :PROPERTIES:
+   :AUTHOR:  Armin Wieser <armin.wieser@example.com> 1324422878 +0100
+   :CREATED: <2011-12-21 Wed 00:14:38>
+   :END:"""
 
         self.assertEqual(unicode(properties), p)
         print
@@ -55,56 +55,56 @@ class TestGitMemacs(unittest.TestCase):
 
         self.assertEqual(
             data[1],
-            "  :PROPERTIES:")
+            "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-            "  :COMMIT:        17b5cb8bc085b2dbfbab6832f056d653e3ef80b6")
+            "   :COMMIT:        17b5cb8bc085b2dbfbab6832f056d653e3ef80b6")
         self.assertEqual(
             data[3],
-            "  :TREE:          6b3361c8919f432432048c0f54b4b3fab9eb5039")
+            "   :TREE:          6b3361c8919f432432048c0f54b4b3fab9eb5039")
         self.assertEqual(
             data[4],
-            "  :PARENT:        6fb35035c5fa7ead66901073413a42742a323e89")
+            "   :PARENT:        6fb35035c5fa7ead66901073413a42742a323e89")
         self.assertEqual(
             data[5],
-            "  :AUTHOR:        Armin Wieser <armin.wieser@" + \
+            "   :AUTHOR:        Armin Wieser <armin.wieser@" + \
             "gmail.com> 1324423850 +0100")
         self.assertEqual(
             data[6],
-            "  :CREATED:       <2011-12-21 Wed 00:30:50>")
+            "   :CREATED:       <2011-12-21 Wed 00:30:50>")
         self.assertEqual(
             data[7],
-            "  :COMMITTER:     Armin Wieser <armin.wieser@" + \
+            "   :COMMITTER:     Armin Wieser <armin.wieser@" + \
             "gmail.com> 1324423850 +0100")
         self.assertEqual(
             data[9],
-            "  :END:")
+            "   :END:")
         self.assertEqual(
             data[10],
             "** Armin Wieser: PEP8")
         self.assertEqual(
             data[11],
-            "  :PROPERTIES:")
+            "   :PROPERTIES:")
         self.assertEqual(
             data[12],
-            "  :COMMIT:        6fb35035c5fa7ead66901073413a42742a323e89")
+            "   :COMMIT:        6fb35035c5fa7ead66901073413a42742a323e89")
         self.assertEqual(
             data[13],
-            "  :TREE:          7027c628031b3ad07ad5401991f5a12aead8237a")
+            "   :TREE:          7027c628031b3ad07ad5401991f5a12aead8237a")
         self.assertEqual(
             data[14],
-            "  :PARENT:        05ba138e6aa1481db2c815ddd2acb52d3597852f")
+            "   :PARENT:        05ba138e6aa1481db2c815ddd2acb52d3597852f")
         self.assertEqual(
             data[15],
-            "  :AUTHOR:        Armin Wieser <armin.wieser@" + \
+            "   :AUTHOR:        Armin Wieser <armin.wieser@" + \
             "gmail.com> 1324422878 +0100")
         self.assertEqual(
             data[16],
-            "  :CREATED:       <2011-12-21 Wed 00:14:38>")
+            "   :CREATED:       <2011-12-21 Wed 00:14:38>")
         self.assertEqual(
             data[17],
-            "  :COMMITTER:     Armin Wieser <armin.wieser@" + \
+            "   :COMMITTER:     Armin Wieser <armin.wieser@" + \
             "gmail.com> 1324422878 +0100")
         self.assertEqual(
             data[19],
-            "  :END:")
+            "   :END:")
