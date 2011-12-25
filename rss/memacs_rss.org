@@ -1,11 +1,11 @@
-## Time-stamp: <2011-11-19 11:49:30 vk>
+## Time-stamp: <2011-11-19 Sat 11:49 aw>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-rss
 
 ** Current status
 
-This module will be developed within he next months.
+Done, if you find any errors do not hesitate to contact us.
 
 ** Data Source
 
@@ -14,8 +14,20 @@ the internet.
 
 ** Example Invocation
 
-work in progress
+rss from file
+: memacs_rss.py -u "http://example.com/file.rss" -o "/home/user/orgmode/memacs/rss_foo.org_archive"
+
+rss from url
+: memacs_rss.py -f "/path/to/file.rss" -o "/home/user/orgmode/memacs/rss_foo.org_archive"
 
 ** Example Orgmode entries
 
-work in progress
+: ** [[http://www.wikipedia.org/][link]]: Example entry
+:   Here is some text containing an interesting description.
+:   :PROPERTIES:
+:   :LINK:    [[http://www.wikipedia.org/]]
+:   :CREATED: <2009-09-06 Sun 18:45>
+:   :ID:      unique string per item
+:   :SUMMARY: Here is some text containing an interesting description.
+:   :ID:      unique string per item
+:   :END:
