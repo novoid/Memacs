@@ -5,7 +5,10 @@ import codecs
 import sys
 import time
 import os
+import re
+import logging
 from common.orgproperty import OrgProperties
+from common.reader import CommonReader
 
 INVOCATION_TIME = time.strftime(u"%Y-%m-%dT%H:%M:%S", time.gmtime())
 
@@ -25,10 +28,13 @@ class OrgOutputWriter(object):
         self.__time = time.time()
         self.__short_description = short_description
         self.__tag = tag
+        self.__file_name = file_name
+        self.__existing_ids = []
 
         if file_name:
             if append and os.path.exists(file_name):
                 self.__handler = codecs.open(file_name, 'a', u"utf-8")
+                self.__compute_existing_list()
             else:
                 self.__handler = codecs.open(file_name, 'w', u"utf-8")
                 self.__write_header()
@@ -116,6 +122,45 @@ class OrgOutputWriter(object):
             for n in note.splitlines():
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
+
+    def __compute_existing_list(self):
+        assert self.__existing_ids == []
+
+        data = CommonReader.get_data_from_file(self.__file_name)
+        for found_id in re.findall(":ID:(.*)", data):
+            found_id = found_id.strip()
+            if found_id != "":
+                self.__existing_ids.append(found_id)
+
+        logging.debug("there are already %d entries", len(self.__existing_ids))
+
+    def __id_exists(self, id):
+        """
+        @return: if id already exists in output file
+        """
+        return id in self.__existing_ids
+
+    def append_org_subitem(self, output, note="", properties=OrgProperties()):
+        """
+        Checks if subitem exists in orgfile (:ID: <id> is same),
+        if not, it will be appended
+        """
+        if self.__append:
+            id = properties.get_id()
+
+            if id == None:
+                raise Exception("ID Property not set")
+
+            if self.__id_exists(id):
+                # do nothing, id exists ...
+                logging.debug("ID exists not appending")
+            else:
+                # id does not exist so we can append
+                logging.debug("ID not exists appending")
+                self.write_org_subitem(output, note, properties)
+
+        else:
+            raise Exception("cannot use this method, when not in append mode")
 
     def close(self):
         """

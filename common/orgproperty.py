@@ -39,6 +39,20 @@ class OrgProperties(object):
                 return True
         return False
 
+    def __get_property(self, tag):
+        """
+        Returns a property with a given tag
+
+        @param tag: tag search for
+        @return: OrgProperty - if tag was found
+                 None - Otherwise
+        """
+        has_tag = False
+        for p in self.__properties:
+            if p.tag == tag:
+                return p
+        return None
+
     def add(self, org_property):
         """
         Add an OrgProperty object to the properties
@@ -82,6 +96,12 @@ class OrgProperties(object):
 
         ret += "   :END:"
         return ret
+
+    def get_id(self):
+        """
+        @return: returns <value> of ":ID: <value>"
+        """
+        return self.__get_property("ID").value
 
 
 class OrgProperty(object):
