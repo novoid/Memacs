@@ -32,6 +32,9 @@ rss from file
 rss from url
 : memacs_rss.py -f "/path/to/file.rss" -o "/home/user/orgmode/memacs/rss_foo.org_archive"
 
+example with twitter (replace <USERNAME> with twitter-name):
+: memacs_rss.py -u "http://twitter.com/statuses/user_timeline/<USERNAME>.rss" -o "/home/user/orgmode/memacs/twitter-<USERNAME>.org_archive"
+
 ** Example Orgmode entries
 
 : ** [[http://www.wikipedia.org/][link]]: Example entry
