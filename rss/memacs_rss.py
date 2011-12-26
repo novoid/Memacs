@@ -98,8 +98,8 @@ class RssMemacs(Memacs):
 
             unformatted_link = item['link']
             short_link = OrgFormat.link(unformatted_link, "link")
-            
-            # if we found a url in title 
+
+            # if we found a url in title
             # then append the url in front of subject
             if re.search("http[s]?://", item['title']) != None:
                 output = short_link + ": " + item['title']
