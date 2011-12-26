@@ -1,4 +1,4 @@
-## Time-stamp: <2011-11-19 Sat 11:49 aw>
+## Time-stamp: <2011-12-26 12:51:22 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-rss
@@ -26,10 +26,10 @@ Only new items are then appended.
 
 ** Example Invocation
 
-rss from file
+rss from URL
 : memacs_rss.py -u "http://example.com/file.rss" -o "/home/user/orgmode/memacs/rss_foo.org_archive"
 
-rss from url
+rss from file
 : memacs_rss.py -f "/path/to/file.rss" -o "/home/user/orgmode/memacs/rss_foo.org_archive"
 
 example with twitter (replace <USERNAME> with twitter-name):
