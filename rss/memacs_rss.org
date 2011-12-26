@@ -46,7 +46,7 @@ example with twitter (replace <USERNAME> with twitter-name):
 
 ** Example Orgmode entries
 
-: ** [[http://www.wikipedia.org/][link]]: Example entry
+: ** [[http://www.wikipedia.org/][link]]: Example entry    :tag:
 :   Here is some text containing an interesting description.
 :   :PROPERTIES:
 :   :LINK:    [[http://www.wikipedia.org/]]
