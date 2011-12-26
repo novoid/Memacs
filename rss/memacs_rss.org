@@ -1,4 +1,4 @@
-## Time-stamp: <2011-12-26 12:51:22 vk>
+## Time-stamp: <2011-12-26 13:03:56 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-rss
@@ -11,6 +11,15 @@ Done, if you find any errors do not hesitate to contact us.
 
 [[http://en.wikipedia.org/wiki/Rss][RSS]] is a widely used standard to distribute updates and content over
 the internet.
+
+** Dependencies
+
+This module uses the Python library [[http://code.google.com/p/feedparser/][feedparser]] which might be
+necessary to be installed before using this module.
+
+When using [[http://www.ubuntu.com/][Ubuntu GNU/Linux]] or any other [[http://www.debian.org/][Debian GNU/Linux]] based
+distribution you can install the package by invoking «apt-get install
+python-feedparser» as root user.
 
 ** Automatic appending
 
