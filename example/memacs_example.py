@@ -64,9 +64,12 @@ class Foo(Memacs):
 
         notes = "bar notes\nfoo notes"
         p = OrgProperties()
-        p.add_property("DESCRIPTION", "foooo")
-        p.add_property("CREATED", OrgFormat.datetime(time.gmtime(0)))
-        self._writer.write_org_subitem("bar", note=notes, properties=p)
+        p.add("DESCRIPTION", "foooo")
+        p.add("CREATED", OrgFormat.datetime(time.gmtime(0)))
+
+        tags = [u"tag1", u"tag2"]
+        self._writer.write_org_subitem("bar", note=notes, properties=p,
+                                       tags=tags)
         # output:
         #** bar
         #  bar notes

@@ -23,56 +23,21 @@ class OrgProperties(object):
         """
         Ctor
         """
-        self.__properties = []
+        self.__properties = {}
 
-    def __has_property(self, tag):
-        """
-        Checks if we have a property with a given tag
-
-        @param tag: tag search for
-        @return: True - if tag was found
-                 False - Otherwise
-        """
-        has_tag = False
-        for p in self.__properties:
-            if p.tag == tag:
-                return True
-        return False
-
-    def __get_property(self, tag):
-        """
-        Returns a property with a given tag
-
-        @param tag: tag search for
-        @return: OrgProperty - if tag was found
-                 None - Otherwise
-        """
-        has_tag = False
-        for p in self.__properties:
-            if p.tag == tag:
-                return p
-        return None
-
-    def add(self, org_property):
-        """
-        Add an OrgProperty object to the properties
-        """
-        assert type(org_property) == OrgProperty
-        self.__properties.append(org_property)
-
-    def add_property(self, tag, value):
+    def add(self, tag, value):
         """
         Add an OrgProperty(tag,value) to the properties
         @param tag: property tag
         @param value: property value
         """
-        self.__properties.append(OrgProperty(tag.upper(), value))
+        self.__properties[tag.upper()] = value
 
     def __get_property_max_tag_width(self):
-        width = 7
-        for p in self.__properties:
-            if width < len(p.tag):
-                width = len(p.tag)
+        width = 7  # :PROPERTIES: has width 7
+        for key in self.__properties.keys():
+            if width < len(key):
+                width = len(key)
         return width
 
     def __format_tag(self, tag):
@@ -86,13 +51,13 @@ class OrgProperties(object):
         """
         for representig properties in unicode with org formatting
         """
-        if not self.__has_property("CREATED"):
-            self.add(OrgProperty("CREATED",
-                OrgFormat.inactive_datetime(time.localtime())))
+        if "CREATED" not in self.__properties:
+            self.add("CREATED",
+                     OrgFormat.inactive_datetime(time.localtime()))
         ret = "   :PROPERTIES:\n"
 
-        for p in self.__properties:
-            ret += self.__format_tag(p.tag) + p.value + "\n"
+        for tag, value in self.__properties.iteritems():
+            ret += self.__format_tag(tag) + value + "\n"
 
         ret += "   :END:"
         return ret
@@ -101,20 +66,4 @@ class OrgProperties(object):
         """
         @return: returns <value> of ":ID: <value>"
         """
-        return self.__get_property("ID").value
-
-
-class OrgProperty(object):
-    """
-    Class for representing one Property:
-    i.e.:
-    :DESCRIPTION: foo
-    :<tag>: <value>
-    """
-
-    def __init__(self, tag, value=u""):
-        """
-        Ctor
-        """
-        self.tag = tag.strip()
-        self.value = value.strip()
+        return self.__properties["ID"]

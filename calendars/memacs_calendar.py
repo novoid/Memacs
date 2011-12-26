@@ -199,9 +199,9 @@ class CalendarMemacs(Memacs):
         org_properties = OrgProperties()
 
         if location != None:
-            org_properties.add_property("LOCATION", location)
+            org_properties.add("LOCATION", location)
         if description != None:
-            org_properties.add_property("DESCRIPTION", description)
+            org_properties.add("DESCRIPTION", description)
 
         self._writer.write_org_subitem(summary,
                                        note=orgdate,

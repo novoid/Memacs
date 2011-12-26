@@ -83,8 +83,10 @@ class RssMemacs(Memacs):
 
     def __get_item_data(self, item):
         """
+        gets information out of <item>..</item>
 
-        @return
+        @return:  output, note, properties, tags
+                  variables for orgwriter.append_org_subitem
         """
         try:
             #logging.debug(item)
@@ -97,7 +99,7 @@ class RssMemacs(Memacs):
             link = OrgFormat.link(unformatted_link)
             short_link = OrgFormat.link(unformatted_link, "link")
 
-            properties.add_property("link", link)
+            properties.add("link", link)
 
             output = short_link + ": "
             output += item['title']
@@ -109,22 +111,29 @@ class RssMemacs(Memacs):
             # is: converting updated_parsed UTC --> LOCALTIME
             updated_time_struct = OrgFormat.datetime(
                 time.localtime(calendar.timegm(item['updated_parsed'])))
-            properties.add_property("created", updated_time_struct)
-            properties.add_property("id", id)
+            properties.add("created", updated_time_struct)
+            properties.add("id", id)
 
         except KeyError:
             logging.error("input is not a RSS 2.0")
             sys.exit(1)
 
+        tags = []
         dont_parse = ['title', 'description', 'updated',
                           'updated_parsed', 'link', 'links']
         for i in  item:
+            logging.debug(i)
             if i not in dont_parse:
                 if (type(i) == unicode or type(i) == str) and \
                 type(item[i]) == unicode and  item[i] != "":
-                    properties.add_property(i, item[i])
+                    properties.add(i, item[i])
+                else:
+                    if i == "tags":
+                        for tag in item[i]:
+                            logging.debug("found tag: %s", tag['term'])
+                            tags.append(tag['term'])
 
-        return output, note, properties, id
+        return output, note, properties, tags
 
     def _main(self):
         """
@@ -141,10 +150,12 @@ class RssMemacs(Memacs):
         logging.info("there are: %d entries", len(rss.entries))
 
         for item in rss.entries:
-            output, note, properties, id = self.__get_item_data(item)
+            logging.debug(item)
+            output, note, properties, tags = self.__get_item_data(item)
             self._writer.append_org_subitem(output,
                                             note=note,
-                                            properties=properties)
+                                            properties=properties,
+                                            tags=tags)
 
 if __name__ == "__main__":
     memacs = RssMemacs(

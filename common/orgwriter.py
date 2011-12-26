@@ -111,17 +111,45 @@ class OrgOutputWriter(object):
         """
         self.writeln("* " + output)
 
-    def write_org_subitem(self, output, note="", properties=OrgProperties()):
+    def write_org_subitem(self, output, note="", properties=OrgProperties(),
+                          tags=[]):
         """
         Writes an org item line.
 
         i.e: * <output>\n
         """
-        self.writeln("** " + output)
+        output_tags = ""
+        if tags != []:
+            output_tags = u"\t:" + ":".join(map(str, tags)) + ":"
+
+        self.writeln("** " + output + output_tags)
         if note != "":
             for n in note.splitlines():
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
+
+    def append_org_subitem(self, output, note="", properties=OrgProperties(),
+                           tags=[]):
+        """
+        Checks if subitem exists in orgfile (:ID: <id> is same),
+        if not, it will be appended
+        """
+        if self.__append:
+            id = properties.get_id()
+
+            if id == None:
+                raise Exception("ID Property not set")
+
+            if self.__id_exists(id):
+                # do nothing, id exists ...
+                logging.debug("ID exists not appending")
+            else:
+                # id does not exist so we can append
+                logging.debug("ID not exists appending")
+                self.write_org_subitem(output, note, properties, tags)
+
+        else:
+            raise Exception("cannot use this method, when not in append mode")
 
     def __compute_existing_list(self):
         assert self.__existing_ids == []
@@ -139,28 +167,6 @@ class OrgOutputWriter(object):
         @return: if id already exists in output file
         """
         return id in self.__existing_ids
-
-    def append_org_subitem(self, output, note="", properties=OrgProperties()):
-        """
-        Checks if subitem exists in orgfile (:ID: <id> is same),
-        if not, it will be appended
-        """
-        if self.__append:
-            id = properties.get_id()
-
-            if id == None:
-                raise Exception("ID Property not set")
-
-            if self.__id_exists(id):
-                # do nothing, id exists ...
-                logging.debug("ID exists not appending")
-            else:
-                # id does not exist so we can append
-                logging.debug("ID not exists appending")
-                self.write_org_subitem(output, note, properties)
-
-        else:
-            raise Exception("cannot use this method, when not in append mode")
 
     def close(self):
         """

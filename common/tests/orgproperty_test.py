@@ -11,7 +11,6 @@ sys.path.append(
             os.path.dirname(
                 os.path.abspath(__file__)))))
 from common.orgproperty import OrgProperties
-from common.orgproperty import OrgProperty
 
 
 class TestOrgProperties(unittest.TestCase):
@@ -25,8 +24,8 @@ class TestOrgProperties(unittest.TestCase):
 
     def test_properties_with_own_created(self):
         p = OrgProperties()
-        p.add(OrgProperty(u"CREATED",
-                          OrgFormat.datetime(time.gmtime(0))))
+        p.add(u"CREATED",
+              OrgFormat.datetime(time.gmtime(0)))
         properties = unicode(p).splitlines()
 
         self.assertEqual(properties[0], u"   :PROPERTIES:")

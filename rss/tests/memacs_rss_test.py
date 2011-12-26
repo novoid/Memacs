@@ -34,6 +34,7 @@ class TestRss(unittest.TestCase):
         #for d in range(len(data)):
         #    print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
         #        (d, data[d])
+
         self.assertEqual(
             data[0],
             "** [[http://www.wikipedia.org/][link]]: Example entry")
@@ -45,20 +46,17 @@ class TestRss(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[3],
-            "   :LINK:    [[http://www.wikipedia.org/]]")
+            "   :SUMMARY: Here is some text containing " + \
+            "an interesting description.")
         self.assertEqual(
             data[4],
-            "   :CREATED: <2009-09-06 Sun 18:45>")
+            "   :LINK:    [[http://www.wikipedia.org/]]")
         self.assertEqual(
             data[5],
             "   :ID:      unique string per item")
         self.assertEqual(
             data[6],
-            "   :SUMMARY: Here is some text containing an " + \
-            "interesting description.")
+            "   :CREATED: <2009-09-06 Sun 18:45>")
         self.assertEqual(
             data[7],
-            "   :ID:      unique string per item")
-        self.assertEqual(
-            data[8],
             "   :END:")

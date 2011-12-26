@@ -58,7 +58,7 @@ class Commit(object):
         self.__datetime = OrgFormat.datetime(
                             time.localtime(seconds_since_epoch))
         self.__author = line[7:line.find("<")].strip()
-        self.__properties.add_property("CREATED", self.__datetime)
+        self.__properties.add("CREATED", self.__datetime)
 
     def add_header(self, line):
         """
@@ -81,7 +81,7 @@ class Commit(object):
             whitespace = line.find(" ")
             tag = line[:whitespace].upper()
             value = line[whitespace:]
-            self.__properties.add_property(tag, value)
+            self.__properties.add(tag, value)
             if tag == "AUTHOR":
                 self.__set_created(line)
 
@@ -96,7 +96,7 @@ class Commit(object):
         line = line.strip()
         if line != "":
             if line[:14] == "Signed-off-by:":
-                self.__properties.add_property("SIGNED-OFF-BY", line[15:])
+                self.__properties.add("SIGNED-OFF-BY", line[15:])
             elif self.__subject == "":
                 self.__subject = line
             else:

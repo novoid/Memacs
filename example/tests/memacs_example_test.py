@@ -31,7 +31,7 @@ class TestFoo(unittest.TestCase):
         self.assertEqual(data[1], "   :PROPERTIES:")
         #self.assertEqual(data[2], "  :CREATED: <2011-12-20 Tue 16:55:50>")
         self.assertEqual(data[3], "   :END:")
-        self.assertEqual(data[4], "** bar")
+        self.assertEqual(data[4], "** bar\t:tag1:tag2:")
         self.assertEqual(data[5], "   bar notes")
         self.assertEqual(data[6], "   foo notes")
         self.assertEqual(data[7], "   :PROPERTIES:")
