@@ -8,6 +8,7 @@ import logging
 import feedparser
 import calendar
 import time
+import re
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.reader import CommonReader
@@ -96,19 +97,18 @@ class RssMemacs(Memacs):
                 logging.error("got no id")
 
             unformatted_link = item['link']
-            link = OrgFormat.link(unformatted_link)
             short_link = OrgFormat.link(unformatted_link, "link")
+            
+            # if we found a url in title 
+            # then append the url in front of subject
+            if re.search("http[s]?://", item['title']) != None:
+                output = short_link + ": " + item['title']
+            else:
+                output = OrgFormat.link(unformatted_link, item['title'])
 
-            properties.add("link", link)
-
-            output = short_link + ": "
-            output += item['title']
-
-            #note = link + "\n"
             note = item['description']
-            # was: just take the time (but this is not localtime)
-            # updated_time_struct = OrgFormat.datetime(item['updated_parsed'])
-            # is: converting updated_parsed UTC --> LOCALTIME
+
+            # converting updated_parsed UTC --> LOCALTIME
             updated_time_struct = OrgFormat.datetime(
                 time.localtime(calendar.timegm(item['updated_parsed'])))
             properties.add("created", updated_time_struct)
