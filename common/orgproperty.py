@@ -31,7 +31,7 @@ class OrgProperties(object):
         @param tag: property tag
         @param value: property value
         """
-        self.__properties[tag.upper()] = value
+        self.__properties[tag.upper()] = unicode(value)
 
     def __get_property_max_tag_width(self):
         width = 7  # :PROPERTIES: has width 7

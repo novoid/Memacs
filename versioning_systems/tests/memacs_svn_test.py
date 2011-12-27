@@ -18,7 +18,8 @@ class TestGitMemacs(unittest.TestCase):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
             os.sep + "svn-log-xml.txt"
         argv = "-s -f " + test_file
-        memacs = SvnMemacs(argv=argv.split())
+        memacs = SvnMemacs(argv=argv.split(), append=True,
+                           identifier="REVISION")
         self.data = memacs.test_get_entries()
 
     def test_from_file(self):
@@ -37,58 +38,73 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-             "   :CREATED: <2011-10-27 Thu 19:50:16>")
+             "   :REVISION: 5")
         self.assertEqual(
             data[3],
-             "   :END:")
+             "   :CREATED:  <2011-10-27 Thu 19:50:16>")
         self.assertEqual(
             data[4],
-             "** group-5 (r4): finished 5,")
+             "   :END:")
         self.assertEqual(
             data[5],
-             "   added package to assignment1.tex for landscaping (see 5.tex)")
+             "** group-5 (r4): finished 5,")
         self.assertEqual(
             data[6],
-             "   :PROPERTIES:")
+             "   added package to assignment1.tex for landscaping (see 5.tex)")
         self.assertEqual(
             data[7],
-             "   :CREATED: <2011-10-27 Thu 19:18:26>")
+             "   :PROPERTIES:")
         self.assertEqual(
             data[8],
-             "   :END:")
+             "   :REVISION: 4")
         self.assertEqual(
             data[9],
-             "** group-5 (r3): 5b.")
+             "   :CREATED:  <2011-10-27 Thu 19:18:26>")
         self.assertEqual(
             data[10],
-             "   :PROPERTIES:")
+             "   :END:")
         self.assertEqual(
             data[11],
-             "   :CREATED: <2011-10-27 Thu 17:38:17>")
+             "** group-5 (r3): 5b.")
         self.assertEqual(
             data[12],
-             "   :END:")
+             "   :PROPERTIES:")
         self.assertEqual(
             data[13],
-             "** group-5 (r2): 5.tex")
+             "   :REVISION: 3")
         self.assertEqual(
             data[14],
-             "   :PROPERTIES:")
+             "   :CREATED:  <2011-10-27 Thu 17:38:17>")
         self.assertEqual(
             data[15],
-             "   :CREATED: <2011-10-27 Thu 16:41:11>")
-        self.assertEqual(
-            data[16],
              "   :END:")
         self.assertEqual(
-            data[17],
-             "** group-5 (r1): initial files")
+            data[16],
+             "** group-5 (r2): 5.tex")
         self.assertEqual(
-            data[18],
+            data[17],
              "   :PROPERTIES:")
         self.assertEqual(
+            data[18],
+             "   :REVISION: 2")
+        self.assertEqual(
             data[19],
-             "   :CREATED: <2011-10-27 Thu 10:44:55>")
+             "   :CREATED:  <2011-10-27 Thu 16:41:11>")
         self.assertEqual(
             data[20],
+             "   :END:")
+        self.assertEqual(
+            data[21],
+             "** group-5 (r1): initial files")
+        self.assertEqual(
+            data[22],
+             "   :PROPERTIES:")
+        self.assertEqual(
+            data[23],
+             "   :REVISION: 1")
+        self.assertEqual(
+            data[24],
+             "   :CREATED:  <2011-10-27 Thu 10:44:55>")
+        self.assertEqual(
+            data[25],
              "   :END:")

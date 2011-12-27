@@ -27,7 +27,7 @@ class TestRss(unittest.TestCase):
             pass
 
     def test_all(self):
-        memacs = RssMemacs(argv=self.argv.split(), append_orgfile=True)
+        memacs = RssMemacs(argv=self.argv.split(), append=True)
         data = memacs.test_get_entries()
 
         # generate assertEquals :)

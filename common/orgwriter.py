@@ -180,7 +180,7 @@ class OrgOutputWriter(object):
         """
         @return: if searchid already exists in output file
         """
-        return searchid.strip() in self.__existing_ids
+        return unicode(searchid).strip() in self.__existing_ids
 
     def close(self):
         """
