@@ -143,9 +143,9 @@ class Memacs(object):
             self._writer.close()
         except KeyboardInterrupt:
             logging.info("Received KeyboardInterrupt")
-        except SystemExit:
+        except SystemExit, e:
             # if we get an sys.exit() do exit!
-            pass
+            sys.exit(e)
         except:
             error_lines = traceback.format_exc().splitlines()
             logging.error("\n   ".join(map(str, error_lines)))

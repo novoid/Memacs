@@ -6,6 +6,7 @@ import sys
 import os
 import logging
 import xml.sax
+from xml.sax._exceptions import SAXParseException
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.orgproperty import OrgProperties
@@ -55,7 +56,7 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
     </log>
     """
 
-    def __init__(self, writer):
+    def __init__(self, writer, grepauthor):
         """
         Ctor
 
@@ -63,6 +64,7 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         """
         self.__reset()
         self._writer = writer
+        self.__grepauthor = grepauthor
 
     def __reset(self):
         """
@@ -104,9 +106,11 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         properties.add("CREATED", dt)
         properties.add("REVISION", self.__rev)
 
-        self._writer.append_org_subitem(output=output,
-                                        note=notes,
-                                        properties=properties)
+        if self.__grepauthor == None or \
+        (self.__author.strip() == self.__grepauthor.strip()):
+            self._writer.append_org_subitem(output=output,
+                                            note=notes,
+                                            properties=properties)
 
     def characters(self, content):
         """
@@ -165,6 +169,12 @@ class SvnMemacs(Memacs):
             help="path to a an file which contains output from " + \
                 " following svn command: svn log --xml")
 
+        self._parser.add_argument(
+           "-g", "--grep-author", dest="grepauthor",
+           action="store",
+           help="if you wanna parse only messages from a specific person. " + \
+           "format:<author> of author to grep")
+
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
@@ -188,10 +198,16 @@ class SvnMemacs(Memacs):
             logging.debug("using as %s input_stream", self._args.svnlogxmlfile)
             data = CommonReader.get_data_from_file(self._args.svnlogxmlfile)
         else:
-            logging.info("ATTENTION: Using stdin as input_stream")
+            logging.info("Using stdin as input_stream")
             data = CommonReader.get_data_from_stdin()
 
-        xml.sax.parseString(data.encode('utf-8'), SvnSaxHandler(self._writer))
+        try:
+            xml.sax.parseString(data.encode('utf-8'),
+                                SvnSaxHandler(self._writer,
+                                              self._args.grepauthor))
+        except SAXParseException:
+            logging.error("No correct XML given")
+            sys.exit(1)
 
 
 if __name__ == "__main__":
