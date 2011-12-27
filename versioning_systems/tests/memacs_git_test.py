@@ -45,7 +45,8 @@ class TestGitMemacs(unittest.TestCase):
 
     def test_from_file(self):
         argv = "-s -f " + self.test_file
-        memacs = GitMemacs(argv=argv.split())
+        memacs = GitMemacs(argv=argv.split(), append_orgfile=True,
+                           identifier="COMMIT")
         data = memacs.test_get_entries()
 
         # generate assertEquals :)
@@ -157,7 +158,8 @@ class TestGitMemacs(unittest.TestCase):
 
     def test_number_entries_all(self):
         argv = "-s -f " + self.test_file
-        memacs = GitMemacs(argv=argv.split())
+        memacs = GitMemacs(argv=argv.split(), append_orgfile=True,
+                           identifier="COMMIT")
         data = memacs.test_get_entries()
         self.assertEqual(len(data), 1081)  # 1081 commits in sum
 
@@ -166,6 +168,7 @@ class TestGitMemacs(unittest.TestCase):
         argv = argv.split()
         argv.append("-g")
         argv.append("Armin Wieser")
-        memacs = GitMemacs(argv=argv)
+        memacs = GitMemacs(argv=argv, append_orgfile=True,
+                           identifier="COMMIT")
         data = memacs.test_get_entries()
         self.assertEqual(len(data), 686)  # 686 commits from Armin Wieser

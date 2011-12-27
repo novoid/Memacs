@@ -165,14 +165,14 @@ class OrgOutputWriter(object):
         assert self.__existing_ids == []
 
         data = CommonReader.get_data_from_file(self.__file_name)
-        
+
         pattern = ":" + self.__identifier + ":(.*)"
-        
+
         for found_id in re.findall(pattern, data):
             found_id = found_id.strip()
             if found_id != "":
                 self.__existing_ids.append(found_id)
-                logging.debug("found id :%s: %s",self.__identifier,found_id)
+                logging.debug("found id :%s: %s", self.__identifier, found_id)
 
         logging.debug("there are already %d entries", len(self.__existing_ids))
 

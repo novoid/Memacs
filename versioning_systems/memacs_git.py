@@ -84,7 +84,7 @@ class Commit(object):
             tag = line[:whitespace].upper()
             value = line[whitespace:]
             self.__properties.add(tag, value)
-            
+
             if tag == "AUTHOR":
                 self.__set_created(line)
 

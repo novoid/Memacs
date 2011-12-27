@@ -61,7 +61,7 @@ class OrgProperties(object):
 
         ret += "   :END:"
         return ret
-    
+
     def get_value(self, key):
         """
         @return: properties[key]
