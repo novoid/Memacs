@@ -1,0 +1,47 @@
+## Time-stamp: <2011-12-27 14:58:16 armin>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-svn
+
+** Current status
+
+Done, if you find any errors do not hesitate to contact us.
+
+** Data Source
+
+Version control systems]] are quite common to manage all kind of data
+with. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
+revision control.
+
+This memacs module parses output of:
+: svn log --xml
+
+
+** Example Invocation
+
+*** with pipe from stream
+: cd /path/to/svn-repo/
+: svn log --xml | /path/to/Memacs/memacs_svn.py -f /path/to/svn-xml-file.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
+
+or in one line: 
+
+: cd /path/to/svn-repo/ && svn log --xml | /path/to/Memacs/memacs_svn.py -f /path/to/svn-xml-file.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
+
+** from file
+: cd /path/to/svn-repo/
+: svn log --xml > /tmp/svn-log.xml
+: /path/to/Memacs/memacs_svn.py -f /tmp/svn-log.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
+
+or in one line: 
+
+: cd /path/to/svn-repo/ &&  svn log --xml > /tmp/svn-log.xml &&  /path/to/Memacs/memacs_svn.py -f /tmp/svn-log.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
+
+** Example Orgmode entries
+
+Whenever user "Bob" commits a change set (resulting in revision 42) to
+an example project, memacs_svn can provide an entry like this:
+
+: ** Bob (r42): solved the address field bug       :svn:Memacs:
+:   :PROPERTIES:
+:   :CREATED: <2011-07-23 Sat 16:00>
+:   :END:

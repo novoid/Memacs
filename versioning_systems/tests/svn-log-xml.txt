@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<log>
+<logentry
+   revision="5">
+<author>group-5</author>
+<date>2011-10-27T17:50:16.271032Z</date>
+<msg>finished ? 
+</msg>
+</logentry>
+<logentry
+   revision="4">
+<author>group-5</author>
+<date>2011-10-27T17:18:26.847990Z</date>
+<msg>finished 5, 
+
+added package to assignment1.tex for landscaping (see 5.tex)
+</msg>
+</logentry>
+<logentry
+   revision="3">
+<author>group-5</author>
+<date>2011-10-27T15:38:17.064352Z</date>
+<msg>5b.</msg>
+</logentry>
+<logentry
+   revision="2">
+<author>group-5</author>
+<date>2011-10-27T14:41:11.677430Z</date>
+<msg>5.tex
+</msg>
+</logentry>
+<logentry
+   revision="1">
+<author>group-5</author>
+<date>2011-10-27T08:44:55.750206Z</date>
+<msg>initial files 
+</msg>
+</logentry>
+</log>
