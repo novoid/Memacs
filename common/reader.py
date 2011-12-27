@@ -36,8 +36,8 @@ class CommonReader:
     @staticmethod
     def get_reader_from_file(path):
         """
-        gets a stream of a file 
-        @param path: file 
+        gets a stream of a file
+        @param path: file
         @return: stream of file
         """
         try:
@@ -72,7 +72,7 @@ class CommonReader:
     def get_data_from_stdin():
         """
         reads from stdin
-        @return: data from stdin 
+        @return: data from stdin
         """
         input_stream = codecs.getreader('utf-8')(sys.stdin)
         data = input_stream.read()

@@ -5,8 +5,6 @@
 import sys
 import os
 import logging
-import time
-import codecs
 import xml.sax
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -19,21 +17,30 @@ from common.reader import CommonReader
 PROG_VERSION_NUMBER = u"0.0"
 PROG_VERSION_DATE = u"2011-12-18"
 PROG_SHORT_DESCRIPTION = u"Memacs for svn"
-PROG_TAG = u"mytag"
+PROG_TAG = u"svn"
 PROG_DESCRIPTION = u"""
-this class will do 
-TODO
-TODO
-TODO
+This Memacs module will parse output of svn log --xml
 
-Then an Org-mode file is generated that contains ....
+sample xml:
+ <?xml version="1.0"?>
+    <log>
+    <logentry
+       revision="13">
+    <author>bob</author>
+    <date>2011-11-05T18:18:22.936127Z</date>
+    <msg>Bugfix.</msg>
+    </logentry>
+    </log>
+
+Then an Org-mode file is generated that contains information
+about the log messages, author, and revision
 """
 
 
 class SvnSaxHandler(xml.sax.handler.ContentHandler):
     """
     Sax handler for following xml's:
-    
+
     <?xml version="1.0"?>
     <log>
     <logentry
@@ -44,84 +51,99 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
     </logentry>
     </log>
     """
-    
+
     def __init__(self, writer):
+        """
+        Ctor
+
+        @param writer: orgwriter
+        """
         self.__reset()
         self._writer = writer
-        
+
     def __reset(self):
+        """
+        resets all variables
+        """
         self.__author = ""
         self.__date = ""
         self.__msg = ""
         self.__rev = -1
         self.__on_node_name = ""  # used to store on which element we are
-        
+
     def __write(self):
-        logging.debug("msg:%s",self.__msg)
+        """
+        write attributes to writer (make an org_sub_item)
+        """
+        logging.debug("msg:%s", self.__msg)
         self.__msg = self.__msg.splitlines()
         subject = ""
         notes = ""
-        if len(self.__msg) > 0 :
+
+        # idea: look for the first -nonempty- message
+        if len(self.__msg) > 0:
             start_notes = 0
             for i in range(len(self.__msg)):
                 if self.__msg[i].strip() != "":
                     subject = self.__msg[i].strip()
-                    start_notes = i+1
+                    start_notes = i + 1
                     break
-                    
+
             if len(self.__msg) > start_notes:
                 for n in self.__msg[start_notes:]:
-                    if n != "": 
+                    if n != "":
                         notes += n + "\n"
-        
+
         output = "%s (r%d): %s" % (self.__author, self.__rev, subject)
 
         properties = OrgProperties()
         dt = OrgFormat.datetime(OrgFormat.datetupelutctimestamp(self.__date))
         properties.add("CREATED", dt)
-        
+
         self._writer.write_org_subitem(output=output,
                                        note=notes,
                                        properties=properties)
-    
-    def startDocument(self):
-        logging.debug("Handler @startDocument")
-    
-    def startElementNS(self, name, qname, attrs):
-        logging.debug("Handler @startElementNS")
-        print name, qname 
-    
+
     def characters(self, content):
-        logging.debug("Handler @characters @%s , content=%s", self.__on_node_name, content)
+        """
+        handles xml tags:
+        - <author/>
+        - <date/>
+        - <msg/>
+
+        and set those attributes
+        """
+        logging.debug("Handler @characters @%s , content=%s",
+                      self.__on_node_name, content)
         if self.__on_node_name == "author":
             self.__author += content
         elif self.__on_node_name == "date":
             self.__date += content
         elif self.__on_node_name == "msg":
-            self.__msg += content    
+            self.__msg += content
 
     def startElement(self, name, attrs):
+        """
+        at every <tag> remember the tagname
+        * sets the revision when in tag "logentry"
+        """
         logging.debug("Handler @startElement name=%s,attrs=%s", name, attrs)
-        
+
         if name == "logentry":
             self.__rev = int(attrs['revision'])
-        
+
         self.__on_node_name = name
-        
-    
+
     def endElement(self, name):
+        """
+        at every </tag> clear the remembered tagname
+        if we are at </logentry> then we can write a entry to stream
+        """
         logging.debug("Handler @endElement name=%s", name)
         self.__on_node_name = ""
         if name == "logentry":
             self.__write()
             self.__reset()
-            
-    
-        
-    def endDocument(self):
-        logging.debug("Handler @endDocument")
-        pass
-
 
 
 class SvnMemacs(Memacs):
@@ -154,7 +176,7 @@ class SvnMemacs(Memacs):
     def _main(self):
         """
         get's automatically called from Memacs class
-        read the lines from svn xml file, parse and write them to org file 
+        read the lines from svn xml file, parse and write them to org file
         """
 
         # read file
