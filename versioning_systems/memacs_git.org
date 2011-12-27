@@ -1,4 +1,4 @@
-## Time-stamp: <2011-12-27 16:19:54 armin>
+## Time-stamp: <2011-12-27 18:11:19 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs_git
@@ -11,6 +11,8 @@ set.
 
 memacs_git.py parses the output of:
 : git rev-list --all --pretty=raw
+
+If a outfile is specified, only new commits are appended.
 
 ** Example Invocation
 *** Example with rev-list file:
