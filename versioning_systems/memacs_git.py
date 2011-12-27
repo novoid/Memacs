@@ -25,6 +25,8 @@ use following command to generate input file
 $ git rev-list --all --pretty=raw > /path/to/input file
 
 Then an Org-mode file is generated that contains all commit message
+
+If outputfile is specified, only non-existing commits are appended
 """
 
 
