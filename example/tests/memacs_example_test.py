@@ -21,7 +21,7 @@ class TestFoo(unittest.TestCase):
         argv = "-s"
         memacs = Foo(argv=argv.split())
         # or when in append mode:
-        # memacs = Foo(argv=argv.split(), append=True, identifier="OWNID")
+        # memacs = Foo(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
 
         # generate assertEquals :)

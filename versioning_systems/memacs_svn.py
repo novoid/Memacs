@@ -37,7 +37,7 @@ Then an Org-mode file is generated that contains information
 about the log messages, author, and revision
 
 New log messages are appended. Those are identified with the
-:REVISION: property
+:ID: property
 """
 
 
@@ -75,6 +75,7 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         self.__msg = ""
         self.__rev = -1
         self.__on_node_name = ""  # used to store on which element we are
+        self.__id_prefix = "rev-"
 
     def __write(self):
         """
@@ -104,7 +105,7 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         properties = OrgProperties()
         dt = OrgFormat.datetime(OrgFormat.datetupelutctimestamp(self.__date))
         properties.add("CREATED", dt)
-        properties.add("REVISION", self.__rev)
+        properties.add("ID", self.__rev)
 
         if self.__grepauthor == None or \
         (self.__author.strip() == self.__grepauthor.strip()):
@@ -217,6 +218,5 @@ if __name__ == "__main__":
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
-        append=True,
-        identifier="REVISION")
+        append=True)
     memacs.handle_main()

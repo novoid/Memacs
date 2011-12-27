@@ -15,11 +15,11 @@ from versioning_systems.memacs_git import Commit
 
 class TestCommit(unittest.TestCase):
 
-    def test_commit_empty(self):
+    def test_ID_empty(self):
         c = Commit()
         self.assertTrue(c.is_empty())
 
-    def test_commit(self):
+    def test_ID(self):
         c = Commit()
         c.add_header("author Armin Wieser <armin.wieser@example.com> " + \
                      "1324422878 +0100")
@@ -45,8 +45,7 @@ class TestGitMemacs(unittest.TestCase):
 
     def test_from_file(self):
         argv = "-s -f " + self.test_file
-        memacs = GitMemacs(argv=argv.split(), append=True,
-                           identifier="COMMIT")
+        memacs = GitMemacs(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
 
         # generate assertEquals :)
@@ -83,7 +82,7 @@ class TestGitMemacs(unittest.TestCase):
              "gmail.com>")
         self.assertEqual(
             data[8],
-             "   :COMMIT:         17b5cb8bc085b2dbfbab6832f056d653e3ef80b6")
+             "   :ID:             17b5cb8bc085b2dbfbab6832f056d653e3ef80b6")
         self.assertEqual(
             data[9],
              "   :END:")
@@ -116,7 +115,7 @@ class TestGitMemacs(unittest.TestCase):
              "gmail.com>")
         self.assertEqual(
             data[18],
-             "   :COMMIT:         6fb35035c5fa7ead66901073413a42742a323e89")
+             "   :ID:             6fb35035c5fa7ead66901073413a42742a323e89")
         self.assertEqual(
             data[19],
              "   :END:")
@@ -148,7 +147,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :SIGNED-OFF-BY: Armin Wieser <armin.wieser@gmail.com>")
         self.assertEqual(
             data[28],
-             "   :COMMIT:         05ba138e6aa1481db2c815ddd2acb52d3597852f")
+             "   :ID:             05ba138e6aa1481db2c815ddd2acb52d3597852f")
         self.assertEqual(
             data[29],
              "   :END:")
@@ -158,17 +157,15 @@ class TestGitMemacs(unittest.TestCase):
 
     def test_number_entries_all(self):
         argv = "-s -f " + self.test_file
-        memacs = GitMemacs(argv=argv.split(), append=True,
-                           identifier="COMMIT")
+        memacs = GitMemacs(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
-        self.assertEqual(len(data), 1081)  # 1081 commits in sum
+        self.assertEqual(len(data), 1081)  # 1081 IDs in sum
 
     def test_number_entries_grep(self):
         argv = '-s -f ' + self.test_file
         argv = argv.split()
         argv.append("-g")
         argv.append("Armin Wieser")
-        memacs = GitMemacs(argv=argv, append=True,
-                           identifier="COMMIT")
+        memacs = GitMemacs(argv=argv, append=True)
         data = memacs.test_get_entries()
-        self.assertEqual(len(data), 686)  # 686 commits from Armin Wieser
+        self.assertEqual(len(data), 686)  # 686 IDs from Armin Wieser

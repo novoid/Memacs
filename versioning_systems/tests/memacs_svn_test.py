@@ -18,8 +18,7 @@ class TestGitMemacs(unittest.TestCase):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
             os.sep + "svn-log-xml.txt"
         argv = "-s -f " + test_file
-        memacs = SvnMemacs(argv=argv.split(), append=True,
-                           identifier="REVISION")
+        memacs = SvnMemacs(argv=argv.split(), append=True)
         self.data = memacs.test_get_entries()
 
     def test_from_file(self):
@@ -38,10 +37,10 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-             "   :REVISION: 5")
+             "   :ID:      5")
         self.assertEqual(
             data[3],
-             "   :CREATED:  <2011-10-27 Thu 19:50:16>")
+             "   :CREATED: <2011-10-27 Thu 19:50:16>")
         self.assertEqual(
             data[4],
              "   :END:")
@@ -56,10 +55,10 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[8],
-             "   :REVISION: 4")
+             "   :ID:      4")
         self.assertEqual(
             data[9],
-             "   :CREATED:  <2011-10-27 Thu 19:18:26>")
+             "   :CREATED: <2011-10-27 Thu 19:18:26>")
         self.assertEqual(
             data[10],
              "   :END:")
@@ -71,10 +70,10 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[13],
-             "   :REVISION: 3")
+             "   :ID:      3")
         self.assertEqual(
             data[14],
-             "   :CREATED:  <2011-10-27 Thu 17:38:17>")
+             "   :CREATED: <2011-10-27 Thu 17:38:17>")
         self.assertEqual(
             data[15],
              "   :END:")
@@ -86,10 +85,10 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[18],
-             "   :REVISION: 2")
+             "   :ID:      2")
         self.assertEqual(
             data[19],
-             "   :CREATED:  <2011-10-27 Thu 16:41:11>")
+             "   :CREATED: <2011-10-27 Thu 16:41:11>")
         self.assertEqual(
             data[20],
              "   :END:")
@@ -101,10 +100,10 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[23],
-             "   :REVISION: 1")
+             "   :ID:      1")
         self.assertEqual(
             data[24],
-             "   :CREATED:  <2011-10-27 Thu 10:44:55>")
+             "   :CREATED: <2011-10-27 Thu 10:44:55>")
         self.assertEqual(
             data[25],
-             "   :END:")
+         "   :END:")

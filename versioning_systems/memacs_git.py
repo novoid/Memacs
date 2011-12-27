@@ -55,8 +55,7 @@ class Commit(object):
         self.__empty = False
         date_info = line[-16:]  # 1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
-        timezone_info = date_info[11:]
-        #os.environ['tz'] = timezone_info
+        #timezone_info = date_info[11:]
         self.__datetime = OrgFormat.datetime(
                             time.localtime(seconds_since_epoch))
         self.__author = line[7:line.find("<")].strip()
@@ -83,6 +82,8 @@ class Commit(object):
             whitespace = line.find(" ")
             tag = line[:whitespace].upper()
             value = line[whitespace:]
+            if tag == "COMMIT":
+                tag = "ID"
             self.__properties.add(tag, value)
 
             if tag == "AUTHOR":
@@ -235,6 +236,5 @@ if __name__ == "__main__":
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
-        append=True,
-        identifier="COMMIT")
+        append=True)
     memacs.handle_main()
