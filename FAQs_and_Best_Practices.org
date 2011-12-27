@@ -1,4 +1,4 @@
-## Time-stamp: <2011-10-18 10:56:50 vk>
+## Time-stamp: <2011-12-27 21:59:44 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -201,6 +201,19 @@ being executed.
 * FAQs
 If you have one question, please contact «Karl dot Voit
 at IST dot TUGraz dot at» and he is happy to answer it.
+
+** how works the *appendmode* of memacs? / How is the :ID: Property generated?
+All properties (:PROPERTIES: drawer) are stored in a dict
+: i.e.: :CREATED: <date>
+: key = "CREATED , value = <date>
+
+generation: 
+: id-hash = sha1(<all values> + <all keys>) 
+
+Before writing an entry to the org-file, the id is generated.
+
+If Memacs module is in appendmode, it looks for those :ID: properties 
+and stores them in a list. On writing(append) it first checks against that list.
 
 ** Emacs always complains what to do with changed org files
 Solution is to add this to your emacs config file (.emacs):

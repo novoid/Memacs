@@ -46,14 +46,13 @@ class TestRss(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[3],
-            "   :SUMMARY: Here is some text containing an " + \
-            "interesting description.")
+            "   :GUID:    unique string per item")
         self.assertEqual(
             data[4],
-            "   :ID:      unique string per item")
+            "   :CREATED: <2009-09-06 Sun 18:45>")
         self.assertEqual(
             data[5],
-            "   :CREATED: <2009-09-06 Sun 18:45>")
+            "   :ID:      af9b90163e9e4727b21e8a6b452c9529a438f314")
         self.assertEqual(
             data[6],
             "   :END:")

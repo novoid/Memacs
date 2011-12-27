@@ -57,7 +57,6 @@ class Memacs(object):
         self.__prog_tag = prog_tag
         self.__writer_append = append
         self.__argv = argv
-        self.__identifier = "ID"
 
     def __init(self, test=False):
         """
@@ -95,8 +94,7 @@ class Memacs(object):
             short_description=self.__prog_short_description,
             tag=tag,
             test=test,
-            append=self.__writer_append,
-            identifier=self.__identifier)
+            append=self.__writer_append)
 
     def _main(self):
         """

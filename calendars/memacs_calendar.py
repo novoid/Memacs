@@ -4,11 +4,8 @@
 
 import sys
 import os
-import codecs
-from urllib2 import urlopen, HTTPError, URLError
 import logging
 import time
-from datetime import timedelta
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
@@ -61,46 +58,6 @@ class CalendarMemacs(Memacs):
         if self._args.calendar_file  \
         and not os.path.exists(self._args.calendar_file):
             self._parser.error("calendar path not exists")
-
-    def __read_file(self, file):
-        """
-        reads a file
-
-        @param file: path to file
-        @return: returns data
-        """
-        try:
-            file = codecs.open(self._args.calendar_file, 'rb')
-            data = file.read()
-            file.close()
-            return data
-        except IOError:
-            logging.error("Error at opening file: %s" %
-                          self._args.calendar_file)
-            sys.exit(1)
-
-    def __read_url(self, url):
-        """
-        reads from a url
-
-        @param url: url to read
-        @returns: returns data
-        """
-        try:
-            req = urlopen(self._args.calendar_url, None, 10)
-            return req.read()
-        except HTTPError:
-            logging.error("Error at opening url: %s" %
-                          self._args.calendar_url)
-            sys.exit(1)
-        except URLError:
-            logging.error("Error at opening url: %s" %
-                          self._args.calendar_url)
-            sys.exit(1)
-        except ValueError:
-            logging.error("Error - no valid url: %s" %
-                          self._args.calendar_url)
-            sys.exit(1)
 
     def __handle_vcalendar(self, component):
         """
@@ -203,8 +160,8 @@ class CalendarMemacs(Memacs):
         if description != None:
             org_properties.add("DESCRIPTION", description)
 
-        self._writer.write_org_subitem(summary,
-                                       note=orgdate,
+        org_properties.add("created", orgdate)
+        self._writer.append_org_subitem(output=summary,
                                        properties=org_properties)
 
     def _main(self):
@@ -230,5 +187,6 @@ if __name__ == "__main__":
                             prog_version_date=PROG_VERSION_DATE,
                             prog_description=PROG_DESCRIPTION,
                             prog_short_description=PROG_SHORT_DESCRIPTION,
-                            prog_tag=PROG_TAG)
+                            prog_tag=PROG_TAG,
+                            append=True)
     memacs.handle_main()

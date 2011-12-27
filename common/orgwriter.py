@@ -18,7 +18,7 @@ class OrgOutputWriter(object):
     __test = False
 
     def __init__(self, short_description, tag, file_name=None,
-                test=False, append=False, identifier="ID"):
+                test=False, append=False):
         """
         @param file_name:
         """
@@ -30,7 +30,6 @@ class OrgOutputWriter(object):
         self.__tag = tag
         self.__file_name = file_name
         self.__existing_ids = []
-        self.__identifier = identifier  # :ID: - tag unique identifier
 
         if file_name:
             if append and os.path.exists(file_name):
@@ -146,10 +145,10 @@ class OrgOutputWriter(object):
         if not, it will be appended
         """
         if self.__append:
-            identifier = properties.get_value(self.__identifier)
+            identifier = properties.get_id()
 
             if id == None:
-                raise Exception("id :%s: Property not set!", self.__identifier)
+                raise Exception("id :ID: Property not set!")
 
             if self.__id_exists(identifier):
                 # do nothing, id exists ...
@@ -166,13 +165,11 @@ class OrgOutputWriter(object):
 
         data = CommonReader.get_data_from_file(self.__file_name)
 
-        pattern = ":" + self.__identifier + ":(.*)"
-
-        for found_id in re.findall(pattern, data):
+        for found_id in re.findall(":ID:(.*)", data):
             found_id = found_id.strip()
             if found_id != "":
                 self.__existing_ids.append(found_id)
-                logging.debug("found id :%s: %s", self.__identifier, found_id)
+                logging.debug("found id :ID: %s", found_id)
 
         logging.debug("there are already %d entries", len(self.__existing_ids))
 

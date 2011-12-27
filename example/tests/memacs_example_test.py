@@ -32,14 +32,20 @@ class TestFoo(unittest.TestCase):
         self.assertEqual(data[0], "** foo")
         self.assertEqual(data[1], "   :PROPERTIES:")
         #self.assertEqual(data[2], "  :CREATED: <2011-12-20 Tue 16:55:50>")
-        self.assertEqual(data[3], "   :END:")
-        self.assertEqual(data[4], "** bar\t:tag1:tag2:")
-        self.assertEqual(data[5], "   bar notes")
-        self.assertEqual(data[6], "   foo notes")
-        self.assertEqual(data[7], "   :PROPERTIES:")
-        self.assertEqual(data[8], "   :DESCRIPTION: foooo")
-        self.assertEqual(data[9], "   :CREATED:     <1970-01-01 Thu 00:00>")
-        self.assertEqual(data[10], "   :END:")
+        #changes every time (due to created sets localtime )
+        #self.assertEqual(data[3],
+        # "   :ID:      608b1af4f65f98b67c7dfa6a470b319d456e5504")
+        self.assertEqual(data[4], "   :END:")
+        self.assertEqual(data[5], "** bar\t:tag1:tag2:")
+        self.assertEqual(data[6], "   bar notes")
+        self.assertEqual(data[7], "   foo notes")
+        self.assertEqual(data[8], "   :PROPERTIES:")
+        self.assertEqual(data[9], "   :DESCRIPTION: foooo")
+        self.assertEqual(data[10], "   :CREATED:     <1970-01-01 Thu 00:00>")
+        #changes every time (due to created sets localtime )
+        #self.assertEqual(data[3],
+        #"   :ID:      608b1af4f65f98b67c7dfa6a470b319d456e5504")
+        self.assertEqual(data[12], "   :END:")
 
     def tearDown(self):
         pass

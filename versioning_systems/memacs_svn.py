@@ -15,8 +15,8 @@ from common.memacs import Memacs
 from common.reader import CommonReader
 
 
-PROG_VERSION_NUMBER = u"0.0"
-PROG_VERSION_DATE = u"2011-12-18"
+PROG_VERSION_NUMBER = u"0.1"
+PROG_VERSION_DATE = u"2011-12-27"
 PROG_SHORT_DESCRIPTION = u"Memacs for svn"
 PROG_TAG = u"svn"
 PROG_DESCRIPTION = u"""
@@ -105,7 +105,7 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         properties = OrgProperties()
         dt = OrgFormat.datetime(OrgFormat.datetupelutctimestamp(self.__date))
         properties.add("CREATED", dt)
-        properties.add("ID", self.__rev)
+        properties.add("REVISION", self.__rev)
 
         if self.__grepauthor == None or \
         (self.__author.strip() == self.__grepauthor.strip()):

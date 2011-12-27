@@ -2,6 +2,7 @@
 # Time-stamp: <2011-12-20 15:13:31 awieser>
 from common.orgformat import OrgFormat
 import time
+import hashlib
 
 
 class OrgProperties(object):
@@ -31,7 +32,13 @@ class OrgProperties(object):
         @param tag: property tag
         @param value: property value
         """
-        self.__properties[tag.upper()] = unicode(value)
+        tag = unicode(tag).strip().upper()
+        value = unicode(value).strip()
+        if tag == "ID":
+            raise Exception("you should not specify an :ID: property " + \
+                            "it will be generated automatically")
+
+        self.__properties[tag] = unicode(value)
 
     def __get_property_max_tag_width(self):
         width = 7  # :PROPERTIES: has width 7
@@ -59,11 +66,15 @@ class OrgProperties(object):
         for tag, value in self.__properties.iteritems():
             ret += self.__format_tag(tag) + value + "\n"
 
+        ret += self.__format_tag("ID") + self.get_id() + "\n"
         ret += "   :END:"
         return ret
 
-    def get_value(self, key):
+    def get_id(self):
         """
-        @return: properties[key]
+        generates the hash string for all properties
+        @return: sha1(properties)
         """
-        return self.__properties[key]
+        to_hash = "".join(map(unicode, self.__properties.values()))
+        to_hash += "".join(map(unicode, self.__properties.keys()))
+        return hashlib.sha1(to_hash.encode('utf-8')).hexdigest()

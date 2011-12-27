@@ -82,8 +82,6 @@ class Commit(object):
             whitespace = line.find(" ")
             tag = line[:whitespace].upper()
             value = line[whitespace:]
-            if tag == "COMMIT":
-                tag = "ID"
             self.__properties.add(tag, value)
 
             if tag == "AUTHOR":

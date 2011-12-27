@@ -17,8 +17,8 @@ from common.orgformat import OrgFormat
 from common.memacs import Memacs
 
 
-PROG_VERSION_NUMBER = u"0.0"
-PROG_VERSION_DATE = u"2011-12-18"
+PROG_VERSION_NUMBER = u"0.1"
+PROG_VERSION_DATE = u"2011-12-27"
 PROG_SHORT_DESCRIPTION = u"Memacs for rss feeds"
 PROG_TAG = u"rss"
 PROG_DESCRIPTION = u"""
@@ -92,8 +92,8 @@ class RssMemacs(Memacs):
         try:
             #logging.debug(item)
             properties = OrgProperties()
-            id = item['id']
-            if not id:
+            guid = item['id']
+            if not guid:
                 logging.error("got no id")
 
             unformatted_link = item['link']
@@ -112,20 +112,22 @@ class RssMemacs(Memacs):
             updated_time_struct = OrgFormat.datetime(
                 time.localtime(calendar.timegm(item['updated_parsed'])))
             properties.add("created", updated_time_struct)
-            properties.add("id", id)
+            properties.add("guid", guid)
 
         except KeyError:
             logging.error("input is not a RSS 2.0")
             sys.exit(1)
 
         tags = []
-        dont_parse = ['title', 'description', 'updated',
+        dont_parse = ['title', 'description', 'updated', 'summary',
                           'updated_parsed', 'link', 'links']
         for i in  item:
             logging.debug(i)
             if i not in dont_parse:
                 if (type(i) == unicode or type(i) == str) and \
                 type(item[i]) == unicode and  item[i] != "":
+                    if i == "id":
+                        i = "guid"
                     properties.add(i, item[i])
                 else:
                     if i == "tags":

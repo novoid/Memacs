@@ -1,1015 +1,106 @@
-commit 17b5cb8bc085b2dbfbab6832f056d653e3ef80b6
-tree 6b3361c8919f432432048c0f54b4b3fab9eb5039
-parent 6fb35035c5fa7ead66901073413a42742a323e89
-author Armin Wieser <armin.wieser@gmail.com> 1324423850 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324423850 +0100
-
-    commenting memacs_git  + editing example
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 6fb35035c5fa7ead66901073413a42742a323e89
-tree 7027c628031b3ad07ad5401991f5a12aead8237a
-parent 05ba138e6aa1481db2c815ddd2acb52d3597852f
-author Armin Wieser <armin.wieser@gmail.com> 1324422878 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324422878 +0100
-
-    PEP8
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 05ba138e6aa1481db2c815ddd2acb52d3597852f
-tree ddfe30d853aaa1c9f5af305f208a34150a85ff4c
-parent 4adc838fa8d3a4862f8db3eaf9b0f18c20d6352b
-author Armin Wieser <armin.wieser@gmail.com> 1324422620 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324422620 +0100
-
-    fixing tests + removing unessesary whitespaces
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 4adc838fa8d3a4862f8db3eaf9b0f18c20d6352b
-tree 3fcd5d116089ad1d47e44ad67f6ab8651c8d475e
-parent a9d5f19f2ac1779c5c8c016ee33bda0cc3267cd8
-author Armin Wieser <armin.wieser@gmail.com> 1324422373 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324422373 +0100
-
-    fixing tests
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit a9d5f19f2ac1779c5c8c016ee33bda0cc3267cd8
-tree a0af9c6e08bf912f657b64a6c6ebbd48b4ce7bae
-parent a244f0f672d8e177227aa05d47d677413dd8469b
-author Armin Wieser <armin.wieser@gmail.com> 1324421109 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324421109 +0100
-
-    nicer output for properties drawer
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit a244f0f672d8e177227aa05d47d677413dd8469b
-tree 84fe6ea8997d706af8841da2f3b90eebffda8c6d
-parent 94c059288dc4d38d7ee2723fe27580447c5e080b
-author Armin Wieser <armin.wieser@gmail.com> 1324418368 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324418368 +0100
-
-    does work really nice
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 94c059288dc4d38d7ee2723fe27580447c5e080b
-tree b224e4a145b9b789b5bcadb9a529c3dd501d1d9c
-parent dea9c8b29e02f3ef2b89ba216733530bf7b7ff95
-author Armin Wieser <armin.wieser@gmail.com> 1324416721 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324416721 +0100
-
-    now it's 22:32 how does git represent this time ??
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit dea9c8b29e02f3ef2b89ba216733530bf7b7ff95
-tree f7e696bc8b072a9c926a556d0536f33a6c94355f
-parent 8ba46f3413a927268ef05e4273522daf4a4936e6
-author Armin Wieser <armin.wieser@gmail.com> 1324400448 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324400448 +0100
-
-    :CREATED: <timestamp> --> :CREATED: [timestamp]
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 8ba46f3413a927268ef05e4273522daf4a4936e6
-tree dad1f904f0f262664cb226aa044cbc0818326514
-parent d73aa11a6bcb123443c8a3b87bd2ce218a1cf102
-author Armin Wieser <armin.wieser@gmail.com> 1324398400 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324398400 +0100
-
-    bugfix calendar
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit d73aa11a6bcb123443c8a3b87bd2ce218a1cf102
-tree 02e64ddb80992e5c6faaaeafd856c074e839d4d2
-parent 9352fc0cd1db734fcf33145aa46238710cea77e5
-author Armin Wieser <armin.wieser@gmail.com> 1324398198 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324398198 +0100
-
-    commenting ...
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 9352fc0cd1db734fcf33145aa46238710cea77e5
-tree 9d82191c214779c6aea2f95fa6bd8202472f315f
-parent d48b7d42e2b857e972d7d921020fe4dfaae142fe
-author Armin Wieser <armin.wieser@gmail.com> 1324397303 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324397303 +0100
-
-    PEP8 -> remove trailing whitespaces
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit d48b7d42e2b857e972d7d921020fe4dfaae142fe
-tree 1d4658f763d7017ab4579596275916b2e08eeb4a
-parent 73ae56adbdfe60d6508b87728172468371006566
-author Armin Wieser <armin.wieser@gmail.com> 1324396613 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324396613 +0100
-
-    added better writing org_subitems
-    - notes
-    - properties
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 73ae56adbdfe60d6508b87728172468371006566
-tree 3e9b5fa5a4baa05cbf43b08b43260716755a660c
-parent 17a5f746258def34c0462bbd3d6db9c83ce26e18
-author Armin Wieser <armin.wieser@gmail.com> 1324377311 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324377311 +0100
-
-    some more comments in memacs_example
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 17a5f746258def34c0462bbd3d6db9c83ce26e18
-tree 0a7520ef0dc8c4138601d5c381149e4438e71e5e
-parent d30be6b197c6f7950fa2a9251f568c7833afe368
-author Armin Wieser <armin.wieser@gmail.com> 1324377112 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324377112 +0100
-
-    Bugfix:
-    if outputfile existed, it could not be written to it
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit d30be6b197c6f7950fa2a9251f568c7833afe368
-tree 9c1d386e6464e8c7e37f4d9d647dee4d878ad70a
-parent b665ef40689baa770749d740f15be298139f6ba3
-author Armin Wieser <armin.wieser@gmail.com> 1324376210 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324376210 +0100
-
-    added -t or --tag option to default memacs
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit b665ef40689baa770749d740f15be298139f6ba3
-tree 7f92997fbff05ec86f1b2b690989e484fbde4426
-parent 8a91df2046e161a1dc8c25dd0f07033fb39e593c
-author Armin Wieser <armin.wieser@gmail.com> 1324375375 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324375375 +0100
-
-    edited memacs_calendar.org
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 8a91df2046e161a1dc8c25dd0f07033fb39e593c
-tree 345a80a23ebb7c6388604bcab4bcd0720db52cf1
-parent 37b258c71c18e48c3f9eb85aa671601ba636bb29
-author Armin Wieser <armin.wieser@gmail.com> 1324375227 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324375227 +0100
-
-    bugfix: write_footer was renamed to append_orgfile
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 37b258c71c18e48c3f9eb85aa671601ba636bb29
-tree cd03c8aa8d540a451137ecd6da57e55fca838281
-parent 85867f45a07a714e602339efd2d29743d94d04b3
-parent d27e6c56397ee40243cf16521649e7cde6faad14
-author Armin Wieser <armin.wieser@gmail.com> 1324374762 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324374762 +0100
-
-    Merge branch 'armin_calendar' into armin_filenametimestamps
-
-commit 85867f45a07a714e602339efd2d29743d94d04b3
-tree 688d1e462ad73bf24df486be25e0b18b2fd34d62
-parent 17a2826493433523d205dfced832d6b2866ab372
-author Armin Wieser <armin.wieser@gmail.com> 1324374718 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324374718 +0100
-
-    Added documentation for error.org_archive
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit d27e6c56397ee40243cf16521649e7cde6faad14
-tree 5e7155cc7e0b8576833376ef0e1d5d1c41736368
-parent d782c40b455c2c07d995abbf00a5548335b5bf83
-author Armin Wieser <armin.wieser@gmail.com> 1324373655 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324373655 +0100
-
-    Calendar: refactoring + testing
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit d782c40b455c2c07d995abbf00a5548335b5bf83
-tree e7b9f4a32325e4f2e425eead3fa46bee0465dcc6
-parent 85af599797cd3f4d621bc58012409d3d4dc46096
-author Armin Wieser <armin.wieser@gmail.com> 1324336503 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324336503 +0100
-
-    added sample testcase
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 85af599797cd3f4d621bc58012409d3d4dc46096
-tree cb02b7ba5a0e38a1c047f466f09497a6797797f9
-parent 17a2826493433523d205dfced832d6b2866ab372
-author Armin Wieser <armin.wieser@gmail.com> 1324336446 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324336446 +0100
-
-    renamed memacs- to memacs_ because we can only import memacs_
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 17a2826493433523d205dfced832d6b2866ab372
-tree 4409751a25b404069439d9fa53c635d368849241
-parent 30961228ba59401fec83cb20a1058b3ba1faa93b
-author Armin Wieser <armin.wieser@gmail.com> 1324335531 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324335531 +0100
-
-    PEP8 ..
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 30961228ba59401fec83cb20a1058b3ba1faa93b
-tree e917a5ccfc172fc776e4bd43998b925ccf52a455
-parent 83c2d1ddad40f647fe348418ba168a0babe1b91b
-author Armin Wieser <armin.wieser@gmail.com> 1324335093 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324335093 +0100
-
-    PEP8
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 83c2d1ddad40f647fe348418ba168a0babe1b91b
-tree 9ab60abebdd847707756999475051a520ed6dfd5
-parent ca28b55bb84f615be10577e17fbc7bc50d9863d5
-author Armin Wieser <armin.wieser@gmail.com> 1324333925 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324333925 +0100
-
-    PEP8
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit ca28b55bb84f615be10577e17fbc7bc50d9863d5
-tree 23a3674c1dd3f371083ee83effa1d5bb4fda72e8
-parent c6ce1d5f99e36d7d8979553eba91fe4f0f70dd1b
-author Armin Wieser <armin.wieser@gmail.com> 1324333616 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324333616 +0100
-
-    PEP8
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit c6ce1d5f99e36d7d8979553eba91fe4f0f70dd1b
-tree d4ace58e959f905e79e198dfda2822f7463e936b
-parent 1004c7d0a3e9814c258d6559f8f396e521ee8e5e
-author Armin Wieser <armin.wieser@gmail.com> 1324328988 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324328988 +0100
-
-    we cannot do memacs-foo because dashed files cannot be imported.
-    so we use memacs_foo
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 1004c7d0a3e9814c258d6559f8f396e521ee8e5e
-tree 41cb4c27c3f40158d73abd818ec877a8bad42c71
-parent c3da7f0dbe21f61390b8d93081562e582ff1b756
-author Armin Wieser <armin.wieser@gmail.com> 1324328481 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324328481 +0100
-
-    moved filenametimestamps to single file
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit c3da7f0dbe21f61390b8d93081562e582ff1b756
-tree 244fcf2b576f67b811f08d1230e27b8ba4d2d456
-parent a469dc87de10d9c6b1de2c9c0e38f108a20ea197
-author Armin Wieser <armin.wieser@gmail.com> 1324328363 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324328363 +0100
-
-    refactored example
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit a469dc87de10d9c6b1de2c9c0e38f108a20ea197
-tree 5477e949d52ac5256cc90db380d88b50bf02423a
-parent 5224e8e7d4cba4caf47679f71094c34e97c74b39
-author Armin Wieser <armin.wieser@gmail.com> 1324328253 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324328253 +0100
-
-    renamed folder "calendar" -> "calendars"
-    
-    because "calendar" is a standard python module ...
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 5224e8e7d4cba4caf47679f71094c34e97c74b39
-tree c8f43afeba755c2e2d3e431f029ba67789f5af49
-parent 190628af5c7fbbeb2db294dcb94a09a2a8cc0ba5
-author Armin Wieser <armin.wieser@gmail.com> 1324325485 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324325485 +0100
-
-    added comments, refactoring
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 190628af5c7fbbeb2db294dcb94a09a2a8cc0ba5
-tree bc0e0e8dd3088571d49fc52dfe71fc042ffd76c4
-parent 03de0cc2ebae77c9057f8b0603b80fd9f0db52cd
-author Armin Wieser <armin.wieser@gmail.com> 1324323133 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324323133 +0100
-
-    refactoring + unittests
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 03de0cc2ebae77c9057f8b0603b80fd9f0db52cd
-tree 8282ae4461e8f726a115ef6a2c1121b635ef661b
-parent fd7eea0c45262049e1d8761ff965d9f75d7dd65e
-author Armin Wieser <armin.wieser@gmail.com> 1324318495 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324318495 +0100
-
-    updated example memacs
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit fd7eea0c45262049e1d8761ff965d9f75d7dd65e
-tree 2367aba29b54e52f92d011907c6eec7a67fce16c
-parent 1dc48c96b5945fa5f659424d0c6674284119f435
-author Armin Wieser <armin.wieser@gmail.com> 1324318202 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324318202 +0100
-
-    big refactoring - now it will be fun to write memacs modules ;)
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 1dc48c96b5945fa5f659424d0c6674284119f435
-tree 1de1bde0e1a55bd837ca495ebb4977f4079b454e
-parent ae31d27f76ad7a0de5b49cd2ee6fcaffb985c12d
-author Armin Wieser <armin.wieser@gmail.com> 1324249976 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324249976 +0100
-
-    refactoring
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit ae31d27f76ad7a0de5b49cd2ee6fcaffb985c12d
-tree 192fcf7c2dc8b36d36f29af3e4539e9abc698d2f
-parent b321eb45b638eb54c8dff865f9022881d020e6af
-author Armin Wieser <armin.wieser@gmail.com> 1324249801 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324249801 +0100
-
-    refactoring: error.org
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit b321eb45b638eb54c8dff865f9022881d020e6af
-tree 0771d458017e2a656cc7685ecffbc377161cc9d7
-parent 5f11c4f6f59d1e6b370b070141c44561b883688c
-parent 2e54aa1074386accc93b25ff69cc99c045100b97
-author Armin Wieser <armin.wieser@gmail.com> 1324249182 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324249182 +0100
-
-    Merge remote-tracking branch 'origin/armin_calendar' into armin_filenametimestamps
-
-commit 5f11c4f6f59d1e6b370b070141c44561b883688c
-tree adfca39555cd62cd4752f09fb7013e98ddd90eb9
-parent feae26a2cbc119acdb2888d2b84dac2f8c455cbc
-author Armin Wieser <armin.wieser@gmail.com> 1324249164 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324249164 +0100
-
-    PYTHONPATH not needed anymore
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 2e54aa1074386accc93b25ff69cc99c045100b97
-tree ed4297ff9619d5be46b16a432a216efd49202085
-parent 487afb230ea6160b579e019c848478c4d6c0e189
-parent e2ee6871c66026e0429520f60ee70193b8c311e0
-author Armin Wieser <armin.wieser@gmail.com> 1324248549 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324248549 +0100
-
-    Merge branch 'master' into armin_calendar
-
-commit feae26a2cbc119acdb2888d2b84dac2f8c455cbc
-tree dd038e052291a19496d5b71be73b3c8f361a9c42
-parent 01de783e3fd92dd11245c1b8353bb52aea66bd5c
-parent e2ee6871c66026e0429520f60ee70193b8c311e0
-author Armin Wieser <armin.wieser@gmail.com> 1324248526 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324248526 +0100
-
-    Merge branch 'master' into armin_filenametimestamps
-
-commit e2ee6871c66026e0429520f60ee70193b8c311e0
-tree 31c870591f275ade86c31ab36aa4696d6f9bff2f
-parent 71b67fa64b70767120e72321b3a9534fda4c04d5
-author Armin Wieser <armin.wieser@gmail.com> 1324248453 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324248453 +0100
-
-    no-power-supply.sh with 2 batteries
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 71b67fa64b70767120e72321b3a9534fda4c04d5
-tree 53478e61ad34c0ced79eb3828d1e74612a61e6fc
-parent 38c78762b98da13cd3ee74092c1845e664836b7b
-author Armin Wieser <armin.wieser@gmail.com> 1324248335 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324248335 +0100
-
-    there are faq's now ;)
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 38c78762b98da13cd3ee74092c1845e664836b7b
-tree edf5f0035106a1ffad1ad55353678a30b909bb42
-parent 052ffa660ce1d8b0f9dd8f8fc794222e2463dce1
-author Armin Wieser <armin.wieser@gmail.com> 1324248258 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324248258 +0100
-
-    added faq entry auto-revert
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 487afb230ea6160b579e019c848478c4d6c0e189
-tree 1cc6555301532f537203d598cb4622af3aa164e9
-parent 4c986a135abfd0a2b90ff7d134fb43eceedc6115
-author Armin Wieser <armin.wieser@gmail.com> 1324248165 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324248165 +0100
-
-    some changes
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 4c986a135abfd0a2b90ff7d134fb43eceedc6115
-tree 6c327d8052a214383f4542b19f34dca8ebacf323
-parent b3c61fcc89c000e554db27d157f97778630c6afa
-author Armin Wieser <armin.wieser@gmail.com> 1324246153 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324246153 +0100
-
-    Log Errors to Orgfile
-    
-    Because we run our memacs modules with cronjob we have no chance to get informed in case of an error.
-    This patch writes Org-Entrys to outputfile-path/error.org_archive -> we can include this file in org-agenda-view to see those errors.
-    every string from logging.error() is written to error file
-    
-    updated main:
-    
-    if an unhandled Exception is thrown this will be also logged with logging.error() (and this will be in the error file :)
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit b3c61fcc89c000e554db27d157f97778630c6afa
-tree 58f108bad55f0a15cdb44fc80aa656fe6dbe4d57
-parent 7f1f413ffbc8eab4d17616012e3969f9f09b4ec7
-author Armin Wieser <armin.wieser@gmail.com> 1324233023 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324233023 +0100
-
-    calendar module now working.
-    
-    TODO:
-    - output ?
-    - testing
-    - ...
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 7f1f413ffbc8eab4d17616012e3969f9f09b4ec7
-tree 040a578f35697b8571a68295066f8cf77f92dcc8
-parent 01de783e3fd92dd11245c1b8353bb52aea66bd5c
-author Armin Wieser <armin.wieser@gmail.com> 1324164448 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324164448 +0100
-
-    initial calendar work ...
-    
-    TODO: parsing .ics or take a existing module?
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 01de783e3fd92dd11245c1b8353bb52aea66bd5c
-tree 1fe4672cc506d9f60e99dd447e3346a5c210e4fd
-parent fa11d8f0d4e861812f6035924496064fe04d5002
-author Armin Wieser <armin.wieser@gmail.com> 1324157370 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324157370 +0100
-
-    bugfix: filetimelookup
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit fa11d8f0d4e861812f6035924496064fe04d5002
-tree 65d0eb8336236e291e7bb634df5ccb828a8c49c0
-parent 371d02d4a8101a94b72d1fdb294000b7bffb2c50
-author Armin Wieser <armin.wieser@gmail.com> 1324141548 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324141548 +0100
-
-    replaced optparser with argparser ( due optparser will not be mainained anymore)
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 371d02d4a8101a94b72d1fdb294000b7bffb2c50
-tree 43baa6fc72a32ab191319dcb12437d12a59c89f9
-parent c511806b0c44c346cf4aee366161ab6aa65d5270
-author Armin Wieser <armin.wieser@gmail.com> 1324140217 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1324140217 +0100
-
-    added functionality:
-    
-    if we found a timestamp, look for the file date/time if it is the same set the time
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit c511806b0c44c346cf4aee366161ab6aa65d5270
-tree e354c4479b7b6128652df64865ab16b26b3b43d8
-parent f80031730524829839ac7b641182da009d17267d
-author Armin Wieser <armin.wieser@gmail.com> 1322685300 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1322685300 +0100
-
-    Added functionality:
-    
-    * excluding dirs
-    * emacs tmp files automatically ignored (file~)
-    * don't follow links
-    * real iso8601 timestamp ...
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit f80031730524829839ac7b641182da009d17267d
-tree 488c368ff51bb5ce1991f7602510bcf4af3f2988
-parent c3ae2858a633cafd743c23a4c6bcd6c7230037bf
-parent 052ffa660ce1d8b0f9dd8f8fc794222e2463dce1
-author Armin Wieser <armin.wieser@gmail.com> 1322673839 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1322673839 +0100
-
-    Merge remote-tracking branch 'origin/master' into armin_filenametimestamps
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit c3ae2858a633cafd743c23a4c6bcd6c7230037bf
-tree 7d65fee8dc3a6e3ebd279522ff248b62243e183c
-parent 9b4523b2c4542349e8b4ca3ca595701a50b3c315
-author Armin Wieser <armin.wieser@gmail.com> 1322673716 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1322673716 +0100
-
-    ..
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
 commit 052ffa660ce1d8b0f9dd8f8fc794222e2463dce1
 tree 0c785721ff806d2570cb7d785adf294b0406609b
 parent 62f20271b87e8574370f1ded29938dad0313a399
-author Karl Voit <git@Karl-Voit.at> 1321699855 +0100
-committer Karl Voit <git@Karl-Voit.at> 1321699855 +0100
+author Karl Voit <git@example.com> 1321699855 +0100
+committer Karl Voit <git@example.com> 1321699855 +0100
 
     corrected cron-info for OS X
 
 commit 62f20271b87e8574370f1ded29938dad0313a399
 tree 906b8b7e4bfd08850aef8c15b0fc4d5f6e9cc9a7
 parent 638e81c55daf0a69c78cc3af23a9e451ccea44ab
-author Karl Voit <git@Karl-Voit.at> 1321699830 +0100
-committer Karl Voit <git@Karl-Voit.at> 1321699830 +0100
+author Karl Voit <git@example.com> 1321699830 +0100
+committer Karl Voit <git@example.com> 1321699830 +0100
 
     added RSS module description
 
 commit 9b4523b2c4542349e8b4ca3ca595701a50b3c315
 tree 2d440e6b42b917e9a69d5283b9d1ed4a77797ee9
 parent 7ddaa9839611662c5c0dbf2bb2740e362ae4d566
-author Armin Wieser <armin.wieser@gmail.com> 1320270366 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1320270366 +0100
+author Armin Wieser <armin.wieser@example.com> 1320270366 +0100
+committer Armin Wieser <armin.wieser@example.com> 1320270366 +0100
 
     added Orgformate.date()
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit 7ddaa9839611662c5c0dbf2bb2740e362ae4d566
 tree 663a7c370b985f3b7e9794dec07f28d4e6ff3936
 parent f845d8c1f1a4194e3b27b5bf39bac1b30bd095f6
-author Armin Wieser <armin.wieser@gmail.com> 1320260312 +0100
-committer Armin Wieser <armin.wieser@gmail.com> 1320260312 +0100
+author Armin Wieser <armin.wieser@example.com> 1320260312 +0100
+committer Armin Wieser <armin.wieser@example.com> 1320260312 +0100
 
     orgformat added for orgmode-syntax
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit f845d8c1f1a4194e3b27b5bf39bac1b30bd095f6
 tree 92c74dda23345b3393fc466616fef2cb827cfa67
 parent 6d1f4a51cfaf2fb4fa125d0c05274c332da7ccee
-author Armin Wieser <armin.wieser@gmail.com> 1319906691 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319906691 +0200
+author Armin Wieser <armin.wieser@example.com> 1319906691 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319906691 +0200
 
     modified c'tor params of MemacsOptionParser
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit 6d1f4a51cfaf2fb4fa125d0c05274c332da7ccee
 tree 841edaa15c831c57906549d0331c9e8abaf318d8
 parent 8fd8b9da7e5effcb5ee820d8a4337304fff59504
-author Armin Wieser <armin.wieser@gmail.com> 1319904470 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319904470 +0200
+author Armin Wieser <armin.wieser@example.com> 1319904470 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319904470 +0200
 
     added SHORT_DESCRIPTION and TAG
     for org line:
     * <short-description> :Memacs:TAG:
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit 8fd8b9da7e5effcb5ee820d8a4337304fff59504
 tree fc9ef864ebc8dc3390c041f7a38b9f0ff62aee7e
 parent 30b2f60c14cfb656449609379a0fc76b035bd1c4
-author Armin Wieser <armin.wieser@gmail.com> 1319901687 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319901687 +0200
+author Armin Wieser <armin.wieser@example.com> 1319901687 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319901687 +0200
 
     cleanup
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit 30b2f60c14cfb656449609379a0fc76b035bd1c4
 tree a113814078f6c92938eb556b4646e1e862c1ec73
 parent ce8671cffff72cbd813d693c6098d5ce2b015fae
-author Armin Wieser <armin.wieser@gmail.com> 1319901557 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319901557 +0200
+author Armin Wieser <armin.wieser@example.com> 1319901557 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319901557 +0200
 
     cleanup
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit ce8671cffff72cbd813d693c6098d5ce2b015fae
 tree 37f8577117534864cc4e5410165b1a0b81463120
 parent 3bb73e68b08372fadbc51d598b2cf62a069c631f
-author Armin Wieser <armin.wieser@gmail.com> 1319900702 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319900702 +0200
+author Armin Wieser <armin.wieser@example.com> 1319900702 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319900702 +0200
 
     removed not relevant parts
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit 3bb73e68b08372fadbc51d598b2cf62a069c631f
 tree 3a2f62b8452d5bc0f8f8bd10eaea5f8af7f3b103
 parent 2538b119ae8288c2a34070b168e3a64d28add4eb
-author Armin Wieser <armin.wieser@gmail.com> 1319900220 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319900220 +0200
+author Armin Wieser <armin.wieser@example.com> 1319900220 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319900220 +0200
 
     restoring old folder structure
     
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
+    Signed-off-by: Armin Wieser <armin.wieser@example.com>
 
 commit 2538b119ae8288c2a34070b168e3a64d28add4eb
 tree e1283e4d4c423729d94908f86d2582ff23a4a470
 parent a1a68d8305d04e65dca85b96bb5636481f55898a
-author Armin Wieser <armin.wieser@gmail.com> 1319894964 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319894964 +0200
+author Armin Wieser <armin.wieser@example.com> 1319894964 +0200
+committer Armin Wieser <armin.wieser@example.com> 1319894964 +0200
 
     moved to src/ folder
-
-commit a1a68d8305d04e65dca85b96bb5636481f55898a
-tree 0cb297081dfd77364a1a41969f52635550c105a0
-parent d7b47e79c01986ef763225e730a8e565ac7b5436
-author Armin Wieser <armin.wieser@gmail.com> 1319706437 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319706437 +0200
-
-    small modification
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit d7b47e79c01986ef763225e730a8e565ac7b5436
-tree db9131a30153397057d3a2df50d80db12a4b2e5c
-parent a0a45bc13cd2a19c4e4dfcbcdb0db88495feee4b
-author Armin Wieser <armin.wieser@gmail.com> 1319699941 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319699941 +0200
-
-    added outputwriter + tests
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit a0a45bc13cd2a19c4e4dfcbcdb0db88495feee4b
-tree 6f1ab9b75c78992c10fd6176501a312aa1186d7e
-parent 4c2aec841557709bf26853485bef04ecbbc7a67a
-author Armin Wieser <armin.wieser@gmail.com> 1319652660 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319652660 +0200
-
-    eclipse setting
-
-commit 638e81c55daf0a69c78cc3af23a9e451ccea44ab
-tree 710abc7d157ecb90af69d58be82d0299ee48d713
-parent 4c2aec841557709bf26853485bef04ecbbc7a67a
-author Armin Wieser <armin.wieser@gmail.com> 1319652497 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319652497 +0200
-
-    another .gitignore for eclipse
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 4c2aec841557709bf26853485bef04ecbbc7a67a
-tree 7667093478b4c271e1d95e7d707f447239109977
-parent 21e91240cfedb6eabd9de0ffd77f05735660d425
-author Armin Wieser <armin.wieser@gmail.com> 1319652034 +0200
-committer Armin Wieser <armin.wieser@gmail.com> 1319652034 +0200
-
-    modified .gitignore / ignoring eclipse project files
-    
-    Signed-off-by: Armin Wieser <armin.wieser@gmail.com>
-
-commit 21e91240cfedb6eabd9de0ffd77f05735660d425
-tree d70277379747c1f21e7c0eea67de0cf76f8ade90
-parent 02755507f11a3021b384fcb7efeca0c1b22df210
-author Karl Voit <git@Karl-Voit.at> 1318411383 +0200
-committer Karl Voit <git@Karl-Voit.at> 1318411383 +0200
-
-    refactoring minor things, setting memacs-filenametimestamps to v0.2
-
-commit 02755507f11a3021b384fcb7efeca0c1b22df210
-tree 09f29e49edb90543a35015beb1c5f59f3a0f43fd
-parent d2788d8f324475f69da10c450afc9dc68e2cbc78
-author Karl Voit <git@Karl-Voit.at> 1318168864 +0200
-committer Karl Voit <git@Karl-Voit.at> 1318168864 +0200
-
-    added memacs-easybank to README
-
-commit d2788d8f324475f69da10c450afc9dc68e2cbc78
-tree 4586a04c5cda2ae8bd1f74ea1f63f7862a2b3a57
-parent 0933622b254f81a09337428e93724981e5e9e258
-author Karl Voit <git@Karl-Voit.at> 1318161207 +0200
-committer Karl Voit <git@Karl-Voit.at> 1318161207 +0200
-
-    working version og memacs-easybank module
-
-commit 0933622b254f81a09337428e93724981e5e9e258
-tree 7cff8d8445ea94babeaa0eea3d05c0faa494b334
-parent 8e207e46c4b1d38be0a97aa8e905445637ce52ae
-author Karl Voit <git@Karl-Voit.at> 1318064980 +0200
-committer Karl Voit <git@Karl-Voit.at> 1318064980 +0200
-
-    added link to a more detailed description on how to organize contacts
-
-commit 8e207e46c4b1d38be0a97aa8e905445637ce52ae
-tree 2564995609211c5d89a9fafe69a8f52c0ae51327
-parent 1a7c563bb478191c4978bae7576da372cf2aed55
-author Karl Voit <git@Karl-Voit.at> 1316981208 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316981208 +0200
-
-    added featurewish and corrected Orgmode tags for news
-
-commit 1a7c563bb478191c4978bae7576da372cf2aed55
-tree 3ccaac96f3ac405f0226a3d6628229a020591aef
-parent c63da04e35f5d1a2cbf0d4eae88152fe50511cec
-author Karl Voit <git@Karl-Voit.at> 1316884149 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316884149 +0200
-
-    mbox module can now recover from missing message-id (only)
-
-commit c63da04e35f5d1a2cbf0d4eae88152fe50511cec
-tree b8a68362aaa765bdb575fb93c16cc5cb2b951c2a
-parent abe39920129c6e99448c84e90a84065c65890e3d
-author Karl Voit <git@Karl-Voit.at> 1316883917 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316883917 +0200
-
-    added comment about measured time for HDD (not SDD)
-
-commit abe39920129c6e99448c84e90a84065c65890e3d
-tree 3ce93335c95f8bd06da409727d9fdce34912acb0
-parent 22345d95e1b3ff9d366fab9cdbabf0ba4b5c59f4
-author Karl Voit <git@Karl-Voit.at> 1316532232 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316532232 +0200
-
-    added how organize contacts and to use the contact: link
-
-commit 22345d95e1b3ff9d366fab9cdbabf0ba4b5c59f4
-tree 162b62b46698c15b7e6d2f141bbee22aa0231696
-parent 2377f7804c72310e89f44829ded425eb6310dcc1
-author Karl Voit <git@Karl-Voit.at> 1316531280 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316531280 +0200
-
-    removed last occurrences of term nexus
-
-commit 2377f7804c72310e89f44829ded425eb6310dcc1
-tree 62d5f60e338350665ab629968924c65ebf9e68a2
-parent 800434b770fbfc45f32e66df106df31c97f15d62
-author Karl Voit <git@Karl-Voit.at> 1316530790 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316530790 +0200
-
-    improved README and finally added license file
-
-commit 800434b770fbfc45f32e66df106df31c97f15d62
-tree 0465ad5098e064c2b1aee83375564d68cadadbaf
-parent 0867fbdeb83b5edd2fd645541a9a95e9facddb58
-author Karl Voit <git@Karl-Voit.at> 1316530108 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316530108 +0200
-
-    new best practices added
-
-commit 0867fbdeb83b5edd2fd645541a9a95e9facddb58
-tree 65555555d2773a75543981d60c8d3b98dff6c0fc
-parent 5bbbb1fb9039182ce8f2661fed06267b69d9dd73
-author Karl Voit <git@Karl-Voit.at> 1316528724 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316528724 +0200
-
-    added slrn-module
-
-commit 5bbbb1fb9039182ce8f2661fed06267b69d9dd73
-tree 535196700548580568f8893a9a869fb1b5e4164a
-parent 4b452d2eefdabd4b9c923f752723d8b7aade8a77
-author Karl Voit <git@Karl-Voit.at> 1316528495 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316528495 +0200
-
-    re-arranged order
-
-commit 4b452d2eefdabd4b9c923f752723d8b7aade8a77
-tree 55bded0fa08a417403243bad3e7063cebc94096f
-parent 1664550cffe7617cc89cc235bb6a54d65b0ba01f
-author Karl Voit <git@Karl-Voit.at> 1316528193 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316528193 +0200
-
-    moving each Memacs module into its own orgmode README file
-
-commit 1664550cffe7617cc89cc235bb6a54d65b0ba01f
-tree bb1f691fb8a4f3813a2522a6bf86cc550d81d510
-parent a7590bda02a249ecfe6712a7151dbaa489bb74eb
-author Karl Voit <git@Karl-Voit.at> 1316526265 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316526265 +0200
-
-    correcting python source file renaming and moving
-
-commit a7590bda02a249ecfe6712a7151dbaa489bb74eb
-tree 280f40b1fae18ec37f370f96dfc274f7d452f74c
-parent 0a5a4780375a3d82e8ef68b9a20e9df0fc7a01ec
-author Karl Voit <git@Karl-Voit.at> 1316526218 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316526218 +0200
-
-    correcting python source file renaming and moving
-
-commit 0a5a4780375a3d82e8ef68b9a20e9df0fc7a01ec
-tree f916cf9fce379a2ae3ac8483f14490a8564a2d06
-parent 0e00e95f218866421a17c98728bc25d3d6cab69e
-author Karl Voit <git@Karl-Voit.at> 1316526002 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316526002 +0200
-
-    moved memacs module information to separate orgmode README files
-
-commit 0e00e95f218866421a17c98728bc25d3d6cab69e
-tree dbf4e4c20c8ab05b35bb1e13de94e0bd8dc11e0f
-parent cd2e31b0b062c237a86abb9e67d2b4756c1256ee
-author Karl Voit <git@Karl-Voit.at> 1316522007 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316522007 +0200
-
-    determining githubs interpretation of example and verse sections
-
-commit cd2e31b0b062c237a86abb9e67d2b4756c1256ee
-tree 956d1c5b7514e8f39212c6e0658c047e4e81b4ec
-parent 1534a3782f2478375a7f7233e71b9e3119235c28
-author Karl Voit <git@Karl-Voit.at> 1316521867 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316521867 +0200
-
-    determining githubs interpretation of example and verse sections
-
-commit 1534a3782f2478375a7f7233e71b9e3119235c28
-tree 0d1896a8db33f2275ee7ee2a33385e8535c03183
-parent 162cf1c26ccf606ee62620f503792ba75e5f02c6
-author Karl Voit <git@Karl-Voit.at> 1316521825 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316521825 +0200
-
-    determining githubs interpretation of example and verse sections
-
-commit 162cf1c26ccf606ee62620f503792ba75e5f02c6
-tree 5d22253d9205724ced92e8684bc5e81252542113
-parent 1877c386dd6dece9716b9f76664f87b1591d9f77
-author Karl Voit <git@Karl-Voit.at> 1316521732 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316521732 +0200
-
-    determining githubs interpretation of example and verse sections
-
-commit 1877c386dd6dece9716b9f76664f87b1591d9f77
-tree 7b492917bfddc672f47323192cb5daf42cf2de3d
-parent 40aebf1360c1f9ad6ed5cbbc1cd09644266bc93b
-author Karl Voit <git@Karl-Voit.at> 1316521293 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316521293 +0200
-
-    determining githubs interpretation of example and verse sections
-
-commit 40aebf1360c1f9ad6ed5cbbc1cd09644266bc93b
-tree 78812b7d35f8a4e23413f2c7a667cb2ebde8c847
-parent 732f9bebd4e52425034126913087d19ec559822a
-author Karl Voit <git@Karl-Voit.at> 1316520884 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316520884 +0200
-
-    replaced term "Nexus" with "Memacs module"; added FAQs
-
-commit 732f9bebd4e52425034126913087d19ec559822a
-tree 48e7f49a5c86b098af2fe9fc8db8ab827fb8d117
-parent 055563f576bbbd52beb4051e21f80a11880cb5af
-author Karl Voit <git@Karl-Voit.at> 1316283752 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316283752 +0200
-
-    added newsnetposting-format like ~/.slrnrc/My_Posts
-
-commit 055563f576bbbd52beb4051e21f80a11880cb5af
-tree 383b6e11a48b71e69c500fe5709dfb9f71598a71
-parent 39a79244c4b1492727e371253c658c8f1a2f1a2c
-author Karl Voit <git@Karl-Voit.at> 1316213256 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316213256 +0200
-
-    fixed minor Orgmode formatting issues
-
-commit 39a79244c4b1492727e371253c658c8f1a2f1a2c
-tree 91983f768852f43827ba74a6873f5de54d0cd5ea
-parent b95bf783c03b63f8ceb66f82f66a7b4336f083b0
-author Karl Voit <git@Karl-Voit.at> 1316210746 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316210746 +0200
-
-    initial quick hack version of generate_mbox-nexus_data.py
-
-commit b95bf783c03b63f8ceb66f82f66a7b4336f083b0
-tree 19fd8e59384a0213515cdf2c49968c78d1bb3333
-parent 28e3c80fe9484986e7e7cab75ba66830c3bd43ce
-author Karl Voit <git@Karl-Voit.at> 1316083328 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316083328 +0200
-
-    files without a time get shown without any assumed time
-
-commit 28e3c80fe9484986e7e7cab75ba66830c3bd43ce
-tree b3ab373a06df8f24780df16024e090df5db20e5f
-parent 651b2903a7ffc892911389afe7ec7873093ff989
-author Karl Voit <git@Karl-Voit.at> 1316074128 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316074128 +0200
-
-    better English
-
-commit 651b2903a7ffc892911389afe7ec7873093ff989
-tree 103570911416d11d4a4603823c6cd7ab2991e6ef
-parent 395807ef013ee1c80108d79d08f99adb5678addd
-author Karl Voit <git@Karl-Voit.at> 1316010097 +0200
-committer Karl Voit <git@Karl-Voit.at> 1316010097 +0200
-
-    added new intro, phone Nexus, and minor changes
-
-commit 395807ef013ee1c80108d79d08f99adb5678addd
-tree d52b56b3fb0947a805de17e59083088ce74f1b40
-parent 988a477490f8c1b79b9305f234d9ff239a3995d2
-author Karl Voit <git@Karl-Voit.at> 1314868638 +0200
-committer Karl Voit <git@Karl-Voit.at> 1314868638 +0200
-
-    simplified version of Nexus examples
-
-commit 988a477490f8c1b79b9305f234d9ff239a3995d2
-tree 96f22703c84772c248ba255a32160224ea7f5502
-parent 0d465b525a8ebbc9d3bff53d0c682fbe84797878
-author Karl Voit <git@Karl-Voit.at> 1314710419 +0200
-committer Karl Voit <git@Karl-Voit.at> 1314710419 +0200
-
-    alpha version of stand-alone filetimestamp-Nexus
-
-commit 0d465b525a8ebbc9d3bff53d0c682fbe84797878
-tree 276d6268d726d41a06dcf6d63dba6f22976c491c
-parent 1e2baed9ce14afe0702d2a60d49cdd228b2f5521
-author Karl Voit <git@Karl-Voit.at> 1312633657 +0200
-committer Karl Voit <git@Karl-Voit.at> 1312633657 +0200
-
-    testing status flags
-
-commit 1e2baed9ce14afe0702d2a60d49cdd228b2f5521
-tree abe31e67b54bf7b63613917e301706ab775a0a81
-parent 4d0b2e70d1571844e49b9d16c4cf65b044ad95a7
-author Karl Voit <git@Karl-Voit.at> 1312633538 +0200
-committer Karl Voit <git@Karl-Voit.at> 1312633538 +0200
-
-    testing status flags
-
-commit 4d0b2e70d1571844e49b9d16c4cf65b044ad95a7
-tree 34636d0c9ed76fb07462161c80e5ae05e3b060a2
-parent 3179e5a6bb0b0ef314df00bb6e54ff5ccc183571
-author Karl Voit <git@Karl-Voit.at> 1312633434 +0200
-committer Karl Voit <git@Karl-Voit.at> 1312633434 +0200
-
-    added status flags to README and testing an entry
-
-commit 3179e5a6bb0b0ef314df00bb6e54ff5ccc183571
-tree a64e1bb11e4a8f32dadcf6ee02fad574c6082089
-parent 69ca9cb2c422ca3a8a7c27d82d5dae6a9e929274
-author Karl Voit <git@Karl-Voit.at> 1311585213 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311585213 +0200
-
-    added additional requirements and states
-
-commit 69ca9cb2c422ca3a8a7c27d82d5dae6a9e929274
-tree 258f880f75c1bb168bc7aba5bf9ca33beec33562
-parent b2f5b39f54d83041cdf96d6354a26a51815a38e2
-author Karl Voit <git@Karl-Voit.at> 1311439205 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311439205 +0200
-
-    removed PROPERTIES drawer and changed reference system
-
-commit b2f5b39f54d83041cdf96d6354a26a51815a38e2
-tree 88aeb6961d7618883a5b514e49c07372eb483a38
-parent bd3580321a4064f39aef25f6e925586cc623e6bc
-author Karl Voit <git@Karl-Voit.at> 1311436803 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311436803 +0200
-
-    initial version of issuetracking.org and its links to README.org; added gitignore
-
-commit bd3580321a4064f39aef25f6e925586cc623e6bc
-tree c320f178563098d34e0808f25d72ef777361cd3b
-parent b01d8a794e4a39f9595fc8d3c3842e89fb444d41
-author Karl Voit <git@Karl-Voit.at> 1311434716 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311434716 +0200
-
-    correct example format
-
-commit b01d8a794e4a39f9595fc8d3c3842e89fb444d41
-tree 3981b08eb0a11a606e921f91e31996452f6cf1ce
-parent 27c175ee6d063b59ed934439c18b85de023e5978
-author Karl Voit <git@Karl-Voit.at> 1311434236 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311434236 +0200
-
-    testing githubs Org-mode interpretation for examples - again
-
-commit 27c175ee6d063b59ed934439c18b85de023e5978
-tree cec67f41c5fcb583f39a1baf554f91fca6affde8
-parent 901b8c0db099d2c1d8d2fdd164cb02fed786a127
-author Karl Voit <git@Karl-Voit.at> 1311434101 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311434101 +0200
-
-    testing githubs Org-mode interpretation for examples - again
-
-commit 901b8c0db099d2c1d8d2fdd164cb02fed786a127
-tree 63147fc00761893b49e23b7b50b69489d0a7e3e8
-parent 4b7c3eb3108f3101877c26002f49a86f10e7302a
-author Karl Voit <git@Karl-Voit.at> 1311434025 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311434025 +0200
-
-    testing githubs Org-mode interpretation for examples
-
-commit 4b7c3eb3108f3101877c26002f49a86f10e7302a
-tree 9011299ed4f441f55ba52728e10ba83811176fb7
-author Karl Voit <git@Karl-Voit.at> 1311433777 +0200
-committer Karl Voit <git@Karl-Voit.at> 1311433777 +0200
-
-    General README about this project
 

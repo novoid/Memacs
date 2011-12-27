@@ -93,8 +93,5 @@ if __name__ == "__main__":
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
         # append=True,  # set this when you want appending
-        # When append=True you could set your own identifier
-        # identifier is a property in :PROPERTIES: drawer
-        # identifier="ID"
         )
     memacs.handle_main()
