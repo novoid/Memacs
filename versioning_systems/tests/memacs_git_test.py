@@ -26,9 +26,10 @@ class TestCommit(unittest.TestCase):
         c.add_body("i'm the subject")
         c.add_body("i'm in the body")
 
-        output, properties, note = c.get_output()
+        output, properties, note, author = c.get_output()
         self.assertEqual(output, "Armin Wieser: i'm the subject")
         self.assertEqual(note, "i'm in the body\n")
+        self.assertEqual(author, "Armin Wieser")
 
         p = u"""   :PROPERTIES:\n   :CREATED: <2011-12-21 Wed 00:14:38>
    :AUTHOR:   Armin Wieser <armin.wieser@example.com> 1324422878 +0100
@@ -38,10 +39,12 @@ class TestCommit(unittest.TestCase):
 
 class TestGitMemacs(unittest.TestCase):
 
-    def test_from_file(self):
-        test_file = os.path.dirname(os.path.abspath(__file__)) + \
+    def setUp(self):
+        self.test_file = os.path.dirname(os.path.abspath(__file__)) + \
             os.sep + "git-rev-list-raw.txt"
-        argv = "-s -f " + test_file
+
+    def test_from_file(self):
+        argv = "-s -f " + self.test_file
         memacs = GitMemacs(argv=argv.split())
         data = memacs.test_get_entries()
 
@@ -151,3 +154,18 @@ class TestGitMemacs(unittest.TestCase):
         self.assertEqual(
             data[30],
              "** Armin Wieser: fixing tests")
+
+    def test_number_entries_all(self):
+        argv = "-s -f " + self.test_file
+        memacs = GitMemacs(argv=argv.split())
+        data = memacs.test_get_entries()
+        self.assertEqual(len(data), 1081)  # 1081 commits in sum
+
+    def test_number_entries_grep(self):
+        argv = '-s -f ' + self.test_file
+        argv = argv.split()
+        argv.append("-g")
+        argv.append("Armin Wieser")
+        memacs = GitMemacs(argv=argv)
+        data = memacs.test_get_entries()
+        self.assertEqual(len(data), 686)  # 686 commits from Armin Wieser

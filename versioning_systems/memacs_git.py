@@ -114,7 +114,7 @@ class Commit(object):
         @return tupel: output,properties,body for Orgwriter.write_sub_item()
         """
         output = self.__author + ": " + self.__subject
-        return output, self.__properties, self.__body
+        return output, self.__properties, self.__body, self.__author
 
 
 class GitMemacs(Memacs):
@@ -131,6 +131,12 @@ class GitMemacs(Memacs):
            action="store",
            help="path to a an file which contains output from " + \
            " following git command: git rev-list --all --pretty=raw")
+
+        self._parser.add_argument(
+           "-g", "--grep-user", dest="grepuser",
+           action="store",
+           help="if you wanna parse only commit from a specific person. " + \
+           "format:<Forname Lastname> of user to grep")
 
     def _parser_parse_args(self):
         """
@@ -205,11 +211,16 @@ class GitMemacs(Memacs):
 
         # time to write all commits to org-file
         for commit in commits:
-            output, properties, note = commit.get_output()
+            output, properties, note, author = commit.get_output()
 
-            self._writer.write_org_subitem(output=output,
-                                           properties=properties,
-                                           note=note)
+            if not(self._args.grepuser) or \
+            (self._args.grepuser and self._args.grepuser == author):
+                # only write to stream if
+                # * grepuser is not set or
+                # * grepuser is set and we got an entry with the right author
+                self._writer.write_org_subitem(output=output,
+                                               properties=properties,
+                                               note=note)
 
         if self._args.gitrevfile:
             input_stream.close()
