@@ -39,7 +39,8 @@ class Memacs(object):
                  prog_short_description="no short-description specified",
                  prog_tag="no tag specified",
                  argv=sys.argv[1:],
-                 append_orgfile=False):
+                 append_orgfile=False,
+                 identifier="ID"):
         """
         Ctor
 
@@ -57,6 +58,7 @@ class Memacs(object):
         self.__prog_tag = prog_tag
         self.__writer_append = append_orgfile
         self.__argv = argv
+        self.__identifier = identifier
 
     def __init(self, test=False):
         """
@@ -94,7 +96,8 @@ class Memacs(object):
             short_description=self.__prog_short_description,
             tag=tag,
             test=test,
-            append=self.__writer_append)
+            append=self.__writer_append,
+            identifier=self.__identifier)
 
     def _main(self):
         """

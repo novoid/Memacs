@@ -82,6 +82,7 @@ class Commit(object):
             tag = line[:whitespace].upper()
             value = line[whitespace:]
             self.__properties.add(tag, value)
+            
             if tag == "AUTHOR":
                 self.__set_created(line)
 
@@ -218,7 +219,7 @@ class GitMemacs(Memacs):
                 # only write to stream if
                 # * grepuser is not set or
                 # * grepuser is set and we got an entry with the right author
-                self._writer.write_org_subitem(output=output,
+                self._writer.append_org_subitem(output=output,
                                                properties=properties,
                                                note=note)
 
@@ -231,5 +232,7 @@ if __name__ == "__main__":
         prog_version_date=PROG_VERSION_DATE,
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
-        prog_tag=PROG_TAG)
+        prog_tag=PROG_TAG,
+        append_orgfile=True,
+        identifier="COMMIT")
     memacs.handle_main()

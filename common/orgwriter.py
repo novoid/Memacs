@@ -18,7 +18,7 @@ class OrgOutputWriter(object):
     __test = False
 
     def __init__(self, short_description, tag, file_name=None,
-                test=False, append=False):
+                test=False, append=False, identifier="ID"):
         """
         @param file_name:
         """
@@ -30,6 +30,7 @@ class OrgOutputWriter(object):
         self.__tag = tag
         self.__file_name = file_name
         self.__existing_ids = []
+        self.__identifier = identifier  # :ID: - tag unique identifier
 
         if file_name:
             if append and os.path.exists(file_name):
@@ -111,12 +112,10 @@ class OrgOutputWriter(object):
         """
         self.writeln("* " + output)
 
-    def write_org_subitem(self, output, note="", properties=OrgProperties(),
+    def __write_org_subitem(self, output, note="", properties=OrgProperties(),
                           tags=[]):
         """
-        Writes an org item line.
-
-        i.e: * <output>\n
+        internally called by write_org_subitem and append_org_subitem
         """
         output_tags = ""
         if tags != []:
@@ -128,6 +127,18 @@ class OrgOutputWriter(object):
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
 
+    def write_org_subitem(self, output, note="", properties=OrgProperties(),
+                          tags=[]):
+        """
+        Writes an org item line.
+
+        i.e: * <output>\n
+        """
+        if not self.__append:
+            self.__write_org_subitem(output, note, properties, tags)
+        else:
+            raise Exception("cannot use this method, when in append mode")
+
     def append_org_subitem(self, output, note="", properties=OrgProperties(),
                            tags=[]):
         """
@@ -135,19 +146,18 @@ class OrgOutputWriter(object):
         if not, it will be appended
         """
         if self.__append:
-            id = properties.get_id()
+            identifier = properties.get_value(self.__identifier)
 
             if id == None:
-                raise Exception("ID Property not set")
+                raise Exception("id :%s: Property not set!", self.__identifier)
 
-            if self.__id_exists(id):
+            if self.__id_exists(identifier):
                 # do nothing, id exists ...
-                logging.debug("ID exists not appending")
+                logging.debug("NOT appending")
             else:
                 # id does not exist so we can append
-                logging.debug("ID not exists appending")
-                self.write_org_subitem(output, note, properties, tags)
-
+                logging.debug("appending")
+                self.__write_org_subitem(output, note, properties, tags)
         else:
             raise Exception("cannot use this method, when not in append mode")
 
@@ -155,18 +165,22 @@ class OrgOutputWriter(object):
         assert self.__existing_ids == []
 
         data = CommonReader.get_data_from_file(self.__file_name)
-        for found_id in re.findall(":ID:(.*)", data):
+        
+        pattern = ":" + self.__identifier + ":(.*)"
+        
+        for found_id in re.findall(pattern, data):
             found_id = found_id.strip()
             if found_id != "":
                 self.__existing_ids.append(found_id)
+                logging.debug("found id :%s: %s",self.__identifier,found_id)
 
         logging.debug("there are already %d entries", len(self.__existing_ids))
 
-    def __id_exists(self, id):
+    def __id_exists(self, searchid):
         """
-        @return: if id already exists in output file
+        @return: if searchid already exists in output file
         """
-        return id in self.__existing_ids
+        return searchid.strip() in self.__existing_ids
 
     def close(self):
         """

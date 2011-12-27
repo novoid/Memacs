@@ -61,9 +61,9 @@ class OrgProperties(object):
 
         ret += "   :END:"
         return ret
-
-    def get_id(self):
+    
+    def get_value(self, key):
         """
-        @return: returns <value> of ":ID: <value>"
+        @return: properties[key]
         """
-        return self.__properties["ID"]
+        return self.__properties[key]
