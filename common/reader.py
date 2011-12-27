@@ -25,7 +25,7 @@ class CommonReader:
         @return: returns data
         """
         try:
-            input_file = codecs.open(path, 'rb')
+            input_file = codecs.open(path, 'rb', encoding='utf-8')
             data = input_file.read()
             input_file.close()
             return data
@@ -34,12 +34,26 @@ class CommonReader:
             sys.exit(1)
 
     @staticmethod
+    def get_reader_from_file(path):
+        """
+        gets a stream of a file 
+        @param path: file 
+        @return: stream of file
+        """
+        try:
+            return codecs.open(path, encoding='utf-8')
+        except IOError, e:
+            logging.error("Error at opening file: %s:%s", path, e)
+            sys.exit(1)
+        return None
+
+    @staticmethod
     def get_data_from_url(url):
         """
         reads from a url
 
         @param url: url to read
-        @returns: returns data
+        @return: returns data
         """
         try:
             req = urlopen(url, None, 10)
@@ -53,3 +67,22 @@ class CommonReader:
         except ValueError, e:
             logging.error("ValueError: %s", e)
             sys.exit(1)
+
+    @staticmethod
+    def get_data_from_stdin():
+        """
+        reads from stdin
+        @return: data from stdin 
+        """
+        input_stream = codecs.getreader('utf-8')(sys.stdin)
+        data = input_stream.read()
+        input_stream.close()
+        return data
+
+    @staticmethod
+    def get_reader_from_stdin():
+        """
+        get a utf-8 stream reader for stdin
+        @return: stdin-stream
+        """
+        return codecs.getreader('utf-8')(sys.stdin)

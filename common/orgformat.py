@@ -212,5 +212,11 @@ class OrgFormat(object):
         elif string_length == 8:
             #YYYYMMDD
             return time.strptime(datetime_string, "%Y%m%d")
+        elif string_length == 27:
+            #2011-11-02T14:48:54.908371Z
+            datetime_string = datetime_string.split(".")[0] + "Z"
+            return time.localtime(
+                calendar.timegm(
+                    time.strptime(datetime_string, "%Y-%m-%dT%H:%M:%SZ")))
         else:
             logging.error("string has no correct format: %s" % datetimestring)
