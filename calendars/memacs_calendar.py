@@ -161,6 +161,8 @@ class CalendarMemacs(Memacs):
             org_properties.add("DESCRIPTION", description)
 
         org_properties.add("created", orgdate)
+        # we need to set the summary property to really get a other sha1
+        org_properties.add("summary", summary)
         self._writer.append_org_subitem(output=summary,
                                        properties=org_properties)
 
