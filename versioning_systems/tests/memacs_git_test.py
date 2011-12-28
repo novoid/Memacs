@@ -181,7 +181,7 @@ class TestGitMemacs(unittest.TestCase):
         self.assertEqual(
             data[37],
              "   :END:")
-        
+
     def test_number_entries_all(self):
         argv = "-s -f " + self.test_file
         memacs = GitMemacs(argv=argv.split())

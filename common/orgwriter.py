@@ -14,9 +14,9 @@ from common.orgformat import OrgFormat
 
 class OrgOutputWriter(object):
     """
-    OrgOutputWriter is used especially for writing 
+    OrgOutputWriter is used especially for writing
     org-mode entries
-    
+
     most notable function:
     - write_org_subitem (see its comment)
     """
@@ -134,7 +134,7 @@ class OrgOutputWriter(object):
         output_tags = ""
         if tags != []:
             output_tags = u"\t:" + ":".join(map(str, tags)) + ":"
-            
+
         output = output.lstrip()
         timestamp = timestamp.strip()
 
@@ -157,13 +157,13 @@ class OrgOutputWriter(object):
                :PROPERTIES:
                <properties>
                :ID: -generated id-
-               :END:  
-                      
+               :END:
+
         if an argument -a or --append is given,
         then a desicion regarding the :ID: is made if the item has to be
         written to file
-        
-        @param timestamp: str/unicode 
+
+        @param timestamp: str/unicode
         @param output: str/unicode
         @param note: str/unicode
         @param tags: list of tags
@@ -174,7 +174,7 @@ class OrgOutputWriter(object):
         assert properties.__class__ == OrgProperties
         assert (output.__class__ == str or output.__class__ == unicode)
         assert (note.__class__ == str or note.__class__ == unicode)
-        
+
         if self.__append:
             self.__append_org_subitem(timestamp,
                                       output,
@@ -213,7 +213,7 @@ class OrgOutputWriter(object):
 
     def __compute_existing_id_list(self):
         """
-        Reads the outputfile, looks for :ID: properties and stores them in 
+        Reads the outputfile, looks for :ID: properties and stores them in
         self.__existing_ids
         """
         assert self.__existing_ids == []

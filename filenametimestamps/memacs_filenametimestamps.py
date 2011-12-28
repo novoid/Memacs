@@ -28,8 +28,8 @@ Emacs tmp-files like file~ are automatically ignored
 
 Then an Org-mode file is generated that contains links to the files.
 """
-COPYRIGHT_YEAR = "2011-2012" 
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
 
@@ -122,7 +122,7 @@ class FileNameTimeStamps(Memacs):
                     orgdate = OrgFormat.date(file_datetime, True)
                 # write entry to org file
             output = OrgFormat.link(link=link, description=file)
-            # we need optional data for hashing due it can be, that more 
+            # we need optional data for hashing due it can be, that more
             # than one file have the same timestamp
             properties = OrgProperties(data_for_hashing=output)
             self._writer.write_org_subitem(timestamp=orgdate,

@@ -28,8 +28,8 @@ Then an Org-mode file is generated that contains all commit message
 
 If outputfile is specified, only non-existing commits are appended
 """
-COPYRIGHT_YEAR = "2011-2012" 
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
 class Commit(object):

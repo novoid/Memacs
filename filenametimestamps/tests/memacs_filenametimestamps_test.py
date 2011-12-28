@@ -39,7 +39,7 @@ class TestFileNameTimeStamps(unittest.TestCase):
         #for d in range(len(data)):
         #    print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
         #        (d, data[d])
-                
+
         self.assertEqual(
             data[0],
             entry)

@@ -28,8 +28,8 @@ PROG_DESCRIPTION = u"""This script parses a *.ics file and generates
 Entries for VEVENTS
 * other's like VALARM are not implemented by now
 """
-COPYRIGHT_YEAR = "2011-2012" 
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
 
@@ -122,7 +122,7 @@ class CalendarMemacs(Memacs):
                 end_tupel.tm_hour == 0:
             # we have to subtract 1 day to get the correct dates
             end_tupel = time.localtime(time.mktime(end_tupel) - 24 * 60 * 60)
-        
+
         return OrgFormat.utcrange(begin_tupel, end_tupel)
 
     def __handle_vevent(self, component):
@@ -163,7 +163,7 @@ class CalendarMemacs(Memacs):
         if description != None:
             org_properties.add("DESCRIPTION", description)
 
-        
+
         self._writer.write_org_subitem(output=summary,
                                        properties=org_properties,
                                        timestamp=orgdate)

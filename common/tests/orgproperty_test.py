@@ -28,7 +28,7 @@ class TestOrgProperties(unittest.TestCase):
         p.add(u"CREATED",
               OrgFormat.datetime(time.gmtime(0)))
         properties = unicode(p).splitlines()
-        
+
         self.assertEqual(properties[0], u"   :PROPERTIES:")
         self.assertEqual(properties[1], u"   :CREATED:        <1970-01-0" + \
                          "1 Thu 00:00>")

@@ -22,8 +22,8 @@ this class will do ....
 
 Then an Org-mode file is generated that contains ....
 """
-COPYRIGHT_YEAR = "2011-2012" 
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
 
@@ -57,7 +57,7 @@ class Foo(Memacs):
         get's automatically called from Memacs class
         """
         # do all the stuff
-        
+
         logging.info("foo started")
 
         # use logging.debug() for debug messages
@@ -65,21 +65,21 @@ class Foo(Memacs):
         # use logging.info() instead of print for informing user
         #
         # on an fatal error:
-        # use logging.error() and sys.exit(1) 
+        # use logging.error() and sys.exit(1)
 
         timestamp = OrgFormat.datetime(time.gmtime(0))
         # note: timestamp has to be a struct_time object
         self._writer.write_org_subitem(timestamp=timestamp,
                                        output="foo")
-       
-        # writes following:        
+
+        # writes following:
         #** <1970-01-01 Thu 00:00> foo
         #   :PROPERTIES:
         #   :ID:             da39a3ee5e6b4b0d3255bfef95601890afd80709
         #   :END:
-        
+
         notes = "bar notes\nfoo notes"
-        
+
         p = OrgProperties(data_for_hashing="read comment below")
         # if a hash is not unique only with its :PROPERTIES: , then
         # set data_for_hasing string additional information i.e. the output
@@ -88,7 +88,7 @@ class Foo(Memacs):
         p.add("foo-property", "asdf")
 
         tags = [u"tag1", u"tag2"]
-        
+
         self._writer.write_org_subitem(timestamp=timestamp,
                                        output="bar",
                                        note=notes,
