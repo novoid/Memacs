@@ -1,4 +1,4 @@
-## Time-stamp: <2011-12-28 19:43:29 armin>
+## Time-stamp: <2011-12-28 22:26:07 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -169,6 +169,8 @@ being executed.
 
 
 * Internals
+** How to write a memacs module? 
+see example/ folder with example memacs module and tests
 ** Error Handling 
 Because we let our memacs-modules automatically run, it would be difficult 
 to get informed in case of an error. So memacs-modules have a nice error handling:
@@ -202,8 +204,8 @@ You have to delete the error manually.
 
 ** how works the *appendmode* of memacs? / How is the :ID: Property generated?
 All properties (:PROPERTIES: drawer) are stored in a dict
-: i.e.: :CREATED: <date>
-: key = "CREATED , value = <date>
+: i.e.: :FOO: <bar>
+: key = "FOO , value = <bar>
 
 generation: 
 : id-hash = sha1(<all values> + <all keys>) 
@@ -212,6 +214,11 @@ Before writing an entry to the org-file, the id is generated.
 
 If Memacs module is in appendmode, it looks for those :ID: properties 
 and stores them in a list. On writing(append) it first checks against that list.
+
+*** what to do if our :PROPERTIES: give not enough unique data? 
+    ... so that a hash cannot be unique too?
+
+    you can set OrgProperties(data_for_hashing="more_data") for this problem
 
 
 * FAQs

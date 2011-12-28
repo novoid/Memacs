@@ -21,14 +21,16 @@ except ImportError:
     sys.exit(3)
 
 PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-18"
+PROG_VERSION_DATE = u"2011-12-28"
 PROG_SHORT_DESCRIPTION = u"Memacs for ical Calendars"
 PROG_TAG = u"calendar"
 PROG_DESCRIPTION = u"""This script parses a *.ics file and generates
 Entries for VEVENTS
-
-Emacs tmp-files like file~ are automatically ignored
+* other's like VALARM are not implemented by now
 """
+COPYRIGHT_YEAR = "2011-2012" 
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+Armin Wieser <armin.wieser@gmail.com>"""
 
 
 class CalendarMemacs(Memacs):
@@ -120,7 +122,7 @@ class CalendarMemacs(Memacs):
                 end_tupel.tm_hour == 0:
             # we have to subtract 1 day to get the correct dates
             end_tupel = time.localtime(time.mktime(end_tupel) - 24 * 60 * 60)
-
+        
         return OrgFormat.utcrange(begin_tupel, end_tupel)
 
     def __handle_vevent(self, component):
@@ -153,18 +155,18 @@ class CalendarMemacs(Memacs):
 
         logging.debug(orgdate + " " + summary)
 
-        org_properties = OrgProperties()
+        # we need to set data_for_hashing=summary to really get a other sha1
+        org_properties = OrgProperties(data_for_hashing=summary)
 
         if location != None:
             org_properties.add("LOCATION", location)
         if description != None:
             org_properties.add("DESCRIPTION", description)
 
-        org_properties.add("created", orgdate)
-        # we need to set the summary property to really get a other sha1
-        org_properties.add("summary", summary)
-        self._writer.append_org_subitem(output=summary,
-                                       properties=org_properties)
+        
+        self._writer.write_org_subitem(output=summary,
+                                       properties=org_properties,
+                                       timestamp=orgdate)
 
     def _main(self):
         # getting data
@@ -190,5 +192,7 @@ if __name__ == "__main__":
                             prog_description=PROG_DESCRIPTION,
                             prog_short_description=PROG_SHORT_DESCRIPTION,
                             prog_tag=PROG_TAG,
-                            append=True)
+                            copyright_year=COPYRIGHT_YEAR,
+                            copyright_authors=COPYRIGHT_AUTHORS
+        )
     memacs.handle_main()
