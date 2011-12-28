@@ -108,6 +108,9 @@ class MemacsArgumentParser(ArgumentParser):
             if not os.access(os.path.dirname(args.outputfile), os.W_OK):
                 self.error("Output file %s is not writeable!" %
                            args.outputfile)
+        else:
+            if args.append:
+                self.error("cannot set append when no outputfile specified") 
 
         if args.suppressmessages == True and args.verbose == True:
             self.error("cannot set both verbose and suppress-messages")

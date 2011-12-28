@@ -209,7 +209,7 @@ class OrgOutputWriter(object):
         else:
             # id does not exist so we can append
             logging.debug("appending")
-            self.__write_org_subitem(output, note, properties, tags)
+            self.__write_org_subitem(timestamp, output, note, properties, tags)
 
     def __compute_existing_id_list(self):
         """
