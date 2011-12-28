@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-12-20 15:13:31 awieser>
-from common.orgformat import OrgFormat
-import time
 import hashlib
 
 
@@ -11,13 +9,10 @@ class OrgProperties(object):
 
     :PROPERTIES:
     ...
-    :MEMACS_CREATED: <timestamp> (automatically created)
     :<tag>: value
     ...
+    :ID:  - id is generated from all above tags/values
     :END:
-
-    if no property with tag "CREATED" is added,
-    a default one will be added with current timestamp
     """
 
     def __init__(self, data_for_hashing=""):
@@ -66,8 +61,6 @@ class OrgProperties(object):
         for tag, value in self.__properties.iteritems():
             ret += self.__format_tag(tag) + value + "\n"
 
-        ret += self.__format_tag("MEMACS_CREATED") + \
-            OrgFormat.inactive_datetime(time.localtime()) + "\n"
         ret += self.__format_tag("ID") + self.get_id() + "\n"
         ret += "   :END:"
         return ret

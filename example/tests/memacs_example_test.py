@@ -26,26 +26,45 @@ class TestFoo(unittest.TestCase):
 
         # generate assertEquals :)
         #for d in range(len(data)):
-        #    print "self.assertEqual(data[%d], \"%s\")" % \
+        #   print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
         #        (d, data[d])
 
-        self.assertEqual(data[0], "** foo")
-        self.assertEqual(data[1], "   :PROPERTIES:")
-        #self.assertEqual(data[2], "  :CREATED: <2011-12-20 Tue 16:55:50>")
-        #changes every time (due to created sets localtime )
-        #self.assertEqual(data[3],
-        # "   :ID:      608b1af4f65f98b67c7dfa6a470b319d456e5504")
-        self.assertEqual(data[4], "   :END:")
-        self.assertEqual(data[5], "** bar\t:tag1:tag2:")
-        self.assertEqual(data[6], "   bar notes")
-        self.assertEqual(data[7], "   foo notes")
-        self.assertEqual(data[8], "   :PROPERTIES:")
-        self.assertEqual(data[9], "   :DESCRIPTION: foooo")
-        self.assertEqual(data[10], "   :CREATED:     <1970-01-01 Thu 00:00>")
-        #changes every time (due to created sets localtime )
-        #self.assertEqual(data[3],
-        #"   :ID:      608b1af4f65f98b67c7dfa6a470b319d456e5504")
-        self.assertEqual(data[12], "   :END:")
+        self.assertEqual(
+            data[0],
+            "** <1970-01-01 Thu 00:00> foo")
+        self.assertEqual(
+            data[1],
+            "   :PROPERTIES:")
+        self.assertEqual(
+            data[2],
+            "   :ID:             da39a3ee5e6b4b0d3255bfef95601890afd80709")
+        self.assertEqual(
+            data[3],
+            "   :END:")
+        self.assertEqual(
+            data[4],
+            "** <1970-01-01 Thu 00:00> bar\t:tag1:tag2:")
+        self.assertEqual(
+            data[5],
+            "   bar notes")
+        self.assertEqual(
+            data[6],
+            "   foo notes")
+        self.assertEqual(
+            data[7],
+            "   :PROPERTIES:")
+        self.assertEqual(
+            data[8],
+            "   :DESCRIPTION:    foooo")
+        self.assertEqual(
+            data[9],
+            "   :CREATED:        <1970-01-01 Thu 00:00>")
+        self.assertEqual(
+            data[10],
+            "   :ID:             47341f0e0fa6e13768a69bc302dfa9f834747827")
+        self.assertEqual(
+            data[11],
+            "   :END:")
 
     def tearDown(self):
         pass

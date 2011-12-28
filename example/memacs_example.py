@@ -67,29 +67,45 @@ class Foo(Memacs):
         # on an fatal error:
         # use logging.error() and sys.exit(1) 
 
-        self._writer.write_org_subitem("foo")
-        # output:
-        #** foo
-        #  :PROPERTIES:
-        #  :CREATED: <current timestamp>
-        #  :END:
-
+        timestamp = time.gmtime(0)
+        # note: timestamp has to be a struct_time object
+        self._writer.write_org_subitem(timestamp=timestamp,
+                                       output="foo")
+       
+        # writes following:        
+        #** <1970-01-01 Thu 00:00> foo
+        #   :PROPERTIES:
+        #   :ID:             da39a3ee5e6b4b0d3255bfef95601890afd80709
+        #   :END:
+        
         notes = "bar notes\nfoo notes"
-        p = OrgProperties()
+        
+        p = OrgProperties(data_for_hashing="read comment below")
+        # if a hash is not unique only with its :PROPERTIES: , then
+        # set data_for_hasing string additional information i.e. the output
+        # , which then makes the hash really unique
         p.add("DESCRIPTION", "foooo")
         p.add("CREATED", OrgFormat.datetime(time.gmtime(0)))
 
         tags = [u"tag1", u"tag2"]
-        self._writer.write_org_subitem("bar", note=notes, properties=p,
+        
+        timestamp = time.gmtime(0)
+        
+        self._writer.write_org_subitem(timestamp=timestamp,
+                                       output="bar",
+                                       note=notes,
+                                       properties=p,
                                        tags=tags)
-        # output:
-        #** bar
-        #  bar notes
-        #  foo notes
-        #  :PROPERTIES:
-        #  :DESCRIPTION: foooo
-        #  :CREATED: <1970-01-01 Thu 00:00>
-        #  :END:
+        # writes following:
+        #** <1970-01-01 Thu 00:00> bar    :tag1:tag2:
+        #   bar notes
+        #   foo notes
+        #   :PROPERTIES:
+        #   :DESCRIPTION:    foooo
+        #   :CREATED:        <1970-01-01 Thu 00:00>
+        #   :ID:             47341f0e0fa6e13768a69bc302dfa9f834747827
+        #   :END:
+
 
 if __name__ == "__main__":
     memacs = Foo(

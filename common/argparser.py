@@ -6,7 +6,13 @@ from argparse import RawDescriptionHelpFormatter
 import os
 
 class MemacsArgumentParser(ArgumentParser):
-
+    """
+    Inherited from Argumentparser
+    
+    MemacsArgumentParser handles default arguments which are needed for every
+    Memacs module and gives a nicer output for help message. 
+    """
+    
     def __init__(self,
                  prog_version,
                  prog_version_date,
@@ -73,21 +79,21 @@ class MemacsArgumentParser(ArgumentParser):
         self.add_argument("-t", "--tag",
                           dest="tag",
                           help="overriding tag: :Memacs:<tag>:")
-
+# TODO Remove
 #    def format_epilog(self, formatter):
 #        """
 #        overwriting ArgParser's format_epilog for correct formatting of \n
 #        """
 #        return "\n" + self.epilog + '\n\n'
-
-    def format_description(self, formatter):
-        """
-        overwriting ArgParser's format_description for correct formatting of \n
-        """
-        return self.description
-
-    def get_version(self):
-        return self.version
+# TODO Remove
+#    def format_description(self, formatter):
+#        """
+#        overwriting ArgParser's format_description for correct formatting of \n
+#        """
+#        return self.description
+# TODO Remove
+#    def get_version(self):
+#        return self.version
 
     def parse_args(self, args=None, namespace=None):
         """

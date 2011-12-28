@@ -13,6 +13,13 @@ from common.orgformat import OrgFormat
 
 
 class OrgOutputWriter(object):
+    """
+    OrgOutputWriter is used especially for writing 
+    org-mode entries
+    
+    most notable function:
+    - write_org_subitem (see its comment)
+    """
     __handler = None
     __test = False
 
@@ -116,6 +123,7 @@ class OrgOutputWriter(object):
         self.writeln("* " + output)
 
     def __write_org_subitem(self,
+                            timestamp,
                             output,
                             note="",
                             properties=OrgProperties(),
@@ -126,14 +134,18 @@ class OrgOutputWriter(object):
         output_tags = ""
         if tags != []:
             output_tags = u"\t:" + ":".join(map(str, tags)) + ":"
+            
+        output = output.lstrip()
+        timestamp = OrgFormat.datetime(timestamp)
 
-        self.writeln("** " + output + output_tags)
+        self.writeln(u"** "+ timestamp + u" " + output + output_tags)
         if note != "":
             for n in note.splitlines():
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
 
     def write_org_subitem(self,
+                          timestamp,
                           output,
                           note="",
                           properties=OrgProperties(),
@@ -141,18 +153,43 @@ class OrgOutputWriter(object):
         """
         Writes an org item line.
 
-        i.e:** <output> :tags:\n
+        i.e:** <timestamp> <output> :<tags>:\n
                :PROPERTIES:
                <properties>
                :ID: -generated id-
                :END:  
+                      
+        if an argument -a or --append is given,
+        then a desicion regarding the :ID: is made if the item has to be
+        written to file
+        
+        @param timestamp: struct_time 
+        @param output: str/unicode
+        @param note: str/unicode
+        @param tags: list of tags
+        @param properties: OrgProperties object
         """
+        assert timestamp.__class__ == time.struct_time
+        assert tags.__class__ == list
+        assert properties.__class__ == OrgProperties
+        assert (output.__class__ == str or output.__class__ == unicode)
+        assert (note.__class__ == str or note.__class__ == unicode)
+        
         if self.__append:
-            self.__append_org_subitem(output, note, properties, tags)
+            self.__append_org_subitem(timestamp,
+                                      output,
+                                      note,
+                                      properties,
+                                      tags)
         else:
-            self.__write_org_subitem(output, note, properties, tags)
+            self.__write_org_subitem(timestamp,
+                                     output,
+                                     note,
+                                     properties,
+                                     tags)
 
     def __append_org_subitem(self,
+                             timestamp,
                              output,
                              note="",
                              properties=OrgProperties(),
