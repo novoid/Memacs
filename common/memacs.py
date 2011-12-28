@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-19 15:13:31 aw>
+# Time-stamp: <2011-12-28 20:22:49 armin>
 
 import logging
 import traceback
@@ -38,8 +38,9 @@ class Memacs(object):
                  prog_description="no description specified",
                  prog_short_description="no short-description specified",
                  prog_tag="no tag specified",
-                 argv=sys.argv[1:],
-                 append=False):
+                 copyright_year="",
+                 copyright_authors="",
+                 argv=sys.argv[1:]):
         """
         Ctor
 
@@ -55,7 +56,9 @@ class Memacs(object):
         self.__prog_description = prog_description
         self.__prog_short_description = prog_short_description
         self.__prog_tag = prog_tag
-        self.__writer_append = append
+        self.__writer_append = False
+        self.__copyright_year = copyright_year
+        self.__copyright_authors = copyright_authors
         self.__argv = argv
 
     def __init(self, test=False):
@@ -69,8 +72,10 @@ class Memacs(object):
         self._parser = MemacsArgumentParser(
             prog_version=self.__prog_version,
             prog_version_date=self.__prog_version_date,
-            prog_description=self.__prog_description)
-        # adding additional arguments from our sublcass
+            prog_description=self.__prog_description,
+            copyright_year=self.__copyright_year,
+            copyright_authors=self.__copyright_authors)
+        # adding additional arguments from our subcass
         self._parser_add_arguments()
         # parse all arguments
         self._parser_parse_args()
@@ -94,7 +99,7 @@ class Memacs(object):
             short_description=self.__prog_short_description,
             tag=tag,
             test=test,
-            append=self.__writer_append)
+            append=self._args.append)
 
     def _main(self):
         """

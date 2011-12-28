@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2011-12-28 20:25:37 armin>
 
 import sys
 import os
@@ -22,6 +22,9 @@ this class will do ....
 
 Then an Org-mode file is generated that contains ....
 """
+COPYRIGHT_YEAR = "2011-2012" 
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+Armin Wieser <armin.wieser@gmail.com>"""
 
 
 class Foo(Memacs):
@@ -54,6 +57,15 @@ class Foo(Memacs):
         get's automatically called from Memacs class
         """
         # do all the stuff
+        
+        logging.info("foo started")
+
+        # use logging.debug() for debug messages
+        # use logging.error() for error messages
+        # use logging.info() instead of print for informing user
+        #
+        # on an fatal error:
+        # use logging.error() and sys.exit(1) 
 
         self._writer.write_org_subitem("foo")
         # output:
@@ -92,6 +104,7 @@ if __name__ == "__main__":
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
-        # append=True,  # set this when you want appending
+        copyright_year=COPYRIGHT_YEAR,
+        copyright_authors=COPYRIGHT_AUTHORS
         )
     memacs.handle_main()

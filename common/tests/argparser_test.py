@@ -13,10 +13,14 @@ class TestArgParser(unittest.TestCase):
         self.prog_version = "0.1"
         self.prog_version_date = "2011-12-19"
         self.description = "descriptionbla"
+        self.copyright_year = "2011"
+        self.copyright_authors = "Armin Wieser <armin.wieser@gmail.com>"
         self.parser = MemacsArgumentParser(
             prog_version=self.prog_version,
             prog_description=self.description,
-            prog_version_date=self.prog_version_date)
+            prog_version_date=self.prog_version_date,
+            copyright_authors=self.copyright_authors,
+            copyright_year=self.copyright_year)
         self.TMPFOLDER = os.path.normpath(
             os.path.dirname(os.path.abspath(__file__)) + os.path.sep + \
                 "tmp") + os.sep
@@ -69,7 +73,7 @@ class TestArgParser(unittest.TestCase):
         outputfile_argument = "-o " + outputfile_path
 
         try:
-            args = self.parser.parse_args(outputfile_argument.split())
+            self.parser.parse_args(outputfile_argument.split())
             self.assertTrue(False,
                             "parsing was correct altough nonexist. outputfile")
         except SystemExit:
@@ -77,7 +81,7 @@ class TestArgParser(unittest.TestCase):
 
     def test_verbose_suppress_both(self):
         try:
-            args = self.parser.parse_args('-s -v'.split())
+            self.parser.parse_args('-s -v'.split())
             self.assertTrue(
                 False,
                 "parsing was correct altough " + \

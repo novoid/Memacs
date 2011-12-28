@@ -11,7 +11,7 @@ class OrgProperties(object):
 
     :PROPERTIES:
     ...
-    :CREATED: <timestamp>
+    :MEMACS_CREATED: <timestamp> (automatically created)
     :<tag>: value
     ...
     :END:
@@ -20,11 +20,14 @@ class OrgProperties(object):
     a default one will be added with current timestamp
     """
 
-    def __init__(self):
+    def __init__(self, data_for_hashing=""):
         """
         Ctor
+        @param data_for_hashing: if no special properties are set,
+        you can add here data only for hash generation
         """
         self.__properties = {}
+        self.__data_for_hashing = data_for_hashing
 
     def add(self, tag, value):
         """
@@ -41,7 +44,7 @@ class OrgProperties(object):
         self.__properties[tag] = unicode(value)
 
     def __get_property_max_tag_width(self):
-        width = 7  # :PROPERTIES: has width 7
+        width = 14  # :MEMACS_CREATED: has width 14
         for key in self.__properties.keys():
             if width < len(key):
                 width = len(key)
@@ -58,14 +61,13 @@ class OrgProperties(object):
         """
         for representig properties in unicode with org formatting
         """
-        if "CREATED" not in self.__properties:
-            self.add("CREATED",
-                     OrgFormat.inactive_datetime(time.localtime()))
         ret = "   :PROPERTIES:\n"
 
         for tag, value in self.__properties.iteritems():
             ret += self.__format_tag(tag) + value + "\n"
 
+        ret += self.__format_tag("MEMACS_CREATED") + \
+            OrgFormat.inactive_datetime(time.localtime()) + "\n"
         ret += self.__format_tag("ID") + self.get_id() + "\n"
         ret += "   :END:"
         return ret
@@ -77,4 +79,5 @@ class OrgProperties(object):
         """
         to_hash = "".join(map(unicode, self.__properties.values()))
         to_hash += "".join(map(unicode, self.__properties.keys()))
+        to_hash += self.__data_for_hashing
         return hashlib.sha1(to_hash.encode('utf-8')).hexdigest()

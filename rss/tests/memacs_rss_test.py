@@ -34,7 +34,6 @@ class TestRss(unittest.TestCase):
         #for d in range(len(data)):
         #    print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
         #        (d, data[d])
-
         self.assertEqual(
             data[0],
             "** [[http://www.wikipedia.org/][Example entry]]")
@@ -46,13 +45,16 @@ class TestRss(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[3],
-            "   :GUID:    unique string per item")
+            "   :GUID:           unique string per item")
         self.assertEqual(
             data[4],
-            "   :CREATED: <2009-09-06 Sun 18:45>")
-        self.assertEqual(
-            data[5],
-            "   :ID:      af9b90163e9e4727b21e8a6b452c9529a438f314")
+            "   :CREATED:        <2009-09-06 Sun 18:45>")
+#        self.assertEqual(
+#            data[5],
+#            "   :MEMACS_CREATED: [2011-12-28 Wed 18:50:42]")
         self.assertEqual(
             data[6],
+            "   :ID:             af9b90163e9e4727b21e8a6b452c9529a438f314")
+        self.assertEqual(
+            data[7],
             "   :END:")

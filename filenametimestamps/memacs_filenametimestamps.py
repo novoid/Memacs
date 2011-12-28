@@ -8,6 +8,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
 from common.orgformat import OrgFormat
+from common.orgproperty import OrgProperties
 import re
 import logging
 import time
@@ -66,14 +67,14 @@ class FileNameTimeStamps(Memacs):
                 self._parser.error("Check the folderlist - " + \
                                        "one or more aren't folders")
 
-    def __ignore_dir(self, dir):
+    def __ignore_dir(self, ignore_dir):
         """
-        @param dir: should this dir be ignored?
-        @param return: true  - if dir should be ignored
+        @param ignore_dir: should this ignore_dir be ignored?
+        @param return: true  - if ignore_dir should be ignored
                        false - otherwise
         """
-        if self._args.exclude_folder and dir in self._args.exclude_folder:
-            logging.info("ignoring dir: " + rootdir)
+        if self._args.exclude_folder and ignore_dir in self._args.exclude_folder:
+            logging.info("ignoring ignore_dir: " + ignore_dir)
             return True
         else:
             return False
@@ -116,9 +117,10 @@ class FileNameTimeStamps(Memacs):
                                   orgdate, OrgFormat.date(file_datetime, True))
                     orgdate = OrgFormat.date(file_datetime, True)
                 # write entry to org file
-            orgentry = orgdate + " " + OrgFormat.link(link=link,
-                                                      description=file)
-            self._writer.write_org_subitem(orgentry)
+            output = OrgFormat.link(link=link, description=file)
+            properties = OrgProperties(data_for_hashing=output)
+            properties.add("TIMESTAMP", orgdate)
+            self._writer.append_org_subitem(output=output, properties=properties)
 
     def _main(self):
         for folder in self._args.filenametimestamps_folder:

@@ -33,7 +33,7 @@ class TestFileNameTimeStamps(unittest.TestCase):
         open(file, 'w').close()
 
         argv = "-s -f " + self.TMPFOLDER
-        memacs = FileNameTimeStamps(argv=argv.split())
+        memacs = FileNameTimeStamps(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
 
         os.remove(file)

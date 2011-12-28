@@ -1,4 +1,4 @@
-## Time-stamp: <2011-12-27 21:59:44 armin>
+## Time-stamp: <2011-12-28 19:43:29 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -99,36 +99,6 @@ This command does not take longer than *two and a half seconds* on an
 SSD which is quite remarkable. Using a normal hard disk, a comparable
 call takes *one minute and fifteen seconds*.
 
-** Error Handling 
-Because we let our memacs-modules automatically run, it would be difficult 
-to get informed in case of an error. So memacs-modules have a nice error handling:
-
-When you specify an outputfile like this:
-
-: memacs-module.py -o /path/to/output.org_archive
-
-Then errors are automatically added to 
-: /path/to/error.org_archive
-
-- Create the file containing following information:
-  : ## -*- coding: utf-8 mode: org -*-
-  : ## this file is for error-messages of Memacs 
-  : ## to add this file to your org-agenda open error.org with emacs and: M-x org-agenda-file-to-front
-  : ##
-  : ## Main idea of this file:
-  : ## if a memacs-module has an error following entry will be generated:#
-  : ## ** <TIMESTAMP-ERROR-occured +1d> memacs-foo had a problem: <error-msg> #
-  : ## the "+1d" means that this entry will appear in org agenda view until the entry is deleted from this file
-  : ##
-  : * Memacs error 					      :Memacs:ERROR:
-  : # start deleting from here:
-
-- Create a stub file 
-  : /path/to/error.org 
-  - open it in emacs and M-x org-agenda-file-to-front
-
-If an error occurs it will be added to the error.org_archive with an repeating timestamp every day. 
-You have to delete the error manually.
 
 
 ** File organization
@@ -198,9 +168,37 @@ Whenever your notebook is in state «discharge» those cronjobs are not
 being executed.
 
 
-* FAQs
-If you have one question, please contact «Karl dot Voit
-at IST dot TUGraz dot at» and he is happy to answer it.
+* Internals
+** Error Handling 
+Because we let our memacs-modules automatically run, it would be difficult 
+to get informed in case of an error. So memacs-modules have a nice error handling:
+
+When you specify an outputfile like this:
+
+: memacs-module.py -o /path/to/output.org_archive
+
+Then errors are automatically added to 
+: /path/to/error.org_archive
+
+- Create the file containing following information:
+  : ## -*- coding: utf-8 mode: org -*-
+  : ## this file is for error-messages of Memacs 
+  : ## to add this file to your org-agenda open error.org with emacs and: M-x org-agenda-file-to-front
+  : ##
+  : ## Main idea of this file:
+  : ## if a memacs-module has an error following entry will be generated:#
+  : ## ** <TIMESTAMP-ERROR-occured +1d> memacs-foo had a problem: <error-msg> #
+  : ## the "+1d" means that this entry will appear in org agenda view until the entry is deleted from this file
+  : ##
+  : * Memacs error 					      :Memacs:ERROR:
+  : # start deleting from here:
+
+- Create a stub file 
+  : /path/to/error.org 
+  - open it in emacs and M-x org-agenda-file-to-front
+
+If an error occurs it will be added to the error.org_archive with an repeating timestamp every day. 
+You have to delete the error manually.
 
 ** how works the *appendmode* of memacs? / How is the :ID: Property generated?
 All properties (:PROPERTIES: drawer) are stored in a dict
@@ -214,6 +212,11 @@ Before writing an entry to the org-file, the id is generated.
 
 If Memacs module is in appendmode, it looks for those :ID: properties 
 and stores them in a list. On writing(append) it first checks against that list.
+
+
+* FAQs
+If you have one question, please contact «Karl dot Voit
+at IST dot TUGraz dot at» and he is happy to answer it.
 
 ** Emacs always complains what to do with changed org files
 Solution is to add this to your emacs config file (.emacs):

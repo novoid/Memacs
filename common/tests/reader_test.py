@@ -8,7 +8,7 @@ sys.path.append(
 from common.reader import CommonReader
 
 
-class TestArgParser(unittest.TestCase):
+class TestReader(unittest.TestCase):
 
     def test_file_no_path(self):
         try:

@@ -184,7 +184,7 @@ class TestGitMemacs(unittest.TestCase):
         argv = "-s -f " + self.test_file
         memacs = GitMemacs(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
-        self.assertEqual(len(data), 120)  # 120 lines in sum
+        self.assertEqual(len(data), 131)  # 131 lines in sum
 
     def test_number_entries_grep(self):
         argv = '-s -f ' + self.test_file
@@ -193,4 +193,4 @@ class TestGitMemacs(unittest.TestCase):
         argv.append("Armin Wieser")
         memacs = GitMemacs(argv=argv, append=True)
         data = memacs.test_get_entries()
-        self.assertEqual(len(data), 100)  # 100 lines from Armin Wieser
+        self.assertEqual(len(data), 109)  # 109 lines from Armin Wieser
