@@ -7,6 +7,7 @@ import os
 import sys
 import codecs
 import time
+from common.orgformat import OrgFormat
 sys.path.append(
     os.path.dirname(
         os.path.dirname(
@@ -37,7 +38,7 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_comment("abc\n")
         writer.write_commentln("abc")
         writer.write_org_item("begin")
-        timestamp = time.gmtime(0)
+        timestamp = OrgFormat.datetime(time.gmtime(0))
         writer.write_org_subitem(timestamp=timestamp, output="sub")
         writer.write_org_subitem(timestamp=timestamp, output="sub",tags=["foo","bar"])
         writer.close()

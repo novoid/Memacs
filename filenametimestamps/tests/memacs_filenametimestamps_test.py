@@ -33,8 +33,25 @@ class TestFileNameTimeStamps(unittest.TestCase):
         open(file, 'w').close()
 
         argv = "-s -f " + self.TMPFOLDER
-        memacs = FileNameTimeStamps(argv=argv.split(), append=True)
+        memacs = FileNameTimeStamps(argv=argv.split())
         data = memacs.test_get_entries()
+
+        #for d in range(len(data)):
+        #    print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
+        #        (d, data[d])
+                
+        self.assertEqual(
+            data[0],
+            "** <2011-12-19 Mon 23:59:12> [[/home/armin/code/workspace/memacs/filenametimestamps/tests/tmp//2011-12-19T23.59.12_test1.txt][2011-12-19T23.59.12_test1.txt]]")
+        self.assertEqual(
+            data[1],
+            "   :PROPERTIES:")
+        self.assertEqual(
+            data[2],
+            "   :ID:             e3b38e22498caa8812c755ec20276714a1eb1919")
+        self.assertEqual(
+            data[3],
+            "   :END:")
 
         os.remove(file)
         self.assertEqual(data[0], entry, "filenametimestamps - error")

@@ -58,10 +58,10 @@ class TestFoo(unittest.TestCase):
             "   :DESCRIPTION:    foooo")
         self.assertEqual(
             data[9],
-            "   :CREATED:        <1970-01-01 Thu 00:00>")
+            "   :FOO-PROPERTY:   asdf")
         self.assertEqual(
             data[10],
-            "   :ID:             47341f0e0fa6e13768a69bc302dfa9f834747827")
+            "   :ID:             97521347348df02dab8bf86fbb6817c0af333a3f")
         self.assertEqual(
             data[11],
             "   :END:")

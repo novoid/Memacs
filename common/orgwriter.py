@@ -136,7 +136,7 @@ class OrgOutputWriter(object):
             output_tags = u"\t:" + ":".join(map(str, tags)) + ":"
             
         output = output.lstrip()
-        timestamp = OrgFormat.datetime(timestamp)
+        timestamp = timestamp.strip()
 
         self.writeln(u"** "+ timestamp + u" " + output + output_tags)
         if note != "":
@@ -163,13 +163,13 @@ class OrgOutputWriter(object):
         then a desicion regarding the :ID: is made if the item has to be
         written to file
         
-        @param timestamp: struct_time 
+        @param timestamp: str/unicode 
         @param output: str/unicode
         @param note: str/unicode
         @param tags: list of tags
         @param properties: OrgProperties object
         """
-        assert timestamp.__class__ == time.struct_time
+        assert (timestamp.__class__ == str or timestamp.__class__ == unicode)
         assert tags.__class__ == list
         assert properties.__class__ == OrgProperties
         assert (output.__class__ == str or output.__class__ == unicode)

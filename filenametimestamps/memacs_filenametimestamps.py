@@ -14,7 +14,7 @@ import logging
 import time
 
 PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-18"
+PROG_VERSION_DATE = u"2011-12-28"
 PROG_SHORT_DESCRIPTION = u"Memacs for file name time stamp"
 PROG_TAG = u"filedatestamps"
 PROG_DESCRIPTION = u"""This script parses a text file containing absolute paths
@@ -28,6 +28,9 @@ Emacs tmp-files like file~ are automatically ignored
 
 Then an Org-mode file is generated that contains links to the files.
 """
+COPYRIGHT_YEAR = "2011-2012" 
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+Armin Wieser <armin.wieser@gmail.com>"""
 
 
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
@@ -118,9 +121,10 @@ class FileNameTimeStamps(Memacs):
                     orgdate = OrgFormat.date(file_datetime, True)
                 # write entry to org file
             output = OrgFormat.link(link=link, description=file)
+            # we need optional data for hashing due it can be, that more 
+            # than one file have the same timestamp
             properties = OrgProperties(data_for_hashing=output)
-            properties.add("TIMESTAMP", orgdate)
-            self._writer.append_org_subitem(output=output, properties=properties)
+            self._writer.write_org_subitem(timestamp=orgdate, output=output, properties=properties)
 
     def _main(self):
         for folder in self._args.filenametimestamps_folder:
@@ -133,5 +137,7 @@ if __name__ == "__main__":
                                 prog_version_date=PROG_VERSION_DATE,
                                 prog_description=PROG_DESCRIPTION,
                                 prog_short_description=PROG_SHORT_DESCRIPTION,
-                                prog_tag=PROG_TAG)
+                                prog_tag=PROG_TAG,
+                                copyright_year=COPYRIGHT_YEAR,
+                                copyright_authors=COPYRIGHT_AUTHORS)
     memacs.handle_main()

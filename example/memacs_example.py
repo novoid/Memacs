@@ -67,7 +67,7 @@ class Foo(Memacs):
         # on an fatal error:
         # use logging.error() and sys.exit(1) 
 
-        timestamp = time.gmtime(0)
+        timestamp = OrgFormat.datetime(time.gmtime(0))
         # note: timestamp has to be a struct_time object
         self._writer.write_org_subitem(timestamp=timestamp,
                                        output="foo")
@@ -85,11 +85,9 @@ class Foo(Memacs):
         # set data_for_hasing string additional information i.e. the output
         # , which then makes the hash really unique
         p.add("DESCRIPTION", "foooo")
-        p.add("CREATED", OrgFormat.datetime(time.gmtime(0)))
+        p.add("foo-property", "asdf")
 
         tags = [u"tag1", u"tag2"]
-        
-        timestamp = time.gmtime(0)
         
         self._writer.write_org_subitem(timestamp=timestamp,
                                        output="bar",
@@ -102,8 +100,8 @@ class Foo(Memacs):
         #   foo notes
         #   :PROPERTIES:
         #   :DESCRIPTION:    foooo
-        #   :CREATED:        <1970-01-01 Thu 00:00>
-        #   :ID:             47341f0e0fa6e13768a69bc302dfa9f834747827
+        #   :FOO-PROPERTY:   asdf
+        #   :ID:             97521347348df02dab8bf86fbb6817c0af333a3f
         #   :END:
 
 
