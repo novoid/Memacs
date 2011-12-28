@@ -22,12 +22,12 @@ class TestRss(unittest.TestCase):
     def test_false_appending(self):
         try:
             memacs = RssMemacs(argv=self.argv.split())
-            data = memacs.test_get_entries()
-        except Exception, e:
+            memacs.test_get_entries()
+        except Exception:
             pass
 
     def test_all(self):
-        memacs = RssMemacs(argv=self.argv.split(), append=True)
+        memacs = RssMemacs(argv=self.argv.split())
         data = memacs.test_get_entries()
 
         # generate assertEquals :)
@@ -36,7 +36,7 @@ class TestRss(unittest.TestCase):
         #        (d, data[d])
         self.assertEqual(
             data[0],
-            "** [[http://www.wikipedia.org/][Example entry]]")
+            "** <2009-09-06 Sun 18:45> [[http://www.wikipedia.org/][Example entry]]")
         self.assertEqual(
             data[1],
             "   Here is some text containing an interesting description.")
@@ -48,13 +48,7 @@ class TestRss(unittest.TestCase):
             "   :GUID:           unique string per item")
         self.assertEqual(
             data[4],
-            "   :CREATED:        <2009-09-06 Sun 18:45>")
-#        self.assertEqual(
-#            data[5],
-#            "   :MEMACS_CREATED: [2011-12-28 Wed 18:50:42]")
+            "   :ID:             7ec7b2ec7d1ac5f18188352551b04f061af81e04")
         self.assertEqual(
-            data[6],
-            "   :ID:             af9b90163e9e4727b21e8a6b452c9529a438f314")
-        self.assertEqual(
-            data[7],
+            data[5],
             "   :END:")

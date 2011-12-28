@@ -32,16 +32,18 @@ The items are automatically be appended to the org file.
 Attention: RSS2.0 is required
 
 Sample Org-entries
-: ** [[http://www.wikipedia.org/][link]]: Example entry
+: ** <2009-09-06 Sun 18:45> [[http://www.wikipedia.org/][link]]: Example entry
 :   Here is some text containing an interesting description.
 :   :PROPERTIES:
 :   :LINK:    [[http://www.wikipedia.org/]]
-:   :CREATED: <2009-09-06 Sun 18:45>
-:   :ID:      unique string per item
+:   :GUID:    rss guid
 :   :SUMMARY: Here is some text containing an interesting description.
 :   :ID:      unique string per item
 :   :END:
 """
+COPYRIGHT_YEAR = "2011-2012" 
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+Armin Wieser <armin.wieser@gmail.com>"""
 
 
 class RssMemacs(Memacs):
@@ -109,9 +111,9 @@ class RssMemacs(Memacs):
             note = item['description']
 
             # converting updated_parsed UTC --> LOCALTIME
-            updated_time_struct = OrgFormat.datetime(
+            timestamp = OrgFormat.datetime(
                 time.localtime(calendar.timegm(item['updated_parsed'])))
-            properties.add("created", updated_time_struct)
+
             properties.add("guid", guid)
 
         except KeyError:
@@ -135,7 +137,7 @@ class RssMemacs(Memacs):
                             logging.debug("found tag: %s", tag['term'])
                             tags.append(tag['term'])
 
-        return output, note, properties, tags
+        return output, note, properties, tags, timestamp
 
     def _main(self):
         """
@@ -153,11 +155,13 @@ class RssMemacs(Memacs):
 
         for item in rss.entries:
             logging.debug(item)
-            output, note, properties, tags = self.__get_item_data(item)
-            self._writer.append_org_subitem(output,
-                                            note=note,
-                                            properties=properties,
-                                            tags=tags)
+            output, note, properties, tags, timestamp = \
+                self.__get_item_data(item)
+            self._writer.write_org_subitem(output=output,
+                                           timestamp=timestamp,
+                                           note=note,
+                                           properties=properties,
+                                           tags=tags)
 
 if __name__ == "__main__":
     memacs = RssMemacs(
@@ -165,5 +169,8 @@ if __name__ == "__main__":
         prog_version_date=PROG_VERSION_DATE,
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
-        prog_tag=PROG_TAG)
+        prog_tag=PROG_TAG,
+        copyright_year=COPYRIGHT_YEAR,
+        copyright_authors=COPYRIGHT_AUTHORS
+        )
     memacs.handle_main()

@@ -19,11 +19,9 @@ class TestOrgProperties(unittest.TestCase):
         p = OrgProperties()
         properties = unicode(p).splitlines()
         self.assertEqual(properties[0], u"   :PROPERTIES:")
-        self.assertEqual(properties[1][:-24], u"   :MEMACS_CREATED: [")
-        # this changes every time
-        #self.assertEqual(properties[2],
-        # u"   :ID:      849079e99d237b31b6a2184743cf9e33929dc749")
-        self.assertEqual(properties[3], u"   :END:")
+        self.assertEqual(properties[1], u"   :ID:             da39a3ee5e6b" + \
+                         "4b0d3255bfef95601890afd80709")
+        self.assertEqual(properties[2], u"   :END:")
 
     def test_properties_with_own_created(self):
         p = OrgProperties()
@@ -32,9 +30,10 @@ class TestOrgProperties(unittest.TestCase):
         properties = unicode(p).splitlines()
         
         self.assertEqual(properties[0], u"   :PROPERTIES:")
-        self.assertEqual(properties[1], u"   :CREATED:        <1970-01-01 Thu 00:00>")
-        self.assertEqual(properties[2][:-24],u"   :MEMACS_CREATED: [")
-        self.assertEqual(properties[3], u"   :ID:             fede47e9f49e1b7f5c6599a6d607e9719ca98625")
-        self.assertEqual(properties[4], u"   :END:")
+        self.assertEqual(properties[1], u"   :CREATED:        <1970-01-0" + \
+                         "1 Thu 00:00>")
+        self.assertEqual(properties[2], u"   :ID:             fede47e9" + \
+                         "f49e1b7f5c6599a6d607e9719ca98625")
+        self.assertEqual(properties[3], u"   :END:")
 
 

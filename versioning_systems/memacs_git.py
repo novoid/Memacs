@@ -28,7 +28,9 @@ Then an Org-mode file is generated that contains all commit message
 
 If outputfile is specified, only non-existing commits are appended
 """
-
+COPYRIGHT_YEAR = "2011-2012" 
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+Armin Wieser <armin.wieser@gmail.com>"""
 
 class Commit(object):
     """
@@ -42,11 +44,11 @@ class Commit(object):
         self.__empty = True
         self.__subject = ""
         self.__body = ""
-        self.__datetime = ""
+        self.__timestamp = ""
         self.__author = ""
         self.__properties = OrgProperties()
 
-    def __set_created(self, line):
+    def __set_author_timestamp(self, line):
         """
         extracts the date + time from line:
         author Forename Lastname <mail> 1234567890 +0000
@@ -56,17 +58,16 @@ class Commit(object):
         date_info = line[-16:]  # 1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
         #timezone_info = date_info[11:]
-        self.__datetime = OrgFormat.datetime(
+        self.__timestamp = OrgFormat.datetime(
                             time.localtime(seconds_since_epoch))
         self.__author = line[7:line.find("<")].strip()
-        self.__properties.add("CREATED", self.__datetime)
 
     def add_header(self, line):
         """
         adds line to the header
 
         if line contains "author" this method
-        calls self.__set_created(line)
+        calls self.__set_author_timestamp(line)
         for setting right author + datetime created
 
         every line will be added as property
@@ -85,7 +86,7 @@ class Commit(object):
             self.__properties.add(tag, value)
 
             if tag == "AUTHOR":
-                self.__set_created(line)
+                self.__set_author_timestamp(line)
 
     def add_body(self, line):
         """
@@ -116,7 +117,8 @@ class Commit(object):
         @return tupel: output,properties,body for Orgwriter.write_sub_item()
         """
         output = self.__author + ": " + self.__subject
-        return output, self.__properties, self.__body, self.__author
+        return output, self.__properties, self.__body, self.__author, \
+                self.__timestamp
 
 
 class GitMemacs(Memacs):
@@ -213,14 +215,15 @@ class GitMemacs(Memacs):
 
         # time to write all commits to org-file
         for commit in commits:
-            output, properties, note, author = commit.get_output()
+            output, properties, note, author, timestamp = commit.get_output()
 
             if not(self._args.grepuser) or \
             (self._args.grepuser and self._args.grepuser == author):
                 # only write to stream if
                 # * grepuser is not set or
                 # * grepuser is set and we got an entry with the right author
-                self._writer.append_org_subitem(output=output,
+                self._writer.write_org_subitem(output=output,
+                                               timestamp=timestamp,
                                                properties=properties,
                                                note=note)
 
@@ -234,5 +237,7 @@ if __name__ == "__main__":
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
-        append=True)
+        copyright_year=COPYRIGHT_YEAR,
+        copyright_authors=COPYRIGHT_AUTHORS
+        )
     memacs.handle_main()

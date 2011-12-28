@@ -35,11 +35,10 @@ sample xml:
 
 Then an Org-mode file is generated that contains information
 about the log messages, author, and revision
-
-New log messages are appended. Those are identified with the
-:ID: property
 """
-
+COPYRIGHT_YEAR = "2011-2012" 
+COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>, 
+Armin Wieser <armin.wieser@gmail.com>"""
 
 class SvnSaxHandler(xml.sax.handler.ContentHandler):
     """
@@ -102,16 +101,16 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
 
         output = "%s (r%d): %s" % (self.__author, self.__rev, subject)
 
-        properties = OrgProperties()
-        dt = OrgFormat.datetime(OrgFormat.datetupelutctimestamp(self.__date))
-        properties.add("CREATED", dt)
+        properties = OrgProperties(data_for_hashing=self.__author + subject)
+        timestamp = OrgFormat.datetime(OrgFormat.datetupelutctimestamp(self.__date))
         properties.add("REVISION", self.__rev)
 
         if self.__grepauthor == None or \
         (self.__author.strip() == self.__grepauthor.strip()):
-            self._writer.append_org_subitem(output=output,
-                                            note=notes,
-                                            properties=properties)
+            self._writer.write_org_subitem(output=output,
+                                           timestamp=timestamp,
+                                           note=notes,
+                                           properties=properties)
 
     def characters(self, content):
         """
@@ -218,5 +217,7 @@ if __name__ == "__main__":
         prog_description=PROG_DESCRIPTION,
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
-        append=True)
+        copyright_year=COPYRIGHT_YEAR,
+        copyright_authors=COPYRIGHT_AUTHORS
+        )
     memacs.handle_main()

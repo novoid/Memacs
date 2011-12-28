@@ -76,7 +76,8 @@ class FileNameTimeStamps(Memacs):
         @param return: true  - if ignore_dir should be ignored
                        false - otherwise
         """
-        if self._args.exclude_folder and ignore_dir in self._args.exclude_folder:
+        if self._args.exclude_folder and \
+        ignore_dir in self._args.exclude_folder:
             logging.info("ignoring ignore_dir: " + ignore_dir)
             return True
         else:
@@ -124,7 +125,9 @@ class FileNameTimeStamps(Memacs):
             # we need optional data for hashing due it can be, that more 
             # than one file have the same timestamp
             properties = OrgProperties(data_for_hashing=output)
-            self._writer.write_org_subitem(timestamp=orgdate, output=output, properties=properties)
+            self._writer.write_org_subitem(timestamp=orgdate,
+                                           output=output,
+                                           properties=properties)
 
     def _main(self):
         for folder in self._args.filenametimestamps_folder:
