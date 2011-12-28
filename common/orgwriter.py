@@ -138,7 +138,7 @@ class OrgOutputWriter(object):
         output = output.lstrip()
         timestamp = timestamp.strip()
 
-        self.writeln(u"** "+ timestamp + u" " + output + output_tags)
+        self.writeln(u"** " + timestamp + u" " + output + output_tags)
         if note != "":
             for n in note.splitlines():
                 self.writeln("   " + n)

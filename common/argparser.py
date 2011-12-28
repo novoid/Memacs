@@ -5,6 +5,7 @@ from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 import os
 
+
 class MemacsArgumentParser(ArgumentParser):
     """
     Inherited from Argumentparser
@@ -20,16 +21,18 @@ class MemacsArgumentParser(ArgumentParser):
                  copyright_year,
                  copyright_authors):
 
-        self.__version = "%(prog)s v" + prog_version + " from " + prog_version_date
+        self.__version = "%(prog)s v" + prog_version + " from " + \
+            prog_version_date
 
         # format copyright authors:
         # indent from second author
         copyright_authors = copyright_authors.splitlines()
         for i in range(len(copyright_authors)):
-            copyright_authors[i] = "            " +copyright_authors[i]
-        copyright_authors = "\n".join(map(unicode,copyright_authors))
+            copyright_authors[i] = "            " + copyright_authors[i]
+        copyright_authors = "\n".join(map(unicode, copyright_authors))
 
-        epilog = ":copyright: (c) " + copyright_year + " by \n" + copyright_authors + \
+        epilog = ":copyright: (c) " + copyright_year + " by \n" + \
+        copyright_authors + \
         "\n:license: GPL v2 or any later version\n" + \
         ":bugreports: https://github.com/novoid/Memacs\n" + \
         ":version: " + prog_version + " from " + prog_version_date + "\n"
@@ -79,21 +82,6 @@ class MemacsArgumentParser(ArgumentParser):
         self.add_argument("-t", "--tag",
                           dest="tag",
                           help="overriding tag: :Memacs:<tag>:")
-# TODO Remove
-#    def format_epilog(self, formatter):
-#        """
-#        overwriting ArgParser's format_epilog for correct formatting of \n
-#        """
-#        return "\n" + self.epilog + '\n\n'
-# TODO Remove
-#    def format_description(self, formatter):
-#        """
-#        overwriting ArgParser's format_description for correct formatting of \n
-#        """
-#        return self.description
-# TODO Remove
-#    def get_version(self):
-#        return self.version
 
     def parse_args(self, args=None, namespace=None):
         """

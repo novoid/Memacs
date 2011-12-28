@@ -163,7 +163,6 @@ class CalendarMemacs(Memacs):
         if description != None:
             org_properties.add("DESCRIPTION", description)
 
-
         self._writer.write_org_subitem(output=summary,
                                        properties=org_properties,
                                        timestamp=orgdate)

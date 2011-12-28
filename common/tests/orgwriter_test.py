@@ -40,7 +40,9 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_org_item("begin")
         timestamp = OrgFormat.datetime(time.gmtime(0))
         writer.write_org_subitem(timestamp=timestamp, output="sub")
-        writer.write_org_subitem(timestamp=timestamp, output="sub",tags=["foo","bar"])
+        writer.write_org_subitem(timestamp=timestamp,
+                                 output="sub",
+                                 tags=["foo", "bar"])
         writer.close()
 
         # read and check the file_handler

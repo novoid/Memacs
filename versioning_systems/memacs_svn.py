@@ -40,6 +40,7 @@ COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
+
 class SvnSaxHandler(xml.sax.handler.ContentHandler):
     """
     Sax handler for following xml's:
@@ -102,7 +103,8 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         output = "%s (r%d): %s" % (self.__author, self.__rev, subject)
 
         properties = OrgProperties(data_for_hashing=self.__author + subject)
-        timestamp = OrgFormat.datetime(OrgFormat.datetupelutctimestamp(self.__date))
+        timestamp = OrgFormat.datetime(
+            OrgFormat.datetupelutctimestamp(self.__date))
         properties.add("REVISION", self.__rev)
 
         if self.__grepauthor == None or \

@@ -36,7 +36,8 @@ class TestRss(unittest.TestCase):
         #        (d, data[d])
         self.assertEqual(
             data[0],
-            "** <2009-09-06 Sun 18:45> [[http://www.wikipedia.org/][Example entry]]")
+            "** <2009-09-06 Sun 18:45> [[http://www.wikipedia.or" + \
+            "g/][Example entry]]")
         self.assertEqual(
             data[1],
             "   Here is some text containing an interesting description.")

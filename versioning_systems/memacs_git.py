@@ -32,6 +32,7 @@ COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
+
 class Commit(object):
     """
     class for representing one commit

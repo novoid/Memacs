@@ -35,5 +35,3 @@ class TestOrgProperties(unittest.TestCase):
         self.assertEqual(properties[2], u"   :ID:             fede47e9" + \
                          "f49e1b7f5c6599a6d607e9719ca98625")
         self.assertEqual(properties[3], u"   :END:")
-
-

@@ -80,7 +80,8 @@ class TestGitMemacs(unittest.TestCase):
              "   :PARENT:         62f20271b87e8574370f1ded29938dad0313a399")
         self.assertEqual(
             data[6],
-             "   :AUTHOR:         Karl Voit <git@example.com> 1321699855 +0100")
+             "   :AUTHOR:         Karl Voit <git@example." + \
+             "com> 1321699855 +0100")
         self.assertEqual(
             data[7],
              "   :ID:             11a9098b0a6cc0c979a7fce96b8e83baf5502bf8")
@@ -102,13 +103,15 @@ class TestGitMemacs(unittest.TestCase):
              "   :TREE:           906b8b7e4bfd08850aef8c15b0fc4d5f6e9cc9a7")
         self.assertEqual(
             data[13],
-             "   :COMMITTER:      Karl Voit <git@example.com> 1321699830 +0100")
+             "   :COMMITTER:      Karl Voit <git@example.c" + \
+             "om> 1321699830 +0100")
         self.assertEqual(
             data[14],
              "   :PARENT:         638e81c55daf0a69c78cc3af23a9e451ccea44ab")
         self.assertEqual(
             data[15],
-             "   :AUTHOR:         Karl Voit <git@example.com> 1321699830 +0100")
+             "   :AUTHOR:         Karl Voit <git@example.com> 132" + \
+             "1699830 +0100")
         self.assertEqual(
             data[16],
              "   :ID:             dce2f11c7c495885f65b650b29a09cb88cb52acf")
@@ -131,7 +134,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :PARENT:         7ddaa9839611662c5c0dbf2bb2740e362ae4d566")
         self.assertEqual(
             data[22],
-             "   :AUTHOR:         Armin Wieser <armin.wieser@ex"+ \
+             "   :AUTHOR:         Armin Wieser <armin.wieser@ex" + \
              "ample.com> 1320270366 +0100")
         self.assertEqual(
             data[23],
@@ -150,7 +153,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[28],
-             "** <2011-11-02 Wed 19:58:32> Armin Wieser: orgf"+ \
+             "** <2011-11-02 Wed 19:58:32> Armin Wieser: orgf" + \
              "ormat added for orgmode-syntax")
         self.assertEqual(
             data[29],
