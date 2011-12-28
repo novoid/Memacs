@@ -9,16 +9,19 @@ import re
 import logging
 from common.orgproperty import OrgProperties
 from common.reader import CommonReader
-
-INVOCATION_TIME = time.strftime(u"%Y-%m-%dT%H:%M:%S", time.gmtime())
+from common.orgformat import OrgFormat
 
 
 class OrgOutputWriter(object):
     __handler = None
     __test = False
 
-    def __init__(self, short_description, tag, file_name=None,
-                test=False, append=False):
+    def __init__(self,
+                 short_description,
+                 tag,
+                 file_name=None,
+                 test=False,
+                 append=False):
         """
         @param file_name:
         """
@@ -34,7 +37,7 @@ class OrgOutputWriter(object):
         if file_name:
             if append and os.path.exists(file_name):
                 self.__handler = codecs.open(file_name, 'a', u"utf-8")
-                self.__compute_existing_list()
+                self.__compute_existing_id_list()
             else:
                 self.__handler = codecs.open(file_name, 'w', u"utf-8")
                 self.__write_header()
@@ -88,8 +91,9 @@ class OrgOutputWriter(object):
         close() does call this function
         """
         self.writeln(u"* successfully parsed by " + \
-                     sys.argv[0] + u" at " + INVOCATION_TIME \
-                     + u" in " + self.__time + u".")
+                     sys.argv[0] + u" at " + \
+                     OrgFormat.inactive_datetime(time.localtime()) + \
+                     u" in ~" + self.__time + u".")
 
     def write_comment(self, output):
         """
@@ -111,10 +115,13 @@ class OrgOutputWriter(object):
         """
         self.writeln("* " + output)
 
-    def __write_org_subitem(self, output, note="", properties=OrgProperties(),
-                          tags=[]):
+    def __write_org_subitem(self,
+                            output,
+                            note="",
+                            properties=OrgProperties(),
+                            tags=[]):
         """
-        internally called by write_org_subitem and append_org_subitem
+        internally called by write_org_subitem and __append_org_subitem
         """
         output_tags = ""
         if tags != []:
@@ -126,41 +133,52 @@ class OrgOutputWriter(object):
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
 
-    def write_org_subitem(self, output, note="", properties=OrgProperties(),
+    def write_org_subitem(self,
+                          output,
+                          note="",
+                          properties=OrgProperties(),
                           tags=[]):
         """
         Writes an org item line.
 
-        i.e: * <output>\n
+        i.e:** <output> :tags:\n
+               :PROPERTIES:
+               <properties>
+               :ID: -generated id-
+               :END:  
         """
-        if not self.__append:
-            self.__write_org_subitem(output, note, properties, tags)
+        if self.__append:
+            self.__append_org_subitem(output, note, properties, tags)
         else:
-            raise Exception("cannot use this method, when in append mode")
+            self.__write_org_subitem(output, note, properties, tags)
 
-    def append_org_subitem(self, output, note="", properties=OrgProperties(),
-                           tags=[]):
+    def __append_org_subitem(self,
+                             output,
+                             note="",
+                             properties=OrgProperties(),
+                             tags=[]):
         """
         Checks if subitem exists in orgfile (:ID: <id> is same),
         if not, it will be appended
         """
-        if self.__append:
-            identifier = properties.get_id()
+        identifier = properties.get_id()
 
-            if id == None:
-                raise Exception("id :ID: Property not set!")
+        if id == None:
+            raise Exception("id :ID: Property not set!")
 
-            if self.__id_exists(identifier):
-                # do nothing, id exists ...
-                logging.debug("NOT appending")
-            else:
-                # id does not exist so we can append
-                logging.debug("appending")
-                self.__write_org_subitem(output, note, properties, tags)
+        if self.__id_exists(identifier):
+            # do nothing, id exists ...
+            logging.debug("NOT appending")
         else:
-            raise Exception("cannot use this method, when not in append mode")
+            # id does not exist so we can append
+            logging.debug("appending")
+            self.__write_org_subitem(output, note, properties, tags)
 
-    def __compute_existing_list(self):
+    def __compute_existing_id_list(self):
+        """
+        Reads the outputfile, looks for :ID: properties and stores them in 
+        self.__existing_ids
+        """
         assert self.__existing_ids == []
 
         data = CommonReader.get_data_from_file(self.__file_name)

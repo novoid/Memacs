@@ -91,12 +91,6 @@ class Foo(Memacs):
         #  :CREATED: <1970-01-01 Thu 00:00>
         #  :END:
 
-        # When you want append mode (see bottom MemacsFoo(...append=True..),
-        # you have to write items with following
-        #self._writer.append_org_subitem("bar", note=notes, properties=p,
-        #                               tags=tags)
-        # be sure to set a :ID: property or set identifier to your own id
-
 if __name__ == "__main__":
     memacs = Foo(
         prog_version=PROG_VERSION_NUMBER,
