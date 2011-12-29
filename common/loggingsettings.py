@@ -18,7 +18,7 @@ def handle_logging(verbose=False, suppressmessages=False, org_file=""):
         logging.basicConfig(level=logging.DEBUG, format=FORMAT)
     else:
         FORMAT = "%(message)s"
-        logging.basicConfig(level=logging.INFO, format=FORMAT)
+        logging.basicConfig(level=logging.WARNING, format=FORMAT)
 
     if org_file:
         if not os.path.exists(os.path.dirname(org_file)):

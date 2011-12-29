@@ -56,3 +56,4 @@ class TestFileNameTimeStamps(unittest.TestCase):
 
         os.remove(file)
         self.assertEqual(data[0], entry, "filenametimestamps - error")
+

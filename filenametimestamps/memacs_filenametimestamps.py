@@ -8,6 +8,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
 from common.orgformat import OrgFormat
+from common.orgformat import TimestampParseException
 from common.orgproperty import OrgProperties
 import re
 import logging
@@ -93,6 +94,43 @@ class FileNameTimeStamps(Memacs):
                 for file in files:
                     self.__handle_file(file, rootdir)
 
+
+    def __parse_and_write_file(self, file, link):
+        """
+        Parses the date+time and writes entry to outputfile
+        
+        @param file: filename
+        @param link: path 
+        """
+        if TIMESTAMP_REGEX.match(file):
+            # if we found a timestamp too,take hours,min
+            # and optionally seconds from this timestamp
+            timestamp = TIMESTAMP_REGEX.match(file).group()
+            orgdate = OrgFormat.strdatetimeiso8601(timestamp)
+            logging.debug("found timestamp: " + orgdate)
+        else:
+            datestamp = DATESTAMP_REGEX.match(file).group()
+            orgdate = OrgFormat.strdate(datestamp)
+            orgdate_time_tupel = OrgFormat.datetupeliso8601(datestamp)
+            file_datetime = time.localtime(os.path.getmtime(link))
+            # check if the file - time information matches year,month,day,
+            # then update time
+            if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
+                    file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
+                    file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
+                logging.debug("found a time in file.setting %s-->%s",
+                              orgdate, OrgFormat.date(file_datetime, True))
+                orgdate = OrgFormat.date(file_datetime, True)
+        
+        # write entry to org file
+        output = OrgFormat.link(link=link, description=file)
+        # we need optional data for hashing due it can be, that more
+        # than one file have the same timestamp
+        properties = OrgProperties(data_for_hashing=output)
+        self._writer.write_org_subitem(timestamp=orgdate,
+                                       output=output,
+                                       properties=properties)
+
     def __handle_file(self, file, rootdir):
         """
         handles a file
@@ -101,33 +139,15 @@ class FileNameTimeStamps(Memacs):
         if DATESTAMP_REGEX.match(file) and file[-1:] != '~':
             link = rootdir + os.sep + file
             logging.debug(link)
-            if TIMESTAMP_REGEX.match(file):
-                # if we found a timestamp too,take hours,min
-                # and optionally seconds from this timestamp
-                timestamp = TIMESTAMP_REGEX.match(file).group()
-                orgdate = OrgFormat.strdatetimeiso8601(timestamp)
-                logging.debug("found timestamp: " + orgdate)
-            else:
-                datestamp = DATESTAMP_REGEX.match(file).group()
-                orgdate = OrgFormat.strdate(datestamp)
-                orgdate_time_tupel = OrgFormat.datetupeliso8601(datestamp)
-                file_datetime = time.localtime(os.path.getmtime(link))
-                # check if the file - time information matches year,month,day,
-                # then update time
-                if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
-                        file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
-                        file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
-                    logging.debug("found a time in file.setting %s-->%s",
-                                  orgdate, OrgFormat.date(file_datetime, True))
-                    orgdate = OrgFormat.date(file_datetime, True)
-                # write entry to org file
-            output = OrgFormat.link(link=link, description=file)
-            # we need optional data for hashing due it can be, that more
-            # than one file have the same timestamp
-            properties = OrgProperties(data_for_hashing=output)
-            self._writer.write_org_subitem(timestamp=orgdate,
-                                           output=output,
-                                           properties=properties)
+            try:
+                # we put this in a try block because:
+                # if a timestamp is false i.e. 2011-14-19 or false time
+                # we can handle those not easy with REGEX, therefore we have
+                # an Exception TimestampParseException, which is thrown,
+                # wen strptime (parse from string to time tupel) fails
+                self.__parse_and_write_file(file, link)
+            except TimestampParseException, e:
+                logging.warning("False date(time) in file: %s", link)
 
     def _main(self):
         for folder in self._args.filenametimestamps_folder:
