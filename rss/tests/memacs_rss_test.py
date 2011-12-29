@@ -46,10 +46,10 @@ class TestRss(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[3],
-            "   :GUID:           unique string per item")
+            "   :GUID:       unique string per item")
         self.assertEqual(
             data[4],
-            "   :ID:             7ec7b2ec7d1ac5f18188352551b04f061af81e04")
+            "   :ID:         7ec7b2ec7d1ac5f18188352551b04f061af81e04")
         self.assertEqual(
             data[5],
             "   :END:")

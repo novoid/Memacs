@@ -19,7 +19,7 @@ class TestOrgProperties(unittest.TestCase):
         p = OrgProperties()
         properties = unicode(p).splitlines()
         self.assertEqual(properties[0], u"   :PROPERTIES:")
-        self.assertEqual(properties[1], u"   :ID:             da39a3ee5e6b" + \
+        self.assertEqual(properties[1], u"   :ID:         da39a3ee5e6b" + \
                          "4b0d3255bfef95601890afd80709")
         self.assertEqual(properties[2], u"   :END:")
 
@@ -30,8 +30,8 @@ class TestOrgProperties(unittest.TestCase):
         properties = unicode(p).splitlines()
 
         self.assertEqual(properties[0], u"   :PROPERTIES:")
-        self.assertEqual(properties[1], u"   :CREATED:        <1970-01-0" + \
+        self.assertEqual(properties[1], u"   :CREATED:    <1970-01-0" + \
                          "1 Thu 00:00>")
-        self.assertEqual(properties[2], u"   :ID:             fede47e9" + \
+        self.assertEqual(properties[2], u"   :ID:         fede47e9" + \
                          "f49e1b7f5c6599a6d607e9719ca98625")
         self.assertEqual(properties[3], u"   :END:")

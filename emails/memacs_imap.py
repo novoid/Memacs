@@ -51,7 +51,7 @@ class Foo(Memacs):
         Memacs._parser_parse_args(self)
         # if self._args.example == ...:
         #     self._parser.error("could not parse foo")
-        
+
     def __fetch_mail(self, server, num, tags=[]):
         typ, data = server.fetch(num,
             '(BODY[HEADER.FIELDS (Date Subject From To Cc)])')
@@ -59,7 +59,7 @@ class Foo(Memacs):
             message = data[0][1]
             timestamp, output, note, properties = \
                 MailHandler.handle_message(message)
-            
+
             self._writer.write_org_subitem(timestamp,
                                            output,
                                            note,
@@ -92,7 +92,7 @@ class Foo(Memacs):
         data = CommonReader.get_data_from_file("/tmp/pw.txt").splitlines()
         username = data[0]
         password = data[1]
-        
+
         server = imaplib.IMAP4_SSL('imap.gmail.com')
         try:
             server.login(username, password)
@@ -107,8 +107,8 @@ class Foo(Memacs):
 #        if typ == "OK":
 #            pass
 #        else:
-#            logging.error("typ was NOK: %s", type)                
-        self.__handle_folder(server, "_TUG/Memacs", tags=["memacs"]) 
+#            logging.error("typ was NOK: %s", type)
+        self.__handle_folder(server, "_TUG/Memacs", tags=["memacs"])
 
 
 if __name__ == "__main__":

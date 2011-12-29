@@ -37,7 +37,7 @@ class OrgProperties(object):
                             "it will be generated automatically")
 
         self.__properties[tag] = unicode(value)
-        
+
     def delete(self, key):
         """
         delete a pair out of properties
@@ -88,14 +88,14 @@ class OrgProperties(object):
         @return: returns the value of a given key
         """
         return self.__properties[key]
-    
+
     def add_data_for_hashing(self, data_for_hashing):
         """
-        add additional data for hashing 
+        add additional data for hashing
         useful when no possibility to set in Ctor
         """
         self.__data_for_hashing += data_for_hashing
-        
+
     def get_value_delete_but_add_for_hashing(self, key):
         """
         see method name ;)

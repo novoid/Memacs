@@ -23,6 +23,7 @@ class TestCalendar(unittest.TestCase):
         #for d in range(len(data)):
         #      print "self.assertEqual(\n\tdata[%d],\n\t \"%s\")" % \
         #            (d, data[d])
+
         self.assertEqual(
             data[0],
              "** <2012-05-28 Mon>--<2012-05-28 Mon> Whit Monday")
@@ -31,7 +32,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-             "   :ID:             0c83f0a3ca8ff5354117f8f38ae862578168ae05")
+             "   :ID:         0c83f0a3ca8ff5354117f8f38ae862578168ae05")
         self.assertEqual(
             data[3],
              "   :END:")
@@ -43,7 +44,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[6],
-             "   :ID:             e21842b27601508e5b3b53fc3baaab6a1ca96be7")
+             "   :ID:         e21842b27601508e5b3b53fc3baaab6a1ca96be7")
         self.assertEqual(
             data[7],
              "   :END:")
@@ -55,7 +56,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[10],
-             "   :ID:             e21842b27601508e5b3b53fc3baaab6a1ca96be7")
+             "   :ID:         e21842b27601508e5b3b53fc3baaab6a1ca96be7")
         self.assertEqual(
             data[11],
              "   :END:")
@@ -67,7 +68,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[14],
-             "   :ID:             e21842b27601508e5b3b53fc3baaab6a1ca96be7")
+             "   :ID:         e21842b27601508e5b3b53fc3baaab6a1ca96be7")
         self.assertEqual(
             data[15],
              "   :END:")
@@ -79,7 +80,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[18],
-             "   :ID:             5a7c8c5342c367d20d7f81d86d2dfab3863cba94")
+             "   :ID:         5a7c8c5342c367d20d7f81d86d2dfab3863cba94")
         self.assertEqual(
             data[19],
              "   :END:")
@@ -91,7 +92,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[22],
-             "   :ID:             5a7c8c5342c367d20d7f81d86d2dfab3863cba94")
+             "   :ID:         5a7c8c5342c367d20d7f81d86d2dfab3863cba94")
         self.assertEqual(
             data[23],
              "   :END:")
@@ -103,7 +104,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[26],
-             "   :ID:             5a7c8c5342c367d20d7f81d86d2dfab3863cba94")
+             "   :ID:         5a7c8c5342c367d20d7f81d86d2dfab3863cba94")
         self.assertEqual(
             data[27],
              "   :END:")
@@ -115,7 +116,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[30],
-             "   :ID:             4cb0942069580b4af7099c104006fd69eb071729")
+             "   :ID:         4cb0942069580b4af7099c104006fd69eb071729")
         self.assertEqual(
             data[31],
              "   :END:")
@@ -127,7 +128,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[34],
-             "   :ID:             4cb0942069580b4af7099c104006fd69eb071729")
+             "   :ID:         4cb0942069580b4af7099c104006fd69eb071729")
         self.assertEqual(
             data[35],
              "   :END:")
@@ -139,7 +140,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[38],
-             "   :ID:             4cb0942069580b4af7099c104006fd69eb071729")
+             "   :ID:         4cb0942069580b4af7099c104006fd69eb071729")
         self.assertEqual(
             data[39],
              "   :END:")
@@ -151,7 +152,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[42],
-             "   :ID:             12ad58c0ae8928d38a1ed0526046120b8070a4ae")
+             "   :ID:         12ad58c0ae8928d38a1ed0526046120b8070a4ae")
         self.assertEqual(
             data[43],
              "   :END:")
@@ -163,7 +164,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[46],
-             "   :ID:             12ad58c0ae8928d38a1ed0526046120b8070a4ae")
+             "   :ID:         12ad58c0ae8928d38a1ed0526046120b8070a4ae")
         self.assertEqual(
             data[47],
              "   :END:")
@@ -175,7 +176,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[50],
-             "   :ID:             70270756c18c1afbfc131f7f238f1d14f2a555a0")
+             "   :ID:         70270756c18c1afbfc131f7f238f1d14f2a555a0")
         self.assertEqual(
             data[51],
              "   :END:")
@@ -187,7 +188,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[54],
-             "   :ID:             70270756c18c1afbfc131f7f238f1d14f2a555a0")
+             "   :ID:         70270756c18c1afbfc131f7f238f1d14f2a555a0")
         self.assertEqual(
             data[55],
              "   :END:")
@@ -199,7 +200,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[58],
-             "   :ID:             70270756c18c1afbfc131f7f238f1d14f2a555a0")
+             "   :ID:         70270756c18c1afbfc131f7f238f1d14f2a555a0")
         self.assertEqual(
             data[59],
              "   :END:")
@@ -211,7 +212,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[62],
-             "   :ID:             4748118d7fe930bbc850c5f9e0ddfd29af261359")
+             "   :ID:         4748118d7fe930bbc850c5f9e0ddfd29af261359")
         self.assertEqual(
             data[63],
              "   :END:")
@@ -223,7 +224,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[66],
-             "   :ID:             4748118d7fe930bbc850c5f9e0ddfd29af261359")
+             "   :ID:         4748118d7fe930bbc850c5f9e0ddfd29af261359")
         self.assertEqual(
             data[67],
              "   :END:")
@@ -235,7 +236,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[70],
-             "   :ID:             4748118d7fe930bbc850c5f9e0ddfd29af261359")
+             "   :ID:         4748118d7fe930bbc850c5f9e0ddfd29af261359")
         self.assertEqual(
             data[71],
              "   :END:")
@@ -247,7 +248,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[74],
-             "   :ID:             fea4063a6b411d536c6c8984e069246a60b3e33b")
+             "   :ID:         fea4063a6b411d536c6c8984e069246a60b3e33b")
         self.assertEqual(
             data[75],
              "   :END:")
@@ -259,7 +260,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[78],
-             "   :ID:             fea4063a6b411d536c6c8984e069246a60b3e33b")
+             "   :ID:         fea4063a6b411d536c6c8984e069246a60b3e33b")
         self.assertEqual(
             data[79],
              "   :END:")
@@ -271,7 +272,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[82],
-             "   :ID:             fea4063a6b411d536c6c8984e069246a60b3e33b")
+             "   :ID:         fea4063a6b411d536c6c8984e069246a60b3e33b")
         self.assertEqual(
             data[83],
              "   :END:")
@@ -283,7 +284,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[86],
-             "   :ID:             5b5bf1bb44aa437924bbaeeb27af96879fe04772")
+             "   :ID:         5b5bf1bb44aa437924bbaeeb27af96879fe04772")
         self.assertEqual(
             data[87],
              "   :END:")
@@ -295,7 +296,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[90],
-             "   :ID:             5b5bf1bb44aa437924bbaeeb27af96879fe04772")
+             "   :ID:         5b5bf1bb44aa437924bbaeeb27af96879fe04772")
         self.assertEqual(
             data[91],
              "   :END:")
@@ -307,7 +308,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[94],
-             "   :ID:             5b5bf1bb44aa437924bbaeeb27af96879fe04772")
+             "   :ID:         5b5bf1bb44aa437924bbaeeb27af96879fe04772")
         self.assertEqual(
             data[95],
              "   :END:")
@@ -319,7 +320,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[98],
-             "   :ID:             f0e5acae3e49404548844496dc99554e17492f67")
+             "   :ID:         f0e5acae3e49404548844496dc99554e17492f67")
         self.assertEqual(
             data[99],
              "   :END:")
@@ -331,7 +332,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[102],
-             "   :ID:             290444975d821c61d536c4dfab56d06bd2ab17af")
+             "   :ID:         290444975d821c61d536c4dfab56d06bd2ab17af")
         self.assertEqual(
             data[103],
              "   :END:")
@@ -343,7 +344,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[106],
-             "   :ID:             290444975d821c61d536c4dfab56d06bd2ab17af")
+             "   :ID:         290444975d821c61d536c4dfab56d06bd2ab17af")
         self.assertEqual(
             data[107],
              "   :END:")
@@ -355,7 +356,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[110],
-             "   :ID:             290444975d821c61d536c4dfab56d06bd2ab17af")
+             "   :ID:         290444975d821c61d536c4dfab56d06bd2ab17af")
         self.assertEqual(
             data[111],
              "   :END:")
@@ -367,7 +368,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[114],
-             "   :ID:             bba3224b1a56b7f5a6f17f8ced66819a748b1483")
+             "   :ID:         bba3224b1a56b7f5a6f17f8ced66819a748b1483")
         self.assertEqual(
             data[115],
              "   :END:")
@@ -379,7 +380,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[118],
-             "   :ID:             2606285359704adc2fe251511f5adeb24d53898b")
+             "   :ID:         2606285359704adc2fe251511f5adeb24d53898b")
         self.assertEqual(
             data[119],
              "   :END:")
@@ -391,7 +392,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[122],
-             "   :ID:             d02d05010206893071a49491e5214c54843abfbd")
+             "   :ID:         d02d05010206893071a49491e5214c54843abfbd")
         self.assertEqual(
             data[123],
              "   :END:")
@@ -403,7 +404,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[126],
-             "   :ID:             bc0a33b502b5758cdc7d30f67149f32809c05057")
+             "   :ID:         bc0a33b502b5758cdc7d30f67149f32809c05057")
         self.assertEqual(
             data[127],
              "   :END:")
@@ -415,7 +416,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[130],
-             "   :ID:             bc0a33b502b5758cdc7d30f67149f32809c05057")
+             "   :ID:         bc0a33b502b5758cdc7d30f67149f32809c05057")
         self.assertEqual(
             data[131],
              "   :END:")
@@ -427,7 +428,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[134],
-             "   :ID:             bc0a33b502b5758cdc7d30f67149f32809c05057")
+             "   :ID:         bc0a33b502b5758cdc7d30f67149f32809c05057")
         self.assertEqual(
             data[135],
              "   :END:")
@@ -439,7 +440,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[138],
-             "   :ID:             051e56681a6282bb0ad3cd11837891397cde76b3")
+             "   :ID:         051e56681a6282bb0ad3cd11837891397cde76b3")
         self.assertEqual(
             data[139],
              "   :END:")
@@ -451,7 +452,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[142],
-             "   :ID:             051e56681a6282bb0ad3cd11837891397cde76b3")
+             "   :ID:         051e56681a6282bb0ad3cd11837891397cde76b3")
         self.assertEqual(
             data[143],
              "   :END:")
@@ -463,7 +464,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[146],
-             "   :ID:             051e56681a6282bb0ad3cd11837891397cde76b3")
+             "   :ID:         051e56681a6282bb0ad3cd11837891397cde76b3")
         self.assertEqual(
             data[147],
              "   :END:")
@@ -475,7 +476,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[150],
-             "   :ID:             1f17bd7220b2119c51733823566a45b8b00fd044")
+             "   :ID:         1f17bd7220b2119c51733823566a45b8b00fd044")
         self.assertEqual(
             data[151],
              "   :END:")
@@ -487,7 +488,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[154],
-             "   :ID:             1f17bd7220b2119c51733823566a45b8b00fd044")
+             "   :ID:         1f17bd7220b2119c51733823566a45b8b00fd044")
         self.assertEqual(
             data[155],
              "   :END:")
@@ -499,7 +500,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[158],
-             "   :ID:             1f17bd7220b2119c51733823566a45b8b00fd044")
+             "   :ID:         1f17bd7220b2119c51733823566a45b8b00fd044")
         self.assertEqual(
             data[159],
              "   :END:")
@@ -511,7 +512,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[162],
-             "   :ID:             d9afce0359fd03875146c0c7ba19ff79ac9c52fb")
+             "   :ID:         d9afce0359fd03875146c0c7ba19ff79ac9c52fb")
         self.assertEqual(
             data[163],
              "   :END:")
@@ -523,7 +524,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[166],
-             "   :ID:             b3f5a0572af51f26beaef4f7d7eddf7f9421448a")
+             "   :ID:         b3f5a0572af51f26beaef4f7d7eddf7f9421448a")
         self.assertEqual(
             data[167],
              "   :END:")
@@ -535,7 +536,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[170],
-             "   :ID:             b3f5a0572af51f26beaef4f7d7eddf7f9421448a")
+             "   :ID:         b3f5a0572af51f26beaef4f7d7eddf7f9421448a")
         self.assertEqual(
             data[171],
              "   :END:")
@@ -547,7 +548,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[174],
-             "   :ID:             b3f5a0572af51f26beaef4f7d7eddf7f9421448a")
+             "   :ID:         b3f5a0572af51f26beaef4f7d7eddf7f9421448a")
         self.assertEqual(
             data[175],
              "   :END:")
@@ -559,7 +560,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[178],
-             "   :ID:             71bca54e376ac4a9dfcb1eeef38a330fdc366817")
+             "   :ID:         71bca54e376ac4a9dfcb1eeef38a330fdc366817")
         self.assertEqual(
             data[179],
              "   :END:")
@@ -571,7 +572,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[182],
-             "   :ID:             71bca54e376ac4a9dfcb1eeef38a330fdc366817")
+             "   :ID:         71bca54e376ac4a9dfcb1eeef38a330fdc366817")
         self.assertEqual(
             data[183],
              "   :END:")
@@ -583,7 +584,7 @@ class TestCalendar(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[186],
-             "   :ID:             71bca54e376ac4a9dfcb1eeef38a330fdc366817")
+             "   :ID:         71bca54e376ac4a9dfcb1eeef38a330fdc366817")
         self.assertEqual(
             data[187],
              "   :END:")

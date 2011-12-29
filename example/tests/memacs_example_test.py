@@ -37,7 +37,7 @@ class TestFoo(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-            "   :ID:             da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
         self.assertEqual(
             data[3],
             "   :END:")
@@ -55,13 +55,13 @@ class TestFoo(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[8],
-            "   :DESCRIPTION:    foooo")
+            "   :DESCRIPTION:  foooo")
         self.assertEqual(
             data[9],
-            "   :FOO-PROPERTY:   asdf")
+            "   :FOO-PROPERTY: asdf")
         self.assertEqual(
             data[10],
-            "   :ID:             97521347348df02dab8bf86fbb6817c0af333a3f")
+            "   :ID:           97521347348df02dab8bf86fbb6817c0af333a3f")
         self.assertEqual(
             data[11],
             "   :END:")

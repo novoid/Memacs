@@ -220,36 +220,36 @@ class OrgFormat(object):
                     time.strptime(datetime_string, "%Y-%m-%dT%H:%M:%SZ")))
         else:
             logging.error("string has no correct format: %s" % datetime_string)
-    
-    @staticmethod    
+
+    @staticmethod
     def date_tupel_mail_date(mail_date_string):
         """
         @param mail_date_string: following format:
             "Mon, 26 Dec 2011 17:16:28 +0100"
         @return: time_struct
-        """ 
-        
+        """
+
         return None
 
     @staticmethod
     def contact_mail_mailto_link(contact_mail_string):
         """
-        @param contact_mailto_string: possibilities: 
+        @param contact_mailto_string: possibilities:
         - "Bob Bobby <bob.bobby@example.com>" or
         - <Bob@example.com>"
-        
-        @return: 
+
+        @return:
         - [[mailto:bob.bobby@example.com][Bob Bobby]]
         - [[mailto:bob.bobby@example.com][bob.bobby@excample.com]]
         """
         delimiter = contact_mail_string.find("<")
         name = contact_mail_string[:delimiter].strip()
-        mail = contact_mail_string[delimiter+1:][:-1].strip()
+        mail = contact_mail_string[delimiter + 1:][:-1].strip()
         if name != "":
-            return "[[mailto:" + mail + "][" + name +"]]"  
+            return "[[mailto:" + mail + "][" + name + "]]"
         else:
-            return "[[mailto:" + mail + "][" + mail +"]]"  
-    
+            return "[[mailto:" + mail + "][" + mail + "]]"
+
     @staticmethod
     def newsgroup_link(newsgroup_string):
         """
