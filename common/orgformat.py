@@ -13,12 +13,15 @@ class TimestampParseException(Exception):
     """
     def __init__(self, value):
         self.value = value
-        
+
     def __str__(self):
-        return repr(self.value)    
+        return repr(self.value)
+
 
 class OrgFormat(object):
-
+    """
+    Class for handle special Org Formats linke link, time
+    """
     @staticmethod
     def link(link, description=None):
         """
@@ -192,11 +195,11 @@ class OrgFormat(object):
         try:
             if len(datetime_string) == 16:  # YYYY-MM-DDTHH.MM
                 return time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
-            elif len(datetime_string) == 19:  #YYYY-MM-DDTHH.MM.SS
+            elif len(datetime_string) == 19:  # YYYY-MM-DDTHH.MM.SS
                 return time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
         except ValueError, e:
             raise TimestampParseException(e)
-            
+
     @staticmethod
     def datetupeliso8601(datetime_string):
         """
@@ -239,9 +242,12 @@ class OrgFormat(object):
                 datetime_string = datetime_string.split(".")[0] + "Z"
                 return time.localtime(
                     calendar.timegm(
-                        time.strptime(datetime_string, "%Y-%m-%dT%H:%M:%SZ")))
+                        time.strptime(
+                                      datetime_string,
+                                      "%Y-%m-%dT%H:%M:%SZ")))
             else:
-                logging.error("string has no correct format: %s" % datetimestring)
+                logging.error("string has no correct format: %s",
+                              datetime_string)
         except ValueError, e:
             raise TimestampParseException(e)
 

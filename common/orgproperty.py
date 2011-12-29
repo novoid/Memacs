@@ -38,7 +38,7 @@ class OrgProperties(object):
                             "it will be generated automatically")
 
         self.__properties[tag] = unicode(value)
-    
+
     def set_id(self, value):
         """
         set id here, then its not generated / hashed

@@ -94,13 +94,12 @@ class FileNameTimeStamps(Memacs):
                 for file in files:
                     self.__handle_file(file, rootdir)
 
-
     def __parse_and_write_file(self, file, link):
         """
         Parses the date+time and writes entry to outputfile
-        
+
         @param file: filename
-        @param link: path 
+        @param link: path
         """
         if TIMESTAMP_REGEX.match(file):
             # if we found a timestamp too,take hours,min
@@ -121,7 +120,7 @@ class FileNameTimeStamps(Memacs):
                 logging.debug("found a time in file.setting %s-->%s",
                               orgdate, OrgFormat.date(file_datetime, True))
                 orgdate = OrgFormat.date(file_datetime, True)
-        
+
         # write entry to org file
         output = OrgFormat.link(link=link, description=file)
         # we need optional data for hashing due it can be, that more

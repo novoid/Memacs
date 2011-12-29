@@ -41,7 +41,7 @@ class ImapMemacs(Memacs):
            dest="list_folders",
            action="store_true",
            help="show possible folders of connection")
-        
+
         self._parser.add_argument(
            "-f", "--folder_name",
            dest="folder_name",
@@ -55,14 +55,15 @@ class ImapMemacs(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
-        
+
         if not self._args.list_folders and not self._args.folder_name:
             self._parser.error("please specify a folder " + \
                                    "use --list to find a folder")
 
     def __fetch_mail(self, server, num):
         typ, data = server.fetch(num,
-            '(BODY[HEADER.FIELDS (Date Subject From To Cc Reply-To Message-ID)])')
+            "(BODY[HEADER.FIELDS " + \
+            "(Date Subject From To Cc Reply-To Message-ID)])")
         if typ == "OK":
             message = data[0][1]
             timestamp, output, note, properties = \
@@ -91,7 +92,7 @@ class ImapMemacs(Memacs):
 
     def __list_folders(self, server):
         """
-        lists all folders and writes them to 
+        lists all folders and writes them to
         logging.info
         """
         typ, folder_list = server.list()
@@ -101,7 +102,7 @@ class ImapMemacs(Memacs):
                 logging.info(f[f.find("\"/\" \"") + 4:])
         else:
             logging.error("list folders was not ok: %s", typ)
-            server.logout()            
+            server.logout()
             sys.exit(1)
 
     def _main(self):
@@ -125,7 +126,7 @@ class ImapMemacs(Memacs):
                 raise Exception(e)
                 server.logout()
                 sys.exit(1)
-        
+
         if self._args.list_folders == True:
             self.__list_folders(server)
         else:
