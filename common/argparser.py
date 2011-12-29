@@ -81,7 +81,7 @@ class MemacsArgumentParser(ArgumentParser):
 
         self.add_argument("-t", "--tag",
                           dest="tag",
-                          help="overriding tag: :Memacs:<tag>:")
+                          help="overriding tag: :Memacs:<tag>: (on top entry)")
 
     def parse_args(self, args=None, namespace=None):
         """

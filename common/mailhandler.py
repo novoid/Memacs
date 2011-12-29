@@ -21,26 +21,28 @@ class MailHandler(object):
                        "From",
                        "Subject",
                        "Reply-To",
-                       "Newsgroups"]
-
+                       "Newsgroups",
+                       #"Message-ID",  # look down ...
+                       ]
         # These fields are added to :PROPERTIES: drawer
         headers_to_properties = ["To",
                                  "Reply-To"]
 
         properties = OrgProperties()
-        data_for_hashing = ""
         headers = {}
 
         logging.debug("Message items:")
         logging.debug(msg.items())
 
-        # fill headers and properties, and set data_for_hashing
+        # fill headers and properties
         for key, value in msg.items():
             if key in use_headers:
                 headers[key] = value
                 if key in headers_to_properties:
                     properties.add(key, value)
-                data_for_hashing += key + value
+            if key == "Message-ID":
+                properties.set_id(value)
+                print "messageid:" + value
 
         notes = ""
         # look for payload
@@ -63,18 +65,24 @@ class MailHandler(object):
 
         notes = notes.replace("\r", "")
 
-        output_from = OrgFormat.contact_mail_mailto_link(headers["From"])
+        output_from = ""
+        if "From" in headers:
+            output_from = OrgFormat.contact_mail_mailto_link(headers["From"])
 
         time_tupel = time.gmtime(time.mktime(parsedate(headers["Date"])))
         timestamp = OrgFormat.datetime(time_tupel)
+
+        subject = ""
+        if "Subject" in headers:
+            subject = headers["Subject"]
 
         if "Newsgroups" in headers:
             ng_list = []
             for ng in headers["Newsgroups"].split(","):
                 ng_list.append(OrgFormat.newsgroup_link(ng))
             output_ng = ", ".join(map(str, ng_list))
-            output = output_from + "@" + output_ng + ": " + headers["Subject"]
+            output = output_from + "@" + output_ng + ": " + subject
         else:
-            output = output_from + ": " + headers["Subject"]
+            output = output_from + ": " + subject
 
         return timestamp, output, notes, properties

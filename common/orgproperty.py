@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-20 15:13:31 awieser>
+# Time-stamp: <2011-12-29 15:28:19 armin>
 import hashlib
 
 
@@ -23,6 +23,7 @@ class OrgProperties(object):
         """
         self.__properties = {}
         self.__data_for_hashing = data_for_hashing
+        self.__id = None
 
     def add(self, tag, value):
         """
@@ -37,6 +38,12 @@ class OrgProperties(object):
                             "it will be generated automatically")
 
         self.__properties[tag] = unicode(value)
+    
+    def set_id(self, value):
+        """
+        set id here, then its not generated / hashed
+        """
+        self.__id = value
 
     def delete(self, key):
         """
@@ -77,6 +84,8 @@ class OrgProperties(object):
         generates the hash string for all properties
         @return: sha1(properties)
         """
+        if self.__id != None:
+            return self.__id
         to_hash = "".join(map(unicode, self.__properties.values()))
         to_hash += "".join(map(unicode, self.__properties.keys()))
         to_hash += self.__data_for_hashing

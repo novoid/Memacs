@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-28 20:25:37 armin>
+# Time-stamp: <2011-12-29 15:38:01 armin>
 
 import sys
 import os
@@ -27,7 +27,7 @@ COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
 
-class Foo(Memacs):
+class ImapMemacs(Memacs):
     def _parser_add_arguments(self):
         """
         overwritten method of class Memacs
@@ -36,11 +36,17 @@ class Foo(Memacs):
         """
         Memacs._parser_add_arguments(self)
 
-        #self._parser.add_argument(
-        #   "-e", "--example", dest="example",
-        #   action="store_true",
-        #   help="path to a folder to search for filenametimestamps, " +
-        #   "multiple folders can be specified: -f /path1 -f /path2")
+        self._parser.add_argument(
+           "-l", "--list-folders",
+           dest="list_folders",
+           action="store_true",
+           help="show possible folders of connection")
+        
+        self._parser.add_argument(
+           "-f", "--folder_name",
+           dest="folder_name",
+           help="name of folder to get emails from" + \
+            "when you don't know name call --list-folders")
 
     def _parser_parse_args(self):
         """
@@ -49,12 +55,14 @@ class Foo(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
-        # if self._args.example == ...:
-        #     self._parser.error("could not parse foo")
+        
+        if not self._args.list_folders and not self._args.folder_name:
+            self._parser.error("please specify a folder " + \
+                                   "use --list to find a folder")
 
-    def __fetch_mail(self, server, num, tags=[]):
+    def __fetch_mail(self, server, num):
         typ, data = server.fetch(num,
-            '(BODY[HEADER.FIELDS (Date Subject From To Cc)])')
+            '(BODY[HEADER.FIELDS (Date Subject From To Cc Reply-To Message-ID)])')
         if typ == "OK":
             message = data[0][1]
             timestamp, output, note, properties = \
@@ -63,31 +71,43 @@ class Foo(Memacs):
             self._writer.write_org_subitem(timestamp,
                                            output,
                                            note,
-                                           properties,
-                                           tags)
+                                           properties)
         else:
             logging.error("Could not fetch mail number:%d, typ - %s", num, typ)
 
-    def __handle_folder(self, server, folder_name, tags=[]):
+    def __handle_folder(self, server, folder_name):
         logging.debug("folder")
         server.select(folder_name)
         typ, data = server.search(None, 'ALL')
         if typ == "OK":
             messages_ids = data[0].split()
             for num in messages_ids:
-                self.__fetch_mail(server, num, tags)
+                self.__fetch_mail(server, num)
         else:
             logging.error("Could not select folder %s - typ:%s",
                           folder_name, typ)
+            server.logout()
+            sys.exit(1)
+
+    def __list_folders(self, server):
+        """
+        lists all folders and writes them to 
+        logging.info
+        """
+        typ, folder_list = server.list()
+        if typ == "OK":
+            logging.info("Folders:")
+            for f in folder_list:
+                logging.info(f[f.find("\"/\" \"") + 4:])
+        else:
+            logging.error("list folders was not ok: %s", typ)
+            server.logout()            
             sys.exit(1)
 
     def _main(self):
         """
         get's automatically called from Memacs class
         """
-        # do all the stuff
-
-        logging.info("foo started")
 
         data = CommonReader.get_data_from_file("/tmp/pw.txt").splitlines()
         username = data[0]
@@ -99,20 +119,22 @@ class Foo(Memacs):
         except Exception, e:
             if "Invalid credentials" in e[0]:
                 logging.error("Invalid credentials cannot login")
+                server.logout()
                 sys.exit(1)
             else:
                 raise Exception(e)
+                server.logout()
                 sys.exit(1)
-#        typ, folder_list = server.list()
-#        if typ == "OK":
-#            pass
-#        else:
-#            logging.error("typ was NOK: %s", type)
-        self.__handle_folder(server, "_TUG/Memacs", tags=["memacs"])
+        
+        if self._args.list_folders == True:
+            self.__list_folders(server)
+        else:
+            self.__handle_folder(server, self._args.folder_name)
+        server.logout()
 
 
 if __name__ == "__main__":
-    memacs = Foo(
+    memacs = ImapMemacs(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
         prog_description=PROG_DESCRIPTION,
