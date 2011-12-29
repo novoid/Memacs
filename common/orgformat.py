@@ -6,6 +6,17 @@ import calendar
 import logging
 
 
+class TimestampParseException(Exception):
+    """
+    Own excption should be raised when
+    strptime fails
+    """
+    def __init__(self, value):
+        self.value = value
+        
+    def __str__(self):
+        return repr(self.value)    
+
 class OrgFormat(object):
 
     @staticmethod
@@ -149,7 +160,10 @@ class OrgFormat(object):
         """
         assert datetime_string.__class__ == str or \
             datetime_string.__class__ == unicode
-        tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
+        try:
+            tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
+        except ValueError, e:
+            raise TimestampParseException(e)
         return OrgFormat.date(tuple_date, show_time=True)
 
     @staticmethod
@@ -176,10 +190,13 @@ class OrgFormat(object):
         assert datetime_string.__class__ == str or \
             datetime_string.__class__ == unicode
         try:
-            return time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
-        except ValueError:
-            return time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
-
+            if len(datetime_string) == 16:  # YYYY-MM-DDTHH.MM
+                return time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
+            elif len(datetime_string) == 19:  #YYYY-MM-DDTHH.MM.SS
+                return time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
+        except ValueError, e:
+            raise TimestampParseException(e)
+            
     @staticmethod
     def datetupeliso8601(datetime_string):
         """
@@ -188,7 +205,10 @@ class OrgFormat(object):
         """
         assert datetime_string.__class__ == str or \
             datetime_string.__class__ == unicode
-        return time.strptime(datetime_string, "%Y-%m-%d")
+        try:
+            return time.strptime(datetime_string, "%Y-%m-%d")
+        except ValueError, e:
+            raise TimestampParseException(e)
 
     @staticmethod
     def datetupelutctimestamp(datetime_string):
@@ -201,22 +221,25 @@ class OrgFormat(object):
         assert datetime_string.__class__ == str or \
             datetime_string.__class__ == unicode
         string_length = len(datetime_string)
-        if string_length == 16:
-            #YYYYMMDDTHHMMSSZ
-            return time.localtime(
-                calendar.timegm(
-                    time.strptime(datetime_string, "%Y%m%dT%H%M%SZ")))
-        elif string_length == 15:
-            #YYYYMMDDTHHMMSST
-            return time.strptime(datetime_string, "%Y%m%dT%H%M%S")
-        elif string_length == 8:
-            #YYYYMMDD
-            return time.strptime(datetime_string, "%Y%m%d")
-        elif string_length == 27:
-            #2011-11-02T14:48:54.908371Z
-            datetime_string = datetime_string.split(".")[0] + "Z"
-            return time.localtime(
-                calendar.timegm(
-                    time.strptime(datetime_string, "%Y-%m-%dT%H:%M:%SZ")))
-        else:
-            logging.error("string has no correct format: %s" % datetimestring)
+        try:
+            if string_length == 16:
+                #YYYYMMDDTHHMMSSZ
+                return time.localtime(
+                    calendar.timegm(
+                        time.strptime(datetime_string, "%Y%m%dT%H%M%SZ")))
+            elif string_length == 15:
+                #YYYYMMDDTHHMMSST
+                return time.strptime(datetime_string, "%Y%m%dT%H%M%S")
+            elif string_length == 8:
+                #YYYYMMDD
+                return time.strptime(datetime_string, "%Y%m%d")
+            elif string_length == 27:
+                #2011-11-02T14:48:54.908371Z
+                datetime_string = datetime_string.split(".")[0] + "Z"
+                return time.localtime(
+                    calendar.timegm(
+                        time.strptime(datetime_string, "%Y-%m-%dT%H:%M:%SZ")))
+            else:
+                logging.error("string has no correct format: %s" % datetimestring)
+        except ValueError, e:
+            raise TimestampParseException(e)
