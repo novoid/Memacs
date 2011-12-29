@@ -37,9 +37,16 @@ class OrgProperties(object):
                             "it will be generated automatically")
 
         self.__properties[tag] = unicode(value)
+        
+    def delete(self, key):
+        """
+        delete a pair out of properties
+        @param key index
+        """
+        del self.__properties[key]
 
     def __get_property_max_tag_width(self):
-        width = 14  # :MEMACS_CREATED: has width 14
+        width = 10  # :PROPERTIES: has width 10
         for key in self.__properties.keys():
             if width < len(key):
                 width = len(key)
@@ -74,3 +81,26 @@ class OrgProperties(object):
         to_hash += "".join(map(unicode, self.__properties.keys()))
         to_hash += self.__data_for_hashing
         return hashlib.sha1(to_hash.encode('utf-8')).hexdigest()
+
+    def get_value(self, key):
+        """
+        @param: key of property
+        @return: returns the value of a given key
+        """
+        return self.__properties[key]
+    
+    def add_data_for_hashing(self, data_for_hashing):
+        """
+        add additional data for hashing 
+        useful when no possibility to set in Ctor
+        """
+        self.__data_for_hashing += data_for_hashing
+        
+    def get_value_delete_but_add_for_hashing(self, key):
+        """
+        see method name ;)
+        """
+        ret = self.get_value(key)
+        self.delete(key)
+        self.add_data_for_hashing(ret)
+        return ret

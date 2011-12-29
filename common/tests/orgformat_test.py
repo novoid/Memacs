@@ -140,3 +140,15 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual(
             OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219"), False),
             "<2011-12-19 Mon>")
+    
+    def test_contact_mail_mailto_link(self):
+        mail_link1 = OrgFormat.contact_mail_mailto_link(
+                "Bob Bobby <bob.bobby@example.com>")
+        mail_link2 = OrgFormat.contact_mail_mailto_link("<Bob@example.com>")
+        self.assertEqual("[[mailto:bob.bobby@example.com][Bob Bobby]]",
+                         mail_link1)
+        self.assertEqual("[[mailto:Bob@example.com][Bob@example.com]]",
+                         mail_link2)
+        
+    def test_n(self):
+        self.assertEqual("[[news:foo][foo]]",OrgFormat.newsgroup_link("foo"))
