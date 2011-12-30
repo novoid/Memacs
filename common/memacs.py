@@ -72,7 +72,7 @@ class Memacs(object):
         see handle_main() to understand
 
         @param test: used in test_get_all
-        """        
+        """
         self._parser = MemacsArgumentParser(
             prog_version=self.__prog_version,
             prog_version_date=self.__prog_version_date,
@@ -98,15 +98,15 @@ class Memacs(object):
             tag = self._args.tag
         else:
             tag = self.__prog_tag
-        
-        # 
+
+        #
         if self.__use_config_parser_name != "":
             self.__config_parser = ConfigParser()
             self.__config_parser.read(self._args.configfile)
             logging.debug("cfg: %s",
                           self.__config_parser.items(
                                         self.__use_config_parser_name))
-            
+
         # set up orgoutputwriter
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
@@ -125,7 +125,7 @@ class Memacs(object):
             return ret.decode("utf-8")
         else:
             raise Exception("no config parser specified, cannot get option")
-    
+
     def _main(self):
         """
         does nothing in this (super) class

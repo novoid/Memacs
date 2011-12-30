@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-28 20:27:27 armin>
+# Time-stamp: <2011-12-30 12:16:47 armin>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -40,7 +40,7 @@ class MemacsArgumentParser(ArgumentParser):
         ":version: " + prog_version + " from " + prog_version_date + "\n"
 
         self.__use_config_parser_name = use_config_parser_name
-        
+
         ArgumentParser.__init__(self,
                               description=prog_description,
                               add_help=True,
@@ -113,8 +113,7 @@ class MemacsArgumentParser(ArgumentParser):
 
         if args.suppressmessages == True and args.verbose == True:
             self.error("cannot set both verbose and suppress-messages")
-        
-    
+
         # ---------------------
         # Config parser
         # ---------------------
@@ -122,7 +121,7 @@ class MemacsArgumentParser(ArgumentParser):
             if args.configfile:
                 if not os.path.exists(args.configfile):
                     self.error("Config file (%s) does not exist" %
-                        args.configfile) 
+                        args.configfile)
                 if not os.access(args.configfile, os.R_OK):
                     self.error("Config file (%s) is not readable!" %
                         args.configfile)

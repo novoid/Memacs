@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 00:30:57 armin>
+# Time-stamp: <2011-12-30 12:17:24 armin>
 
 import time
 import logging
@@ -9,9 +9,9 @@ from common.orgproperty import OrgProperties
 from common.orgformat import OrgFormat
 
 
-class MailHandler(object):
-    
-    @staticmethod 
+class MailParser(object):
+
+    @staticmethod
     def get_value_or_empty_str(headers, key, remove_newline=False):
         """
         @param return: headers[key] if exist else ""
@@ -22,14 +22,12 @@ class MailHandler(object):
             if remove_newline:
                 ret = ret.replace("\n", "")
         return ret
-        
 
     @staticmethod
-    def handle_message(message,
-                       add_body=False):
+    def parse_message(message, add_body=False):
         """
-        parses whole mail from string 
-        
+        parses whole mail from string
+
         @param message: mail message
         @param add_body: if specified, body is added
         @return values for OrgWriter.write_org_subitem
@@ -90,7 +88,7 @@ class MailHandler(object):
         notes = notes.replace("\r", "").decode('utf-8')
         output_from = MailHandler.get_value_or_empty_str(headers, "From")
         subject = MailHandler.get_value_or_empty_str(headers, "subject", True)
-        
+
         dt = MailHandler.get_value_or_empty_str(headers, "Date", False)
         timestamp = ""
         if dt != "":
@@ -99,8 +97,7 @@ class MailHandler(object):
                 timestamp = OrgFormat.datetime(time_tupel)
             except TypeError:
                 logging.error("could not parse datime from msg %s", subject)
-            
-        
+
         if "Newsgroups" in headers:
             ng_list = []
             for ng in headers["Newsgroups"].split(","):

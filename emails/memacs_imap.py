@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 01:29:34 armin>
+# Time-stamp: <2011-12-30 12:16:19 armin>
 
 import sys
 import os
@@ -9,15 +9,18 @@ import imaplib
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
-from common.mailhandler import MailHandler
+from common.mailhandler import MailParser
 
 
-PROG_VERSION_NUMBER = u"0.0"
-PROG_VERSION_DATE = u"2011-12-18"
-PROG_SHORT_DESCRIPTION = u"Memacs for ... "
+PROG_VERSION_NUMBER = u"0.1"
+PROG_VERSION_DATE = u"2011-12-30"
+PROG_SHORT_DESCRIPTION = u"Memacs for imap emails"
 PROG_TAG = u"emails:imap"
-PROG_DESCRIPTION = u"""
-this class will do ....
+PROG_DESCRIPTION = u"""The memacs module will connect to an IMAP Server,
+fetch all mails of given folder (-f or --folder-name <folder>),
+parses the mails and writes them to an orgfile.
+
+This module uses configfiles (-c, --config-file <path>)
 
 sample-config:
 
@@ -67,7 +70,14 @@ class ImapMemacs(Memacs):
                                    "use --list to find a folder")
 
     def __fetch_mails_and_write(self, server, message_ids, folder_name):
-        
+        """
+        Fetches All headers, let Mailparser parse each mail,
+        write to outputfile
+
+        @param server: imaplib IMAP4_SLL object
+        @param message_ids: list of ids to fetch
+        @param folder_name: folder name of connection
+        """
         num = ",".join(message_ids)
 
         logging.debug(num)
@@ -76,18 +86,18 @@ class ImapMemacs(Memacs):
                                "(BODY[HEADER.FIELDS " + \
                                    "(Date Subject " + \
                                    "From To Cc Reply-To Message-ID)])")
-        
+
         if typ == "OK":
             i = 0
 
-            # we have to go in step 2 because everey second string is a ")"
+            # we have to go in step 2 because every second string is a ")"
             for i in range(0, len(data), 2):
                 message = data[i][1]
                 timestamp, output, note, properties = \
-                    MailHandler.handle_message(message)
-                    
-                # just for debbuging in orgfile 
-                # properties.add("NUM",data[i][0][:5])                
+                    MailParser.parse_message(message)
+
+                # just for debbuging in orgfile
+                # properties.add("NUM",data[i][0][:5])
                 self._writer.write_org_subitem(timestamp,
                                                output,
                                                note,
@@ -95,15 +105,27 @@ class ImapMemacs(Memacs):
 
         else:
             logging.error("Could not fetch mails typ - %s", typ)
+            server.logout(1)
+            sys.exit(1)
 
     def __handle_folder(self, server, folder_name):
+        """
+        Selects the folder, gets all ids, and calls
+        self.__fetch_mails_and_write(...)
+
+        @param server: imaplib IMAP4_SLL object
+        @param folder_name: folder to select
+        """
         logging.debug("folder: %s", folder_name)
-        
+
+        # selecting the folder
         typ, data = server.select(folder_name)
         if typ != "OK":
-            logging.error("could not select folde %s", folder_name)
+            logging.error("could not select folder %s", folder_name)
             server.logout()
+            sys.exit(1)
 
+        # getting all
         typ, data = server.uid('search', None, 'ALL')
         if typ == "OK":
             message_ids = data[0].split()
@@ -119,6 +141,8 @@ class ImapMemacs(Memacs):
         """
         lists all folders and writes them to
         logging.info
+
+        @param server: imaplib IMAP4_SSL object
         """
         typ, folder_list = server.list()
         if typ == "OK":
@@ -133,6 +157,9 @@ class ImapMemacs(Memacs):
     def __login_server(self, server, username, password):
         """
         logs in to server, if failure then exit
+        @param server: imaplib IMAP4_SSL object
+        @param username
+        @param password
         """
         try:
             server.login(username, password)
@@ -154,12 +181,15 @@ class ImapMemacs(Memacs):
         password = self._get_config_option("password")
         host = self._get_config_option("host")
         port = self._get_config_option("port")
-        server = imaplib.IMAP4_SSL(host, int(port))        
+
+        server = imaplib.IMAP4_SSL(host, int(port))
+
         self.__login_server(server, username, password)
         if self._args.list_folders == True:
             self.__list_folders(server)
         else:
             self.__handle_folder(server, self._args.folder_name)
+
         server.logout()
 
 
