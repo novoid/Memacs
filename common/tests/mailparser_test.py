@@ -68,4 +68,33 @@ Bob
         
         self.assertEqual(unicode(properties), p)
         
+
+    def test_parse_ng_with_body(self):
+        message = """Path: news.tugraz.at!not-for-mail
+From: Alice Ally <alice@ally.com>
+Newsgroups: tu-graz.betriebssysteme.linux
+Subject: I love Memacs
+Date: Thu, 17 Nov 2011 22:02:06 +0100
+Message-ID: <2011-11-17T21-58-27@ally.com>
+Reply-To: news@ally.com
+Content-Type: text/plain; charset=utf-8
+
+i just want to say that i love Memacs
+"""
+        timestamp, output, notes, properties = \
+            MailParser.parse_message(message,
+                                     True)
+        
+        self.assertEqual(timestamp, "<2011-11-17 Thu 22:02:06>")
+        self.assertEqual(output,
+                         "[[mailto:alice@ally.com][Alice Ally]]@[[news:tu-" + \
+                         "graz.betriebssysteme.linux][tu-graz.betriebssysteme.linux]]: ")
+        self.assertEqual(notes, "i just want to say that i love Memacs\n")
+        p="""   :PROPERTIES:\n   :REPLY-TO:   news@ally.com
+   :NEWSGROUPS: tu-graz.betriebssysteme.linux
+   :ID:         <2011-11-17T21-58-27@ally.com>
+   :END:"""
+        
+        self.assertEqual(unicode(properties), p)
+        
     
