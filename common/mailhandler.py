@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
+# Time-stamp: <2011-12-30 00:30:57 armin>
+
+import time
+import logging
 from email import message_from_string
 from email.utils import parsedate
 from common.orgproperty import OrgProperties
 from common.orgformat import OrgFormat
-import logging
-import time
 
 
 class MailHandler(object):
@@ -22,11 +25,13 @@ class MailHandler(object):
                        "Subject",
                        "Reply-To",
                        "Newsgroups",
-                       #"Message-ID",  # look down ...
+                       "Cc",
                        ]
-        # These fields are added to :PROPERTIES: drawer
-        headers_to_properties = ["To",
-                                 "Reply-To"]
+        # These fields are added, if found to :PROPERTIES: drawer
+        not_properties = ["Date",
+                          "Subject",
+                          "From"
+                          ]
 
         properties = OrgProperties()
         headers = {}
@@ -36,13 +41,13 @@ class MailHandler(object):
 
         # fill headers and properties
         for key, value in msg.items():
+            value = value.replace("\r","")
             if key in use_headers:
                 headers[key] = value
-                if key in headers_to_properties:
-                    properties.add(key, value)
+                if key not in not_properties:
+                    properties.add(key, value.replace("\n",""))
             if key == "Message-ID":
                 properties.set_id(value)
-                print "messageid:" + value
 
         notes = ""
         # look for payload
@@ -69,12 +74,12 @@ class MailHandler(object):
         if "From" in headers:
             output_from = OrgFormat.contact_mail_mailto_link(headers["From"])
 
-        time_tupel = time.gmtime(time.mktime(parsedate(headers["Date"])))
+        time_tupel = time.localtime(time.mktime(parsedate(headers["Date"])))
         timestamp = OrgFormat.datetime(time_tupel)
 
         subject = ""
         if "Subject" in headers:
-            subject = headers["Subject"]
+            subject = headers["Subject"].replace("\n","")
 
         if "Newsgroups" in headers:
             ng_list = []

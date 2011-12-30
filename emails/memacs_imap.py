@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-29 15:38:01 armin>
+# Time-stamp: <2011-12-30 01:29:34 armin>
 
 import sys
 import os
 import logging
 import imaplib
+from types import NoneType
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
@@ -60,30 +61,49 @@ class ImapMemacs(Memacs):
             self._parser.error("please specify a folder " + \
                                    "use --list to find a folder")
 
-    def __fetch_mail(self, server, num):
-        typ, data = server.fetch(num,
-            "(BODY[HEADER.FIELDS " + \
-            "(Date Subject From To Cc Reply-To Message-ID)])")
-        if typ == "OK":
-            message = data[0][1]
-            timestamp, output, note, properties = \
-                MailHandler.handle_message(message)
+    def __fetch_mails_and_write(self, server, message_ids, folder_name):
+        
+        num = ",".join(message_ids)
 
-            self._writer.write_org_subitem(timestamp,
-                                           output,
-                                           note,
-                                           properties)
+        logging.debug(num)
+        typ, data = server.uid("fetch",
+                               num,
+                               "(BODY[HEADER.FIELDS " + \
+                                   "(Date Subject " + \
+                                   "From To Cc Reply-To Message-ID)])")
+        
+        if typ == "OK":
+            i = 0
+
+            # we have to go in step 2 because everey second string is a ")"
+            for i in range(0,len(data),2):
+                message = data[i][1]
+                timestamp, output, note, properties = \
+                    MailHandler.handle_message(message)
+                    
+                # just for debbuging in orgfile 
+                # properties.add("NUM",data[i][0][:5])                
+                self._writer.write_org_subitem(timestamp,
+                                               output,
+                                               note,
+                                               properties)
+
         else:
-            logging.error("Could not fetch mail number:%d, typ - %s", num, typ)
+            logging.error("Could not fetch mails typ - %s", typ)
 
     def __handle_folder(self, server, folder_name):
-        logging.debug("folder")
-        server.select(folder_name)
-        typ, data = server.search(None, 'ALL')
+        logging.debug("folder: %s", folder_name)
+        
+        typ, data = server.select(folder_name)
+        if typ != "OK":
+            logging.error("could not select folde %s",folder_name)
+            server.logout()
+
+        typ, data = server.uid('search', None, 'ALL')
         if typ == "OK":
-            messages_ids = data[0].split()
-            for num in messages_ids:
-                self.__fetch_mail(server, num)
+            message_ids = data[0].split()
+            logging.debug("message_ids:%s",",".join(message_ids))
+            self.__fetch_mails_and_write(server, message_ids, folder_name)
         else:
             logging.error("Could not select folder %s - typ:%s",
                           folder_name, typ)
@@ -105,16 +125,10 @@ class ImapMemacs(Memacs):
             server.logout()
             sys.exit(1)
 
-    def _main(self):
+    def __login_server(self, server, username, password):
         """
-        get's automatically called from Memacs class
+        logs in to server, if failure then exit
         """
-
-        data = CommonReader.get_data_from_file("/tmp/pw.txt").splitlines()
-        username = data[0]
-        password = data[1]
-
-        server = imaplib.IMAP4_SSL('imap.gmail.com')
         try:
             server.login(username, password)
         except Exception, e:
@@ -127,6 +141,17 @@ class ImapMemacs(Memacs):
                 server.logout()
                 sys.exit(1)
 
+    def _main(self):
+        """
+        get's automatically called from Memacs class
+        """
+
+        data = CommonReader.get_data_from_file("/tmp/pw.txt").splitlines()
+        username = data[0]
+        password = data[1]
+        server = imaplib.IMAP4_SSL('imap.gmail.com')
+        
+        self.__login_server(server, username, password)
         if self._args.list_folders == True:
             self.__list_folders(server)
         else:
