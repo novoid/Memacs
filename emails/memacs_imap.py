@@ -6,11 +6,9 @@ import sys
 import os
 import logging
 import imaplib
-from types import NoneType
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
-from common.reader import CommonReader
 from common.mailhandler import MailHandler
 
 
@@ -21,8 +19,15 @@ PROG_TAG = u"emails:imap"
 PROG_DESCRIPTION = u"""
 this class will do ....
 
-Then an Org-mode file is generated that contains ....
+sample-config:
+
+[memacs-imap]
+host = imap.gmail.com
+port = 993
+user = foo@gmail.com
+password = bar
 """
+CONFIG_PARSER_NAME = "memacs-imap"
 COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
@@ -46,7 +51,7 @@ class ImapMemacs(Memacs):
         self._parser.add_argument(
            "-f", "--folder_name",
            dest="folder_name",
-           help="name of folder to get emails from" + \
+           help="name of folder to get emails from, " + \
             "when you don't know name call --list-folders")
 
     def _parser_parse_args(self):
@@ -76,7 +81,7 @@ class ImapMemacs(Memacs):
             i = 0
 
             # we have to go in step 2 because everey second string is a ")"
-            for i in range(0,len(data),2):
+            for i in range(0, len(data), 2):
                 message = data[i][1]
                 timestamp, output, note, properties = \
                     MailHandler.handle_message(message)
@@ -96,13 +101,13 @@ class ImapMemacs(Memacs):
         
         typ, data = server.select(folder_name)
         if typ != "OK":
-            logging.error("could not select folde %s",folder_name)
+            logging.error("could not select folde %s", folder_name)
             server.logout()
 
         typ, data = server.uid('search', None, 'ALL')
         if typ == "OK":
             message_ids = data[0].split()
-            logging.debug("message_ids:%s",",".join(message_ids))
+            logging.debug("message_ids:%s", ",".join(message_ids))
             self.__fetch_mails_and_write(server, message_ids, folder_name)
         else:
             logging.error("Could not select folder %s - typ:%s",
@@ -145,12 +150,11 @@ class ImapMemacs(Memacs):
         """
         get's automatically called from Memacs class
         """
-
-        data = CommonReader.get_data_from_file("/tmp/pw.txt").splitlines()
-        username = data[0]
-        password = data[1]
-        server = imaplib.IMAP4_SSL('imap.gmail.com')
-        
+        username = self._get_config_option("user")
+        password = self._get_config_option("password")
+        host = self._get_config_option("host")
+        port = self._get_config_option("port")
+        server = imaplib.IMAP4_SSL(host, int(port))        
         self.__login_server(server, username, password)
         if self._args.list_folders == True:
             self.__list_folders(server)
@@ -167,6 +171,7 @@ if __name__ == "__main__":
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
-        copyright_authors=COPYRIGHT_AUTHORS
+        copyright_authors=COPYRIGHT_AUTHORS,
+        use_config_parser_name=CONFIG_PARSER_NAME
         )
     memacs.handle_main()

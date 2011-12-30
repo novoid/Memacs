@@ -21,7 +21,16 @@ PROG_DESCRIPTION = u"""
 this class will do ....
 
 Then an Org-mode file is generated that contains ....
+
+if youre module needs a config file please give information about usage:
+
+sample config:
+[memacs-example]           <-- has to be CONFIG_PARSER_NAME
+foo = 0
+bar = 1
+
 """
+#CONFIG_PARSER_NAME="memacs-example"  # set this at Ctor see bottom
 COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
@@ -57,6 +66,10 @@ class Foo(Memacs):
         get's automatically called from Memacs class
         """
         # do all the stuff
+
+        # if you need something from config:
+        # attention: foo will be unicode
+        # foo = self._get_config_option("foo")
 
         logging.info("foo started")
 
@@ -114,5 +127,6 @@ if __name__ == "__main__":
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
         copyright_authors=COPYRIGHT_AUTHORS
+#        use_config_parser_name=CONFIG_PARSER_NAME
         )
     memacs.handle_main()

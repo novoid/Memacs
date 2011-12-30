@@ -8,6 +8,7 @@ from common.argparser import MemacsArgumentParser
 from common.orgwriter import OrgOutputWriter
 from common.loggingsettings import handle_logging
 import sys
+from ConfigParser import ConfigParser
 
 
 class Memacs(object):
@@ -40,6 +41,7 @@ class Memacs(object):
                  prog_tag="no tag specified",
                  copyright_year="",
                  copyright_authors="",
+                 use_config_parser_name="",
                  argv=sys.argv[1:]):
         """
         Ctor
@@ -59,6 +61,8 @@ class Memacs(object):
         self.__writer_append = False
         self.__copyright_year = copyright_year
         self.__copyright_authors = copyright_authors
+        self.__use_config_parser_name = use_config_parser_name
+        self.__config_parser = None
         self.__argv = argv
 
     def __init(self, test=False):
@@ -68,13 +72,14 @@ class Memacs(object):
         see handle_main() to understand
 
         @param test: used in test_get_all
-        """
+        """        
         self._parser = MemacsArgumentParser(
             prog_version=self.__prog_version,
             prog_version_date=self.__prog_version_date,
             prog_description=self.__prog_description,
             copyright_year=self.__copyright_year,
-            copyright_authors=self.__copyright_authors)
+            copyright_authors=self.__copyright_authors,
+            use_config_parser_name=self.__use_config_parser_name)
         # adding additional arguments from our subcass
         self._parser_add_arguments()
         # parse all arguments
@@ -84,7 +89,7 @@ class Memacs(object):
                        self._args.suppressmessages,
                        self._args.outputfile)
 
-        # for testing purposes it's good to see which args ar secified
+        # for testing purposes it's good to see which args are secified
         logging.debug("args specified:")
         logging.debug(self._args)
 
@@ -93,7 +98,16 @@ class Memacs(object):
             tag = self._args.tag
         else:
             tag = self.__prog_tag
-
+        
+        # 
+        if self.__use_config_parser_name != "":
+            self.__config_parser = ConfigParser()
+            self.__config_parser.read(self._args.configfile)
+            logging.debug("cfg: %s",
+                          self.__config_parser.items(
+                                        self.__use_config_parser_name))
+            
+        # set up orgoutputwriter
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
             short_description=self.__prog_short_description,
@@ -101,6 +115,17 @@ class Memacs(object):
             test=test,
             append=self._args.append)
 
+    def _get_config_option(self, option):
+        """
+        @return: value of the option of configfile
+        """
+        if self.__config_parser:
+            ret = self.__config_parser.get(self.__use_config_parser_name,
+                                           option)
+            return ret.decode("utf-8")
+        else:
+            raise Exception("no config parser specified, cannot get option")
+    
     def _main(self):
         """
         does nothing in this (super) class

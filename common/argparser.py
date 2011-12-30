@@ -19,7 +19,9 @@ class MemacsArgumentParser(ArgumentParser):
                  prog_version_date,
                  prog_description,
                  copyright_year,
-                 copyright_authors):
+                 copyright_authors,
+                 use_config_parser_name=""
+                 ):
 
         self.__version = "%(prog)s v" + prog_version + " from " + \
             prog_version_date
@@ -37,13 +39,14 @@ class MemacsArgumentParser(ArgumentParser):
         ":bugreports: https://github.com/novoid/Memacs\n" + \
         ":version: " + prog_version + " from " + prog_version_date + "\n"
 
+        self.__use_config_parser_name = use_config_parser_name
+        
         ArgumentParser.__init__(self,
                               description=prog_description,
                               add_help=True,
                               epilog=epilog,
                               formatter_class=RawDescriptionHelpFormatter
                               )
-
         self.__add_arguments()
 
     def __add_arguments(self):
@@ -82,6 +85,14 @@ class MemacsArgumentParser(ArgumentParser):
         self.add_argument("-t", "--tag",
                           dest="tag",
                           help="overriding tag: :Memacs:<tag>: (on top entry)")
+        # ---------------------
+        # Config parser
+        # ---------------------
+        if self.__use_config_parser_name != "":
+            self.add_argument("-c", "--config",
+                              dest="configfile",
+                              help="path to config file",
+                              metavar="FILE")
 
     def parse_args(self, args=None, namespace=None):
         """
@@ -102,4 +113,19 @@ class MemacsArgumentParser(ArgumentParser):
 
         if args.suppressmessages == True and args.verbose == True:
             self.error("cannot set both verbose and suppress-messages")
+        
+    
+        # ---------------------
+        # Config parser
+        # ---------------------
+        if self.__use_config_parser_name != "":
+            if args.configfile:
+                if not os.path.exists(args.configfile):
+                    self.error("Config file (%s) does not exist" %
+                        args.configfile) 
+                if not os.access(args.configfile, os.R_OK):
+                    self.error("Config file (%s) is not readable!" %
+                        args.configfile)
+            else:
+                self.error("please specify a config file")
         return args

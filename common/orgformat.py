@@ -276,9 +276,9 @@ class OrgFormat(object):
         name = contact_mail_string[:delimiter].strip()
         mail = contact_mail_string[delimiter + 1:][:-1].strip()
         if name != "":
-            return "[[mailto:" + mail + "][" + name + "]]"
+            return u"[[mailto:" + mail + u"][" + name + u"]]"
         else:
-            return "[[mailto:" + mail + "][" + mail + "]]"
+            return u"[[mailto:" + mail + u"][" + mail + u"]]"
 
     @staticmethod
     def newsgroup_link(newsgroup_string):
