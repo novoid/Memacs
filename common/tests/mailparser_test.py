@@ -29,7 +29,8 @@ Bob
             MailParser.parse_message(message)
 
         self.assertEqual(timestamp, "<2011-12-28 Wed 14:02>")
-        self.assertEqual(output, "[[mailto:alice@ally.com][Alice Ally]]: ")
+        self.assertEqual(output, "[[mailto:alice@ally.com]" + \
+                         "[Alice Ally]]: Bob sends a mesage")
         self.assertEqual(notes, "")
         p = """   :PROPERTIES:
    :TO:         Bob Bobby <Bob@bobby.com>
@@ -57,7 +58,8 @@ Bob"""
                                      True)
 
         self.assertEqual(timestamp, "<2011-12-28 Wed 14:02>")
-        self.assertEqual(output, "[[mailto:alice@ally.com][Alice Ally]]: ")
+        self.assertEqual(output, "[[mailto:alice@ally.com]" + \
+                         "[Alice Ally]]: Bob sends a mesage")
         self.assertEqual(notes, "Hi!\n\nHope you can read my message\n" + \
                             "\nkind reagards,\nBob")
         p = """   :PROPERTIES:
@@ -86,8 +88,8 @@ i just want to say that i love Memacs
         self.assertEqual(timestamp, "<2011-11-17 Thu 22:02:06>")
         self.assertEqual(output,
                          "[[mailto:alice@ally.com][Alice Ally]]@[[news:tu-" + \
-                         "graz.betriebssysteme.linux]" +\
-                         "[tu-graz.betriebssysteme.linux]]: ")
+                         "graz.betriebssysteme.linux]" + \
+                         "[tu-graz.betriebssysteme.linux]]: I love Memacs")
         self.assertEqual(notes, "i just want to say that i love Memacs\n")
         p = """   :PROPERTIES:\n   :REPLY-TO:   news@ally.com
    :NEWSGROUPS: tu-graz.betriebssysteme.linux

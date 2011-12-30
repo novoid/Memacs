@@ -9,7 +9,7 @@ import imaplib
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.memacs import Memacs
-from common.mailhandler import MailParser
+from common.mailparser import MailParser
 
 
 PROG_VERSION_NUMBER = u"0.1"

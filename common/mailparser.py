@@ -89,7 +89,7 @@ class MailParser(object):
         output_from = MailParser.get_value_or_empty_str(headers, "From")
         if output_from != "":
             output_from = OrgFormat.contact_mail_mailto_link(output_from)
-        subject = MailParser.get_value_or_empty_str(headers, "subject", True)
+        subject = MailParser.get_value_or_empty_str(headers, "Subject", True)
 
         dt = MailParser.get_value_or_empty_str(headers, "Date", False)
         timestamp = ""
