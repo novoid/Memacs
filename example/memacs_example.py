@@ -50,13 +50,12 @@ class Foo(Memacs):
         #   action="store_true",
         #   help="path to a folder to search for filenametimestamps, " +
         #   "multiple folders can be specified: -f /path1 -f /path2")
-        
+
         #self._parser.add_argument(
         #   "-i", "--int", dest="example_int",
         #   action="store_true",
         #   help="example2",
         #   type=int)
-
 
     def _parser_parse_args(self):
         """

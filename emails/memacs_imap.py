@@ -56,7 +56,7 @@ class ImapMemacs(Memacs):
            dest="folder_name",
            help="name of folder to get emails from, " + \
             "when you don't know name call --list-folders")
-        
+
         self._parser.add_argument(
            "--fetch-number",
            dest="fetch_number",
@@ -136,12 +136,12 @@ class ImapMemacs(Memacs):
         if typ == "OK":
             message_ids = data[0].split()
             logging.debug("message_ids:%s", ",".join(message_ids))
-            
+
+            # if fetch_number is set we have to adapt messages_ids
             if self._args.fetch_number:
                 if len(message_ids) > self._args.fetch_number:
                     message_ids = message_ids[-self._args.fetch_number:]
-            
-            
+
             self.__fetch_mails_and_write(server, message_ids, folder_name)
         else:
             logging.error("Could not select folder %s - typ:%s",
