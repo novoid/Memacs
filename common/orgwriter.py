@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-26 15:13:31 awieser>
+# Time-stamp: <2011-12-30 12:01:41 armin>
 
 import codecs
 import sys
@@ -220,12 +220,11 @@ class OrgOutputWriter(object):
 
         data = CommonReader.get_data_from_file(self.__file_name)
 
-        for found_id in re.findall(":ID:(.*)", data):
+        for found_id in re.findall(":ID:(.*)\n.*:END:", data):
             found_id = found_id.strip()
             if found_id != "":
                 self.__existing_ids.append(found_id)
                 logging.debug("found id :ID: %s", found_id)
-
         logging.debug("there are already %d entries", len(self.__existing_ids))
 
     def __id_exists(self, searchid):

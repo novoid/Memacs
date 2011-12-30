@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-28 20:25:37 armin>
+# Time-stamp: <2011-12-30 03:38:09 armin>
 
 import sys
 import os
@@ -97,6 +97,11 @@ class Foo(Memacs):
         # if a hash is not unique only with its :PROPERTIES: , then
         # set data_for_hasing string additional information i.e. the output
         # , which then makes the hash really unique
+        #
+        # if you *really*, *really* have already a unique id,
+        # then you can call following method:
+        # p.set_id("unique id here")
+
         p.add("DESCRIPTION", "foooo")
         p.add("foo-property", "asdf")
 
