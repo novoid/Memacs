@@ -86,10 +86,12 @@ class MailParser(object):
                 notes = payload
 
         notes = notes.replace("\r", "").decode('utf-8')
-        output_from = MailHandler.get_value_or_empty_str(headers, "From")
-        subject = MailHandler.get_value_or_empty_str(headers, "subject", True)
+        output_from = MailParser.get_value_or_empty_str(headers, "From")
+        if output_from != "":
+            output_from = OrgFormat.contact_mail_mailto_link(output_from)
+        subject = MailParser.get_value_or_empty_str(headers, "subject", True)
 
-        dt = MailHandler.get_value_or_empty_str(headers, "Date", False)
+        dt = MailParser.get_value_or_empty_str(headers, "Date", False)
         timestamp = ""
         if dt != "":
             try:
