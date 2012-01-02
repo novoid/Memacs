@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-19 15:13:31 aw>
+# Time-stamp: <2012-01-02 21:23:13 armin>
 
 import codecs
 import logging
@@ -66,6 +66,9 @@ class CommonReader:
             sys.exit(1)
         except ValueError, e:
             logging.error("ValueError: %s", e)
+            sys.exit(1)
+        except Exception, e:
+            logging.error("Exception: %s", e)
             sys.exit(1)
 
     @staticmethod
