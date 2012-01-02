@@ -1,0 +1,62 @@
+* Test Machine
+Test machine Lenovo X301:
+- Samsung SSD
+- 4GB Ram 
+- CPU Intel(R) Core(TM)2 Duo CPU     U9400  @ 1.40GHz
+- Ubuntu 11.10 oneiric
+- Org-mode version 7.8.02
+- GNU Emacs 23.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2011-08-14 on allspice, mo\
+dified by Debian
+- some programs are running parallel - excuse for this but it will make no huge difference
+
+* Testfiles:
+All Testfiles have in header: 
+: * description  :tags:
+
+and 19044 entries with following format:
+
+1. 
+: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
+:   :PROPERTIES:
+:   :TO:         Armin Wieser <armin.wieser@example.com>
+:   :ID:         <2011-12-31T10-49-17@example.com>
+:   :END:
+
+2.
+: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
+
+3. 
+: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
+:   :MEMACSDRAWER:
+:   :TO:         Armin Wieser <armin.wieser@example.com>
+:   :ID:         <2011-12-31T10-49-17@example.com>
+:   :END:
+
+* Testcases:
+a. open file in emacs with org-mode18:01:10
+b. ellapse all ~19050 entries
+c. collapse all ~19050 entries 
+d. second ellapse (after ellapse + collapse)
+
+Time is in seconds:
+
+|----------+----------+-------+-------+-------+-----------+---------------------------------------|
+| Testcase | Testfile | time1 | time2 | time3 |      mean | comment                               |
+|----------+----------+-------+-------+-------+-----------+---------------------------------------|
+| a        |        1 |   190 |   166 |   205 |       187 | problem!                              |
+| a        |        2 |     1 |     1 |     1 |         1 |                                       |
+| a        |        3 |     1 |     1 |     1 |         1 |                                       |
+| b        |        1 |   400 |   430 |   450 | 426.66667 | problem!                              |
+| b        |        2 |     1 |     1 |     1 |         1 |                                       |
+| b        |        3 |    70 |    90 |    80 |        80 | better than TC 1.) but still not fast |
+| c        |        1 |     1 |     1 |     1 |         1 |                                       |
+| c        |        2 |     1 |     1 |     1 |         1 |                                       |
+| c        |        3 |     1 |     1 |     1 |         1 |                                       |
+| d        |        1 |    70 |    90 |    85 | 81.666667 | problem!                              |
+| d        |        2 |     1 |     1 |     1 |         1 |                                       |
+| d        |        3 |    70 |    80 |    80 | 76.666667 | nearly same as TC 1.)                 |
+#+TBLFM: $6=($3+$4+$5)/3
+
+* Conclusion
+- Best performance without any drawers
+- better performance when using other drawer than :PROPERTIES:
