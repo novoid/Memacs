@@ -5,9 +5,8 @@ Test machine Lenovo X301:
 - CPU Intel(R) Core(TM)2 Duo CPU     U9400  @ 1.40GHz
 - Ubuntu 11.10 oneiric
 - Org-mode version 7.8.02
-- GNU Emacs 23.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2011-08-14 on allspice, mo\
-dified by Debian
-- some programs are running parallel - excuse for this but it will make no huge difference
+- GNU Emacs 23.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2011-08-14 on allspice, modified by Debian
+- *some programs are running in parallel* - excuse for this but it will make *no huge* difference
 
 * Testfiles:
 All Testfiles have in header: 
