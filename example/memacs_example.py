@@ -25,12 +25,14 @@ Then an Org-mode file is generated that contains ....
 if youre module needs a config file please give information about usage:
 
 sample config:
-[memacs-example]           <-- has to be CONFIG_PARSER_NAME
+[memacs-example]           <-- "memacs-example" has to be CONFIG_PARSER_NAME
 foo = 0
 bar = 1
 
 """
-#CONFIG_PARSER_NAME="memacs-example"  # set this at Ctor see bottom
+# set CONFIG_PARSER_NAME only, when you want to have a config file 
+# otherwise you can comment it out
+# CONFIG_PARSER_NAME="memacs-example" 
 COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
@@ -78,6 +80,17 @@ class Foo(Memacs):
         # foo = self._get_config_option("foo")
 
         logging.info("foo started")
+        
+        # how to handle config files ? 
+        # sample config file:
+        # ---------8<-----------
+        # [memacs-example]
+        # foo = 0
+        # bar = 1
+        # --------->8-----------
+        # to read it out, just do following:
+        # foo = self._get_config_option("foo")
+        # bar = self._get_config_option("bar")
 
         # use logging.debug() for debug messages
         # use logging.error() for error messages
