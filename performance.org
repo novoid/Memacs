@@ -15,17 +15,17 @@ All Testfiles have in header:
 
 and 19044 entries with following format:
 
-1. 
+Testfile 1 
 : ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
 :   :PROPERTIES:
 :   :TO:         Armin Wieser <armin.wieser@example.com>
 :   :ID:         <2011-12-31T10-49-17@example.com>
 :   :END:
 
-2.
+Testfile 2
 : ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
 
-3. 
+Testfile 3 
 : ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
 :   :MEMACSDRAWER:
 :   :TO:         Armin Wieser <armin.wieser@example.com>
@@ -33,9 +33,13 @@ and 19044 entries with following format:
 :   :END:
 
 * Testcases:
-a. open file in emacs with org-mode18:01:10
+
+a. open file in emacs with org-mode
+
 b. ellapse all ~19050 entries
+
 c. collapse all ~19050 entries 
+
 d. second ellapse (after ellapse + collapse)
 
 Time is in seconds:
