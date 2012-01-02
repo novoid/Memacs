@@ -174,14 +174,18 @@ class ImapMemacs(Memacs):
         @param password
         """
         try:
-            server.login(username, password)
+            typ, dat = server.login(username, password)
+            if typ != "OK":
+                logging.warning("Could not log in")
+                server.logout()
+                sys.exit(1)
         except Exception, e:
             if "Invalid credentials" in e[0]:
                 logging.error("Invalid credentials cannot login")
                 server.logout()
                 sys.exit(1)
             else:
-                raise Exception(e)
+                logging.warning("Could not log in")
                 server.logout()
                 sys.exit(1)
 
