@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 12:17:24 armin>
+# Time-stamp: <2012-01-02 17:56:33 armin>
 
 import time
 import logging
@@ -98,7 +98,7 @@ class MailParser(object):
                 time_tupel = time.localtime(time.mktime(parsedate(dt)))
                 timestamp = OrgFormat.datetime(time_tupel)
             except TypeError:
-                logging.error("could not parse datime from msg %s", subject)
+                logging.error("could not parse dateime from msg %s", dt)
 
         if "Newsgroups" in headers:
             ng_list = []
