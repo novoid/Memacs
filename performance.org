@@ -7,7 +7,7 @@ Test machine Lenovo X301:
 - Org-mode version 7.8.02
 - GNU Emacs 23.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2011-08-14 on allspice, modified by Debian
 - *some programs are running in parallel* - excuse for this but it will make *no huge* difference
-
+g
 * Testfiles:
 All Testfiles have in header: 
 : * description  :tags:
@@ -43,23 +43,25 @@ d. second ellapse (after ellapse + collapse)
 
 Time is in seconds:
 
+
 |----------+----------+-------+-------+-------+-----------+---------------------------------------|
 | Testcase | Testfile | time1 | time2 | time3 |      mean | comment                               |
 |----------+----------+-------+-------+-------+-----------+---------------------------------------|
-| a        |        1 |   190 |   166 |   205 |       187 | problem!                              |
-| a        |        2 |     1 |     1 |     1 |         1 |                                       |
-| a        |        3 |     1 |     1 |     1 |         1 |                                       |
-| b        |        1 |   400 |   430 |   450 | 426.66667 | problem!                              |
-| b        |        2 |     1 |     1 |     1 |         1 |                                       |
+| a        |        1 |   190 |   166 |   205 |       187 | slow!                                 |
+| a        |        2 |     1 |     1 |     1 |         1 | ok                                    |
+| a        |        3 |     1 |     1 |     1 |         1 | very fast altough, drawer too         |
+| b        |        1 |   400 |   430 |   450 | 426.66667 | slow!                                 |
+| b        |        2 |     1 |     1 |     1 |         1 | ok                                    |
 | b        |        3 |    70 |    90 |    80 |        80 | better than TC 1.) but still not fast |
-| c        |        1 |     1 |     1 |     1 |         1 |                                       |
-| c        |        2 |     1 |     1 |     1 |         1 |                                       |
-| c        |        3 |     1 |     1 |     1 |         1 |                                       |
-| d        |        1 |    70 |    90 |    85 | 81.666667 | problem!                              |
-| d        |        2 |     1 |     1 |     1 |         1 |                                       |
+| c        |        1 |     1 |     1 |     1 |         1 | ok                                    |
+| c        |        2 |     1 |     1 |     1 |         1 | ok                                    |
+| c        |        3 |     1 |     1 |     1 |         1 | ok                                    |
+| d        |        1 |    70 |    90 |    85 | 81.666667 | slow!                                 |
+| d        |        2 |     1 |     1 |     1 |         1 | ok                                    |
 | d        |        3 |    70 |    80 |    80 | 76.666667 | nearly same as TC 1.)                 |
 #+TBLFM: $6=($3+$4+$5)/3
 
 * Conclusion
 - Best performance without any drawers
 - better performance when using other drawer than :PROPERTIES:
+
