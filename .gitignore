@@ -8,4 +8,7 @@ phone-calls/calllogbackuprestore/calls.xml
 .settings
 *.pyc
 *~
-Makefile
+Makefilevktmp
+rss/vktmp
+rss/error.org_archive
+filenametimestamps/vktmp/
