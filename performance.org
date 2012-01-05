@@ -309,12 +309,12 @@ Time is measured three times (by hand) in seconds.
 #+TBLNAME: machine1properties
 | *file*     | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |------------+----------+----------+----------+----------+--------|
-| properties | open     |          |          |          |    0.0 |
-| properties | expand1  |          |          |          |    0.0 |
-| properties | collapse |          |          |          |    0.0 |
-| properties | expand2  |          |          |          |    0.0 |
+| properties | open     |       35 |       35 |       36 |   35.3 |
+| properties | expand1  |      130 |      140 |      120 |  130.0 |
+| properties | collapse |        1 |        1 |        1 |    1.0 |
+| properties | expand2  |        9 |        8 |        8 |    8.3 |
 |------------+----------+----------+----------+----------+--------|
-| sum        |          |          |          |          |    0.0 |
+| sum        |          |          |          |          |  174.6 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1nodrawer
