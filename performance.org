@@ -320,45 +320,45 @@ Time is measured three times (by hand) in seconds.
 #+TBLNAME: machine1nodrawer
 | *file*   | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |----------+----------+----------+----------+----------+--------|
-| nodrawer | open     |          |          |          |    0.0 |
-| nodrawer | expand1  |          |          |          |    0.0 |
-| nodrawer | collapse |          |          |          |    0.0 |
-| nodrawer | expand2  |          |          |          |    0.0 |
+| nodrawer | open     |        1 |        1 |        1 |    1.0 |
+| nodrawer | expand1  |        1 |        1 |        1 |    1.0 |
+| nodrawer | collapse |        1 |        1 |        1 |    1.0 |
+| nodrawer | expand2  |        1 |        1 |        1 |    1.0 |
 |----------+----------+----------+----------+----------+--------|
-| sum      |          |          |          |          |     0. |
+| sum      |          |          |          |          |    4.0 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1owndrawer
 | *file*    | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |-----------+----------+----------+----------+----------+--------|
-| owndrawer | open     |          |          |          |    0.0 |
-| owndrawer | expand1  |          |          |          |    0.0 |
-| owndrawer | collapse |          |          |          |    0.0 |
-| owndrawer | expand2  |          |          |          |    0.0 |
+| owndrawer | open     |        1 |        1 |        1 |    1.0 |
+| owndrawer | expand1  |        7 |        8 |        8 |    7.7 |
+| owndrawer | collapse |        1 |        1 |        1 |    1.0 |
+| owndrawer | expand2  |        1 |        7 |        7 |    5.0 |
 |-----------+----------+----------+----------+----------+--------|
-| sum       |          |          |          |          |     0. |
+| sum       |          |          |          |          |   14.7 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1noemail
 | *file*             | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |--------------------+----------+----------+----------+----------+--------|
-| properties_noemail | open     |          |          |          |    0.0 |
-| properties_noemail | expand1  |          |          |          |    0.0 |
-| properties_noemail | collapse |          |          |          |    0.0 |
-| properties_noemail | expand2  |          |          |          |    0.0 |
+| properties_noemail | open     |       35 |       36 |       35 |   35.3 |
+| properties_noemail | expand1  |      160 |      160 |      155 |  158.3 |
+| properties_noemail | collapse |        1 |        1 |        1 |    1.0 |
+| properties_noemail | expand2  |        8 |        8 |        7 |    7.7 |
 |--------------------+----------+----------+----------+----------+--------|
-| sum                |          |          |          |          |     0. |
+| sum                |          |          |          |          |  202.3 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1notags
 | *file*            | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |-------------------+----------+----------+----------+----------+--------|
-| properties_notags | open     |          |          |          |    0.0 |
-| properties_notags | expand1  |          |          |          |    0.0 |
-| properties_notags | collapse |          |          |          |    0.0 |
-| properties_notags | expand2  |          |          |          |    0.0 |
+| properties_notags | open     |       36 |       33 |       34 |   34.3 |
+| properties_notags | expand1  |      162 |      167 |      168 |  165.7 |
+| properties_notags | collapse |        1 |        1 |        1 |    1.0 |
+| properties_notags | expand2  |        7 |        8 |        7 |    7.3 |
 |-------------------+----------+----------+----------+----------+--------|
-| sum               |          |          |          |          |     0. |
+| sum               |          |          |          |          |  208.3 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1notimestamp
