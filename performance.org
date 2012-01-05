@@ -364,45 +364,45 @@ Time is measured three times (by hand) in seconds.
 #+TBLNAME: machine1notimestamp
 | *file*                 | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |------------------------+----------+----------+----------+----------+--------|
-| properties_notimestamp | open     |          |          |          |    0.0 |
-| properties_notimestamp | expand1  |          |          |          |    0.0 |
-| properties_notimestamp | collapse |          |          |          |    0.0 |
-| properties_notimestamp | expand2  |          |          |          |    0.0 |
+| properties_notimestamp | open     |       34 |       34 |       35 |   34.3 |
+| properties_notimestamp | expand1  |      167 |      168 |      167 |  167.3 |
+| properties_notimestamp | collapse |        1 |        1 |        1 |    1.0 |
+| properties_notimestamp | expand2  |        7 |        7 |        7 |    7.0 |
 |------------------------+----------+----------+----------+----------+--------|
-| sum                    |          |          |          |          |     0. |
+| sum                    |          |          |          |          |  209.6 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1nofilelink
 | *file*                | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |-----------------------+----------+----------+----------+----------+--------|
-| properties_nofilelink | open     |          |          |          |    0.0 |
-| properties_nofilelink | expand1  |          |          |          |    0.0 |
-| properties_nofilelink | collapse |          |          |          |    0.0 |
-| properties_nofilelink | expand2  |          |          |          |    0.0 |
+| properties_nofilelink | open     |       32 |       33 |       33 |   32.7 |
+| properties_nofilelink | expand1  |      167 |      170 |      167 |  168.0 |
+| properties_nofilelink | collapse |        1 |        1 |        1 |    1.0 |
+| properties_nofilelink | expand2  |        7 |        8 |        8 |    7.7 |
 |-----------------------+----------+----------+----------+----------+--------|
-| sum                   |          |          |          |          |     0. |
+| sum                   |          |          |          |          |  209.4 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1nohreflink
 | *file*                | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |-----------------------+----------+----------+----------+----------+--------|
-| properties_nohreflink | open     |          |          |          |    0.0 |
-| properties_nohreflink | expand1  |          |          |          |    0.0 |
-| properties_nohreflink | collapse |          |          |          |    0.0 |
-| properties_nohreflink | expand2  |          |          |          |    0.0 |
+| properties_nohreflink | open     |       36 |       34 |       33 |   34.3 |
+| properties_nohreflink | expand1  |      168 |      169 |      168 |  168.3 |
+| properties_nohreflink | collapse |        1 |        1 |        1 |    1.0 |
+| properties_nohreflink | expand2  |        7 |        7 |        8 |    7.3 |
 |-----------------------+----------+----------+----------+----------+--------|
-| sum                   |          |          |          |          |     0. |
+| sum                   |          |          |          |          |  210.9 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 #+TBLNAME: machine1simpleID
 | *file*              | *case*   | *time 1* | *time 2* | *time 3* | *mean* |
 |---------------------+----------+----------+----------+----------+--------|
-| properties_simpleID | open     |          |          |          |    0.0 |
-| properties_simpleID | expand1  |          |          |          |    0.0 |
-| properties_simpleID | collapse |          |          |          |    0.0 |
-| properties_simpleID | expand2  |          |          |          |    0.0 |
+| properties_simpleID | open     |       35 |       36 |       34 |   35.0 |
+| properties_simpleID | expand1  |      172 |      178 |      170 |  173.3 |
+| properties_simpleID | collapse |        1 |        1 |        1 |    1.0 |
+| properties_simpleID | expand2  |        7 |        7 |        7 |    7.0 |
 |---------------------+----------+----------+----------+----------+--------|
-| sum                 |          |          |          |          |     0. |
+| sum                 |          |          |          |          |  216.3 |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f :: @>$>=vsum(@I$6..@II$6);%.1f
 
 *** Test Machine 2: FIXXME
