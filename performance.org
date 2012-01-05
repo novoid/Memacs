@@ -24,10 +24,10 @@ Testfile 3: «properties_drawer»
 
 * Testcases:
 
-a. open file in Emacs with org-mode
-b. expand all ~19050 entries
-c. collapse all ~19050 entries 
-d. second expand (after expand + collapse)
+- a. open file in Emacs with org-mode
+- b. expand all ~19050 entries
+- c. collapse all ~19050 entries 
+- d. second expand (after expand + collapse)
 
 Time is measured in seconds:
 
@@ -37,15 +37,12 @@ Time is measured in seconds:
 | a        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
 | a        | selfdefined_drawer |     1 |     1 |     1 |   1.0 | very fast although, drawer too        |
 | a        | properties_drawer  |   190 |   166 |   205 | 187.0 | slow!                                 |
-|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
 | b        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
 | b        | selfdefined_drawer |    70 |    90 |    80 |  80.0 | better than TC 1.) but still not fast |
 | b        | properties_drawer  |   400 |   430 |   450 | 426.7 | slow!                                 |
-|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
 | c        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
 | c        | selfdefined_drawer |     1 |     1 |     1 |   1.0 | ok                                    |
 | c        | properties_drawer  |     1 |     1 |     1 |   1.0 | ok                                    |
-|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
 | d        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
 | d        | selfdefined_drawer |    70 |    80 |    80 |  76.7 | nearly same as TC 1.)                 |
 | d        | properties_drawer  |    70 |    90 |    85 |  81.7 | slow!                                 |
