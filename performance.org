@@ -24,10 +24,10 @@ Testfile 3: «properties_drawer»
 
 * Testcases:
 
-- open open file in Emacs with org-mode
-- expand1 expand all ~19050 entries
-- collapse collapse all ~19050 entries 
-- expand2 second expand (after expand + collapse)
+- *open* open file in Emacs with org-mode
+- *expand1* expand all ~19050 entries
+- *collapse* collapse all ~19050 entries 
+- *expand2* second expand (after expand + collapse)
 
 Time is measured three times (by hand) in seconds:
 
