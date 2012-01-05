@@ -1,10 +1,24 @@
 # -*- coding: utf-8 mode: org -*-
-# Time-stamp: <2011-12-19 15:13:31 aw>
+# Time-stamp: <2012-01-05 20:37:32 armin>
+
+* Data Source
+[[http://en.wikipedia.org/wiki/ICalendar][ICalendar]] is a widely used format for defining calendars. 
+A lot of Calendar-Services like i.e. Google give you a *private* url of your calendar, which you can easily use with this module.
 
 * Requirements
 - icalendar Python package
   install it with 
   : $ easy install icalendar
+
+* Example Invocation:
+
+** Calendar at a url
+
+: /path/to/Memacs/calendars/memacs_calendar.py -c "http://example.com/foo.ics" -o "/home/user/orgmode/memacs/calendar.org_archive"
+
+** Calendar file 
+
+: /path/to/Memacs/calendars/memacs_calendar.py -cf "/home/user/calendars/private.ics" -o "/home/user/orgmode/memacs/calendar.org_archive"
 
 * What will not work
 - Repeating events
