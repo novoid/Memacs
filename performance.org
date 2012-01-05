@@ -29,23 +29,23 @@ Testfile 3: «properties_drawer»
 - collapse collapse all ~19050 entries 
 - expand2 second expand (after expand + collapse)
 
-Time is measured (by hand) in seconds:
+Time is measured three times (by hand) in seconds:
 
-|--------------------+----------+-------+-------+-------+-------+---------------------------------------|
-| Testfile           | Testcase | time1 | time2 | time3 |  mean | comment                               |
-|--------------------+----------+-------+-------+-------+-------+---------------------------------------|
-| no_drawer          | open     |     1 |     1 |     1 |   1.0 | ok                                    |
-| no_drawer          | expand1  |     1 |     1 |     1 |   1.0 | ok                                    |
-| no_drawer          | collapse |     1 |     1 |     1 |   1.0 | ok                                    |
-| no_drawer          | expand2  |     1 |     1 |     1 |   1.0 | ok                                    |
-| selfdefined_drawer | open     |     1 |     1 |     1 |   1.0 | very fast although, drawer too        |
-| selfdefined_drawer | expand1  |    70 |    90 |    80 |  80.0 | better than TC 1.) but still not fast |
-| selfdefined_drawer | collapse |     1 |     1 |     1 |   1.0 | ok                                    |
-| selfdefined_drawer | expand2  |    70 |    80 |    80 |  76.7 | nearly same as TC 1.)                 |
-| properties_drawer  | open     |   190 |   166 |   205 | 187.0 | slow!                                 |
-| properties_drawer  | expand1  |   400 |   430 |   450 | 426.7 | slow!                                 |
-| properties_drawer  | collapse |     1 |     1 |     1 |   1.0 | ok                                    |
-| properties_drawer  | expand2  |    70 |    90 |    85 |  81.7 | slow!                                 |
+|--------------------+----------+-------+-------+-------+-------+----------------------------------------------------|
+| Testfile           | Testcase | time1 | time2 | time3 |  mean | comment                                            |
+|--------------------+----------+-------+-------+-------+-------+----------------------------------------------------|
+| no_drawer          | open     |     1 |     1 |     1 |   1.0 | *ok*                                               |
+| no_drawer          | expand1  |     1 |     1 |     1 |   1.0 | *ok*                                               |
+| no_drawer          | collapse |     1 |     1 |     1 |   1.0 | *ok*                                               |
+| no_drawer          | expand2  |     1 |     1 |     1 |   1.0 | *ok*                                               |
+| selfdefined_drawer | open     |     1 |     1 |     1 |   1.0 | very fast although a drawer exists                 |
+| selfdefined_drawer | expand1  |    70 |    90 |    80 |  80.0 | better than «propreties_drawer» but still not fast |
+| selfdefined_drawer | collapse |     1 |     1 |     1 |   1.0 | ok                                                 |
+| selfdefined_drawer | expand2  |    70 |    80 |    80 |  76.7 | nearly same as «propreties_drawer»                 |
+| properties_drawer  | open     |   190 |   166 |   205 | 187.0 | *slow*                                             |
+| properties_drawer  | expand1  |   400 |   430 |   450 | 426.7 | *slow*                                             |
+| properties_drawer  | collapse |     1 |     1 |     1 |   1.0 | ok                                                 |
+| properties_drawer  | expand2  |    70 |    90 |    85 |  81.7 | *slow*                                             |
 #+TBLFM: $6=($3+$4+$5)/3;%.1f
 
 * Conclusion
