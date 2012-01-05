@@ -1,4 +1,4 @@
-## Time-stamp: <2012-01-05 13:33:42 vk>
+## Time-stamp: <2012-01-05 13:36:04 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -17,12 +17,12 @@ Example:
 :    emails              -> memacs-maildir.org \ 
 :    SMS                 -> memacs-sms.org      |
 :    RSS-feeds           -> memacs_rss.py       |
-:    bank statements     -> memacs-easybank.py   >  Memacs
+:    bank statements     -> memacs-easybank.py  |>  Memacs
 :    postings            -> memacs-slrn.org     |
 :    git repository logs -> memacs_git.py       |
 :    svn repository logs -> memacs_svn.py      /
-:    |__________________|  |__________________|    |______|
-:     your personal data      Memacs modules       Org-mode
+:    |_________________|   |_________________|     |______|
+:    your personal data      Memacs modules        Org-mode
 
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
