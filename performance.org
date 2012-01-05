@@ -1,4 +1,62 @@
+
+* Testfiles:
+All Testfiles have in header: 
+: * description  :tags:
+
+... and 19044 entries with following format:
+
+Testfile 1: «no_drawer»
+: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
+
+Testfile 2: «selfdefined_drawer»
+: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
+:   :MEMACSDRAWER:
+:   :TO:         Armin Wieser <armin.wieser@example.com>
+:   :ID:         <2011-12-31T10-49-17@example.com>
+:   :END:
+
+Testfile 3: «properties_drawer»
+: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
+:   :PROPERTIES:
+:   :TO:         Armin Wieser <armin.wieser@example.com>
+:   :ID:         <2011-12-31T10-49-17@example.com>
+:   :END:
+
+* Testcases:
+
+a. open file in Emacs with org-mode
+b. expand all ~19050 entries
+c. collapse all ~19050 entries 
+d. second expand (after expand + collapse)
+
+Time is measured in seconds:
+
+|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
+| Testcase | Testfile           | time1 | time2 | time3 |  mean | comment                               |
+|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
+| a        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
+| a        | selfdefined_drawer |     1 |     1 |     1 |   1.0 | very fast although, drawer too        |
+| a        | properties_drawer  |   190 |   166 |   205 | 187.0 | slow!                                 |
+|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
+| b        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
+| b        | selfdefined_drawer |    70 |    90 |    80 |  80.0 | better than TC 1.) but still not fast |
+| b        | properties_drawer  |   400 |   430 |   450 | 426.7 | slow!                                 |
+|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
+| c        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
+| c        | selfdefined_drawer |     1 |     1 |     1 |   1.0 | ok                                    |
+| c        | properties_drawer  |     1 |     1 |     1 |   1.0 | ok                                    |
+|----------+--------------------+-------+-------+-------+-------+---------------------------------------|
+| d        | no_drawer          |     1 |     1 |     1 |   1.0 | ok                                    |
+| d        | selfdefined_drawer |    70 |    80 |    80 |  76.7 | nearly same as TC 1.)                 |
+| d        | properties_drawer  |    70 |    90 |    85 |  81.7 | slow!                                 |
+#+TBLFM: $6=($3+$4+$5)/3;%.1f
+
+* Conclusion
+- Best performance without any drawers
+- better performance when using other drawer than :PROPERTIES:
+
 * Test Machine
+
 Test machine Lenovo X301:
 - Samsung SSD
 - 4GB Ram 
@@ -6,62 +64,4 @@ Test machine Lenovo X301:
 - Ubuntu 11.10 oneiric
 - Org-mode version 7.8.02
 - GNU Emacs 23.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2011-08-14 on allspice, modified by Debian
-- *some programs are running in parallel* - excuse for this but it will make *no huge* difference
-g
-* Testfiles:
-All Testfiles have in header: 
-: * description  :tags:
-
-and 19044 entries with following format:
-
-Testfile 1 
-: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
-:   :PROPERTIES:
-:   :TO:         Armin Wieser <armin.wieser@example.com>
-:   :ID:         <2011-12-31T10-49-17@example.com>
-:   :END:
-
-Testfile 2
-: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
-
-Testfile 3 
-: ** <2011-12-31 Sat 10:49:52> [[mailto:Karl.Voit@example.com][Karl Voit]]: Re: Hoffe die mail kommt an
-:   :MEMACSDRAWER:
-:   :TO:         Armin Wieser <armin.wieser@example.com>
-:   :ID:         <2011-12-31T10-49-17@example.com>
-:   :END:
-
-* Testcases:
-
-a. open file in emacs with org-mode
-
-b. ellapse all ~19050 entries
-
-c. collapse all ~19050 entries 
-
-d. second ellapse (after ellapse + collapse)
-
-Time is in seconds:
-
-
-|----------+----------+-------+-------+-------+-----------+---------------------------------------|
-| Testcase | Testfile | time1 | time2 | time3 |      mean | comment                               |
-|----------+----------+-------+-------+-------+-----------+---------------------------------------|
-| a        |        1 |   190 |   166 |   205 |       187 | slow!                                 |
-| a        |        2 |     1 |     1 |     1 |         1 | ok                                    |
-| a        |        3 |     1 |     1 |     1 |         1 | very fast altough, drawer too         |
-| b        |        1 |   400 |   430 |   450 | 426.66667 | slow!                                 |
-| b        |        2 |     1 |     1 |     1 |         1 | ok                                    |
-| b        |        3 |    70 |    90 |    80 |        80 | better than TC 1.) but still not fast |
-| c        |        1 |     1 |     1 |     1 |         1 | ok                                    |
-| c        |        2 |     1 |     1 |     1 |         1 | ok                                    |
-| c        |        3 |     1 |     1 |     1 |         1 | ok                                    |
-| d        |        1 |    70 |    90 |    85 | 81.666667 | slow!                                 |
-| d        |        2 |     1 |     1 |     1 |         1 | ok                                    |
-| d        |        3 |    70 |    80 |    80 | 76.666667 | nearly same as TC 1.)                 |
-#+TBLFM: $6=($3+$4+$5)/3
-
-* Conclusion
-- Best performance without any drawers
-- better performance when using other drawer than :PROPERTIES:
-
+- *some programs are running in parallel* - will make *no huge* difference
