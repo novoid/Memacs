@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 12:16:19 armin>
+# Time-stamp: <2012-01-07 19:55:25 armin>
 
 import sys
 import os
@@ -198,9 +198,14 @@ class ImapMemacs(Memacs):
         host = self._get_config_option("host")
         port = self._get_config_option("port")
 
-        server = imaplib.IMAP4_SSL(host, int(port))
-
+        try: 
+            server = imaplib.IMAP4_SSL(host, int(port))
+        except Exception, e:
+            logging.warning("could not connect to server %s",host)
+            sys.exit(1)
+            
         self.__login_server(server, username, password)
+        
         if self._args.list_folders == True:
             self.__list_folders(server)
         else:
