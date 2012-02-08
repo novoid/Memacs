@@ -7,9 +7,9 @@ import time
 import os
 import re
 import logging
-from common.orgproperty import OrgProperties
-from common.reader import CommonReader
-from common.orgformat import OrgFormat
+from orgproperty import OrgProperties
+from reader import CommonReader
+from orgformat import OrgFormat
 
 
 class OrgOutputWriter(object):

@@ -4,9 +4,9 @@
 
 import logging
 import traceback
-from common.argparser import MemacsArgumentParser
-from common.orgwriter import OrgOutputWriter
-from common.loggingsettings import handle_logging
+from argparser import MemacsArgumentParser
+from orgwriter import OrgOutputWriter
+from loggingsettings import handle_logging
 import sys
 from ConfigParser import ConfigParser
 
