@@ -9,8 +9,8 @@ sys.path.append(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)))))
-from versioning_systems.memacs_git import GitMemacs
-from versioning_systems.memacs_git import Commit
+from memacs.git import GitMemacs
+from memacs.git import Commit
 
 
 class TestCommit(unittest.TestCase):
@@ -47,7 +47,7 @@ class TestGitMemacs(unittest.TestCase):
 
     def setUp(self):
         self.test_file = os.path.dirname(os.path.abspath(__file__)) + \
-            os.sep + "git-rev-list-raw.txt"
+            os.sep + "tmp" + os.sep + "git-rev-list-raw.txt"
 
     def test_from_file(self):
         argv = "-s -f " + self.test_file

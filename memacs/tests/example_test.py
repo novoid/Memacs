@@ -9,7 +9,7 @@ sys.path.append(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)))))
-from example.memacs_example import Foo
+from memacs.example import Foo
 
 
 class TestFoo(unittest.TestCase):

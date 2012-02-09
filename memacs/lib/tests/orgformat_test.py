@@ -10,7 +10,7 @@ sys.path.append(
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))))
-from common.orgformat import OrgFormat
+from lib.orgformat import OrgFormat
 
 
 class TestOrgFormat(unittest.TestCase):

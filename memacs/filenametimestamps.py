@@ -6,33 +6,13 @@ import sys
 import os
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from common.memacs import Memacs
-from common.orgformat import OrgFormat
-from common.orgformat import TimestampParseException
-from common.orgproperty import OrgProperties
+from lib.memacs import Memacs
+from lib.orgformat import OrgFormat
+from lib.orgformat import TimestampParseException
+from lib.orgproperty import OrgProperties
 import re
 import logging
 import time
-
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-28"
-PROG_SHORT_DESCRIPTION = u"Memacs for file name time stamp"
-PROG_TAG = u"filedatestamps"
-PROG_DESCRIPTION = u"""This script parses a text file containing absolute paths
-to files with ISO datestamps and timestamps in their file names:
-
-Examples:  "2010-03-29T20.12 Divegraph.tiff"
-           "2010-12-31T23.59_Cookie_recipies.pdf"
-           "2011-08-29T08.23.59_test.pdf"
-
-Emacs tmp-files like file~ are automatically ignored
-
-Then an Org-mode file is generated that contains links to the files.
-"""
-COPYRIGHT_YEAR = "2011-2012"
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
-Armin Wieser <armin.wieser@gmail.com>"""
-
 
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
 TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d)" + \
@@ -151,15 +131,3 @@ class FileNameTimeStamps(Memacs):
     def _main(self):
         for folder in self._args.filenametimestamps_folder:
             self.__handle_folder(folder)
-
-
-if __name__ == "__main__":
-
-    memacs = FileNameTimeStamps(prog_version=PROG_VERSION_NUMBER,
-                                prog_version_date=PROG_VERSION_DATE,
-                                prog_description=PROG_DESCRIPTION,
-                                prog_short_description=PROG_SHORT_DESCRIPTION,
-                                prog_tag=PROG_TAG,
-                                copyright_year=COPYRIGHT_YEAR,
-                                copyright_authors=COPYRIGHT_AUTHORS)
-    memacs.handle_main()

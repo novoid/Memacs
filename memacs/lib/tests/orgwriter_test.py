@@ -7,13 +7,13 @@ import os
 import sys
 import codecs
 import time
-from common.orgformat import OrgFormat
 sys.path.append(
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)))))
-from common.orgwriter import OrgOutputWriter
+from lib.orgformat import OrgFormat
+from lib.orgwriter import OrgOutputWriter
 
 
 class TestOutputWriter(unittest.TestCase):

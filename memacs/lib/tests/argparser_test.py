@@ -5,7 +5,7 @@ sys.path.append(
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))))
-from common.argparser import MemacsArgumentParser
+from lib.argparser import MemacsArgumentParser
 
 
 class TestArgParser(unittest.TestCase):

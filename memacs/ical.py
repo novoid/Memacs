@@ -8,30 +8,16 @@ import logging
 import time
 # needed to import common.*
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from common.memacs import Memacs
-from common.orgformat import OrgFormat
-from common.orgproperty import OrgProperties
-from common.reader import CommonReader
-
+from lib.memacs import Memacs
+from lib.orgformat import OrgFormat
+from lib.orgproperty import OrgProperties
+from lib.reader import CommonReader
 
 try:
     from icalendar import Calendar
 except ImportError:
     print "please install python package \"icalendar\""
     sys.exit(3)
-
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-28"
-PROG_SHORT_DESCRIPTION = u"Memacs for ical Calendars"
-PROG_TAG = u"calendar"
-PROG_DESCRIPTION = u"""This script parses a *.ics file and generates
-Entries for VEVENTS
-* other's like VALARM are not implemented by now
-"""
-COPYRIGHT_YEAR = "2011-2012"
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
-Armin Wieser <armin.wieser@gmail.com>"""
-
 
 class CalendarMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -183,15 +169,3 @@ class CalendarMemacs(Memacs):
                 self.__handle_vevent(component)
             else:
                 logging.info("Not handling component: " + component.name)
-
-
-if __name__ == "__main__":
-    memacs = CalendarMemacs(prog_version=PROG_VERSION_NUMBER,
-                            prog_version_date=PROG_VERSION_DATE,
-                            prog_description=PROG_DESCRIPTION,
-                            prog_short_description=PROG_SHORT_DESCRIPTION,
-                            prog_tag=PROG_TAG,
-                            copyright_year=COPYRIGHT_YEAR,
-                            copyright_authors=COPYRIGHT_AUTHORS
-        )
-    memacs.handle_main()

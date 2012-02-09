@@ -5,7 +5,7 @@ sys.path.append(
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))))
-from common.reader import CommonReader
+from lib.reader import CommonReader
 
 
 class TestReader(unittest.TestCase):

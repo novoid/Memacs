@@ -5,8 +5,8 @@ import time
 import logging
 from email import message_from_string
 from email.utils import parsedate
-from common.orgproperty import OrgProperties
-from common.orgformat import OrgFormat
+from orgproperty import OrgProperties
+from orgformat import OrgFormat
 
 
 class MailParser(object):

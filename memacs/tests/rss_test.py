@@ -9,14 +9,15 @@ sys.path.append(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)))))
-from rss.memacs_rss import RssMemacs
+from memacs.rss import RssMemacs
 
 
 class TestRss(unittest.TestCase):
 
     def setUp(self):
         self.test_file = test_file = os.path.dirname(
-            os.path.abspath(__file__)) + os.path.sep + "sample-rss.txt"
+            os.path.abspath(__file__)) + os.sep + "tmp" \
+            + os.path.sep + "sample-rss.txt"
         self.argv = "-s -f " + self.test_file
 
     def test_false_appending(self):

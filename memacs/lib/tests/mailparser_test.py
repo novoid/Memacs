@@ -5,7 +5,7 @@ sys.path.append(
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))))
-from common.mailparser import MailParser
+from lib.mailparser import MailParser
 
 
 class TestMailParser(unittest.TestCase):

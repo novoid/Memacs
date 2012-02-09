@@ -4,13 +4,14 @@ import unittest
 import time
 import os
 import sys
-from common.orgformat import OrgFormat
+
 sys.path.append(
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)))))
-from common.orgproperty import OrgProperties
+from lib.orgformat import OrgFormat
+from lib.orgproperty import OrgProperties
 
 
 class TestOrgProperties(unittest.TestCase):

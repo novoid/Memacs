@@ -3,7 +3,6 @@
 # Time-stamp: <2011-12-19 15:13:31 aw>
 
 import unittest
-import time
 import sys
 import os
 sys.path.append(
@@ -11,8 +10,8 @@ sys.path.append(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)))))
-from common.orgformat import OrgFormat
-from filenametimestamps.memacs_filenametimestamps import FileNameTimeStamps
+
+from memacs.filenametimestamps import FileNameTimeStamps
 
 
 class TestFileNameTimeStamps(unittest.TestCase):
