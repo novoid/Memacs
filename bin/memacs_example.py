@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 03:38:09 armin>
+# Time-stamp: <2012-02-22 17:12:59 armin>
 
 from memacs.example import Foo
 

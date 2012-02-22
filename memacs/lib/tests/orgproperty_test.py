@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-12-20 15:13:31 awieser>
+
 import unittest
 import time
-import os
-import sys
-
-sys.path.append(
-    os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(
-                os.path.abspath(__file__)))))
-from lib.orgformat import OrgFormat
-from lib.orgproperty import OrgProperties
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.orgproperty import OrgProperties
 
 
 class TestOrgProperties(unittest.TestCase):

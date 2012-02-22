@@ -4,8 +4,6 @@
 
 import logging
 import time
-# needed to import common.*
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.orgproperty import OrgProperties
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs

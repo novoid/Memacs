@@ -6,8 +6,6 @@ import sys
 import os
 import logging
 import time
-# needed to import common.*
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.memacs import Memacs
 from lib.orgformat import OrgFormat
 from lib.orgproperty import OrgProperties
@@ -15,8 +13,9 @@ from lib.reader import CommonReader
 
 try:
     from icalendar import Calendar
-except ImportError:
-    print "please install python package \"icalendar\""
+except ImportError, e:
+    print "please install python package \"icalendar\"" 
+    print e
     sys.exit(3)
 
 class CalendarMemacs(Memacs):

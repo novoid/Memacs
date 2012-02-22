@@ -1,11 +1,8 @@
+# -*- coding: utf-8 -*-
+# Time-stamp: <2011-12-30 12:16:47 armin>
+
 import unittest
-import sys
-import os
-sys.path.append(
-    os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(os.path.abspath(__file__)))))
-from lib.reader import CommonReader
+from memacs.lib.reader import CommonReader
 
 
 class TestReader(unittest.TestCase):

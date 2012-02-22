@@ -4,19 +4,14 @@
 import unittest
 import sys
 import os
-sys.path.append(
-    os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(
-                os.path.abspath(__file__)))))
-from versioning_systems.memacs_svn import SvnMemacs
+from memacs.svn import SvnMemacs
 
 
 class TestGitMemacs(unittest.TestCase):
 
     def setUp(self):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
-            os.sep + "svn-log-xml.txt"
+            os.sep + "tmp" + os.sep + "svn-log-xml.txt"
         argv = "-s -f " + test_file
         memacs = SvnMemacs(argv=argv.split())
         self.data = memacs.test_get_entries()

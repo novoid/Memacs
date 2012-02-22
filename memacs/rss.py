@@ -9,8 +9,6 @@ import feedparser
 import calendar
 import time
 import re
-# needed to import common.*
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
 from lib.orgformat import OrgFormat

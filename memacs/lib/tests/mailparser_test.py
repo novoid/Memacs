@@ -1,11 +1,8 @@
+# -*- coding: utf-8 -*-
+# Time-stamp: <2011-12-30 12:16:47 armin>
+
 import unittest
-import sys
-import os
-sys.path.append(
-    os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(os.path.abspath(__file__)))))
-from lib.mailparser import MailParser
+from memacs.lib.mailparser import MailParser
 
 
 class TestMailParser(unittest.TestCase):

@@ -6,8 +6,6 @@ import sys
 import os
 import logging
 import imaplib
-# needed to import common.*
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.memacs import Memacs
 from lib.mailparser import MailParser
 

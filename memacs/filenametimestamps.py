@@ -4,8 +4,6 @@
 
 import sys
 import os
-# needed to import common.*
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lib.memacs import Memacs
 from lib.orgformat import OrgFormat
 from lib.orgformat import TimestampParseException

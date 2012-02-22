@@ -7,38 +7,10 @@ import os
 import logging
 import xml.sax
 from xml.sax._exceptions import SAXParseException
-# needed to import common.*
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from common.orgproperty import OrgProperties
-from common.orgformat import OrgFormat
-from common.memacs import Memacs
-from common.reader import CommonReader
-
-
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-27"
-PROG_SHORT_DESCRIPTION = u"Memacs for svn"
-PROG_TAG = u"svn"
-PROG_DESCRIPTION = u"""
-This Memacs module will parse output of svn log --xml
-
-sample xml:
- <?xml version="1.0"?>
-    <log>
-    <logentry
-       revision="13">
-    <author>bob</author>
-    <date>2011-11-05T18:18:22.936127Z</date>
-    <msg>Bugfix.</msg>
-    </logentry>
-    </log>
-
-Then an Org-mode file is generated that contains information
-about the log messages, author, and revision
-"""
-COPYRIGHT_YEAR = "2011-2012"
-COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
-Armin Wieser <armin.wieser@gmail.com>"""
+from lib.orgproperty import OrgProperties
+from lib.orgformat import OrgFormat
+from lib.memacs import Memacs
+from lib.reader import CommonReader
 
 
 class SvnSaxHandler(xml.sax.handler.ContentHandler):
@@ -210,16 +182,3 @@ class SvnMemacs(Memacs):
         except SAXParseException:
             logging.error("No correct XML given")
             sys.exit(1)
-
-
-if __name__ == "__main__":
-    memacs = SvnMemacs(
-        prog_version=PROG_VERSION_NUMBER,
-        prog_version_date=PROG_VERSION_DATE,
-        prog_description=PROG_DESCRIPTION,
-        prog_short_description=PROG_SHORT_DESCRIPTION,
-        prog_tag=PROG_TAG,
-        copyright_year=COPYRIGHT_YEAR,
-        copyright_authors=COPYRIGHT_AUTHORS
-        )
-    memacs.handle_main()

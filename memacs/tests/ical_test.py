@@ -4,21 +4,13 @@
 import unittest
 import sys
 import os
-sys.path.append(
-      os.path.dirname(
-            os.path.dirname(
-                  os.path.dirname(
-                        os.path.abspath(__file__)))))
-
 from memacs.ical import CalendarMemacs
-
-
 
 class TestCalendar(unittest.TestCase):
 
     def test_all(self):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
-        + os.sep + "tmp" + os.sep + "austrian_holidays_from_google.ics"
+        os.sep + "tmp" + os.sep + "austrian_holidays_from_google.ics"
         argv = "-s -cf " + test_file
         memacs = CalendarMemacs(argv=argv.split())
         data = memacs.test_get_entries()
