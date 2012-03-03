@@ -4,6 +4,8 @@
 import codecs
 import logging
 import sys
+import csv
+import codecs
 from urllib2 import urlopen
 from urllib2 import HTTPError
 from urllib2 import URLError
@@ -89,3 +91,57 @@ class CommonReader:
         @return: stdin-stream
         """
         return codecs.getreader('utf-8')(sys.stdin)
+    
+#    @staticmethod
+#    def get_csv_row_from_file(filename, delimiter=";"):
+#        """
+#        csv generator
+#        @param filename: path to csv file
+#        @param delimiter: path to csv file 
+#        @return: row
+#        """
+#        with open(filename, 'rb') as f:
+#            reader = csv.reader(f, delimiter=delimiter, encoding="latin-3")
+#            try:
+#                for row in reader:
+#                    print row
+#                    yield row
+#            except csv.Error, e:
+#                logging.error("file %s, line %d: %s",
+#                              filename, reader.line_num, e)
+                
+"""
+from http://docs.python.org/library/csv.html
+"""
+class UTF8Recoder:
+    """
+    Iterator that reads an encoded stream and reencodes the input to UTF-8
+    """
+    def __init__(self, f, encoding):
+        self.reader = codecs.getreader(encoding)(f)
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.reader.next().encode("utf-8")
+
+"""
+from http://docs.python.org/library/csv.html
+"""
+class UnicodeReader:
+    """
+    A CSV reader which will iterate over lines in the CSV file "f",
+    which is encoded in the given encoding.
+    """
+
+    def __init__(self, f, delimiter=";", encoding="utf-8", **kwds):
+        f = UTF8Recoder(f, encoding)
+        self.reader = csv.reader(f, delimiter=delimiter, **kwds)
+
+    def next(self):
+        row = self.reader.next()
+        return [unicode(s, "utf-8") for s in row]
+
+    def __iter__(self):
+        return self
