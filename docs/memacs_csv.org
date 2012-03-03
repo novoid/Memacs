@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-03 15:48:07 armin>
+## Time-stamp: <2012-03-03 15:50:06 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs_csv
@@ -50,10 +50,10 @@ Invocation:
 : */60   *   *   *  *    /home/user/bin/no-power-supply.sh || $MEMACS_DIR/memacs_csv.py -o $ORG_DIR/csv_finance.org_archive --encoding "latin-1" -ti 5 -tf "%d.%m.%Y %H:%M:%S:%f" -oi "4 3 1"
 
 output:
-* Memacs for csv files          :Memacs:csv:
-** <2012-02-23 Thu 14:40:59> EUR 100,00 Amazon
-   :PROPERTIES:
-   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709
-   :END:
+: * Memacs for csv files 						 :Memacs:csv:
+: ** <2012-02-23 Thu 14:40:59> EUR 100,00 Amazon
+:    :PROPERTIES:
+:    :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709
+:    :END:
 
 
