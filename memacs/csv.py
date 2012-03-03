@@ -45,15 +45,16 @@ class Csv(Memacs):
         self._parser.add_argument(
            "-tf", "--timestamp-format", dest="timestamp_format",
            action="store",
-           help="format of the timestamp, i.e. \"%d.%m.%Y %H:%M:%S:%f\" for " + \
-           " \"14.02.2012 10:22:37:958\" see " + \
+           #help="format of the timestamp, i.e. \"%d.%m.%Y %H:%M:%S:%f\" " + \
+           help="format of the timestamp, i.e. \"%%d.%%m.%%Y %%H:%%M:%%S:%%f\" " + \
+           "for  \"14.02.2012 10:22:37:958\" see " + \
            "http://docs.python.org/library/time.html#time.strftime" + \
-           "for possible format" )
+           "for possible formats" )
         
         self._parser.add_argument(
            "-oi", "--output-indices", dest="output_indices",
            action="store",
-           help="indices to use for output")
+           help="indices to use for output i.e. \"1 2 3\"")
         
     def _parser_parse_args(self):
         """
@@ -69,9 +70,9 @@ class Csv(Memacs):
             self._parser.error("input file not found or not readable")
             
         if self._args.delimiter:
-            self.delimiter = self._args.delimiter
+            self._args.delimiter = self._args.delimiter
         else:
-            self.delimiter = ";"
+            self._args.delimiter = ";"
         
         if not self._args.encoding:
             self._args.encoding = "utf-8"
@@ -91,9 +92,11 @@ class Csv(Memacs):
             self._parser.error("need to know output indices")
         else:
             try:
-                self._args.output_indices = map(int,self._args.output_indices.split())
+                self._args.output_indices = map(
+                    int,self._args.output_indices.split())
             except ValueError, e:
-                self._parser.error("output-indices must have following format i.e: \"1 2 3\"")
+                self._parser.error("output-indices must have " + \
+                                   "following format i.e: \"1 2 3\"")
 
     def _main(self):
         """
@@ -102,12 +105,10 @@ class Csv(Memacs):
 
         with open(self._args.csvfile, 'rb') as f:
             try:
-                for row in UnicodeReader(f, encoding=self._args.encoding):
-#                    print row  
-#                    timestamp_index = 5
-#                    timestamp_format = "%d.%m.%Y %H:%M:%S:%f"
+                for row in UnicodeReader(f, encoding=self._args.encoding, 
+                                         delimiter=self._args.delimiter):
                     try: 
-                        tstamp = time.strptime(row[self._args.timestamp_index], 
+                        tstamp = time.strptime(row[self._args.timestamp_index],
                                                self._args.timestamp_format)
                     except ValueError, e:
                         logging.error("timestamp-format does not match: %s", e)
@@ -124,5 +125,6 @@ class Csv(Memacs):
                                                    output=output
                                                    )
             except UnicodeDecodeError, e:
-                logging.error("could not decode file in utf-8, please specify input encoding")
+                logging.error("could not decode file in utf-8," + \
+                              "please specify input encoding")
                 sys.exit(1)

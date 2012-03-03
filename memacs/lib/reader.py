@@ -91,24 +91,6 @@ class CommonReader:
         @return: stdin-stream
         """
         return codecs.getreader('utf-8')(sys.stdin)
-    
-#    @staticmethod
-#    def get_csv_row_from_file(filename, delimiter=";"):
-#        """
-#        csv generator
-#        @param filename: path to csv file
-#        @param delimiter: path to csv file 
-#        @return: row
-#        """
-#        with open(filename, 'rb') as f:
-#            reader = csv.reader(f, delimiter=delimiter, encoding="latin-3")
-#            try:
-#                for row in reader:
-#                    print row
-#                    yield row
-#            except csv.Error, e:
-#                logging.error("file %s, line %d: %s",
-#                              filename, reader.line_num, e)
                 
 """
 from http://docs.python.org/library/csv.html
