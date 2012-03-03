@@ -107,11 +107,15 @@ class Csv(Memacs):
             try:
                 for row in UnicodeReader(f, encoding=self._args.encoding, 
                                          delimiter=self._args.delimiter):
+                    logging.debug(row)
                     try: 
                         tstamp = time.strptime(row[self._args.timestamp_index],
                                                self._args.timestamp_format)
                     except ValueError, e:
                         logging.error("timestamp-format does not match: %s", e)
+                        sys.exit(1)
+                    except IndexError, e:
+                        logging.error("did you specify the right delimiter?", e)
                         sys.exit(1)
                     
                     timestamp = OrgFormat.datetime(tstamp)   
