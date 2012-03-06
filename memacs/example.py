@@ -45,6 +45,7 @@ class Foo(Memacs):
         get's automatically called from Memacs class
         """
         # do all the stuff
+        
 
         # if you need something from config:
         # attention: foo will be unicode

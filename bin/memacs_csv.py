@@ -11,15 +11,6 @@ PROG_TAG = u"csv"
 PROG_DESCRIPTION = u"""
 This Memacs module will parse csv files
 
-Then an Org-mode file is generated that contains ....
-
-if youre module needs a config file please give information about usage:
-
-sample config:
-[memacs-example]           <-- "memacs-example" has to be CONFIG_PARSER_NAME
-foo = 0
-bar = 1
-
 """
 # set CONFIG_PARSER_NAME only, when you want to have a config file 
 # otherwise you can comment it out

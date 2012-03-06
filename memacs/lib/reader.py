@@ -5,7 +5,6 @@ import codecs
 import logging
 import sys
 import csv
-import codecs
 from urllib2 import urlopen
 from urllib2 import HTTPError
 from urllib2 import URLError
