@@ -5,7 +5,7 @@
 from memacs.sms import SmsMemacs
 
 PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-27"
+PROG_VERSION_DATE = u"2012-03-07"
 PROG_SHORT_DESCRIPTION = u"Memacs for sms"
 PROG_TAG = u"sms"
 PROG_DESCRIPTION = u"""
