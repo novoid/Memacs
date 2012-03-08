@@ -39,8 +39,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
 
     def startElement(self, name, attrs):
         """
-        at every <tag> remember the tagname
-        * sets the revision when in tag "logentry"
+        at every <sms> tag write to orgfile
         """
         logging.debug("Handler @startElement name=%s,attrs=%s", name, attrs)
 

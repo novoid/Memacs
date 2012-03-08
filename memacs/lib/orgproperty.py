@@ -70,6 +70,13 @@ class OrgProperties(object):
         """
         for representig properties in unicode with org formatting
         """
+
+        if self.__properties == {} and \
+            self.__data_for_hashing == "" and \
+            self.__id != None:
+            raise Exception("No data for hashing specified,  and no " + \
+                            "property was given. Cannot generate unique ID.")
+
         ret = "   :PROPERTIES:\n"
 
         for tag, value in self.__properties.iteritems():

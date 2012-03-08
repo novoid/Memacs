@@ -9,6 +9,7 @@ import sys
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import UnicodeCsvReader
+from lib.orgproperty import OrgProperties
 
 
 class Csv(Memacs):
@@ -128,8 +129,14 @@ class Csv(Memacs):
                         output.append(row[i])
                     output = " ".join(output)
 
+                    data_for_hashing = timestamp + output
+
+                    properties = OrgProperties(
+                            data_for_hashing=data_for_hashing)
+
                     self._writer.write_org_subitem(timestamp=timestamp,
-                                                   output=output
+                                                   output=output,
+                                                   properties=properties,
                                                    )
             except UnicodeDecodeError, e:
                 logging.error("could not decode file in utf-8," + \

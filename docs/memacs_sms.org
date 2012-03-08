@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-08 13:53:39 armin>
+## Time-stamp: <2012-03-08 14:31:27 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-sms
@@ -11,7 +11,8 @@ Done, if you find any errors do not hesitate to contact us.
 
 This memacs module will parse SMS - XML Backups. You can get this Backups from following Android App:
 
-TBD
+TODO
+TBD 
 
 *** example sms xml backup file:
 : <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
