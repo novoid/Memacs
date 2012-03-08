@@ -8,7 +8,7 @@ import os
 import sys
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
-from lib.reader import UnicodeReader
+from lib.reader import UnicodeCsvReader
 
 
 class Csv(Memacs):
@@ -105,7 +105,7 @@ class Csv(Memacs):
 
         with open(self._args.csvfile, 'rb') as f:
             try:
-                for row in UnicodeReader(f, encoding=self._args.encoding, 
+                for row in UnicodeCsvReader(f, encoding=self._args.encoding, 
                                          delimiter=self._args.delimiter):
                     logging.debug(row)
                     try: 

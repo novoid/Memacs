@@ -110,7 +110,7 @@ class UTF8Recoder:
 """
 from http://docs.python.org/library/csv.html
 """
-class UnicodeReader:
+class UnicodeCsvReader:
     """
     A CSV reader which will iterate over lines in the CSV file "f",
     which is encoded in the given encoding.
