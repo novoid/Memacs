@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-08 11:59:52 armin>
+## Time-stamp: <2012-03-08 13:57:39 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -8,7 +8,12 @@
 Most of the time you probably want to invoke Memacs modules
 automatically and periodically. Here are some tips for achieving this.
 
-*** Pythonpath environment variable
+For each Memacs module there is a documentation <memacs_module.org> located in the same 
+folder as this file. Additionally you get help of each module by execute it with 
+argument "-h" i.e.: 
+: ./bin/memacs_module.py -h
+
+*** Important: Pythonpath environment variable
 Memacs folder has to be on the PYTHONPATH. Just google for it how to set it.
 
 If using crontab you have to set it there too. You can put following line on top:

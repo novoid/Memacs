@@ -17,24 +17,25 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
     """
     Sax handler for following xml's:
 
-    <?xml version="1.0"?>
-    <log>
-    <logentry
-       revision="13">
-    <author>bob</author>
-    <date>2011-11-05T18:18:22.936127Z</date>
-    <msg>Bugfix.</msg>
-    </logentry>
-    </log>
+    <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+    <smses count="4">
+      <sms protocol="0" address="+436812314123" date="1312452353000" type="1" subject="null" body="did you see the new sms memacs module?" toa="145" sc_toa="0" service_center="+436990008999" read="1" status="-1" locked="0" />
+      <sms protocol="0" address="+43612341234" date="1312473895759" type="2" subject="null" body="Memacs FTW!" toa="0" sc_toa="0" service_center="null" read="1" status="-1" locked="0" />
+      <sms protocol="0" address="+43612341238" date="1312489550928" type="2" subject="null" body="i like memacs" toa="0" sc_toa="0" service_center="null" read="1" status="-1" locked="0" />
+      <sms protocol="0" address="+4312341234" date="1312569121554" type="2" subject="null" body="http://google.at" toa="0" sc_toa="0" service_center="null" read="1" status="-1" locked="0" />
+    </smses>
     """
 
-    def __init__(self, writer):
+    def __init__(self, writer, ignore_incoming, ignore_outgoing):
         """
         Ctor
 
         @param writer: orgwriter
+        @param ignore_incoming: ignore incoming smses
         """
         self._writer = writer
+        self._ignore_incoming = ignore_incoming
+        self._ignore_outgoing = ignore_outgoing
 
 
     def startElement(self, name, attrs):
@@ -51,28 +52,34 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
             sms_address  = attrs['address']
             sms_type_incoming = int(attrs['type']) == 1
             
+            skip = False 
+            
             if sms_type_incoming == True: 
                 output = "SMS from "
+                if self._ignore_incoming:
+                    skip = True
             else:
-                output = "SMS to " 
+                output = "SMS to "
+                if self._ignore_outgoing:
+                    skip = True
+               
             
-            output += sms_address + ": "
-            
-            if sms_subject != "null":
-                # in case of MMS we have a subject
-                output += sms_subject
-                notes = sms_body
-            else:
-                output += sms_body
-                notes = ""
-
-            timestamp = OrgFormat.datetime(time.gmtime(sms_date))
-            
-            #properties = OrgProperties()
-            
-            self._writer.write_org_subitem(output=output,
-                                           timestamp=timestamp,
-                                           note=notes)
+            if not skip:
+                output += sms_address + ": "
+                
+                if sms_subject != "null":
+                    # in case of MMS we have a subject
+                    output += sms_subject
+                    notes = sms_body
+                else:
+                    output += sms_body
+                    notes = ""
+    
+                timestamp = OrgFormat.datetime(time.gmtime(sms_date))
+                                
+                self._writer.write_org_subitem(output=output,
+                                               timestamp=timestamp,
+                                               note=notes)
 
 class SmsMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -87,6 +94,16 @@ class SmsMemacs(Memacs):
             "-f", "--file", dest="smsxmlfile",
             action="store", required=True,
             help="path to sms xml backup file")
+        
+        self._parser.add_argument(
+            "--ignore-incoming", dest="ignore_incoming",
+            action="store_true",
+            help="ignore incoming smses")
+        
+        self._parser.add_argument(
+            "--ignore-outgoing", dest="ignore_outgoing",
+            action="store_true",
+            help="ignore outgoing smses")
 
     def _parser_parse_args(self):
         """
@@ -102,14 +119,16 @@ class SmsMemacs(Memacs):
     def _main(self):
         """
         get's automatically called from Memacs class
-        read the lines from svn xml file, parse and write them to org file
+        read the lines from sms backup xml file, parse and write them to org file
         """
 
         data = CommonReader.get_data_from_file(self._args.smsxmlfile)
 
         try:
             xml.sax.parseString(data.encode('utf-8'),
-                                SmsSaxHandler(self._writer))
+                                SmsSaxHandler(self._writer, 
+                                              self._args.ignore_incoming,
+                                              self._args.ignore_outgoing))
         except SAXParseException:
             logging.error("No correct XML given")
             sys.exit(1)
