@@ -9,6 +9,7 @@ import imaplib
 from lib.memacs import Memacs
 from lib.mailparser import MailParser
 
+
 class ImapMemacs(Memacs):
     def _parser_add_arguments(self):
         """
@@ -171,14 +172,14 @@ class ImapMemacs(Memacs):
         host = self._get_config_option("host")
         port = self._get_config_option("port")
 
-        try: 
+        try:
             server = imaplib.IMAP4_SSL(host, int(port))
         except Exception, e:
-            logging.warning("could not connect to server %s",host)
+            logging.warning("could not connect to server %s", host)
             sys.exit(1)
-            
+
         self.__login_server(server, username, password)
-        
+
         if self._args.list_folders == True:
             self.__list_folders(server)
         else:

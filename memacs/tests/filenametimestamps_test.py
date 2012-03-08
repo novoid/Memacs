@@ -3,7 +3,6 @@
 # Time-stamp: <2011-12-19 15:13:31 aw>
 
 import unittest
-import sys
 import os
 from memacs.filenametimestamps import FileNameTimeStamps
 
@@ -18,12 +17,12 @@ class TestFileNameTimeStamps(unittest.TestCase):
             os.makedirs(self.TMPFOLDER)
 
     def test_functional(self):
-        file = self.TMPFOLDER + os.sep + '2011-12-19T23.59.12_test1.txt'
-        entry = "** <2011-12-19 Mon 23:59:12> [[" + file + \
+        tmpfile = self.TMPFOLDER + os.sep + '2011-12-19T23.59.12_test1.txt'
+        entry = "** <2011-12-19 Mon 23:59:12> [[" + tmpfile + \
             "][2011-12-19T23.59.12_test1.txt]]"
 
         # touch file
-        open(file, 'w').close()
+        open(tmpfile, 'w').close()
 
         argv = "-s -f " + self.TMPFOLDER
         memacs = FileNameTimeStamps(argv=argv.split())
@@ -47,5 +46,5 @@ class TestFileNameTimeStamps(unittest.TestCase):
             data[3],
             "   :END:")
 
-        os.remove(file)
+        os.remove(tmpfile)
         self.assertEqual(data[0], entry, "filenametimestamps - error")

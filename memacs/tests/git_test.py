@@ -2,7 +2,6 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import unittest
-import sys
 import os
 from memacs.git import GitMemacs
 from memacs.git import Commit

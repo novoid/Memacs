@@ -2,7 +2,6 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import unittest
-import sys
 import os
 from memacs.rss import RssMemacs
 
@@ -10,7 +9,7 @@ from memacs.rss import RssMemacs
 class TestRss(unittest.TestCase):
 
     def setUp(self):
-        self.test_file = test_file = os.path.dirname(
+        self.test_file = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + "tmp" \
             + os.path.sep + "sample-rss.txt"
         self.argv = "-s -f " + self.test_file

@@ -22,10 +22,11 @@ class TestGitMemacs(unittest.TestCase):
 #        for d in range(len(data)):
 #            print "self.assertEqual(\n\tdata[%d],\n\t \"%s\")" % \
 #               (d, data[d])
-               
+
         self.assertEqual(
             data[0],
-             "** <2011-08-04 Thu 10:05:53> SMS from +436812314123: did you see the new sms memacs module?")
+             "** <2011-08-04 Thu 10:05:53> SMS from +436812314" + \
+             "123: did you see the new sms memacs module?")
         self.assertEqual(
             data[1],
              "   :PROPERTIES:")
@@ -61,7 +62,8 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[12],
-             "** <2011-08-05 Fri 18:32:01> SMS to +4312341234: http://google.at")
+             "** <2011-08-05 Fri 18:32:01> SMS to +4312341" + \
+             "234: http://google.at")
         self.assertEqual(
             data[13],
              "   :PROPERTIES:")

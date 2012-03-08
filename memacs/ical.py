@@ -14,9 +14,10 @@ from lib.reader import CommonReader
 try:
     from icalendar import Calendar
 except ImportError, e:
-    print "please install python package \"icalendar\"" 
+    print "please install python package \"icalendar\""
     print e
     sys.exit(3)
+
 
 class CalendarMemacs(Memacs):
     def _parser_add_arguments(self):

@@ -37,24 +37,23 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
         self._ignore_incoming = ignore_incoming
         self._ignore_outgoing = ignore_outgoing
 
-
     def startElement(self, name, attrs):
         """
         at every <tag> remember the tagname
         * sets the revision when in tag "logentry"
         """
         logging.debug("Handler @startElement name=%s,attrs=%s", name, attrs)
-        
+
         if name == "sms":
             sms_subject = attrs['subject']
             sms_date = int(attrs['date']) / 1000     # unix epoch
             sms_body = attrs['body']
-            sms_address  = attrs['address']
+            sms_address = attrs['address']
             sms_type_incoming = int(attrs['type']) == 1
-            
-            skip = False 
-            
-            if sms_type_incoming == True: 
+
+            skip = False
+
+            if sms_type_incoming == True:
                 output = "SMS from "
                 if self._ignore_incoming:
                     skip = True
@@ -62,11 +61,10 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 output = "SMS to "
                 if self._ignore_outgoing:
                     skip = True
-               
-            
+
             if not skip:
                 output += sms_address + ": "
-                
+
                 if sms_subject != "null":
                     # in case of MMS we have a subject
                     output += sms_subject
@@ -74,12 +72,13 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 else:
                     output += sms_body
                     notes = ""
-    
+
                 timestamp = OrgFormat.datetime(time.gmtime(sms_date))
-                                
+
                 self._writer.write_org_subitem(output=output,
                                                timestamp=timestamp,
                                                note=notes)
+
 
 class SmsMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -94,12 +93,12 @@ class SmsMemacs(Memacs):
             "-f", "--file", dest="smsxmlfile",
             action="store", required=True,
             help="path to sms xml backup file")
-        
+
         self._parser.add_argument(
             "--ignore-incoming", dest="ignore_incoming",
             action="store_true",
             help="ignore incoming smses")
-        
+
         self._parser.add_argument(
             "--ignore-outgoing", dest="ignore_outgoing",
             action="store_true",
@@ -126,7 +125,7 @@ class SmsMemacs(Memacs):
 
         try:
             xml.sax.parseString(data.encode('utf-8'),
-                                SmsSaxHandler(self._writer, 
+                                SmsSaxHandler(self._writer,
                                               self._args.ignore_incoming,
                                               self._args.ignore_outgoing))
         except SAXParseException:

@@ -45,15 +45,14 @@ class Foo(Memacs):
         get's automatically called from Memacs class
         """
         # do all the stuff
-        
 
         # if you need something from config:
         # attention: foo will be unicode
         # foo = self._get_config_option("foo")
 
         logging.info("foo started")
-        
-        # how to handle config files ? 
+
+        # how to handle config files ?
         # sample config file:
         # ---------8<-----------
         # [memacs-example]

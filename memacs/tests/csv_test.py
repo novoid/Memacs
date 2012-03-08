@@ -2,7 +2,6 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import unittest
-import sys
 import os
 from memacs.csv import Csv
 
@@ -15,7 +14,7 @@ class TestCsv(unittest.TestCase):
     def test_example1(self):
         example1 = os.path.dirname(os.path.abspath(__file__)) + \
         os.sep + "tmp" + os.sep + "example1.csv"
-            
+
         argv = []
         argv.append("-f")
         argv.append(example1)
@@ -47,11 +46,11 @@ class TestCsv(unittest.TestCase):
         self.assertEqual(
             data[3],
             "   :END:")
-        
+
     def test_example2_delimiter(self):
         example1 = os.path.dirname(os.path.abspath(__file__)) + \
         os.sep + "tmp" + os.sep + "example2.csv"
-            
+
         argv = []
         argv.append("--delimiter")
         argv.append("|")
@@ -84,7 +83,7 @@ class TestCsv(unittest.TestCase):
             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
         self.assertEqual(
             data[3],
-            "   :END:")        
-        
+            "   :END:")
+
     def tearDown(self):
         pass

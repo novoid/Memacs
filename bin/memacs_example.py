@@ -21,9 +21,9 @@ foo = 0
 bar = 1
 
 """
-# set CONFIG_PARSER_NAME only, when you want to have a config file 
+# set CONFIG_PARSER_NAME only, when you want to have a config file
 # otherwise you can comment it out
-# CONFIG_PARSER_NAME="memacs-example" 
+# CONFIG_PARSER_NAME="memacs-example"
 COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
