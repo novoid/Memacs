@@ -11,15 +11,7 @@ PROG_TAG = u"sms"
 PROG_DESCRIPTION = u"""
 This Memacs module will parse output of sms xml backup files
 
-sample xml file:
-<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<smses count="4">
-  <sms protocol="0" address="+436812314123" date="1312452353000" type="1" subject="null" body="did you see the new sms memacs module?" toa="145" sc_toa="0" service_center="+436990008999" read="1" status="-1" locked="0" />
-  <sms protocol="0" address="+43612341234" date="1312473895759" type="2" subject="null" body="Memacs FTW!" toa="0" sc_toa="0" service_center="null" read="1" status="-1" locked="0" />
-  <sms protocol="0" address="+43612341238" date="1312489550928" type="2" subject="null" body="i like memacs" toa="0" sc_toa="0" service_center="null" read="1" status="-1" locked="0" />
-  <sms protocol="0" address="+4312341234" date="1312569121554" type="2" subject="null" body="http://google.at" toa="0" sc_toa="0" service_center="null" read="1" status="-1" locked="0" />
-</smses>
-
+> A sample xml file you find in the documentation file memacs_sms.org.
 
 Then an Org-mode file is generated.
 """
