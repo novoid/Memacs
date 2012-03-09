@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2012-03-09 15:28:53 armin>
 
 import sys
 import os
@@ -11,6 +11,7 @@ from xml.sax._exceptions import SAXParseException
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import CommonReader
+from lib.orgproperty import OrgProperties
 
 
 class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
@@ -98,11 +99,13 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
                 skip = True
 
             timestamp = OrgFormat.datetime(time.gmtime(call_date))
+            data_for_hashing = output + timestamp
+            properties = OrgProperties(data_for_hashing=data_for_hashing)
 
             if not skip:
                 self._writer.write_org_subitem(output=output,
                                                timestamp=timestamp,
-    #                                           note=notes
+                                               properties=properties
                                                )
 
 

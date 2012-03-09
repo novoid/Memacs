@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2012-03-09 15:31:36 armin>
 
 import sys
 import os
@@ -9,6 +9,7 @@ import xml.sax
 import time
 from xml.sax._exceptions import SAXParseException
 from lib.orgformat import OrgFormat
+from lib.orgproperty import OrgProperties
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 
@@ -66,10 +67,13 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                     notes = ""
 
                 timestamp = OrgFormat.datetime(time.gmtime(sms_date))
+                data_for_hashing = output + timestamp + notes
+                properties = OrgProperties(data_for_hashing=data_for_hashing)
 
                 self._writer.write_org_subitem(output=output,
                                                timestamp=timestamp,
-                                               note=notes)
+                                               note=notes,
+                                               properties=properties)
 
 
 class SmsMemacs(Memacs):
