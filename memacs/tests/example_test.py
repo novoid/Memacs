@@ -30,7 +30,7 @@ class TestFoo(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-            "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         e7663db158b7ba301fb23e3dc40347970c7f8a0f")
         self.assertEqual(
             data[3],
             "   :END:")

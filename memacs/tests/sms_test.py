@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2012-03-09 15:36:52 armin>
 
 import unittest
 import os
@@ -32,7 +32,7 @@ class TestSmsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         9a7774b7a546119af169625366350ca6cf1675f8")
         self.assertEqual(
             data[3],
              "   :END:")
@@ -44,7 +44,7 @@ class TestSmsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[6],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         2163c59e66a84c391a1a00014801a2cb760b0125")
         self.assertEqual(
             data[7],
              "   :END:")
@@ -56,7 +56,7 @@ class TestSmsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[10],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         409d27ce4e9d08cce0acdea49b63b6d26b0b77c3")
         self.assertEqual(
             data[11],
              "   :END:")
@@ -69,7 +69,7 @@ class TestSmsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[14],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         4986730775a023fa0f268127f6ead9b8180337f0")
         self.assertEqual(
             data[15],
              "   :END:")

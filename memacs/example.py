@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 03:38:09 armin>
+# Time-stamp: <2012-03-09 15:48:38 armin>
 
 import logging
 import time
@@ -72,8 +72,18 @@ class Foo(Memacs):
 
         timestamp = OrgFormat.datetime(time.gmtime(0))
         # note: timestamp has to be a struct_time object
+
+        # Orgproperties
+        # Option 1: no properties given, specify argument for hashing data
+        properties = OrgProperties("hashing data :ALKJ!@# should be unique")
+        # Option 2: add properties which are all-together unique
+        # properties.add("Category","fun")
+        # properties.add("from","me@example.com")
+        # properties.add("body","foo")
+
         self._writer.write_org_subitem(timestamp=timestamp,
-                                       output="foo")
+                                       output="foo",
+                                       properties=properties)
 
         # writes following:
         #** <1970-01-01 Thu 00:00> foo

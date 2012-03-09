@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2012-03-09 15:39:33 armin>
 
 import unittest
 import os
@@ -32,7 +32,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         5d4b551b7804f763ab2a62d287628aedee3e17a4")
         self.assertEqual(
             data[3],
              "   :END:")
@@ -45,7 +45,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[6],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         8a377f25d80b1c137fcf6f28835d234141dfe179")
         self.assertEqual(
             data[7],
              "   :END:")
@@ -58,7 +58,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[10],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         556373e703194e9919489f3497b485b63b9e6978")
         self.assertEqual(
             data[11],
              "   :END:")
@@ -71,7 +71,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[14],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         6cc7b095acf4b4ac7d647821541ad4b3c611d56e")
         self.assertEqual(
             data[15],
              "   :END:")
@@ -84,7 +84,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[18],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         8865ef73de0bb1dc9d9de0b362f885defda9ada1")
         self.assertEqual(
             data[19],
              "   :END:")
@@ -97,7 +97,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[22],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         8561807f509b66f3a8dd639b19776a2a06e0463e")
         self.assertEqual(
             data[23],
              "   :END:")
@@ -110,7 +110,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[26],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         1f1ebb7853e28d66d6908f72a454cec378011605")
         self.assertEqual(
             data[27],
              "   :END:")
@@ -123,7 +123,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[30],
-             "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            "   :ID:         9558d013e3522e5bcbb02cb6599182ca0802547d")
         self.assertEqual(
             data[31],
              "   :END:")
