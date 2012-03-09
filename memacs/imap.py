@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-01-07 19:55:25 armin>
+# Time-stamp: <2012-03-09 14:51:13 armin>
 
 import sys
 import os
@@ -63,7 +63,7 @@ class ImapMemacs(Memacs):
         logging.debug(num)
         typ, data = server.uid("fetch",
                                num,
-                               "(BODY[HEADER.FIELDS " + \
+                               "(BODY.PEEK[HEADER.FIELDS " + \
                                    "(Date Subject " + \
                                    "From To Cc Reply-To Message-ID)])")
 
