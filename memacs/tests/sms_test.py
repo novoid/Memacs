@@ -6,7 +6,7 @@ import os
 from memacs.sms import SmsMemacs
 
 
-class TestGitMemacs(unittest.TestCase):
+class TestSmsMemacs(unittest.TestCase):
 
     def setUp(self):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
