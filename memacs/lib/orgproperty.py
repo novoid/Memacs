@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-29 15:28:19 armin>
+# Time-stamp: <2012-03-09 14:39:17 armin>
 import hashlib
 
 
@@ -73,7 +73,7 @@ class OrgProperties(object):
 
         if self.__properties == {} and \
             self.__data_for_hashing == "" and \
-            self.__id != None:
+            self.__id == None:
             raise Exception("No data for hashing specified,  and no " + \
                             "property was given. Cannot generate unique ID.")
 
