@@ -129,7 +129,7 @@ class Csv(Memacs):
                         output.append(row[i])
                     output = " ".join(output)
 
-                    data_for_hashing = timestamp + output
+                    data_for_hashing = "".join(row)
 
                     properties = OrgProperties(
                             data_for_hashing=data_for_hashing)
