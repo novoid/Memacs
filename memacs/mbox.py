@@ -45,17 +45,15 @@ class MboxMemacs(Memacs):
 
 
     def __read_mails_and_write(self, data):
-        
-        for i in range(0, len(data)):
-        message = data #[i][1]
+
         timestamp, output, note, properties = \
-        MailParser.parse_message(message)
+        MailParser.parse_message(data)
 
 
         self._writer.write_org_subitem(timestamp,
-                                           output,
-                                           note,
-                                           properties)
+                                       output,
+                                       note,
+                                       properties)
             
 
 

@@ -32,22 +32,22 @@ class MailParser(object):
         @param add_body: if specified, body is added
         @return values for OrgWriter.write_org_subitem
         """
-
+        
         msg = message_from_string(message)
 
         # Read only these fields
-        use_headers = ["To",
-                       "Date",
-                       "From",
-                       "Subject",
-                       "Reply-To",
-                       "Newsgroups",
-                       "Cc",
+        use_headers = ["To:",
+                       "Date:",
+                       "From:",
+                       "Subject:",
+                       "Reply-To:",
+                       "Newsgroups:",
+                       "Cc:",
                        ]
         # These fields are added, if found to :PROPERTIES: drawer
-        not_properties = ["Date",
-                          "Subject",
-                          "From"
+        not_properties = ["Date:",
+                          "Subject:",
+                          "From:"
                           ]
 
         properties = OrgProperties()
@@ -55,6 +55,7 @@ class MailParser(object):
 
         logging.debug("Message items:")
         logging.debug(msg.items())
+
 
         # fill headers and properties
         for key, value in msg.items():
@@ -108,5 +109,6 @@ class MailParser(object):
             output = output_from + u"@" + output_ng + ": " + subject
         else:
             output = output_from + u": " + subject
+            
 
         return timestamp, output, notes, properties
