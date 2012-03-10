@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-08 13:57:39 armin>
+## Time-stamp: <2012-03-10 18:09:56 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -181,7 +181,16 @@ being executed.
 
 * Internals
 ** How to write a memacs module? 
-see memacs_example 
+see 
+: Memacs/bin/memacs_example.py
+: Memacs/memacs/example.py
+: Memacs/tests/example_test.py
+** Testing 
+Use [[http://readthedocs.org/docs/nose/en/latest/][nosetests]] for executing tests
+install it with:
+: % easy_install nosetests
+or 
+: # aptitude install python-nose
 ** Error Handling 
 Because we let our memacs-modules automatically run, it would be difficult 
 to get informed in case of an error. So memacs-modules have a nice error handling:
