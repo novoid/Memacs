@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-10 19:25:28 armin>
+## Time-stamp: <2012-03-10 19:27:04 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -36,19 +36,20 @@ For usage, best practices, frequently asked questions and their answers
 
 *Existing modules*:
 
-- *file name timestamps*: see [[./docs/memacs_filenametimestamps.org][./docs/memacs_filenametimestamps.org]]
-- emails:
+- *file name timestamps*: see docs/memacs_filenametimestamps.org
+- *emails*:
   - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] : see docs/memacs_imap.org
-- RSS: see docs/memacs_rss.org i.e. for twitter,delicious,...
-- versioning systems:
+- *RSS*: see docs/memacs_rss.org i.e. for twitter,delicious,...
+- *versioning systems*:
   - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see docs/memacs_git.org
   - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see docs/svn/memacs_svn.org
-- calendar:
-  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see calendar/memacs_calendar.org
+- *calendar*:
+  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see docs/memacs_calendar.org
   - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see docs/memacs_csv.org
-- SMS: see docs/memacs_sms.org
-- Phonecalls: see docs/memacs_phonecalls.org
-- Photos (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
+- *SMS*: see docs/memacs_sms.org
+- *Phonecalls*: see docs/memacs_phonecalls.org
+- *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
+
 - example: see docs/memacs_csv.org
   This module is just for developing purposes.
 
