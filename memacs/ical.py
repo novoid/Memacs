@@ -14,9 +14,10 @@ from lib.reader import CommonReader
 try:
     from icalendar import Calendar
 except ImportError, e:
-    print "please install python package \"icalendar\"" 
+    print "please install python package \"icalendar\""
     print e
     sys.exit(3)
+
 
 class CalendarMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -141,7 +142,9 @@ class CalendarMemacs(Memacs):
         logging.debug(orgdate + " " + summary)
 
         # we need to set data_for_hashing=summary to really get a other sha1
-        org_properties = OrgProperties(data_for_hashing=summary)
+        data_for_hashing = orgdate + summary
+
+        org_properties = OrgProperties(data_for_hashing=data_for_hashing)
 
         if location != None:
             org_properties.add("LOCATION", location)
@@ -167,4 +170,4 @@ class CalendarMemacs(Memacs):
             elif component.name == "VEVENT":
                 self.__handle_vevent(component)
             else:
-                logging.info("Not handling component: " + component.name)
+                logging.debug("Not handling component: " + component.name)

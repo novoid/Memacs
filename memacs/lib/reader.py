@@ -90,14 +90,14 @@ class CommonReader:
         @return: stdin-stream
         """
         return codecs.getreader('utf-8')(sys.stdin)
-                
-"""
-from http://docs.python.org/library/csv.html
-"""
+
+
 class UTF8Recoder:
     """
+    from http://docs.python.org/library/csv.html
     Iterator that reads an encoded stream and reencodes the input to UTF-8
     """
+
     def __init__(self, f, encoding):
         self.reader = codecs.getreader(encoding)(f)
 
@@ -107,11 +107,11 @@ class UTF8Recoder:
     def next(self):
         return self.reader.next().encode("utf-8")
 
-"""
-from http://docs.python.org/library/csv.html
-"""
-class UnicodeReader:
+
+class UnicodeCsvReader:
     """
+    from http://docs.python.org/library/csv.html
+
     A CSV reader which will iterate over lines in the CSV file "f",
     which is encoded in the given encoding.
     """

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-01-02 17:56:33 armin>
+# Time-stamp: <2012-03-09 14:47:00 armin>
 
 import time
 import logging
@@ -63,7 +63,8 @@ class MailParser(object):
                 headers[key] = value
                 if key not in not_properties:
                     properties.add(key, value.replace("\n", ""))
-            if key == "Message-ID":
+
+            if key.upper() == "MESSAGE-ID":
                 properties.set_id(value)
 
         notes = ""

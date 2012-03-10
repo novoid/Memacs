@@ -10,11 +10,11 @@ from memacs.lib.orgproperty import OrgProperties
 class TestOrgProperties(unittest.TestCase):
 
     def test_properties_default_ctor(self):
-        p = OrgProperties()
+        p = OrgProperties("hashing data 1235")
         properties = unicode(p).splitlines()
         self.assertEqual(properties[0], u"   :PROPERTIES:")
-        self.assertEqual(properties[1], u"   :ID:         da39a3ee5e6b" + \
-                         "4b0d3255bfef95601890afd80709")
+        self.assertEqual(properties[1],
+            u"   :ID:         063fad7f77461ed6a818b6b79306d641e9c90a83")
         self.assertEqual(properties[2], u"   :END:")
 
     def test_properties_with_own_created(self):

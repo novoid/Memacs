@@ -8,6 +8,7 @@ import codecs
 import time
 from memacs.lib.orgformat import OrgFormat
 from memacs.lib.orgwriter import OrgOutputWriter
+from memacs.lib.orgproperty import OrgProperties
 
 
 class TestOutputWriter(unittest.TestCase):
@@ -25,6 +26,8 @@ class TestOutputWriter(unittest.TestCase):
         """
         test_filename = self.TMPFOLDER + "testfile.org"
 
+        properties = OrgProperties("data_for_hashing")
+
         # writing test output
         writer = OrgOutputWriter("short descript", "test-tag", test_filename)
         writer.write("## abc\n")
@@ -33,10 +36,13 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_commentln("abc")
         writer.write_org_item("begin")
         timestamp = OrgFormat.datetime(time.gmtime(0))
-        writer.write_org_subitem(timestamp=timestamp, output="sub")
         writer.write_org_subitem(timestamp=timestamp,
                                  output="sub",
-                                 tags=["foo", "bar"])
+                                 properties=properties)
+        writer.write_org_subitem(timestamp=timestamp,
+                                 output="sub",
+                                 tags=["foo", "bar"],
+                                 properties=properties)
         writer.close()
 
         # read and check the file_handler
@@ -81,7 +87,7 @@ class TestOutputWriter(unittest.TestCase):
             "   :PROPERTIES:\n")
         self.assertEqual(
             data[11],
-            "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709\n")
+            "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
         self.assertEqual(
             data[12],
             "   :END:\n")
@@ -93,7 +99,7 @@ class TestOutputWriter(unittest.TestCase):
             "   :PROPERTIES:\n")
         self.assertEqual(
             data[15],
-            "   :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709\n")
+            "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
         self.assertEqual(
             data[16],
             "   :END:\n")
