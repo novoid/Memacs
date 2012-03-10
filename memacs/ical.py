@@ -170,4 +170,4 @@ class CalendarMemacs(Memacs):
             elif component.name == "VEVENT":
                 self.__handle_vevent(component)
             else:
-                logging.info("Not handling component: " + component.name)
+                logging.debug("Not handling component: " + component.name)
