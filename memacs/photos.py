@@ -12,6 +12,7 @@ import imghdr
 from PIL import Image
 from PIL.ExifTags import TAGS
 
+
 def get_exif_datetime(filename):
     """
     Get datetime of exif information of a file
@@ -27,15 +28,16 @@ def get_exif_datetime(filename):
                     decoded_tag = TAGS.get(tag, tag)
                     exif_data_decoded[decoded_tag] = value
 
-        if exif_data_decoded.has_key("DateTime"):
+        if "DateTime" in exif_data_decoded.keys():
             return exif_data_decoded["DateTime"]
-        if exif_data_decoded.has_key("DateTimeOriginal"):
+        if "DateTimeOriginal" in exif_data_decoded.keys():
             return exif_data_decoded["DateTimeOriginal"]
 
     except IOError, e:
         logging.warning("IOError at %s:", filename, e)
-        
+
     return None
+
 
 class PhotosMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -71,9 +73,9 @@ class PhotosMemacs(Memacs):
         checks if file is an image, try to get exif data and
         write to org file
         """
-        
+
         logging.debug("handling file %s", filename)
-        
+
         # check if file is an image:
         if imghdr.what(filename) != None:
             datetime = get_exif_datetime(filename)
@@ -85,14 +87,13 @@ class PhotosMemacs(Memacs):
                     timestamp = OrgFormat.datetime(datetime)
                     output = OrgFormat.link(filename, photo_file)
                     properties = OrgProperties(photo_file + timestamp)
-                    
+
                     self._writer.write_org_subitem(timestamp=timestamp,
                                                    output=output,
                                                    properties=properties)
                 except ValueError, e:
                     logging.warning("skipping: Could not parse " + \
                                     "timestamp for %s : %s", filename, e)
-
 
     def _main(self):
         """

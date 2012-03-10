@@ -10,8 +10,8 @@ PROG_SHORT_DESCRIPTION = u"Memacs for photos (exif)"
 PROG_TAG = u"photos"
 PROG_DESCRIPTION = u"""
 
-This memacs module will walk through a given folder lokking for photos. If a photo is found, 
-it will get a timestamp from the  exif information. 
+This memacs module will walk through a given folder looking for photos.
+If a photo is found, it will get a timestamp from the  exif information.
 
 Then an Org-mode file is generated.
 """
