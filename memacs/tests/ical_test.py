@@ -17,7 +17,7 @@ class TestCalendar(unittest.TestCase):
         #for d in range(len(data)):
         #      print "self.assertEqual(\n\tdata[%d],\n\t \"%s\")" % \
         #            (d, data[d])
-        
+
         self.assertEqual(
             data[0],
              "** <2012-05-28 Mon>--<2012-05-28 Mon> Whit Monday")
