@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
-import sys
 import os
 from lib.memacs import Memacs
 from lib.orgformat import OrgFormat
