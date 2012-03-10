@@ -42,7 +42,7 @@ class TestCsv(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-            "   :ID:         6cd37ba16ef6d4c155274c9ed7525c0655d5a21f")
+            "   :ID:         5526fcec678ca1dea255b60177e5daaa737d3805")
         self.assertEqual(
             data[3],
             "   :END:")
@@ -80,7 +80,7 @@ class TestCsv(unittest.TestCase):
             "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-            "   :ID:         6cd37ba16ef6d4c155274c9ed7525c0655d5a21f")
+            "   :ID:         5526fcec678ca1dea255b60177e5daaa737d3805")
         self.assertEqual(
             data[3],
             "   :END:")
