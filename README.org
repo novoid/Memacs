@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-10 19:20:48 armin>
+## Time-stamp: <2012-03-10 19:23:12 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -36,7 +36,7 @@ For usage, best practices, frequently asked questions and their answers
 
 *Existing modules*:
 
-- *file name timestamps*: see docs/memacs_filenametimestamps.org
+- *file name timestamps*: see [[docs/memacs_filenametimestamps.org]]
 - emails:
   - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] : see docs/memacs_imap.org
 - RSS: see docs/memacs_rss.org i.e. for twitter,delicious,...
