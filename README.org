@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-10 19:28:10 armin>
+## Time-stamp: <2012-03-10 19:28:58 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -29,7 +29,7 @@ connectors that add data from individual data sources. Those connectors
 are called «Memacs modules» or short «module».
 
 For usage, best practices, frequently asked questions and their answers
-*please refer to the file FAQs_and_Best_Practices.org*
+*please refer to the file docs/FAQs_and_Best_Practices.org*
 
 
 * Memacs Modules
