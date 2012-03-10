@@ -9,6 +9,7 @@ from lib.memacs import Memacs
 from lib.mailparser import MailParser
 from lib.reader import CommonReader
 
+
 class MboxMemacs(Memacs):
     def _parser_add_arguments(self):
         """
@@ -45,12 +46,7 @@ class MboxMemacs(Memacs):
 
 
     def __read_mails_and_write(self, data):
-        
-        for i in range(0, len(data)):
-        message = data #[i][1]
-        timestamp, output, note, properties = \
-        MailParser.parse_message(message)
-
+        timestamp, output, note, properties = MailParser.parse_message(data)
 
         self._writer.write_org_subitem(timestamp,
                                            output,
@@ -61,16 +57,16 @@ class MboxMemacs(Memacs):
 
     def _main(self):
         
-        if self._args.mbox_file:
-            data = CommonReader.get_data_from_file(self._args.mbox_file)
-            
+        if self._args.mbox_file:            
+            data = CommonReader.get_data_from_file(self._args.mbox_file) 
             self.__read_mails_and_write(data)
             
             
-        elif self._args.news_file:
-            data = CommonReader.get_data_from_url(self._args.news_file)
-
-            self.__read_news_and_write(data)
+            
+#        elif self._args.news_file:
+#            data = CommonReader.get_data_from_url(self._args.news_file)
+#
+#            self.__read_news_and_write(data)
         
         
         

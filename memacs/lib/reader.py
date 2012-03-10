@@ -18,7 +18,7 @@ class CommonReader:
     """
 
     @staticmethod
-    def get_data_from_file(path):
+    def get_data_from_file(path, encoding="utf-8"):
         """
         reads a file
 
@@ -26,7 +26,8 @@ class CommonReader:
         @return: returns data
         """
         try:
-            input_file = codecs.open(path, 'rb', encoding='utf-8')
+            
+            input_file = codecs.open(path)
             data = input_file.read()
             input_file.close()
             return data
