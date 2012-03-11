@@ -13,40 +13,45 @@ from lib.reader import CommonReader
 class MboxMemacs(Memacs):
     def _parser_add_arguments(self):
         """
-overwritten method of class Memacs
+        overwritten method of class Memacs
 
-add additional arguments
-"""
+        add additional arguments
+        """
         Memacs._parser_add_arguments(self)
 
         self._parser.add_argument(
-           "-mf", "--mbox-file", dest="mbox_file",
+           "-mf", "--mbox-mail-file", dest="mail_file",
            action="store",
-           help="path to mbox file")
+           help="path to mbox mail file")
 
         self._parser.add_argument(
-           "-nf", "--news-file", dest="news_file",
+           "-nf", "--mbox-news-file", dest="news_file",
            action="store",
-           help="path to newsgroup file")
-
+           help="path to mbox newsgroup file")
 
     def _parser_parse_args(self):
         """
-overwritten method of class Memacs
+        overwritten method of class Memacs
 
-all additional arguments are parsed in here
-"""
+        all additional arguments are parsed in here
+        """
         Memacs._parser_parse_args(self)
 
-        if not self._args.mbox_file and not self._args.news_file:
+        if not self._args.mail_file and not self._args.news_file:
             self._parser.error("please specify a file")
             
-        if self._args.mbox_file and self._args.news_file:
-            self._parser.error("please specify an mbox file OR an newsgroup file - not both")
+        if self._args.mail_file and self._args.news_file:
+            self._parser.error("please specify an mbox mail file "
+                               "OR an mbox newsgroup file - not both")
 
 
     def __read_mails_and_write(self, data):
-        
+        """
+        Read All mails, let Mailparser parse each mail,
+        write to outputfile
+
+        @param data: string containing all mails of mbox-file
+        """
         message = data.split("Message-ID:")
 
         for mail in message:
@@ -56,18 +61,37 @@ all additional arguments are parsed in here
                                            output,
                                            note,
                                            properties)
+           
+    def __read_news_and_write(self, data):
+        """
+        Read All newsgroup entries, let Mailparser parse each 
+        newsgroup entry, write to outputfile
 
-
-    def _main(self):
+        @param data: string containing all mails of mbox-file
+        """
+        message = data.split("X-Mozilla-Status: 0001"+"\n"+"X-Mozilla-Status2:"
+                             " 00000000"+"\n"+"Path:")
         
-        if self._args.mbox_file:
-            data = CommonReader.get_data_from_file(self._args.mbox_file)
+         
+        for news in message:
+            if not (news == message[0]):           
+                timestamp, output, note, properties = \
+                    MailParser.parse_message(news)
+                self._writer.write_org_subitem(timestamp,
+                                               output,
+                                               note,
+                                               properties)
+               
+    def _main(self):
+        """
+        get's automatically called from Memacs class
+        """
+        if self._args.mail_file:
+            data = CommonReader.get_data_from_file(self._args.mail_file)
             self.__read_mails_and_write(data)
             
             
-            
-# elif self._args.news_file:
-# data = CommonReader.get_data_from_url(self._args.news_file)
-#
-# self.__read_news_and_write(data)
+        elif self._args.news_file:
+            data = CommonReader.get_data_from_file(self._args.news_file)
+            self.__read_news_and_write(data)
         

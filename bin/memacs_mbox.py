@@ -14,7 +14,8 @@ PROG_DESCRIPTION = u"""Todo
 """
 COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
-Armin Wieser <armin.wieser@gmail.com>, Daniel Fussenegger <daniel.pandapaps@gmail.com>"""
+Armin Wieser <armin.wieser@gmail.com>, 
+Daniel Fussenegger <daniel.pandapaps@gmail.com>"""
 
 
 if __name__ == "__main__":
