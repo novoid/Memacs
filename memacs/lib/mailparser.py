@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-01-02 17:56:33 armin>
+# Time-stamp: <2012-03-09 14:47:00 armin>
 
 import time
 import logging
@@ -14,8 +14,8 @@ class MailParser(object):
     @staticmethod
     def get_value_or_empty_str(headers, key, remove_newline=False):
         """
-        @param return: headers[key] if exist else ""
-        """
+@param return: headers[key] if exist else ""
+"""
         ret = ""
         if key in headers:
             ret = headers[key]
@@ -26,28 +26,28 @@ class MailParser(object):
     @staticmethod
     def parse_message(message, add_body=False):
         """
-        parses whole mail from string
+parses whole mail from string
 
-        @param message: mail message
-        @param add_body: if specified, body is added
-        @return values for OrgWriter.write_org_subitem
-        """
-        
+@param message: mail message
+@param add_body: if specified, body is added
+@return values for OrgWriter.write_org_subitem
+"""
+
         msg = message_from_string(message)
 
         # Read only these fields
-        use_headers = ["To:",
-                       "Date:",
-                       "From:",
-                       "Subject:",
-                       "Reply-To:",
-                       "Newsgroups:",
-                       "Cc:",
+        use_headers = ["To",
+                       "Date",
+                       "From",
+                       "Subject",
+                       "Reply-To",
+                       "Newsgroups",
+                       "Cc",
                        ]
         # These fields are added, if found to :PROPERTIES: drawer
-        not_properties = ["Date:",
-                          "Subject:",
-                          "From:"
+        not_properties = ["Date",
+                          "Subject",
+                          "From"
                           ]
 
         properties = OrgProperties()
@@ -56,7 +56,6 @@ class MailParser(object):
         logging.debug("Message items:")
         logging.debug(msg.items())
 
-
         # fill headers and properties
         for key, value in msg.items():
             value = value.replace("\r", "").decode('utf-8')
@@ -64,7 +63,8 @@ class MailParser(object):
                 headers[key] = value
                 if key not in not_properties:
                     properties.add(key, value.replace("\n", ""))
-            if key == "Message-ID":
+
+            if key.upper() == "MESSAGE-ID":
                 properties.set_id(value)
 
         notes = ""
@@ -109,6 +109,6 @@ class MailParser(object):
             output = output_from + u"@" + output_ng + ": " + subject
         else:
             output = output_from + u": " + subject
-            
 
         return timestamp, output, notes, properties
+    

@@ -2,7 +2,6 @@
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
 import unittest
-import sys
 import os
 from memacs.svn import SvnMemacs
 
@@ -26,7 +25,7 @@ class TestGitMemacs(unittest.TestCase):
 
         self.assertEqual(
             data[0],
-             "** <2011-10-27 Thu 19:50:16> group-5 (r5): finished ?")
+             "** <2011-10-27 Thu 17:50:16> group-5 (r5): finished ?")
         self.assertEqual(
             data[1],
              "   :PROPERTIES:")
@@ -41,7 +40,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[5],
-             "** <2011-10-27 Thu 19:18:26> group-5 (r4): finished 5,")
+             "** <2011-10-27 Thu 17:18:26> group-5 (r4): finished 5,")
         self.assertEqual(
             data[6],
              "   added package to assignment1.tex for landscaping (see 5.tex)")
@@ -59,7 +58,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[11],
-             "** <2011-10-27 Thu 17:38:17> group-5 (r3): 5b.")
+             "** <2011-10-27 Thu 15:38:17> group-5 (r3): 5b.")
         self.assertEqual(
             data[12],
              "   :PROPERTIES:")
@@ -74,7 +73,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[16],
-             "** <2011-10-27 Thu 16:41:11> group-5 (r2): 5.tex")
+             "** <2011-10-27 Thu 14:41:11> group-5 (r2): 5.tex")
         self.assertEqual(
             data[17],
              "   :PROPERTIES:")
@@ -89,7 +88,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[21],
-             "** <2011-10-27 Thu 10:44:55> group-5 (r1): initial files")
+             "** <2011-10-27 Thu 08:44:55> group-5 (r1): initial files")
         self.assertEqual(
             data[22],
              "   :PROPERTIES:")

@@ -4,7 +4,6 @@
 
 import unittest
 import time
-import sys
 import os
 from memacs.lib.orgformat import OrgFormat
 
