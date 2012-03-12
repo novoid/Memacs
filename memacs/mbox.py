@@ -6,8 +6,9 @@ import sys
 import os
 import logging
 from lib.memacs import Memacs
-from lib.mailparser import MailParser
 from lib.reader import CommonReader
+from lib.mailparser import MailParser
+
 
 
 class MboxMemacs(Memacs):
@@ -22,7 +23,7 @@ class MboxMemacs(Memacs):
         self._parser.add_argument(
            "-mf", "--mbox-mail-file", dest="mail_file",
            action="store",
-           help="path to mbox mail file")
+           help="path to maildir file")
 
         self._parser.add_argument(
            "-nf", "--mbox-news-file", dest="news_file",
@@ -44,7 +45,6 @@ class MboxMemacs(Memacs):
             self._parser.error("please specify an mbox mail file "
                                "OR an mbox newsgroup file - not both")
 
-
     def __read_mails_and_write(self, data):
         """
         Read All mails, let Mailparser parse each mail,
@@ -53,7 +53,7 @@ class MboxMemacs(Memacs):
         @param data: string containing all mails of mbox-file
         """
         message = data.split("Message-ID:")
-
+       
         for mail in message:
             timestamp, output, note, properties = \
                 MailParser.parse_message(mail)
@@ -72,7 +72,6 @@ class MboxMemacs(Memacs):
         message = data.split("X-Mozilla-Status: 0001"+"\n"+"X-Mozilla-Status2:"
                              " 00000000"+"\n"+"Path:")
         
-         
         for news in message:
             if not (news == message[0]):           
                 timestamp, output, note, properties = \
@@ -81,17 +80,20 @@ class MboxMemacs(Memacs):
                                                output,
                                                note,
                                                properties)
-               
+
     def _main(self):
         """
         get's automatically called from Memacs class
         """
         if self._args.mail_file:
             data = CommonReader.get_data_from_file(self._args.mail_file)
+            data = data.decode("utf-8","replace")
+            data = data.encode("utf-8")
             self.__read_mails_and_write(data)
-            
             
         elif self._args.news_file:
             data = CommonReader.get_data_from_file(self._args.news_file)
+            data = data.decode("utf-8","replace")
+            data = data.encode("utf-8")
             self.__read_news_and_write(data)
-        
+            
