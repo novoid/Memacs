@@ -41,7 +41,7 @@ class MaildirMemacs(Memacs):
 
     def __read_mails_and_write(self, data):
         """
-        Read all files, let Mailparser parse each mail,
+        Reads a mail, let Mailparser parse the mail,
         write to outputfile
 
         @param data: string contains a maildir email
@@ -54,12 +54,17 @@ class MaildirMemacs(Memacs):
                                            properties)
                          
     def __get_files(self, cur_path):     
-                       
-            listing = os.listdir(cur_path)
-            for maildir_file in listing:
-                path = cur_path + '/' + maildir_file
-                data = CommonReader.get_data_from_file(path)
-                self.__read_mails_and_write(data)
+        """
+        Reads a mail, let Mailparser parse the mail,
+        write to outputfile
+
+        @param cur_path: string contains the path to maildir email
+        """            
+        listing = os.listdir(cur_path)
+        for maildir_file in listing:
+            path = cur_path + '/' + maildir_file
+            data = CommonReader.get_data_from_file(path)
+            self.__read_mails_and_write(data)
                 
     def _main(self):
         """
