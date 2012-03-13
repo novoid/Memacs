@@ -1,0 +1,31 @@
+## Time-stamp: <2011-03-13 14:13:05 daniel>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-maildir
+
+** Current status
+
+Done, if you find any errors do not hesitate to contact us.
+
+** Data Source
+
+[[http://en.wikipedia.org/wiki/Maildir][MAILDIR]] is a common way of storing e-mail 
+messages, where each message is kept in a separate file with a unique name.
+
+** Example Invocation
+
+- You have to select the path to a maildir folder, so all files can be read:
+: $ /path/to/Memacs/emails/memacs_maildir.py -fp "/path/to/Maildir-main-folder"
+
+Add param -o like in other memacs modules to specify output file.
+
+** Example Orgmode entries
+
+We will visualize an e-mail from Maildir like this:
+
+: ** <2012-01-02 Mon 11:02> [[bob.bar@example.com][Bob Bar]]: argparse
+:    :PROPERTIES:
+:    :CC:         Foo Bob <Foo@Bob.com>
+:    :TO:         Alice Ally <alice@ally.com>
+:    :ID:         0b4f3ca74dcad0e3ba62c38e07f6d9068e2ba4d1
+:    :END:

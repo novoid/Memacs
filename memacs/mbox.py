@@ -55,12 +55,13 @@ class MboxMemacs(Memacs):
         message = data.split("Message-ID:")
        
         for mail in message:
-            timestamp, output, note, properties = \
-                MailParser.parse_message(mail)
-            self._writer.write_org_subitem(timestamp,
-                                           output,
-                                           note,
-                                           properties)
+            if not (mail == message[0]):
+                timestamp, output, note, properties = \
+                    MailParser.parse_message(mail)
+                self._writer.write_org_subitem(timestamp,
+                                               output,
+                                               note,
+                                               properties)
            
     def __read_news_and_write(self, data):
         """
