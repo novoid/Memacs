@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-11 13:59:29 armin>
+# Time-stamp: <2012-03-13 11:11:29 armin>
 
 import time
 import logging
@@ -103,7 +103,7 @@ class MailParser(object):
             except TypeError:
                 logging.error("could not parse dateime from msg %s", dt)
 
-        properties.set_id(time_tupel+_+value)
+        properties.set_id(time_tupel+"_"+msg_id)
         
         if "Newsgroups" in headers:
             ng_list = []
