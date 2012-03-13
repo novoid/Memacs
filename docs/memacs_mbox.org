@@ -14,9 +14,9 @@ or newsgroup entries.
 
 ** Example Invocation
 
-- You have to select a mbox-email file, so it can be read:
+- You have to select a mbox file, so it can be read:
 : $ /path/to/Memacs/emails/memacs_mbox.py -mf "/path/to/mbox-email-file"
-: or a mbox-newsgroup file.
+: or 
 : $ /path/to/Memacs/emails/memacs_mbox.py -nf "/path/to/mbox-newsgroup-file"
 
 Add param -o like in other memacs modules to specify output file.
