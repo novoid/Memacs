@@ -33,11 +33,13 @@ class MaildirMemacs(Memacs):
 
         all additional arguments are parsed in here
         """
+          
         Memacs._parser_parse_args(self)
-
         if not self._args.folder_path:
-            self._parser.error("please specify the path to Maildir folder")
-            
+                self._parser.error("please specify the path to Maildir folder")
+        if not (os.path.exists(self._args.folder_path) or \
+            os.access(self._args.folder_path, os.R_OK)):
+            self._parser.error("folder path not found")
 
     def __read_mails_and_write(self, data):
         """
@@ -64,6 +66,8 @@ class MaildirMemacs(Memacs):
         for maildir_file in listing:
             path = cur_path + '/' + maildir_file
             data = CommonReader.get_data_from_file(path)
+            data = data.decode("utf-8","replace")
+            data = data.encode("utf-8")
             self.__read_mails_and_write(data)
                 
     def _main(self):
@@ -74,7 +78,4 @@ class MaildirMemacs(Memacs):
             cur_path = (self._args.folder_path + "/cur")
             self.__get_files(cur_path)
 
-            
-            
-
-        
+  

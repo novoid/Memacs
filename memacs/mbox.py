@@ -19,7 +19,6 @@ class MboxMemacs(Memacs):
         add additional arguments
         """
         Memacs._parser_add_arguments(self)
-
         self._parser.add_argument(
            "-mf", "--mbox-mail-file", dest="mail_file",
            action="store",
@@ -37,13 +36,19 @@ class MboxMemacs(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
-
         if not self._args.mail_file and not self._args.news_file:
-            self._parser.error("please specify a file")
-            
+            self._parser.error("please specify a file")       
         if self._args.mail_file and self._args.news_file:
             self._parser.error("please specify an mbox mail file "
                                "OR an mbox newsgroup file - not both")
+        if self._args.mail_file and not (os.path.exists
+                                        (self._args.mail_file) or \
+            os.access(self._args.mail_file, os.R_OK)):
+            self._parser.error("input file not found or not readable")
+        if self._args.news_file and not (os.path.exists
+                                        (self._args.news_file) or \
+            os.access(self._args.news_file, os.R_OK)):
+            self._parser.error("input file not found or not readable")
 
     def __read_mails_and_write(self, data):
         """
