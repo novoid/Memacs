@@ -1,4 +1,4 @@
-## Time-stamp: <2011-09-20 14:12:51 vk>
+## Time-stamp: <2011-12-31 18:38:37 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 #+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
 #+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
@@ -6,6 +6,7 @@
 * TODO General [0/2]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:38>
+:ID: cdcb8794-cf12-4e16-8334-752cda9473a0
 :END:
 
 - German Org-mode links in [[http://suderei.supersized.org/archives/168-Org-mode.html][this blog entry]]
@@ -22,6 +23,7 @@
 ** NEXT One common result file OR one result file per Module
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:38>
+:ID: 3d45eb44-ca92-4dd0-95aa-19fa5d417cab
 :END:
 
 - resulting files:
@@ -33,6 +35,7 @@ troubles in daily work.
 ** NEXT format of the result file(s)
 :PROPERTIES:
 :CREATED: <2011-07-25 Mon 10:45>
+:ID: ee07289b-5e26-4989-98b1-c95a6beab411
 :END:
 
 Possibilities:
@@ -52,11 +55,13 @@ Possibilities:
 * TODO Memacs (central component) [0/3]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:40>
+:ID: 8daeaabb-68a5-449c-a83b-1817374a1fa1
 :END:
 
 ** TODO one or many configuration files
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:40>
+:ID: 8dd36514-ed8a-4a3d-a8b2-5416120b577a
 :END:
 
 Format should be INI format because it is human readable and there are
@@ -73,6 +78,7 @@ good libraries to use it. See code of tagstore and TagVizor.
 ** TODO tagging concept
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:43>
+:ID: c00348c5-0b3a-4ded-a163-e57b67f0de97
 :END:
 
 - one (configurable?) tag for everything
@@ -83,6 +89,7 @@ good libraries to use it. See code of tagstore and TagVizor.
 ** TODO drawer/properties concept
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:44>
+:ID: 2bc5d6fc-a5a5-45e7-9f37-a8d74849f6fe
 :END:
 
 [[http://orgmode.org/org.html#Drawers][Drawers]] are good places to store meta data. Most prominent drawer:
@@ -100,11 +107,13 @@ To decide (for each Module):
 * TODO Modules [0/13]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:51>
+:ID: 2a38cc95-14e5-4fa3-a509-c77630d71c2d
 :END:
 
 ** NEXT Common configuration settings for each Module
 :PROPERTIES:
 :CREATED: <2011-07-25 Mon 10:55>
+:ID: 19a9df92-706d-48cc-b57c-eddbae0bd46a
 :END:
 
 - Org mode file name where result gets written (or appended?) to
@@ -113,6 +122,7 @@ To decide (for each Module):
 ** NEXT Filedatestamp-locate-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
+:ID: 1e96939d-c04c-4ea6-ba3d-08ee09b3b1cd
 :END:
 
 see: file:README.org::*Filedatestamp-locate-Module
@@ -144,6 +154,7 @@ Implementation issues:
 ** NEXT delicious-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
+:ID: b5afbdc0-735d-4f19-9ad3-2b296c4496bd
 :END:
 
 see file:README.org::*delicious-Module
@@ -168,11 +179,13 @@ Implementation issues:
 *** NEXT use [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or [[https://secure.delicious.com/settings/bookmarks/export][XML export]]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:46>
+:ID: 7832226d-8c6d-4b07-925d-3f8d42c6c197
 :END:
 
 ** NEXT Grabeeter-Module [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
+:ID: 0e39e46e-b280-42de-bb7c-17238bc0818e
 :END:
 
 see file:README.org::*Grabeeter-Module
@@ -194,10 +207,15 @@ Configuration:
 
 
 *** NEXT check out possibilities and stability with [[http://andrewprice.me.uk/projects/twyt/][Twitter API]]
+:PROPERTIES:
+:CREATED: [2011-12-31 Sat 18:36]
+:ID: ff2a01b0-e49e-46e0-b0d5-eacc8e2537aa
+:END:
 
 ** NEXT Maildir-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
+:ID: e86d7fa2-54ea-4cfc-bd00-06280c02f76f
 :END:
 
 see file:README.org::*Maildir-Module
@@ -222,6 +240,7 @@ Implementation issues:
 ** TODO tagstore-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
+:ID: 4061b95e-30db-48a7-aec1-63e19a2c03db
 :END:
 
 see file:README.org::*tagstore-Module
@@ -256,6 +275,7 @@ Module-specific configuration:
 ** TODO GoogleCalendar-Module [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
+:ID: 91ebea27-f6df-4525-a939-571e82491bcf
 :END:
 
 see file:README.org::*GoogleCalendar-Module
@@ -277,10 +297,15 @@ Module-specific configuration:
 - List of event (sub-)strings to exclude
 
 *** NEXT check [[http://www.google.com/calendar][Google calendar]] using [[http://code.google.com/apis/calendar/data/2.0/developers_guide_python.html][an API]]
+:PROPERTIES:
+:CREATED: [2011-12-31 Sat 18:36]
+:ID: 304cbb4c-8514-4dee-beb1-aa56cfa42f99
+:END:
 
 ** TODO git-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
+:ID: 7db5d844-cfee-4d40-9864-6c32c2dd15e6
 :END:
 
 see file:README.org::*git-Module
@@ -301,6 +326,7 @@ Module-specific configuration:
 ** TODO svn-Module [0/0]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
+:ID: 487b7b4d-7d63-41ed-940c-cc82a6f846c0
 :END:
 
 see file:README.org::*svn-Module
@@ -322,6 +348,7 @@ Module-specific configuration:
 ** TODO SMS-backup-Module [0/1]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:53>
+:ID: 73f77936-bed3-4717-b4d4-7bf67fe944c6
 :END:
 
 see file:README.org::*SMS-backup-Module
@@ -339,12 +366,17 @@ Module-specific configuration:
 - path to SMS backup file of tool FIXXME
 
 *** NEXT check methods to get SMS from phone to computer
+:PROPERTIES:
+:CREATED: [2011-12-31 Sat 18:36]
+:ID: 30316c4c-4887-46f4-82bd-e9391db3624e
+:END:
 
 e.g. SMSbackupAndRestore (Android)
 
-** WISH JPilot-todo-Module [0/0]                                   :KarlVoit:
+** WISH JPilot-todo-Module [0/0]                                  :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-25 Mon 11:12>
+:ID: b095fd66-9e75-4a36-b4eb-fd6185a52de9
 :END:
 
 see file:README.org::*JPilot-todo-Module
@@ -360,9 +392,10 @@ see file:README.org::*JPilot-todo-Module
 Module-specific configuration:
 - 
 
-** WISH JPilot-event-Module [0/0]                                  :KarlVoit:
+** WISH JPilot-event-Module [0/0]                                 :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:51>
+:ID: 09fa5000-dcf8-45f2-8743-8c4c4141755a
 :END:
 
 see file:README.org::*JPilot-event-Module
@@ -378,9 +411,10 @@ see file:README.org::*JPilot-event-Module
 Module-specific configuration:
 - 
 
-** WISH Serendipity-Module [0/0]                                   :KarlVoit:
+** WISH Serendipity-Module [0/0]                                  :KarlVoit:
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
+:ID: 29707c11-52fc-46a3-b300-ae1c65ba82b6
 :END:
 
 see file:README.org::*Serendipity-Module

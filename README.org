@@ -1,4 +1,4 @@
-## Time-stamp: <2012-01-05 20:30:54 armin>
+## Time-stamp: <2012-03-16 16:56:30 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -55,6 +55,8 @@ For usage, best practices, frequently asked questions and their answers
 
 Those modules will be developed in the *next weeks or months*:
 
+- emails:
+  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs-maildir.org
 - bookmarks:
   - [[http://delicious.com][delicious]]: see bookmarks/delicious/memacs-delicious.org
 - [[http://Twitter.com][twitter]]:
@@ -150,7 +152,7 @@ using a [[http://en.wikipedia.org/wiki/Boolean_algebra_(logic)][boolean combinat
 
 Deeply related to Memacs, the project leader developed a research
 software *[[http://tagstore.org][tagstore]]*. This system allows users to store (local) files
-using tags an not a hierarchy of folders. As a natural extension,
+using tags without a hierarchy of folders. As a natural extension,
 tagstore targets associative access for (local) files. You might want
 to check out tagstore too. Memacs and tagstore are a very useful
 combination.
