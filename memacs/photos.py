@@ -9,7 +9,7 @@ from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.orgproperty import OrgProperties
 import imghdr  # TODO add to requirements
-from PIL import Image # TODO add to requirements
+from PIL import Image  # TODO add to requirements
 from PIL.ExifTags import TAGS
 
 
