@@ -1,0 +1,76 @@
+## Time-stamp: <2012-03-10 19:15:43 armin>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-phonecalls
+  
+** Current status
+
+Done, if you find any errors do not hesitate to contact us.
+
+** Data Source
+
+Any [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone logs your phone calls. Various software tools
+let you backup those call logs to your computer. This module takes
+those call logs and puts it into your Agenda - right where it belongs
+to.
+
+This memacs module will parse phonecall log XML backups. You can get this backups from following Android App:
+
+TODO
+TBD 
+
+*** example phonecall xml backup file:
+: <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+:                           
+: <calls count="8">
+:   <call number="+43691234123" duration="59" date="1312563906092" type="1" />
+:   <call number="06612341234" duration="22" date="1312541215834" type="2" />
+:   <call number="-1" duration="382" date="1312530691081" type="1" />
+:   <call number="+4312341234" duration="289" date="1312482327195" type="1" />
+:   <call number="+4366412341234" duration="70" date="1312476334059" type="1" />
+:   <call number="+4366234123" duration="0" date="1312473751975" type="2" />
+:   <call number="+436612341234" duration="0" date="1312471300072" type="3" />
+:   <call number="+433123412" duration="60" date="1312468562489" type="2" />
+: </calls>
+ 
+** Example Invocation
+
+: /path/to/Memacs/bin/memacs_phonecalls.py -f /path/to/phonecalls-xml-file.xml -o /home/user/orgmode/memacs/phonecalls.org_archive
+ 
+For more options see help page (<memacs_sms.py -h>)
+** Example Orgmode entries
+: * Memacs for phonecalls          :Memacs:phonecalls:
+: ** <2011-08-05 Fri 17:05:06> Phonecall from +43691234123 Duration: 59 sec
+:    :PROPERTIES:
+:    :ID:         5d4b551b7804f763ab2a62d287628aedee3e17a4
+:    :END:
+: ** <2011-08-05 Fri 10:46:55> Phonecall to 06612341234 Duration: 22 sec
+:    :PROPERTIES:
+:    :ID:         8a377f25d80b1c137fcf6f28835d234141dfe179
+:    :END:
+: ** <2011-08-05 Fri 07:51:31> Phonecall from Unknown Number Duration: 382 sec
+:    :PROPERTIES:
+:    :ID:         556373e703194e9919489f3497b485b63b9e6978
+:    :END:
+: ** <2011-08-04 Thu 18:25:27> Phonecall from +4312341234 Duration: 289 sec
+:    :PROPERTIES:
+:    :ID:         6cc7b095acf4b4ac7d647821541ad4b3c611d56e
+:    :END:
+: ** <2011-08-04 Thu 16:45:34> Phonecall from +4366412341234 Duration: 70 sec
+:    :PROPERTIES:
+:    :ID:         8865ef73de0bb1dc9d9de0b362f885defda9ada1
+:    :END:
+: ** <2011-08-04 Thu 16:02:31> Phonecall to +4366234123 Duration: 0 sec
+:    :PROPERTIES:
+:    :ID:         8561807f509b66f3a8dd639b19776a2a06e0463e
+:    :END:
+: ** <2011-08-04 Thu 15:21:40> Phonecall missed +436612341234 Duration: 0 sec
+:    :PROPERTIES:
+:    :ID:         1f1ebb7853e28d66d6908f72a454cec378011605
+:    :END:
+: ** <2011-08-04 Thu 14:36:02> Phonecall to +433123412 Duration: 60 sec
+:    :PROPERTIES:
+:    :ID:         9558d013e3522e5bcbb02cb6599182ca0802547d
+:    :END:
+
+   
