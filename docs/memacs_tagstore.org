@@ -24,6 +24,6 @@ Add param -o like in other memacs modules to specify output file.
 We will visualize a file stored by tagstore like this:
 : * Memacs for tagstore          :Memacs:tagstore:
 : ** <2012-01-02 Mon 11:02> Bob.jpg   :photos:holliday:2012-01:Foo
-   :PROPERTIES:
-   :ID:         63ba824a89b486bcb5d160b35a08fdd7c813b6fb
-   :END:
+:  :PROPERTIES:
+:  :ID:         63ba824a89b486bcb5d160b35a08fdd7c813b6fb
+:  :END:
