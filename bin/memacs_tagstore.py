@@ -6,7 +6,7 @@ from memacs.tagstore import TagstoreMemacs
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2012-03-14"
-PROG_SHORT_DESCRIPTION = u"Memacs for mbox"
+PROG_SHORT_DESCRIPTION = u"Memacs for tagstore"
 PROG_TAG = u"tagstore"
 PROG_DESCRIPTION = u"""Todo
 
