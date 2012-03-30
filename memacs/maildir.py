@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-03-011 14:11:25 daniel>
 
-import sys
 import os
-import logging
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.mailparser import MailParser
@@ -32,8 +30,7 @@ class MaildirMemacs(Memacs):
         overwritten method of class Memacs
 
         all additional arguments are parsed in here
-        """
-          
+        """      
         Memacs._parser_parse_args(self)
         if not self._args.folder_path:
                 self._parser.error("please specify the path to Maildir folder")
@@ -45,7 +42,7 @@ class MaildirMemacs(Memacs):
         """
         Reads a mail, let Mailparser parse the mail,
         write to outputfile
-
+    
         @param data: string contains a maildir email
         """
         timestamp, output, note, properties = \
@@ -55,13 +52,13 @@ class MaildirMemacs(Memacs):
                                            note,
                                            properties)
                          
-    def __get_files(self, cur_path):     
+    def __get_files(self, cur_path):
         """
         Reads a mail, let Mailparser parse the mail,
         write to outputfile
 
         @param cur_path: string contains the path to maildir email
-        """            
+        """
         listing = os.listdir(cur_path)
         for maildir_file in listing:
             path = cur_path + '/' + maildir_file
@@ -77,5 +74,3 @@ class MaildirMemacs(Memacs):
         if self._args.folder_path:
             cur_path = (self._args.folder_path + "/cur")
             self.__get_files(cur_path)
-
-  

@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-03-06 16:51:25 daniel>
 
-import sys
 import os
-import logging
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.mailparser import MailParser
