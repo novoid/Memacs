@@ -40,6 +40,7 @@ class TagstoreMemacs(Memacs):
     def __read_store_and_write(self, store_file):     
         """
         Reads needed infos of .tagstore/store.tgs,
+        parse the infos,
         write to outputfile
 
         @param store_file: string contains the input from store.tgs

@@ -8,9 +8,9 @@ PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2012-03-14"
 PROG_SHORT_DESCRIPTION = u"Memacs for tagstore"
 PROG_TAG = u"tagstore"
-PROG_DESCRIPTION = u"""Todo
-
-
+PROG_DESCRIPTION = u"""The memacs module will fetch all infos 
+of given file (-f or --store_file <path to Tagstore store.tgs file>),
+parses the file and writes the output to an orgfile.
 """
 COPYRIGHT_YEAR = "2011-2012"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,

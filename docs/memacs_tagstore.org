@@ -1,0 +1,29 @@
+## Time-stamp: <2011-03-30 15:32:05 daniel>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-tagstore
+
+** Current status
+
+Done, if you find any errors do not hesitate to contact us.
+
+** Data Source
+
+[[http://tagstore.ist.tugraz.at/][TAGSTORE]] is a new way of storing and accessing files by using 
+TagTrees.
+
+** Example Invocation
+
+- You have to select the path to the store.tgs file, so it can be read:
+: $ /path/to/Memacs/tagstore/memacs_tagstore.py -f "/path/to/.tagstore/store.tgs"
+
+Add param -o like in other memacs modules to specify output file.
+
+** Example Orgmode entries
+
+We will visualize a file stored by tagstore like this:
+: * Memacs for tagstore          :Memacs:tagstore:
+: ** <2012-01-02 Mon 11:02> Bob.jpg   :photos:holliday:2012-01:Foo
+   :PROPERTIES:
+   :ID:         63ba824a89b486bcb5d160b35a08fdd7c813b6fb
+   :END:
