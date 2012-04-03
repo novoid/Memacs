@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-03-30 15:43:15 daniel>
-
+import time
 import os.path
+import logging
+from email.utils import parsedate
+from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
+
+from ConfigParser import SafeConfigParser
 
 
 class TagstoreMemacs(Memacs):
@@ -44,47 +49,65 @@ class TagstoreMemacs(Memacs):
         write to outputfile
 
         @param store_file: string contains the input from store.tgs
-        """               
-
-        store_data = store_file.split('\n')
-        del store_data[len(store_data)-1]
-        pars_count = 0
-        for data_part in store_data:
-            data = data_part.split('\\')
+        """
+          
+        parser = SafeConfigParser()
+        parser.read(store_file)
+        sections =  parser.sections()
+        options = parser.options(sections[1])
+        
+        for i in range(0,len(options),3): 
+            filename = options[i].split('\\')
             
-            if pars_count == 0:
-                output = data[0]      
-                tags = data[1][5:]
-                pars_count += 1
-            elif pars_count == 1:
-                timestamp = data[1][10:]
-                pars_count += 1
-            else:
-                category = data[1][10:]
-                category = category.replace('"', "")
-                pars_count = 0;
-                output = output.decode("utf-8","replace")
-                data_for_hashing = output.decode("utf-8","replace") 
-                properties = OrgProperties(data_for_hashing=data_for_hashing) 
-                
-                if len(tags) >= len(category):                 
-                    tags = tags.split(",")
+            filename = filename[0]
+            tags = parser.get(sections[1],options[i])
+            timestamp = parser.get(sections[1],options[i+1])
+            category = parser.get(sections[1],options[i+2])
+                  
+            tags = tags.replace('"','')
+            tags = tags.replace(' ','_')
+            tags = tags.replace(':','_')
+            category = category.replace('"','')
+            category = category.replace(' ','_')
+            category = category.replace(':','_')
+            tags = tags.split(",")
+            category = category.split(",")
+            timestamp = timestamp[0:16]
+            tagstoring = []
+            
+            tagstoring.extend(tags)
+            tagstoring.extend(category)
+            
+            x = 0
+            while x < len(tagstoring):
+                if tagstoring[x] == '':
+                    tagstoring.pop(x)
                 else:
-                    tags = category.split(",")    
-                    
-                self._writer.write_org_subitem(timestamp=timestamp,
-                                               output=output,
-                                               tags=tags,
-                                               properties=properties,
-                                               )
-                
+                    y = x + 1
+                    while y < len(tagstoring):
+                        if tagstoring[x] == tagstoring[y]:
+                            tagstoring.pop(y)
+                        else:      
+                            y = y + 1
+                    x = x + 1
+
+            timestamp = OrgFormat.strdatetime(timestamp)   
+            output = filename.decode("utf-8","replace")
+            data_for_hashing = output.decode("utf-8","replace") 
+            properties = OrgProperties(data_for_hashing=data_for_hashing)
+            self._writer.write_org_subitem(timestamp=timestamp,
+                                           output=output,
+                                           tags=tagstoring,
+                                           properties=properties
+                                           )
+            
+            
+
+
     def _main(self):
         """
         get's automatically called from Memacs class
         """
         if self._args.store_file:
-            data = CommonReader.get_data_from_file(self._args.store_file)
-            data = data.decode("utf-8","replace")
-            data = data.encode("utf-8")
-            self.__read_store_and_write(data)
+            self.__read_store_and_write(self._args.store_file)
             
