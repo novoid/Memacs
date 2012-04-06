@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<calls count="506">
+  <call number="+4368110463228" duration="0" date="1303378237194" type="3" readable_date="2011/21/04 11:30:37" contact_name="Petra Heidenkummer" />
+  <call number="+4368110463228" duration="55" date="1303378253988" type="2" readable_date="2011/21/04 11:30:53" contact_name="Petra Heidenkummer" />
+  <call number="+4368110463228" duration="76" date="1303378592397" type="2" readable_date="2011/21/04 11:36:32" contact_name="Petra Heidenkummer" />
+  <call number="+436644517731" duration="0" date="1303378683441" type="2" readable_date="2011/21/04 11:38:03" contact_name="Thomas Reiter" />
+  <call number="+4368110463228" duration="49" date="1303383053407" type="2" readable_date="2011/21/04 12:50:53" contact_name="Petra Heidenkummer" />
+  <call number="-1" duration="373" date="1303385176064" type="1" readable_date="2011/21/04 13:26:16" contact_name="(Unknown)" />
+  <call number="-1" duration="2" date="1304000113073" type="1" readable_date="2011/28/04 16:15:13" contact_name="(Unknown)" />
+  <call number="-1" duration="0" date="1304000170055" type="3" readable_date="2011/28/04 16:16:10" contact_name="(Unknown)" />
+  <call number="+4368110463228" duration="6" date="1304012810078" type="1" readable_date="2011/28/04 19:46:50" contact_name="Petra Heidenkummer" />
+  <call number="+436645238476" duration="28" date="1304014438828" type="2" readable_date="2011/28/04 20:13:58" contact_name="Keith Andrews" />
+</calls>
