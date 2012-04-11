@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2012-04-11 18:48:26 armin>
 
 import logging
 import sys
 import os
 
 
-def handle_logging(verbose=False, suppressmessages=False, org_file=""):
+def handle_logging(args,
+                   verbose=False,
+                   suppressmessages=False,
+                   org_file=""):
     """
     Handle/format logging regarding boolean parameter verbose
     @param verbose: options from OptionParser
@@ -32,7 +35,8 @@ def handle_logging(verbose=False, suppressmessages=False, org_file=""):
             console.setLevel(logging.ERROR)
             formatter = logging.Formatter(
                 '** %(asctime)s ' + memacs_module_filename + \
-                    ' had an %(levelname)s \n   %(message)s',
+                    ' had an %(levelname)s \n   %(message)s \n' + \
+                '   Arguments: ' + str(args) + '\n',
                 datefmt="<%Y-%m-%d %a %H:%M:%S +1d>")
             console.setFormatter(formatter)
             logging.getLogger('').addHandler(console)

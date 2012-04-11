@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-28 20:22:49 armin>
+# Time-stamp: <2012-04-11 18:46:03 armin>
 
 import logging
 import traceback
@@ -85,9 +85,11 @@ class Memacs(object):
         # parse all arguments
         self._parser_parse_args()
         # set logging configuration
-        handle_logging(self._args.verbose,
+        handle_logging(self._args.__dict__,
+                       self._args.verbose,
                        self._args.suppressmessages,
-                       self._args.outputfile)
+                       self._args.outputfile,
+                       )
 
         # for testing purposes it's good to see which args are secified
         logging.debug("args specified:")
