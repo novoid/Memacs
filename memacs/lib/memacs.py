@@ -222,7 +222,7 @@ class Memacs(object):
             if "autotag" not in cfgp.sections():
                 logging.error("autotag file contains no section [autotag]")
                 sys.exit(1)
-            
+
             for item in cfgp.items("autotag"):
                 tag = item[0]
                 values = item[1].split(",")
