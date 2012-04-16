@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 22:33:29 armin>
+# Time-stamp: <2012-04-16 23:04:44 armin>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -88,7 +88,8 @@ class MemacsArgumentParser(ArgumentParser):
 
         self.add_argument("--autotagfile",
                           dest="autotagfile",
-                          help="file containing autotag information",
+                          help="file containing autotag information, see " + \
+                          "doc file FAQs_and_Best_Practices.org",
                           metavar="FILE")
         # ---------------------
         # Config parser

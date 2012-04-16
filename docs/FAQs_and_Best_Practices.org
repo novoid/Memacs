@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-10 19:15:42 armin>
+## Time-stamp: <2012-04-16 23:14:33 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -221,6 +221,31 @@ Then errors are automatically added to
 
 If an error occurs it will be added to the error.org_archive with an repeating timestamp every day. 
 You have to delete the error manually.
+
+** Autotagging 
+Autotagging allows to set for each entry other tagging Information.
+
+By now autotagging is only available for the <headline> of the entry. 
+
+: *** <1900-00-00> <headline> :tags:
+:     <additional data>
+:     :PROPERTIES: 
+:     :END: 
+
+*Example Autotag file:*
+: [autotag]
+: haha=foo, fooo bar, foobar
+: lala=bar, baaar
+
+*Example file without Autotag:*
+: ** <1970-01-01 Thu 00:00> foo	
+: ** <1970-01-01 Thu 00:00> bar	:tag1:tag2
+
+*Example file with Autotag:*
+: .../bin/memacs_example.py --autotag /tmp/autotags
+
+: ** <1970-01-01 Thu 00:00> foo	:haha:
+: ** <1970-01-01 Thu 00:00> bar	:tag1:tag2:lala:
 
 ** how works the *appendmode* of memacs? / How is the :ID: Property generated?
 All properties (:PROPERTIES: drawer) are stored in a dict
