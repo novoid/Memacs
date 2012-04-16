@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 20:13:26 armin>
+# Time-stamp: <2012-04-16 22:59:38 armin>
 
 import unittest
 import os
@@ -35,7 +35,7 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_comment("abc\n")
         writer.write_commentln("abc")
         writer.write_org_item("begin")
-        
+
         timestamp = OrgFormat.datetime(time.gmtime(0))
         writer.write_org_subitem(timestamp=timestamp,
                                  output="sub",
@@ -125,28 +125,27 @@ class TestOutputWriter(unittest.TestCase):
                          "utf-8 failure")
 
         #cleaning up
-        
+
         os.remove(self.TMPFOLDER + "testutf8.org")
-        
-    
+
     def test_autotag(self):
         test_filename = self.TMPFOLDER + "testautotag.org"
 
         autotag_dict = {}
         autotag_dict["TUG"] = ["tugraz", "university"]
         autotag_dict["programming"] = ["programming", "python", "java"]
-        
+
         output = "Programming for my bachelor thesis at University"
 
         # writing test output
-        writer = OrgOutputWriter(short_description="short-des", 
-                                 tag="tag", 
+        writer = OrgOutputWriter(short_description="short-des",
+                                 tag="tag",
                                  file_name=test_filename,
                                  autotag_dict=autotag_dict)
         timestamp = OrgFormat.datetime(time.gmtime(0))
-        
+
         properties = OrgProperties("data_for_hashing")
-        
+
         writer.write_org_subitem(timestamp=timestamp,
                                  output=output,
                                  properties=properties)
@@ -156,9 +155,10 @@ class TestOutputWriter(unittest.TestCase):
         file_handler = codecs.open(test_filename, "r", "utf-8")
         input_handler = file_handler.readlines()
         file_handler.close()
-        
+
         self.assertEqual(input_handler[4],
-                         u"** <1970-01-01 Thu 00:00> Programming for my bachelor thesis at University\t:programming:TUG:\n")
+                         u"** <1970-01-01 Thu 00:00> Programming for my " + \
+                         "bachelor thesis at University\t:programming:TUG:\n")
 
         #cleaning up
         os.remove(self.TMPFOLDER + "testautotag.org")

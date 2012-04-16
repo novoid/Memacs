@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 22:53:47 armin>
+# Time-stamp: <2012-04-16 22:59:05 armin>
 
 import logging
 import traceback
@@ -111,7 +111,7 @@ class Memacs(object):
 
         # handling autotagging
         autotag_dict = self.__handle_autotagfile()
-        
+
         # set up orgoutputwriter
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
@@ -220,8 +220,7 @@ class Memacs(object):
             for item in cfgp.items("autotag"):
                 tag = item[0]
                 values = item[1].split(",")
-                values = map(lambda x : x.strip(), values)
+                values = map(lambda x: x.strip(), values)
                 autotag_dict[tag] = values
-                
 
         return autotag_dict

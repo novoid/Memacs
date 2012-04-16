@@ -152,7 +152,7 @@ class GitMemacs(Memacs):
                           "use argument -e or --encoding see help",
                           self._args.encoding)
             sys.exit(1)
-            
+
     def _main(self):
         """
         get's automatically called from Memacs class
@@ -168,7 +168,7 @@ class GitMemacs(Memacs):
         else:
             logging.debug("using sys.stdin as input_stream")
             input_stream = codecs.getreader(self._args.encoding)(sys.stdin)
-            
+
         # now go through the file
         # Logic (see example commit below)
         # first we are in an header and not in an body

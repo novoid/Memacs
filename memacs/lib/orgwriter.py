@@ -41,8 +41,8 @@ class OrgOutputWriter(object):
         self.__tag = tag
         self.__file_name = file_name
         self.__existing_ids = []
-        self.__autotag_dict=autotag_dict
-        
+        self.__autotag_dict = autotag_dict
+
         self.__lower_autotag_dict()
 
         if file_name:
@@ -178,10 +178,10 @@ class OrgOutputWriter(object):
         assert properties.__class__ == OrgProperties
         assert (output.__class__ == str or output.__class__ == unicode)
         assert (note.__class__ == str or note.__class__ == unicode)
-        
+
         if tags == None:
             tags = []
-        
+
         if self.__autotag_dict != {}:
             self.__get_autotags(tags, output)
 
@@ -260,17 +260,17 @@ class OrgOutputWriter(object):
         """
         for tag in self.__autotag_dict.iterkeys():
             values = []
-            
+
             for value in self.__autotag_dict[tag]:
                 values.append(value.lower())
-                
+
             self.__autotag_dict[tag] = values
 
     def __get_autotags(self, tags, string):
         """
         Searches for tags in a given wordlist.
         Append them to tags
-        
+
         @param tags: list to append the matched tags
         @param string: string to look for matching values
         """
