@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 22:59:05 armin>
+# Time-stamp: <2012-04-16 23:19:39 armin>
 
 import logging
 import traceback
@@ -214,9 +214,15 @@ class Memacs(object):
         @return - return autotag_dict
         """
         autotag_dict = {}
+
         if self._args.autotagfile:
             cfgp = ConfigParser()
             cfgp.read(self._args.autotagfile)
+
+            if "autotag" not in cfgp.sections():
+                logging.error("autotag file contains no section [autotag]")
+                sys.exit(1)
+            
             for item in cfgp.items("autotag"):
                 tag = item[0]
                 values = item[1].split(",")
