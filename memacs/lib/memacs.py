@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-11 18:46:03 armin>
+# Time-stamp: <2012-04-16 22:53:47 armin>
 
 import logging
 import traceback
@@ -109,13 +109,17 @@ class Memacs(object):
                           self.__config_parser.items(
                                         self.__use_config_parser_name))
 
+        # handling autotagging
+        autotag_dict = self.__handle_autotagfile()
+        
         # set up orgoutputwriter
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
             short_description=self.__prog_short_description,
             tag=tag,
             test=test,
-            append=self._args.append)
+            append=self._args.append,
+            autotag_dict=autotag_dict)
 
     def _get_config_option(self, option):
         """
@@ -203,3 +207,21 @@ class Memacs(object):
             if d[:2] != "* " and d[:1] != "#":
                 ret_data.append(d)
         return ret_data
+
+    def __handle_autotagfile(self):
+        """
+        read out the autotag file and generate a dict
+        @return - return autotag_dict
+        """
+        autotag_dict = {}
+        if self._args.autotagfile:
+            cfgp = ConfigParser()
+            cfgp.read(self._args.autotagfile)
+            for item in cfgp.items("autotag"):
+                tag = item[0]
+                values = item[1].split(",")
+                values = map(lambda x : x.strip(), values)
+                autotag_dict[tag] = values
+                
+
+        return autotag_dict

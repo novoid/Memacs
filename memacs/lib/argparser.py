@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 12:16:47 armin>
+# Time-stamp: <2012-04-16 22:33:29 armin>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -85,6 +85,11 @@ class MemacsArgumentParser(ArgumentParser):
         self.add_argument("-t", "--tag",
                           dest="tag",
                           help="overriding tag: :Memacs:<tag>: (on top entry)")
+
+        self.add_argument("--autotagfile",
+                          dest="autotagfile",
+                          help="file containing autotag information",
+                          metavar="FILE")
         # ---------------------
         # Config parser
         # ---------------------
@@ -113,6 +118,14 @@ class MemacsArgumentParser(ArgumentParser):
 
         if args.suppressmessages == True and args.verbose == True:
             self.error("cannot set both verbose and suppress-messages")
+
+        if args.autotagfile:
+            if not os.path.exists(os.path.dirname(args.autotagfile)):
+                self.error("Autotag file path(%s) doest not exist!" %
+                           args.autotagfile)
+            if not os.access(args.autotagfile, os.R_OK):
+                self.error("Autotag file (%s) is not readable!" %
+                           args.autotagfile)
 
         # ---------------------
         # Config parser
