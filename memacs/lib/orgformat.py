@@ -219,7 +219,7 @@ class OrgFormat(object):
         returns a time_tupel
         @param datetime_string: YYYYMMDDTHHMMSSZ or
                                 YYYYMMDDTHHMMSST or
-                                YYYYMMDD
+                                YYYYMMDD or YYYY
         """
         assert datetime_string.__class__ == str or \
             datetime_string.__class__ == unicode
@@ -237,6 +237,9 @@ class OrgFormat(object):
             elif string_length == 8:
                 #YYYYMMDD
                 return time.strptime(datetime_string, "%Y%m%d")
+            elif string_length == 4:
+                #YYYY
+                return time.strptime(datetime_string, "%Y")       
             elif string_length == 27:
                 #2011-11-02T14:48:54.908371Z
                 datetime_string = datetime_string.split(".")[0] + "Z"

@@ -1,0 +1,107 @@
+## Time-stamp: <2012-05-11 15:0:06 daniel>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs_xml
+
+** Current status
+
+Done, if you find any errors do not hesitate to contact us.
+
+** Data Source
+[[http://en.wikipedia.org/wiki/XML][Extensible Markup Language (XML)]] defines a set of rules 
+for encoding documents in a format that is both human-readable and machine-readable.
+
+** Example Invocation 
+
+Because memacs_xml is a general memacs (not for a specific datasource) there are a lot of parameters and a config file.
+- Section (optional)
+  You should specify the right section of the config file to parse the XML the way you want (Section0 on default).
+  : -se <number> 
+  or 
+  : --section <number>
+  
+- splitting criterion (optional)
+  If you want to add tags to your Org-mode output you should specify the right delimiter (" " on default).
+  : -sp <delimiter>
+  or 
+  : --split <delimiter>
+
+- path_to_config_file (required)
+  : -i </path/to/configfile>
+  or
+  : --ini </path/to/configfile>
+
+- path_to_xml_file (file or url required)
+  : -f </path/to/xmlfile>
+  or
+  : --file </path/to/file>
+  
+- url_to_xml_file (url or file required)
+  : -u <url_to_xmlfile>
+  or
+  : --url <url_to_xmlfile>  
+
+** The Config File
+
+If you use this general memacs you need to specify the nodes and attributes you want to have parsed
+of the xml file.
+- timevalue (required) - allowed values are: 
+  : YYYY, YYYYMMDD, YYYYMMDDTHHMMSSZ, YYYY-MM-DD, YYYYMMDDTHHMMSST, YYYY-MM-DDTHH.MM.SS, YYYY-MM-DDTHH.MM , timetuple
+  "timetuple" looks like Sun, 28 Aug 2009 11:11:55 +0100 (see Example)
+
+- end (required):
+  : has to be a node name that includes all the nodes and attributes you want to have parsed (see Example). 
+
+- timestamp (required):
+  : the node that holds the timestamp
+
+- All other node parameters and attribute parameters are optional.
+
+
+** Example  
+example.xml:
+:<?xml version="1.0" encoding="ISO-8859-1"?>
+:<channel>
+:	<item>
+:		<title>Example1</title>
+:		<description>a description maybe</description>
+:		<link>http://www.any.org/link.htm</link>
+:		<tags tag1='tag1' tag2='tag2' tag3='tag3'>
+:			<pubDate>Mon, 28 Aug 2006 11:12:55 -0400</pubDate>
+:		</tags>
+:	</item>
+:	<item>
+:		<title>Example2</title>
+:		<description>http://www.another/link.htm</description>
+:		<link>http://www.domain.com/link.htm2</link>
+:		<tags tag1='anothertag1' tag2='anothertag2'>
+:			<pubDate>Mon, 28 Aug 2006 16:16:56 -0400</pubDate>
+:		</tags>
+:	</item>
+:</channel>
+
+example.config.section:
+:[Section3]
+:timestamp=pubDate
+:attimestamp=
+:output=title
+:atoutput=
+:note=link
+:atnote=
+:properties=description
+:atproperties=
+:tags=tags
+:attags=tag1,tag2,tag3
+:timevalue=timetuple
+:end=item
+
+Invocation:
+: $MEMACS_DIR/memacs_xml.py -u http://www.bob/foo.xml -i /path/to/xml.ini -se 5 -o /home/user/orgmode/memacs/svn-foo.org_archive
+
+output:
+: * Memacs for xml          :Memacs:xml:
+:** <2006-08-28 Mon 11:12:55> Example1: [[http://www.any/link.htm][link]]: http://www.any/link.htm	:tag1:tag2:tag3:
+:   [[http://www.any.org/link.htm][link]]: http://www.any.org/link.htm
+:   :PROPERTIES:
+:   :ID:         6c7ae957b7d7bb3e4dffd17b0fa2f922bb1ae2bf
+:   :END:
