@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-11 15:55:31 df>
+# Time-stamp: <2012-05-13 13:55:31 df>
 
 import re
 import os
@@ -18,7 +18,7 @@ from email.utils import parsedate
 
 class XmlSaxHandler(xml.sax.handler.ContentHandler):
     """
-    Sax handler for following xml's:
+    Sax handler for diverse xml's:
     """
     
     def __init__(self, writer, paras, split):
@@ -61,6 +61,7 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
         
     def characters(self, content):
         """
+        handles xml tags that are specified in xml.ini
         """
         logging.debug("Handler @characters @%s , content=%s",
                       self.__on_node_name, content)
@@ -83,6 +84,9 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
                 
     def startElement(self, name, attrs):
         """
+        at every <tag> remember the tagname
+        
+        read nodes that are specified in xml.ini
         """
         logging.debug("Handler @startElement name=%s,attrs=%s", name, attrs)
 
@@ -111,6 +115,11 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
 
     def endElement(self, name):
         """
+        at every </tag> clear the remembered tagname
+        
+        if we are at end tag that is specified in xml.ini
+        we write all defined tags and attributes to output-file
+        with __write function
         """
         logging.debug("Handler @endElement name=%s", name)
         self.__on_node_name = ""
@@ -312,6 +321,9 @@ class XmlMemacs(Memacs):
             sys.exit(1)
 
     def __read_config_section(self, conf, section):
+        """
+        reads defined section of config file
+        """
         para = {}
         try:
             options = conf.options(section)
@@ -326,6 +338,10 @@ class XmlMemacs(Memacs):
         return para    
             
     def __get_data_of_conf(self, section, conf):
+        '''
+        reads the nodes and attributes that
+        are defined in specified section of xml.ini
+        '''
         config = ConfigParser.ConfigParser()
         config.read(conf)
         sectioncount = len(config.sections()) -1  

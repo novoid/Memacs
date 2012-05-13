@@ -14,8 +14,8 @@ for encoding documents in a format that is both human-readable and machine-reada
 ** Example Invocation 
 
 Because memacs_xml is a general memacs (not for a specific datasource) there are a lot of parameters and a config file.
-- Section (optional)
-  You should specify the right section of the config file to parse the XML the way you want (Section0 on default).
+- Section (required)
+  You should specify the right section of the config file to parse the nodes and attributes you want.
   : -se <number> 
   or 
   : --section <number>
