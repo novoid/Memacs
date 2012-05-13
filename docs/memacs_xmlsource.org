@@ -27,6 +27,7 @@ Because memacs_xml is a general memacs (not for a specific datasource) there are
   : --split <delimiter>
 
 - path_to_config_file (required)
+  xml.ini can be found in Memacs folder
   : -i </path/to/configfile>
   or
   : --ini </path/to/configfile>
@@ -48,6 +49,10 @@ of the xml file.
 - timevalue (required) - allowed values are: 
   : YYYY, YYYYMMDD, YYYYMMDDTHHMMSSZ, YYYY-MM-DD, YYYYMMDDTHHMMSST, YYYY-MM-DDTHH.MM.SS, YYYY-MM-DDTHH.MM , timetuple
   "timetuple" looks like Sun, 28 Aug 2009 11:11:55 +0100 (see Example)
+
+- Sections:
+  You can add as many sections for specific xml types you like.
+
 
 - end (required):
   : has to be a node name that includes all the nodes and attributes you want to have parsed (see Example). 
