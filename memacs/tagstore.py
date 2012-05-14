@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-30 15:43:15 daniel>
-import time
+# Time-stamp: <2012-05-14 15:43:15 daniel>
+
 import os.path
-import logging
-from email.utils import parsedate
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
-from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
-
 from ConfigParser import SafeConfigParser
 
 
@@ -21,11 +17,17 @@ class TagstoreMemacs(Memacs):
         add additional arguments
         """
         Memacs._parser_add_arguments(self)
+        
         self._parser.add_argument(
            "-f", "--store_file",
            dest="store_file",
            help="path to store.tgs file"
-                "path/to/store.tgs")
+                " path/to/store.tgs")
+        self._parser.add_argument(
+           "-sp", "--store_path",
+           dest="store_path",
+           help="path to storage main folder"
+                " path/to/mainfolder")
 
     def _parser_parse_args(self):
         """
@@ -39,8 +41,13 @@ class TagstoreMemacs(Memacs):
                                "store.tgs")           
         if not (os.path.exists(self._args.store_file) or \
             os.access(self._args.store_file, os.R_OK)):
-            self._parser.error("path not found")
-            
+            self._parser.error("path not found")      
+        '''if not self._args.store_path:
+            self._parser.error("please specify the path to "
+                               "main storage folder")           
+        if not (os.path.exists(self._args.store_path)):
+            self._parser.error("path not found to main"
+                               " storage folder")     '''       
     
     def __read_store_and_write(self, store_file):     
         """
@@ -91,23 +98,25 @@ class TagstoreMemacs(Memacs):
                             y = y + 1
                     x = x + 1
 
+            unformatted_link = self.__path + "/" + filename
+            short_link = OrgFormat.link(unformatted_link, "link")
+            link = ":FILEPATH: " + short_link
+            
             timestamp = OrgFormat.strdatetime(timestamp)   
             output = filename.decode("utf-8","replace")
             data_for_hashing = output.decode("utf-8","replace") 
             properties = OrgProperties(data_for_hashing=data_for_hashing)
             self._writer.write_org_subitem(timestamp=timestamp,
                                            output=output,
+                                           note=link, 
                                            tags=tagstoring,
-                                           properties=properties
-                                           )
-            
-            
-
+                                           properties=properties)
 
     def _main(self):
         """
         get's automatically called from Memacs class
         """
-        if self._args.store_file:
-            self.__read_store_and_write(self._args.store_file)
+        self.__path = self._args.store_path
+        self.__read_store_and_write(self._args.store_file)
+            
             

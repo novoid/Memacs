@@ -17,6 +17,9 @@ TagTrees.
 - You have to select the path to the store.tgs file, so it can be read:
 : $ /path/to/Memacs/tagstore/memacs_tagstore.py -f "/path/to/.tagstore/store.tgs"
 
+- You have to select the path to the main storage folder of tagstore. (Ablage in german)
+: $ /path/to/Memacs/tagstore/memacs_tagstore.py -sp "/path/to/tagstore/Ablage"
+
 Add param -o like in other memacs modules to specify output file.
 
 ** Example Orgmode entries
