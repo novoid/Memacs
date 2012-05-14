@@ -261,12 +261,12 @@ class XmlMemacs(Memacs):
            help="path to xml config file") 
          
         self._parser.add_argument(
-           "-se", "--section", dest="section",
+           "-co", "--section", dest="section",
            action="store",
            help="section of config file")
         
         self._parser.add_argument(
-           "-sp", "--split", dest ="splitcriterion",
+           "-de", "--delimiter", dest ="splitcriterion",
            action="store",
            help="you can set this to specify a " +
                 "splitting-criterion for tags(" " is default")

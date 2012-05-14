@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<channel>
+	<item>
+		<title>Example1</title>
+		<description>a description maybe</description>
+		<link>http://www.any.org/link.htm</link>
+		<tags tag1='tag1' tag2='tag2' tag3='tag3'>
+			<pubDate>Mon, 28 Aug 2006 11:12:55 -0400</pubDate>
+		</tags>
+	</item>
+</channel>

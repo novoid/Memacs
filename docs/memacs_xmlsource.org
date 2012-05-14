@@ -16,15 +16,15 @@ for encoding documents in a format that is both human-readable and machine-reada
 Because memacs_xml is a general memacs (not for a specific datasource) there are a lot of parameters and a config file.
 - Section (required)
   You should specify the right section of the config file to parse the nodes and attributes you want.
-  : -se <number> 
+  : -co <number> 
   or 
   : --section <number>
   
 - splitting criterion (optional)
   If you want to add tags to your Org-mode output you should specify the right delimiter (" " on default).
-  : -sp <delimiter>
+  : -de <delimiter>
   or 
-  : --split <delimiter>
+  : --delimiter <delimiter>
 
 - path_to_config_file (required)
   xml.ini can be found in Memacs folder
