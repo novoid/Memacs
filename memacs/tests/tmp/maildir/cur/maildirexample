@@ -1,0 +1,24 @@
+Return-Path: <test@test.at>
+Received: from test.test.at ([unix socket])
+	 Mon, 19 Nov 2007 10:28:32 +0100
+X-Sieve: CMU Sieve 2.3
+Received: from 
+Received: from C(CET)
+Message-Id: <200711190928.lAJ9SVJr026663@fstgss22..at>
+From: "test.test@test.at" <test.test@test.at>
+To: bob@gmail.com
+Content-Type: text/plain;
+	charset="utf-8"
+Subject: SomeSubject
+MIME-Version: 1.0
+X-Mailer: PSP_Mail Version 1.4.4.0062 (c) 2001-2003 by N-Networks
+	- licensed to TU GRAZ/ZID
+Date: Mon, 19 Nov 2007 09:28:31 +0000
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Scanner: SpamAssassin 3.002003 
+X-Spam-Score-relay: -3.0
+X-Scanned-By: MIMEDefang 2.63 on 129.27.3.24
+X-Scanned-By: milter-sender/1.15.914 .914 ([129.27.3.24]); Mon, 19 Nov 2007 10:28:32 +0100
+X-Scanned-By: MIMEDefang 2.63 on 129.27.10.18
+X-wl: 123.11.2.211
+
