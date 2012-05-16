@@ -13,6 +13,7 @@ rss/vktmp
 rss/error.org_archive
 filenametimestamps/vktmp/
 benchmarking
-Makefile
 core
 vktmp
+dist/
+MANIFEST
