@@ -1,4 +1,4 @@
-## Time-stamp: <2011-12-27 14:58:16 armin>
+## Time-stamp: <2012-05-22 09:06:42 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-svn
@@ -9,7 +9,7 @@ Done, if you find any errors do not hesitate to contact us.
 
 ** Data Source
 
-Version control systems]] are quite common to manage all kind of data
+Version control systems are quite common to manage all kind of data
 with. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
 revision control.
 
