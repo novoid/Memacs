@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-24 10:45:50 armin>
+# Time-stamp: <2012-05-24 10:59:01 armin>
 
 import sys
 import os
@@ -17,6 +17,7 @@ except ImportError, e:
     print "please install python package \"icalendar\""
     print e
     sys.exit(3)
+
 
 class CalendarMemacs(Memacs):
     def _parser_add_arguments(self):

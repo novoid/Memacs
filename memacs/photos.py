@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-11 14:51:11 armin>
+# Time-stamp: <2012-05-24 10:59:20 armin>
 
 import os
 import logging
@@ -8,8 +8,8 @@ import time
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.orgproperty import OrgProperties
-import imghdr  # TODO add to requirements
-from PIL import Image  # TODO add to requirements
+import imghdr
+from PIL import Image
 from PIL.ExifTags import TAGS
 
 
