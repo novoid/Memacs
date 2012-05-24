@@ -4,7 +4,7 @@ import glob
 setup(
     name = "memacs",
     packages = ["bin","memacs","memacs/lib", "memacs/lib/tests", "memacs/tests"],
-    version = "0.0.13",
+    version = "0.0.14",
     description = "Memacs extracts metadata from many different existing data sources on your computer and generates files which are readable by GNU Emacs(Org-Mode).",
     author = "Karl Voit",
     author_email = "tools@Karl-Voit.at",
@@ -12,7 +12,7 @@ setup(
     download_url = "https://github.com/novoid/Memacs/zipball/master",
     keywords = ["org-mode", "org"],
     scripts = glob.glob("bin/memacs_*"),
-    install_requires = ["PIL","icalendar","feedparser"],
+    install_requires = ["PIL","icalendar>=3.0","feedparser"],
     classifiers = [
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
