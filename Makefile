@@ -44,3 +44,10 @@ countorgmodeentries:
 
 upload:
 	python setup.py sdist upload
+
+pipcheckouttest:
+	mkdir -p /tmp/memacs-test
+	virtualenv /tmp/memacs-test --no-site-packages
+	source /tmp/memacs-test/bin/activate
+	pip install memacs
+	deactivate
