@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-24 10:59:01 armin>
+# Time-stamp: <2012-05-24 19:18:21 armin>
 
 import sys
 import os
@@ -159,7 +159,8 @@ class CalendarMemacs(Memacs):
     def _main(self):
         # getting data
         if self._args.calendar_file:
-            data = CommonReader.get_data_from_file(self._args.calendar_file)
+            data = CommonReader.get_data_from_file(self._args.calendar_file,
+            encoding=None)
         elif self._args.calendar_url:
             data = CommonReader.get_data_from_url(self._args.calendar_url)
 
