@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-01-02 21:23:13 armin>
+# Time-stamp: <2012-05-24 19:08:10 armin>
 
 import codecs
 import logging
@@ -18,7 +18,7 @@ class CommonReader:
     """
 
     @staticmethod
-    def get_data_from_file(path):
+    def get_data_from_file(path, encoding='utf-8'):
         """
         reads a file
 
@@ -26,7 +26,7 @@ class CommonReader:
         @return: returns data
         """
         try:
-            input_file = codecs.open(path, 'rb', encoding='utf-8')
+            input_file = codecs.open(path, 'rb', encoding=encoding)
             data = input_file.read()
             input_file.close()
             return data
