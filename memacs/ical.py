@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2012-05-24 19:18:21 armin>
 
 import sys
 import os
@@ -126,9 +126,10 @@ class CalendarMemacs(Memacs):
         location = self.__vtext_to_unicode(component.get('location'))
         description = self.__vtext_to_unicode(component.get('description'))
         # format: 20091207T180000Z or 20100122
-        dtstart = self.__vtext_to_unicode(component.get('dtstart'))
+        dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical())
         # format: 20091207T180000Z or 20100122
-        dtend = self.__vtext_to_unicode(component.get('dtend'))
+        dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical())
+
         # format: 20091207T180000Z
         # not used: Datestamp created
         #dtstamp = self.__vtext_to_unicode(component.get('dtstamp'))
@@ -158,12 +159,13 @@ class CalendarMemacs(Memacs):
     def _main(self):
         # getting data
         if self._args.calendar_file:
-            data = CommonReader.get_data_from_file(self._args.calendar_file)
+            data = CommonReader.get_data_from_file(self._args.calendar_file,
+            encoding=None)
         elif self._args.calendar_url:
             data = CommonReader.get_data_from_url(self._args.calendar_url)
 
         # read and go through calendar
-        cal = Calendar.from_string(data)
+        cal = Calendar.from_ical(data)
         for component in cal.walk():
             if component.name == "VCALENDAR":
                 self.__handle_vcalendar(component)
