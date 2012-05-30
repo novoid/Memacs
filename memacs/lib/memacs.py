@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 23:19:39 armin>
+# Time-stamp: <2012-05-30 18:23:08 armin>
 
 import logging
 import traceback
@@ -23,7 +23,7 @@ class Memacs(object):
         - verbose
         - suppress-messages
     * set logging information
-        - write error logs to error.org_archive if
+        - write error logs to error.org if
           orgfile is specified
 
     use handle_main() to start Memacs

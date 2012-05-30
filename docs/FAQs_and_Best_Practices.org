@@ -1,4 +1,4 @@
-## Time-stamp: <2012-04-16 23:23:13 armin>
+## Time-stamp: <2012-05-30 18:23:28 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -45,7 +45,7 @@ When you specify an outputfile like this:
 : memacs-module.py -o /path/to/output.org_archive
 
 Then errors are automatically added to 
-: /path/to/error.org_archive
+: /path/to/error.org
 
 - Create the file containing following information:
   : ## -*- coding: utf-8 mode: org -*-
@@ -60,11 +60,10 @@ Then errors are automatically added to
   : * Memacs error 					      :Memacs:ERROR:
   : # start deleting from here:
 
-- Create a stub file 
-  : /path/to/error.org 
-  - open it in emacs and M-x org-agenda-file-to-front
+- Add the file to Org-Agenda:
+  - open the file in emacs and M-x org-agenda-file-to-front
 
-If an error occurs it will be added to the error.org_archive with an repeating timestamp every day. 
+If an error occurs it will be added to the error.org with an repeating timestamp every day. 
 You have to delete the error manually.
 
 ** Autotagging 
@@ -190,8 +189,7 @@ generated Memacs Orgmode files:
 : /home/user/orgmode/memacs/module1.org_archive
 : /home/user/orgmode/memacs/module2.org
 : /home/user/orgmode/memacs/module2.org_archive
-: /home/user/orgmode/memacs/error.org          <- See Section 
-: /home/user/orgmode/memacs/error.org_archive  <- Error Handling
+: /home/user/orgmode/memacs/error.org          <- See Section Error Handling
 ** Power Consumption while being on battery
 
 When you are using Memacs on a notebook, you might not want to execute
