@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-11 18:48:26 armin>
+# Time-stamp: <2012-05-30 18:19:27 armin>
 
 import logging
 import sys
@@ -28,7 +28,7 @@ def handle_logging(args,
             org_file = None
         else:
             org_error_file = os.path.dirname(org_file) + os.sep + \
-                "error.org_archive"
+                "error.org"
             memacs_module_filename = os.path.basename(sys.argv[0])
             # add file logger
             console = logging.FileHandler(org_error_file, 'a', 'utf-8', 0)
