@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 20:13:03 armin>
+# Time-stamp: <2012-06-03 10:59:09 armin>
 
 import codecs
 import sys
@@ -147,6 +147,7 @@ class OrgOutputWriter(object):
             for n in note.splitlines():
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
+        self.write(properties.get_multiline_properties())
 
     def write_org_subitem(self,
                           timestamp,
