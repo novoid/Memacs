@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 14:39:17 armin>
+# Time-stamp: <2012-06-03 11:16:03 armin>
 import hashlib
 
 
@@ -22,6 +22,7 @@ class OrgProperties(object):
         you can add here data only for hash generation
         """
         self.__properties = {}
+        self.__properties_multiline = {}
         self.__data_for_hashing = data_for_hashing
         self.__id = None
 
@@ -33,9 +34,19 @@ class OrgProperties(object):
         """
         tag = unicode(tag).strip().upper()
         value = unicode(value).strip()
+
         if tag == "ID":
             raise Exception("you should not specify an :ID: property " + \
                             "it will be generated automatically")
+
+        value_multiline = value.splitlines()
+
+        if len(value_multiline) > 1:
+            # we do have multiline value
+            multiline_value = ["   " + v for v in value_multiline]
+            self.__properties_multiline[tag] = multiline_value
+
+            value = " ".join(value_multiline)
 
         self.__properties[tag] = unicode(value)
 
@@ -50,7 +61,11 @@ class OrgProperties(object):
         delete a pair out of properties
         @param key index
         """
-        del self.__properties[key]
+        try:
+            del self.__properties[key]
+            del self.__properties_multiline[key]
+        except Keyerror, e:
+            pass
 
     def __get_property_max_tag_width(self):
         width = 10  # :PROPERTIES: has width 10
@@ -119,4 +134,13 @@ class OrgProperties(object):
         ret = self.get_value(key)
         self.delete(key)
         self.add_data_for_hashing(ret)
+        return ret
+
+    def get_multiline_properties(self):
+        ret = ""
+        for key in self.__properties_multiline.keys():
+            ret += "\n   " + key + ":\n"
+            ret += "\n".join(self.__properties_multiline[key])
+            ret += "\n"
+
         return ret
