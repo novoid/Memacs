@@ -11,7 +11,7 @@ Most people can not answer such questions. *With Memacs you can!*
 Memacs extracts metadata (subjects, timestamps, contact information,
 ...) from many different existing data sources (file names, emails,
 tweets, bookmarks, ...) on your computer and generates files which are
-readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org][Org-mode]].
+readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]].
 
 Example:
 :    emails              -> memacs-maildir.org \ 
