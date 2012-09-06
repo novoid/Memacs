@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-06-03 11:16:03 armin>
+# Time-stamp: <2012-09-06 22:07:05 armin>
 import hashlib
 
 

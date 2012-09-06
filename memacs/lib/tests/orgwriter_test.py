@@ -94,15 +94,18 @@ class TestOutputWriter(unittest.TestCase):
             "   :END:\n")
         self.assertEqual(
             data[13],
-            "** <1970-01-01 Thu 00:00> sub\t:foo:bar:\n")
+            "\n")
         self.assertEqual(
             data[14],
-            "   :PROPERTIES:\n")
+            "** <1970-01-01 Thu 00:00> sub\t:foo:bar:\n")
         self.assertEqual(
             data[15],
-            "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
+            "   :PROPERTIES:\n")
         self.assertEqual(
             data[16],
+            "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
+        self.assertEqual(
+            data[17],
             "   :END:\n")
         #cleaning up
         file_handler.close()

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-06-03 10:59:09 armin>
+# Time-stamp: <2012-09-06 22:12:44 armin>
 
 import codecs
 import sys
@@ -29,7 +29,8 @@ class OrgOutputWriter(object):
                  file_name=None,
                  test=False,
                  append=False,
-                 autotag_dict={}):
+                 autotag_dict={},
+                 number_entries=None):
         """
         @param file_name:
         """
@@ -42,7 +43,8 @@ class OrgOutputWriter(object):
         self.__file_name = file_name
         self.__existing_ids = []
         self.__autotag_dict = autotag_dict
-
+        self.__number_entries = number_entries
+        self.__entries_count = 0
         self.__lower_autotag_dict()
 
         if file_name:
@@ -101,7 +103,9 @@ class OrgOutputWriter(object):
         Don't call this function - call instead function close(),
         close() does call this function
         """
-        self.writeln(u"* successfully parsed by " + \
+        self.writeln(u"* successfully parsed " +\
+                     unicode(self.__entries_count) + \
+                     " entries by " + \
                      sys.argv[0] + u" at " + \
                      OrgFormat.inactive_datetime(time.localtime()) + \
                      u" in ~" + self.__time + u".")
@@ -147,7 +151,10 @@ class OrgOutputWriter(object):
             for n in note.splitlines():
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
-        self.write(properties.get_multiline_properties())
+        if self.__test:
+            self.write(properties.get_multiline_properties())
+        else:
+            self.writeln(properties.get_multiline_properties())
 
     def write_org_subitem(self,
                           timestamp,
@@ -179,6 +186,13 @@ class OrgOutputWriter(object):
         assert properties.__class__ == OrgProperties
         assert (output.__class__ == str or output.__class__ == unicode)
         assert (note.__class__ == str or note.__class__ == unicode)
+
+        # count the entries we have written, if above our limit do not write
+        if self.__number_entries and \
+            self.__entries_count == self.__number_entries:
+            return
+        else:
+            self.__entries_count += 1
 
         if tags == None:
             tags = []

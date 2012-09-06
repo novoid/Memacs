@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 15:39:33 armin>
+# Time-stamp: <2012-09-06 22:02:48 armin>
 
 import unittest
 import os
@@ -10,7 +10,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
 
     def setUp(self):
         test_file = os.path.dirname(os.path.abspath(__file__)) + \
-            os.sep + "tmp" + os.sep + "phonecallsxml.txt"
+            os.sep + "tmp" + os.sep + "calls.xml"
         argv = "-s -f " + test_file
         memacs = PhonecallsMemacs(argv=argv.split())
         self.data = memacs.test_get_entries()
