@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 23:04:44 armin>
+# Time-stamp: <2012-09-06 20:03:05 armin>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -91,6 +91,12 @@ class MemacsArgumentParser(ArgumentParser):
                           help="file containing autotag information, see " + \
                           "doc file FAQs_and_Best_Practices.org",
                           metavar="FILE")
+
+        self.add_argument("--number-entries",
+                          dest="number_entries",
+                          help="how many entries should be written?",
+                          type=int)
+
         # ---------------------
         # Config parser
         # ---------------------

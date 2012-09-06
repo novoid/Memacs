@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-30 18:23:08 armin>
+# Time-stamp: <2012-09-06 21:58:41 armin>
 
 import logging
 import traceback
@@ -119,7 +119,8 @@ class Memacs(object):
             tag=tag,
             test=test,
             append=self._args.append,
-            autotag_dict=autotag_dict)
+            autotag_dict=autotag_dict,
+            number_entries=self._args.number_entries)
 
     def _get_config_option(self, option):
         """
