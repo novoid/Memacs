@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-28 20:22:49 armin>
+# Time-stamp: <2012-09-06 21:58:41 armin>
 
 import logging
 import traceback
@@ -23,7 +23,7 @@ class Memacs(object):
         - verbose
         - suppress-messages
     * set logging information
-        - write error logs to error.org_archive if
+        - write error logs to error.org if
           orgfile is specified
 
     use handle_main() to start Memacs
@@ -85,9 +85,11 @@ class Memacs(object):
         # parse all arguments
         self._parser_parse_args()
         # set logging configuration
-        handle_logging(self._args.verbose,
+        handle_logging(self._args.__dict__,
+                       self._args.verbose,
                        self._args.suppressmessages,
-                       self._args.outputfile)
+                       self._args.outputfile,
+                       )
 
         # for testing purposes it's good to see which args are secified
         logging.debug("args specified:")
@@ -107,13 +109,18 @@ class Memacs(object):
                           self.__config_parser.items(
                                         self.__use_config_parser_name))
 
+        # handling autotagging
+        autotag_dict = self.__handle_autotagfile()
+
         # set up orgoutputwriter
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
             short_description=self.__prog_short_description,
             tag=tag,
             test=test,
-            append=self._args.append)
+            append=self._args.append,
+            autotag_dict=autotag_dict,
+            number_entries=self._args.number_entries)
 
     def _get_config_option(self, option):
         """
@@ -201,3 +208,26 @@ class Memacs(object):
             if d[:2] != "* " and d[:1] != "#":
                 ret_data.append(d)
         return ret_data
+
+    def __handle_autotagfile(self):
+        """
+        read out the autotag file and generate a dict
+        @return - return autotag_dict
+        """
+        autotag_dict = {}
+
+        if self._args.autotagfile:
+            cfgp = ConfigParser()
+            cfgp.read(self._args.autotagfile)
+
+            if "autotag" not in cfgp.sections():
+                logging.error("autotag file contains no section [autotag]")
+                sys.exit(1)
+
+            for item in cfgp.items("autotag"):
+                tag = item[0]
+                values = item[1].split(",")
+                values = map(lambda x: x.strip(), values)
+                autotag_dict[tag] = values
+
+        return autotag_dict

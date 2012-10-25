@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-08 13:57:39 armin>
+## Time-stamp: <2012-05-30 18:23:28 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -35,6 +35,67 @@ Older versions of Mac OS X used to support cron. But since OS X 10.4 «Tiger» y
 *** Microsoft Windows
 
 Please refer to [[http://support.microsoft.com/kb/308569][Windows Task Scheduler]].
+
+** Error Handling 
+Because we let our memacs-modules automatically run, it would be difficult 
+to get informed in case of an error. So memacs-modules have a nice error handling:
+
+When you specify an outputfile like this:
+
+: memacs-module.py -o /path/to/output.org_archive
+
+Then errors are automatically added to 
+: /path/to/error.org
+
+- Create the file containing following information:
+  : ## -*- coding: utf-8 mode: org -*-
+  : ## this file is for error-messages of Memacs 
+  : ## to add this file to your org-agenda open error.org with emacs and: M-x org-agenda-file-to-front
+  : ##
+  : ## Main idea of this file:
+  : ## if a memacs-module has an error following entry will be generated:#
+  : ## ** <TIMESTAMP-ERROR-occured +1d> memacs-foo had a problem: <error-msg> #
+  : ## the "+1d" means that this entry will appear in org agenda view until the entry is deleted from this file
+  : ##
+  : * Memacs error 					      :Memacs:ERROR:
+  : # start deleting from here:
+
+- Add the file to Org-Agenda:
+  - open the file in emacs and M-x org-agenda-file-to-front
+
+If an error occurs it will be added to the error.org with an repeating timestamp every day. 
+You have to delete the error manually.
+
+** Autotagging 
+Autotagging allows to set for each entry other tagging Information.
+
+By now autotagging is only available for the <headline> of the entry. 
+
+: *** <1900-00-00> <headline> :tags:
+:     <additional data>
+:     :PROPERTIES: 
+:     :END: 
+
+*Example Autotag file:*
+: [autotag]
+: haha=foo, fooo bar, foobar
+: lala=bar, baaar
+
+*Autotag file style:*
+: [autotag]
+: <TAG>=names to match for that tag seperated by a comma
+: <TAG>=....
+: ....
+
+*Example file without Autotag:*
+: ** <1970-01-01 Thu 00:00> foo	
+: ** <1970-01-01 Thu 00:00> bar	:tag1:tag2
+
+*Example file with Autotag:*
+: .../bin/memacs_example.py --autotag /tmp/autotags
+
+: ** <1970-01-01 Thu 00:00> foo	:haha:
+: ** <1970-01-01 Thu 00:00> bar	:tag1:tag2:lala:
 
 ** Performance and Scalability
 
@@ -111,7 +172,6 @@ SSD which is quite remarkable. Using a normal hard disk, a comparable
 call takes *one minute and fifteen seconds*.
 
 
-
 ** File organization
 
 The more Memacs modules you are using, the more files (*.org and
@@ -129,8 +189,7 @@ generated Memacs Orgmode files:
 : /home/user/orgmode/memacs/module1.org_archive
 : /home/user/orgmode/memacs/module2.org
 : /home/user/orgmode/memacs/module2.org_archive
-: /home/user/orgmode/memacs/error.org          <- See Section 
-: /home/user/orgmode/memacs/error.org_archive  <- Error Handling
+: /home/user/orgmode/memacs/error.org          <- See Section Error Handling
 ** Power Consumption while being on battery
 
 When you are using Memacs on a notebook, you might not want to execute
@@ -181,38 +240,16 @@ being executed.
 
 * Internals
 ** How to write a memacs module? 
-see memacs_example 
-** Error Handling 
-Because we let our memacs-modules automatically run, it would be difficult 
-to get informed in case of an error. So memacs-modules have a nice error handling:
-
-When you specify an outputfile like this:
-
-: memacs-module.py -o /path/to/output.org_archive
-
-Then errors are automatically added to 
-: /path/to/error.org_archive
-
-- Create the file containing following information:
-  : ## -*- coding: utf-8 mode: org -*-
-  : ## this file is for error-messages of Memacs 
-  : ## to add this file to your org-agenda open error.org with emacs and: M-x org-agenda-file-to-front
-  : ##
-  : ## Main idea of this file:
-  : ## if a memacs-module has an error following entry will be generated:#
-  : ## ** <TIMESTAMP-ERROR-occured +1d> memacs-foo had a problem: <error-msg> #
-  : ## the "+1d" means that this entry will appear in org agenda view until the entry is deleted from this file
-  : ##
-  : * Memacs error 					      :Memacs:ERROR:
-  : # start deleting from here:
-
-- Create a stub file 
-  : /path/to/error.org 
-  - open it in emacs and M-x org-agenda-file-to-front
-
-If an error occurs it will be added to the error.org_archive with an repeating timestamp every day. 
-You have to delete the error manually.
-
+see 
+: Memacs/bin/memacs_example.py
+: Memacs/memacs/example.py
+: Memacs/tests/example_test.py
+** Testing 
+Use [[http://readthedocs.org/docs/nose/en/latest/][nosetests]] for executing tests
+install it with:
+: % easy_install nosetests
+or 
+: # aptitude install python-nose
 ** how works the *appendmode* of memacs? / How is the :ID: Property generated?
 All properties (:PROPERTIES: drawer) are stored in a dict
 : i.e.: :FOO: <bar>

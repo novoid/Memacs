@@ -17,7 +17,7 @@ class TagstoreMemacs(Memacs):
         add additional arguments
         """
         Memacs._parser_add_arguments(self)
-        
+
         self._parser.add_argument(
            "-f", "--store_file",
            dest="store_file",
@@ -38,18 +38,18 @@ class TagstoreMemacs(Memacs):
         Memacs._parser_parse_args(self)
         if not self._args.store_file:
             self._parser.error("please specify the path to "
-                               "store.tgs")           
+                               "store.tgs")
         if not (os.path.exists(self._args.store_file) or \
             os.access(self._args.store_file, os.R_OK)):
-            self._parser.error("path not found")      
+            self._parser.error("path not found")
         '''if not self._args.store_path:
             self._parser.error("please specify the path to "
-                               "main storage folder")           
+                               "main storage folder")
         if not (os.path.exists(self._args.store_path)):
             self._parser.error("path not found to main"
-                               " storage folder")     '''       
-    
-    def __read_store_and_write(self, store_file):     
+                               " storage folder")     '''
+
+    def __read_store_and_write(self, store_file):
         """
         Reads needed infos of .tagstore/store.tgs,
         parse the infos,
@@ -57,20 +57,20 @@ class TagstoreMemacs(Memacs):
 
         @param store_file: string contains the input from store.tgs
         """
-          
+
         parser = SafeConfigParser()
         parser.read(store_file)
         sections =  parser.sections()
         options = parser.options(sections[1])
-        
-        for i in range(0,len(options),3): 
+
+        for i in range(0,len(options),3):
             filename = options[i].split('\\')
-            
+
             filename = filename[0]
             tags = parser.get(sections[1],options[i])
             timestamp = parser.get(sections[1],options[i+1])
             category = parser.get(sections[1],options[i+2])
-                  
+
             tags = tags.replace('"','')
             tags = tags.replace(' ','_')
             tags = tags.replace(':','_')
@@ -81,10 +81,10 @@ class TagstoreMemacs(Memacs):
             category = category.split(",")
             timestamp = timestamp[0:16]
             tagstoring = []
-            
+
             tagstoring.extend(tags)
             tagstoring.extend(category)
-            
+
             x = 0
             while x < len(tagstoring):
                 if tagstoring[x] == '':
@@ -94,21 +94,21 @@ class TagstoreMemacs(Memacs):
                     while y < len(tagstoring):
                         if tagstoring[x] == tagstoring[y]:
                             tagstoring.pop(y)
-                        else:      
+                        else:
                             y = y + 1
                     x = x + 1
 
             unformatted_link = self.__path + "/" + filename
             short_link = OrgFormat.link(unformatted_link, "link")
             link = ":FILEPATH: " + short_link
-            
-            timestamp = OrgFormat.strdatetime(timestamp)   
+
+            timestamp = OrgFormat.strdatetime(timestamp)
             output = filename.decode("utf-8","replace")
-            data_for_hashing = output.decode("utf-8","replace") 
+            data_for_hashing = output.decode("utf-8","replace")
             properties = OrgProperties(data_for_hashing=data_for_hashing)
             self._writer.write_org_subitem(timestamp=timestamp,
                                            output=output,
-                                           note=link, 
+                                           note=link,
                                            tags=tagstoring,
                                            properties=properties)
 
@@ -118,5 +118,5 @@ class TagstoreMemacs(Memacs):
         """
         self.__path = self._args.store_path
         self.__read_store_and_write(self._args.store_file)
-            
-            
+
+

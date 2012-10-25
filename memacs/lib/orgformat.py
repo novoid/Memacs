@@ -239,7 +239,7 @@ class OrgFormat(object):
                 return time.strptime(datetime_string, "%Y%m%d")
             elif string_length == 4:
                 #YYYY
-                return time.strptime(datetime_string, "%Y")       
+                return time.strptime(datetime_string, "%Y")
             elif string_length == 27:
                 #2011-11-02T14:48:54.908371Z
                 datetime_string = datetime_string.split(".")[0] + "Z"

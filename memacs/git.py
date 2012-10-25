@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-20 15:13:31 aw>
+# Time-stamp: <2012-04-16 18:24:28 armin>
 
 import sys
 import os
@@ -122,6 +122,13 @@ class GitMemacs(Memacs):
            help="if you wanna parse only commit from a specific person. " + \
            "format:<Forname Lastname> of user to grep")
 
+        self._parser.add_argument(
+           "-e", "--encoding", dest="encoding",
+           action="store",
+           help="default encoding utf-8, see " + \
+           "http://docs.python.org/library/codecs.html#standard-encodings" + \
+           "for possible encodings")
+
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
@@ -134,6 +141,18 @@ class GitMemacs(Memacs):
                      os.access(self._args.gitrevfile, os.R_OK)):
             self._parser.error("input file not found or not readable")
 
+        if not self._args.encoding:
+            self._args.encoding = "utf-8"
+
+    def get_line_from_stream(self, input_stream):
+        try:
+            return input_stream.readline()
+        except UnicodeError, e:
+            logging.error("Can't decode to encoding %s, " + \
+                          "use argument -e or --encoding see help",
+                          self._args.encoding)
+            sys.exit(1)
+
     def _main(self):
         """
         get's automatically called from Memacs class
@@ -142,11 +161,13 @@ class GitMemacs(Memacs):
 
         # read file
         if self._args.gitrevfile:
-            logging.debug("using as %s input_stream", self._args.gitrevfile)
-            input_stream = codecs.open(self._args.gitrevfile, encoding='utf-8')
+            logging.debug("using as %s input_stream",
+                          self._args.gitrevfile)
+            input_stream = codecs.open(self._args.gitrevfile,
+                                       encoding=self._args.encoding)
         else:
             logging.debug("using sys.stdin as input_stream")
-            input_stream = codecs.getreader('utf-8')(sys.stdin)
+            input_stream = codecs.getreader(self._args.encoding)(sys.stdin)
 
         # now go through the file
         # Logic (see example commit below)
@@ -168,7 +189,7 @@ class GitMemacs(Memacs):
         commit = Commit()
         commits = []
 
-        line = input_stream.readline()
+        line = self.get_line_from_stream(input_stream)
 
         while line:
             line = line.rstrip()  # removing \n
@@ -183,7 +204,7 @@ class GitMemacs(Memacs):
                 commit.add_header(line)
                 was_in_body = False
 
-            line = input_stream.readline()
+            line = self.get_line_from_stream(input_stream)
 
         # adding last commit
         if not commit.is_empty():

@@ -30,7 +30,7 @@ class MaildirMemacs(Memacs):
         overwritten method of class Memacs
 
         all additional arguments are parsed in here
-        """      
+        """
         Memacs._parser_parse_args(self)
         if not self._args.folder_path:
                 self._parser.error("please specify the path to Maildir folder")
@@ -42,7 +42,7 @@ class MaildirMemacs(Memacs):
         """
         Reads a mail, let Mailparser parse the mail,
         write to outputfile
-    
+
         @param data: string contains a maildir email
         """
         timestamp, output, note, properties = \
@@ -51,7 +51,7 @@ class MaildirMemacs(Memacs):
                                            output,
                                            note,
                                            properties)
-                         
+
     def __get_files(self, cur_path):
         """
         Reads a mail, let Mailparser parse the mail,
@@ -66,7 +66,7 @@ class MaildirMemacs(Memacs):
             data = data.decode("utf-8","replace")
             data = data.encode("utf-8")
             self.__read_mails_and_write(data)
-                
+
     def _main(self):
         """
         get's automatically called from Memacs class

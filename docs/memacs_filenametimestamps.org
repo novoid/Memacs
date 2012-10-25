@@ -1,12 +1,11 @@
-## Time-stamp: <2011-09-20 17:05:02 vk>
+## Time-stamp: <2012-03-10 18:57:05 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
 
 ** Current status
 
-This module currently is a quick hack with status «works for me». Feel
-free to improve this module.
+Done, if you find any errors do not hesitate to contact us.
 
 ** Data Source
 
@@ -14,20 +13,18 @@ Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-
 «2011-02-14T14.35.42_img_0815.jpg» or «2011-02-14 slide GTD tools.jpg»
 contain a direct reference to a certain day (or time).
 
-This module is using «[[http://en.wikipedia.org/wiki/Find][find]]» for pre-filtering.
 
 ** Example Invocation
 
-The example invocation line searches all files whose names begins with
-an ISO datestamp. «egrep» is used to filter out all file and path
-names which should not be included. Finally the Memacs module is used
-to generate the Orgmode file:
 
-: find /home/ -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | egrep -v '(/s/|Rohpanorama|/\.|/restricted/)' > /tmp/files-tmp && ~/bin/memacs-filenametimestamps.py -f /tmp/files-tmp -w -o ~/org-mode/files.org
+: /home/user/Memacs/bin/memacs_filenametimestamps.py -f "/home/user/Documents" -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
 
 ** Example Orgmode entries
 
+
 : * Memacs for file name time stamp                      :Memacs:filedatestamps:
-: ** <2009-10-07 16:33> [[file:/home/user/gdi/2009-10-07-GDI_Script.doc][2009-10-07-GDI_Script.doc]]
-: ** <2011-04-26> [[file:/home/user/temp/2011-04-26_HTC_Desire_bug.jpeg][2011-04-26_HTC_Desire_bug.jpeg]]
-: ** <2010-03-11 10:52> [[file:/home/user/temp/2010-03-11T10.52.07_img_0047.jpg][2010-03-11T10.52.07_img_0047.jpg]]
+: ** <2010-03-12 Fri> [[/home/armin/Documents/scan/Graz/Strom%20-%20Gas/2010-03-12.pdf][2010-03-12.pdf]]
+:    :PROPERTIES:
+:    :ID:         5b6e980e83fe22e1d149b837b1bcb2560aadace3
+:    :END:
+

@@ -10,17 +10,17 @@ class TestXml(unittest.TestCase):
 
     def setUp(self):
         pass
-        
-    def test_from_file(self):    
+
+    def test_from_file(self):
         test_file = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + "tmp" \
             + os.sep + "samplexml.txt"
-            
+
         test_ini = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + "tmp" \
             + os.sep + "test.ini"
-          
-        argv = []      
+
+        argv = []
         argv.append("-f")
         argv.append(test_file)
         argv.append("-i")
@@ -45,17 +45,17 @@ class TestXml(unittest.TestCase):
         self.assertEqual(
             data[4],
             "   :END:")
-        
+
     def test_example2_delimiter(self):
         test_file = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + "tmp" \
             + os.sep + "samplexml2.txt"
-            
+
         test_ini = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + "tmp" \
             + os.sep + "test.ini"
-          
-        argv = []      
+
+        argv = []
         argv.append("-f")
         argv.append(test_file)
         argv.append("-i")
@@ -82,6 +82,6 @@ class TestXml(unittest.TestCase):
         self.assertEqual(
             data[4],
             "   :END:")
-        
+
         def tearDown(self):
             pass

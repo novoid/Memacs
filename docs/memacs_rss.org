@@ -1,4 +1,4 @@
-## Time-stamp: <2011-12-26 13:03:56 vk>
+## Time-stamp: <2012-10-13 12:12:05 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-rss
@@ -42,7 +42,7 @@ rss from file
 : memacs_rss.py -f "/path/to/file.rss" -o "/home/user/orgmode/memacs/rss_foo.org_archive"
 
 example with twitter (replace <USERNAME> with twitter-name):
-: memacs_rss.py -u "http://twitter.com/statuses/user_timeline/<USERNAME>.rss" -o "/home/user/orgmode/memacs/twitter-<USERNAME>.org_archive"
+: memacs_rss.py -u "https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=<USERNAME>" -o "/home/user/orgmode/memacs/twitter-<USERNAME>.org_archive"
 
 ** Example Orgmode entries
 

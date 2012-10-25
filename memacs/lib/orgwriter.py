@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 12:01:41 armin>
+# Time-stamp: <2012-09-06 22:12:44 armin>
 
 import codecs
 import sys
@@ -28,7 +28,9 @@ class OrgOutputWriter(object):
                  tag,
                  file_name=None,
                  test=False,
-                 append=False):
+                 append=False,
+                 autotag_dict={},
+                 number_entries=None):
         """
         @param file_name:
         """
@@ -40,6 +42,10 @@ class OrgOutputWriter(object):
         self.__tag = tag
         self.__file_name = file_name
         self.__existing_ids = []
+        self.__autotag_dict = autotag_dict
+        self.__number_entries = number_entries
+        self.__entries_count = 0
+        self.__lower_autotag_dict()
 
         if file_name:
             if append and os.path.exists(file_name):
@@ -97,7 +103,9 @@ class OrgOutputWriter(object):
         Don't call this function - call instead function close(),
         close() does call this function
         """
-        self.writeln(u"* successfully parsed by " + \
+        self.writeln(u"* successfully parsed " +\
+                     unicode(self.__entries_count) + \
+                     " entries by " + \
                      sys.argv[0] + u" at " + \
                      OrgFormat.inactive_datetime(time.localtime()) + \
                      u" in ~" + self.__time + u".")
@@ -143,13 +151,17 @@ class OrgOutputWriter(object):
             for n in note.splitlines():
                 self.writeln("   " + n)
         self.writeln(unicode(properties))
+        if self.__test:
+            self.write(properties.get_multiline_properties())
+        else:
+            self.writeln(properties.get_multiline_properties())
 
     def write_org_subitem(self,
                           timestamp,
                           output,
                           note="",
                           properties=OrgProperties(),
-                          tags=[]):
+                          tags=None):
         """
         Writes an org item line.
 
@@ -164,16 +176,29 @@ class OrgOutputWriter(object):
         written to file
 
         @param timestamp: str/unicode
-        @param output: str/unicode
+        @param output: st tar/unicode
         @param note: str/unicode
         @param tags: list of tags
         @param properties: OrgProperties object
         """
         assert (timestamp.__class__ == str or timestamp.__class__ == unicode)
-        assert tags.__class__ == list
+        assert tags.__class__ == list or tags == None
         assert properties.__class__ == OrgProperties
         assert (output.__class__ == str or output.__class__ == unicode)
         assert (note.__class__ == str or note.__class__ == unicode)
+
+        # count the entries we have written, if above our limit do not write
+        if self.__number_entries and \
+            self.__entries_count == self.__number_entries:
+            return
+        else:
+            self.__entries_count += 1
+
+        if tags == None:
+            tags = []
+
+        if self.__autotag_dict != {}:
+            self.__get_autotags(tags, output)
 
         if self.__append:
             self.__append_org_subitem(timestamp,
@@ -243,3 +268,32 @@ class OrgOutputWriter(object):
             self.__write_footer()
         if self.__handler != None:
             self.__handler.close()
+
+    def __lower_autotag_dict(self):
+        """
+        lowers all values of dict
+        """
+        for tag in self.__autotag_dict.iterkeys():
+            values = []
+
+            for value in self.__autotag_dict[tag]:
+                values.append(value.lower())
+
+            self.__autotag_dict[tag] = values
+
+    def __get_autotags(self, tags, string):
+        """
+        Searches for tags in a given wordlist.
+        Append them to tags
+
+        @param tags: list to append the matched tags
+        @param string: string to look for matching values
+        """
+        string = string.lower()
+
+        for autotag_tag in self.__autotag_dict.iterkeys():
+            for matching_word in self.__autotag_dict[autotag_tag]:
+                if matching_word in string:
+                    if autotag_tag not in tags:
+                        tags.append(autotag_tag)
+                    continue

@@ -31,7 +31,7 @@ Bob
         self.assertEqual(notes, "")
         p = """   :PROPERTIES:
    :TO:         Bob Bobby <Bob@bobby.com>
-   :ID:         f2c1165a321d0e0@foo.com
+   :ID:         8fd560c32d51c455744df7abd26ea545924ba632
    :END:"""
 
         self.assertEqual(unicode(properties), p)
@@ -61,7 +61,7 @@ Bob"""
                             "\nkind reagards,\nBob")
         p = """   :PROPERTIES:
    :TO:         Bob Bobby <Bob@bobby.com>
-   :ID:         f2c1165a321d0e0@foo.com
+   :ID:         8fd560c32d51c455744df7abd26ea545924ba632
    :END:"""
 
         self.assertEqual(unicode(properties), p)
@@ -90,7 +90,7 @@ i just want to say that i love Memacs
         self.assertEqual(notes, "i just want to say that i love Memacs\n")
         p = """   :PROPERTIES:\n   :REPLY-TO:   news@ally.com
    :NEWSGROUPS: tu-graz.betriebssysteme.linux
-   :ID:         <2011-11-17T21-58-27@ally.com>
+   :ID:         53e60f934645301478db6c9d5d3df71a043f9851
    :END:"""
 
         self.assertEqual(unicode(properties), p)

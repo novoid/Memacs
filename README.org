@@ -1,4 +1,4 @@
-## Time-stamp: <2012-01-05 20:30:54 armin>
+## Time-stamp: <2012-07-12 11:45:02 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -11,7 +11,7 @@ Most people can not answer such questions. *With Memacs you can!*
 Memacs extracts metadata (subjects, timestamps, contact information,
 ...) from many different existing data sources (file names, emails,
 tweets, bookmarks, ...) on your computer and generates files which are
-readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org][Org-mode]].
+readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]].
 
 Example:
 :    emails              -> memacs-maildir.org \ 
@@ -29,50 +29,55 @@ connectors that add data from individual data sources. Those connectors
 are called «Memacs modules» or short «module».
 
 For usage, best practices, frequently asked questions and their answers
-*please refer to the file FAQs_and_Best_Practices.org*
+*please refer to the file docs/FAQs_and_Best_Practices.org*. If you
+want to use Memacs modules, please refer to the ~INSTALL.org~ file.
 
 
 * Memacs Modules
 
 *Existing modules*:
 
-- *file name timestamps*: see filenametimestamps/works-for-me-hack/memacs-filenametimestamps.org
-- emails:
-  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see emails/mbox/works-for-me-hack/memacs-mbox.org
-  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs-maildir.org
-- RSS: see rss/memacs-rss.org
-- [[http://Twitter.com][twitter]]: see rss/memacs-rss.org
-- [[http://delicious.com][delicious]]: see rss/memacs-rss.org
-- newsgroups:
-  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see emails/mbox/works-for-me-hack/memacs-mbox.org
-- versioning systems:
-  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see versioning_systems/git/memacs-git.org
-  - Subversion: see versioning_systems/svn/memacs-svn.org
-- calendar:
-  - ics - calendar (i.e. Google Calendar): see calendar/memacs-calendar.org
+- *file name timestamps*: see docs/memacs_filenametimestamps.org
+- *emails*:
+  - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] : see docs/memacs_imap.org
+- *RSS*: see docs/memacs_rss.org i.e. for twitter,delicious,...
+- *versioning systems*:
+  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see docs/memacs_git.org
+  - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see docs/svn/memacs_svn.org
+- *calendar*:
+  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see docs/memacs_calendar.org
+  - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see docs/memacs_csv.org
+- *SMS*: see docs/memacs_sms.org
+- *Phonecalls*: see docs/memacs_phonecalls.org
+- *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
+- *example*: see docs/memacs_csv.org
+  This module is just for developing purposes.
+
+Those modules are *not* adopted to the new framework:
+
+- *mails*:
+  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see emails/mbox/works-for-me-hack/memacs_mbox.org
+  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs_maildir.org
+
 - *bank account*:
-  - [[http://www.easybank.at][easybank.at]]: see bank_statements/easybank.at/memacs-easybank.org
+  - [[http://www.easybank.at][easybank.at]]: see tmp/bank_statements/easybank.at/memacs_easybank.org
+
+- *newsgroups*
+  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see emails/mbox/works-for-me-hack/memacs_mbox.org 
 
 Those modules will be developed in the *next weeks or months*:
 
-- bookmarks:
-  - [[http://delicious.com][delicious]]: see bookmarks/delicious/memacs-delicious.org
-- [[http://Twitter.com][twitter]]:
-  - [[http://grabeeter.tugraz.at/][grabeeter]]: see twitter/memacs-grabeeter.org
-- [[http://tagstore.org][tagstore]]: see tagstore/memacs-tagstore.org
-- short message system (SMS): see sms/memacs-sms.org
-- calls:
-  - mobile phone: see phone-calls/memacs-mobilecalls.org
+- *[[http://tagstore.org][tagstore]]*: see tmp/tagstore/memacs_tagstore.org
 
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
 
-- calendar:
-  - [[http://www.jpilot.org/][JPilot]]-datebook: see calendar/memacs-jpilot-datebook.org
-- tasks:
-  - [[http://www.jpilot.org/][JPilot]]-todos: see tasklists/jpilot-todos/memacs-jpilot-todos.org
-- blog_systems:
-  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see blog_systems/serendipity/memacs-serendipity.org
+- *calendar*:
+  - [[http://www.jpilot.org/][JPilot]]-datebook: see calendar/memacs_jpilot-datebook.org
+- *tasks*:
+  - [[http://www.jpilot.org/][JPilot]]-todos: see tasklists/jpilot-todos/memacs_jpilot-todos.org
+- *blog_systems*:
+  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see blog_systems/serendipity/memacs_serendipity.org
 
 
 * Example Story
@@ -150,7 +155,7 @@ using a [[http://en.wikipedia.org/wiki/Boolean_algebra_(logic)][boolean combinat
 
 Deeply related to Memacs, the project leader developed a research
 software *[[http://tagstore.org][tagstore]]*. This system allows users to store (local) files
-using tags an not a hierarchy of folders. As a natural extension,
+using tags without a hierarchy of folders. As a natural extension,
 tagstore targets associative access for (local) files. You might want
 to check out tagstore too. Memacs and tagstore are a very useful
 combination.
@@ -160,6 +165,8 @@ combination.
 
 If you want to contribute to this cool project, please fork and
 contribute or write an additional module!
+
+See docs/FAQs_and_Best_Practices.org for more developing information.
 
 We are sure that there are a *lot* of cool ideas for other modules out
 there! This is just the beginning!

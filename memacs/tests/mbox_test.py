@@ -10,13 +10,13 @@ class TestTagstore(unittest.TestCase):
 
     def setUp(self):
         pass
-        
-    def test_from_file(self):    
+
+    def test_from_file(self):
         test_file = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + "tmp" \
             + os.sep + "mboxexample"
-             
-        argv = []      
+
+        argv = []
         argv.append("-nf")
         argv.append(test_file)
 

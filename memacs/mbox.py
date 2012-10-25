@@ -35,7 +35,7 @@ class MboxMemacs(Memacs):
         """
         Memacs._parser_parse_args(self)
         if not self._args.mail_file and not self._args.news_file:
-            self._parser.error("please specify a file")       
+            self._parser.error("please specify a file")
         if self._args.mail_file and self._args.news_file:
             self._parser.error("please specify an mbox mail file "
                                "OR an mbox newsgroup file - not both")
@@ -56,7 +56,7 @@ class MboxMemacs(Memacs):
         @param data: string containing all mails of mbox-file
         """
         message = data.split("Message-ID:")
-       
+
         for mail in message:
             if not (mail == message[0]):
                 timestamp, output, note, properties = \
@@ -65,19 +65,19 @@ class MboxMemacs(Memacs):
                                                output,
                                                note,
                                                properties)
-           
+
     def __read_news_and_write(self, data):
         """
-        Read All newsgroup entries, let Mailparser parse each 
+        Read All newsgroup entries, let Mailparser parse each
         newsgroup entry, write to outputfile
 
         @param data: string containing all mails of mbox-file
         """
         message = data.split("X-Mozilla-Status: 0001"+"\n"+"X-Mozilla-Status2:"
                              " 00000000"+"\n"+"Path:")
-        
+
         for news in message:
-            if not (news == message[0]):           
+            if not (news == message[0]):
                 timestamp, output, note, properties = \
                     MailParser.parse_message(news)
                 self._writer.write_org_subitem(timestamp,
@@ -94,10 +94,10 @@ class MboxMemacs(Memacs):
             data = data.decode("utf-8","replace")
             data = data.encode("utf-8")
             self.__read_mails_and_write(data)
-            
+
         elif self._args.news_file:
             data = CommonReader.get_data_from_file(self._args.news_file)
             data = data.decode("utf-8","replace")
             data = data.encode("utf-8")
             self.__read_news_and_write(data)
-            
+

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 14:47:00 armin>
+# Time-stamp: <2012-03-28 20:12:09 armin>
 
 import time
 import logging
@@ -56,6 +56,8 @@ parses whole mail from string
         logging.debug("Message items:")
         logging.debug(msg.items())
 
+        msg_id = None
+
         # fill headers and properties
         for key, value in msg.items():
             value = value.replace("\r", "").decode('utf-8')
@@ -65,7 +67,7 @@ parses whole mail from string
                     properties.add(key, value.replace("\n", ""))
 
             if key.upper() == "MESSAGE-ID":
-                properties.set_id(value)
+                msg_id = value
 
         notes = ""
         # look for payload
@@ -101,6 +103,8 @@ parses whole mail from string
             except TypeError:
                 logging.error("could not parse dateime from msg %s", dt)
 
+        properties.add_data_for_hashing(timestamp + "_" + msg_id)
+
         if "Newsgroups" in headers:
             ng_list = []
             for ng in headers["Newsgroups"].split(","):
@@ -111,4 +115,4 @@ parses whole mail from string
             output = output_from + u": " + subject
 
         return timestamp, output, notes, properties
-    
+
