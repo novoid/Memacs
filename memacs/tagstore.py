@@ -60,23 +60,23 @@ class TagstoreMemacs(Memacs):
 
         parser = SafeConfigParser()
         parser.read(store_file)
-        sections =  parser.sections()
+        sections = parser.sections()
         options = parser.options(sections[1])
 
-        for i in range(0,len(options),3):
+        for i in range(0, len(options), 3):
             filename = options[i].split('\\')
 
             filename = filename[0]
-            tags = parser.get(sections[1],options[i])
-            timestamp = parser.get(sections[1],options[i+1])
-            category = parser.get(sections[1],options[i+2])
+            tags = parser.get(sections[1], options[i])
+            timestamp = parser.get(sections[1], options[i + 1])
+            category = parser.get(sections[1], options[i + 2])
 
-            tags = tags.replace('"','')
-            tags = tags.replace(' ','_')
-            tags = tags.replace(':','_')
-            category = category.replace('"','')
-            category = category.replace(' ','_')
-            category = category.replace(':','_')
+            tags = tags.replace('"', '')
+            tags = tags.replace(' ', '_')
+            tags = tags.replace(':', '_')
+            category = category.replace('"', '')
+            category = category.replace(' ', '_')
+            category = category.replace(':', '_')
             tags = tags.split(",")
             category = category.split(",")
             timestamp = timestamp[0:16]
@@ -103,14 +103,14 @@ class TagstoreMemacs(Memacs):
             link = ":FILEPATH: " + short_link
 
             timestamp = OrgFormat.strdatetime(timestamp)
-            output = filename.decode("utf-8","replace")
-            data_for_hashing = output.decode("utf-8","replace")
-            properties = OrgProperties(data_for_hashing=data_for_hashing)
-            self._writer.write_org_subitem(timestamp=timestamp,
-                                           output=output,
-                                           note=link,
-                                           tags=tagstoring,
-                                           properties=properties)
+            output = filename.decode("utf-8", "replace")
+            data_for_hashing = output.decode("utf-8", "replace")
+            properties = OrgProperties(data_for_hashing = data_for_hashing)
+            self._writer.write_org_subitem(timestamp = timestamp,
+                                           output = output,
+                                           note = link,
+                                           tags = tagstoring,
+                                           properties = properties)
 
     def _main(self):
         """
@@ -118,5 +118,3 @@ class TagstoreMemacs(Memacs):
         """
         self.__path = self._args.store_path
         self.__read_store_and_write(self._args.store_file)
-
-

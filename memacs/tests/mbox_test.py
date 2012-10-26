@@ -25,7 +25,9 @@ class TestTagstore(unittest.TestCase):
 
         self.assertEqual(
             data[0],
-            "** <2012-02-20 Mon 12:27:50> [[mailto:foo.bob@gmail.com][Foo Bob]]@[[news:tu-graz.flames][tu-graz.flames]]: Re: Thats a Test")
+            "** <2012-02-20 Mon 12:27:50> [[mailto:foo.bob@gmail.com]" +
+            "[Foo Bob]]@[[news:tu-graz.flames][tu-graz.flames]]:" +
+            " Re: Thats a Test")
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")

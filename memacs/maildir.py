@@ -8,7 +8,6 @@ from lib.reader import CommonReader
 from lib.mailparser import MailParser
 
 
-
 class MaildirMemacs(Memacs):
     def _parser_add_arguments(self):
         """
@@ -23,7 +22,6 @@ class MaildirMemacs(Memacs):
            dest="folder_path",
            help="path to the Maildir folder"
                 "path/to/Maildirfolder")
-
 
     def _parser_parse_args(self):
         """
@@ -63,7 +61,7 @@ class MaildirMemacs(Memacs):
         for maildir_file in listing:
             path = cur_path + '/' + maildir_file
             data = CommonReader.get_data_from_file(path)
-            data = data.decode("utf-8","replace")
+            data = data.decode("utf-8", "replace")
             data = data.encode("utf-8")
             self.__read_mails_and_write(data)
 

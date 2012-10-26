@@ -8,7 +8,6 @@ from lib.reader import CommonReader
 from lib.mailparser import MailParser
 
 
-
 class MboxMemacs(Memacs):
     def _parser_add_arguments(self):
         """
@@ -73,8 +72,9 @@ class MboxMemacs(Memacs):
 
         @param data: string containing all mails of mbox-file
         """
-        message = data.split("X-Mozilla-Status: 0001"+"\n"+"X-Mozilla-Status2:"
-                             " 00000000"+"\n"+"Path:")
+        message = data.split("X-Mozilla-Status: 0001" + "\n" +
+                             "X-Mozilla-Status2:" +
+                             " 00000000" + "\n" + "Path:")
 
         for news in message:
             if not (news == message[0]):
@@ -91,13 +91,12 @@ class MboxMemacs(Memacs):
         """
         if self._args.mail_file:
             data = CommonReader.get_data_from_file(self._args.mail_file)
-            data = data.decode("utf-8","replace")
+            data = data.decode("utf-8", "replace")
             data = data.encode("utf-8")
             self.__read_mails_and_write(data)
 
         elif self._args.news_file:
             data = CommonReader.get_data_from_file(self._args.news_file)
-            data = data.decode("utf-8","replace")
+            data = data.decode("utf-8", "replace")
             data = data.encode("utf-8")
             self.__read_news_and_write(data)
-

@@ -28,7 +28,5 @@ if __name__ == "__main__":
         prog_short_description=PROG_SHORT_DESCRIPTION,
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
-        copyright_authors=COPYRIGHT_AUTHORS
-#       use_config_parser_name=CONFIG_PARSER_NAME
-        )
+        copyright_authors=COPYRIGHT_AUTHORS)
     memacs.handle_main()

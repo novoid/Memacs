@@ -35,7 +35,8 @@ class TestXml(unittest.TestCase):
             "** <2006-08-28 Mon 11:12:55> Example1: \t:tag1:tag2:tag3:")
         self.assertEqual(
             data[1],
-            "   [[http://www.any.org/link.htm][link]]: http://www.any.org/link.htm")
+            "   [[http://www.any.org/link.htm][link]]:" +
+            " http://www.any.org/link.htm")
         self.assertEqual(
             data[2],
             "   :PROPERTIES:")
@@ -72,7 +73,8 @@ class TestXml(unittest.TestCase):
             "** <2011-01-01 Sat 00:00> Example1: \t:taga:tagb:tagc:")
         self.assertEqual(
             data[1],
-            "   [[http://www.any.org/link.htm][link]]: http://www.any.org/link.htm")
+            "   [[http://www.any.org/link.htm][link]]: " +
+            "http://www.any.org/link.htm")
         self.assertEqual(
             data[2],
             "   :PROPERTIES:")

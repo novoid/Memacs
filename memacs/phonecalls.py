@@ -36,8 +36,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
                  ignore_incoming,
                  ignore_outgoing,
                  ignore_missed,
-                 minimum_duration
-                 ):
+                 minimum_duration):
         """
         Ctor
 
@@ -105,8 +104,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             if not skip:
                 self._writer.write_org_subitem(output=output,
                                                timestamp=timestamp,
-                                               properties=properties
-                                               )
+                                               properties=properties)
 
 
 class PhonecallsMemacs(Memacs):

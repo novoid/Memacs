@@ -16,6 +16,7 @@ from lib.orgproperty import OrgProperties
 from xml.sax._exceptions import SAXParseException
 from email.utils import parsedate
 
+
 class XmlSaxHandler(xml.sax.handler.ContentHandler):
     """
     Sax handler for diverse xml's:
@@ -93,23 +94,27 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
         if name == self.__output:
             if self.__atoutput:
                 for item in self.__atoutput:
-                    self.__attroutput = self.__attroutput + ' ' + attrs.get(item,"")
+                    self.__attroutput = self.__attroutput + \
+                                        + ' ' + attrs.get(item, "")
         elif name == self.__timestamp:
             if self.__attimestamp:
                 for item in self.__attimestamp:
-                    self.__attrtime = self.__attrtime + attrs.get(item,"")
+                    self.__attrtime = self.__attrtime + attrs.get(item, "")
         elif name == self.__note:
             if self.__atnote:
                 for item in self.__atnote:
-                    self.__attrnote = self.__attrnote + ' ' + attrs.get(item,"")
+                    self.__attrnote = self.__attrnote + \
+                                      + ' ' + attrs.get(item, "")
         elif name == self.__tags:
             if self.__attags:
                 for item in self.__attags:
-                    self.__attrtags = self.__attrtags + ' ' + attrs.get(item,"")
+                    self.__attrtags = self.__attrtags + \
+                                      + ' ' + attrs.get(item, "")
         elif name == self.__properties:
             if self.__atproperties:
                 for item in self.__atproperties:
-                    self.__attrproperties = self.__attrproperties + ' ' + attrs.get(item,"")
+                    self.__attrproperties = self.__attrproperties + \
+                                            + ' ' + attrs.get(item, "")
 
         self.__on_node_name = name
 
@@ -163,7 +168,7 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
         part = output.split(" ")
         output = ""
         for item in part:
-            if re.search("http[s]?://",item) != None:
+            if re.search("http[s]?://", item) != None:
                 unformatted_link = item
                 short_link = OrgFormat.link(unformatted_link, "link")
                 output = output + " " + short_link + ": " + item
@@ -173,10 +178,10 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
 
         #getting properties
         if not self.__attrproperties:
-            properties = OrgProperties(data_for_hashing=self.__author
+            properties = OrgProperties(data_for_hashing = self.__author
                                        + self.__msg + self.__date)
         else:
-            properties = OrgProperties(data_for_hashing=
+            properties = OrgProperties(data_for_hashing =
                                        self.__attrproperties)
 
         #getting notes
@@ -191,7 +196,7 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
             parts = notes.split(" ")
             notes = ""
             for item in parts:
-                if re.search("http[s]?://",item) != None:
+                if re.search("http[s]?://", item) != None:
                     unformatted_link = item
                     short_link = OrgFormat.link(unformatted_link,
                                                 "link")
@@ -226,15 +231,16 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
                 timestamp = OrgFormat.datetime(time_tupel)
 
         except:
-                logging.debug("Write functione @timestamp timestamp=%s"
-                              , self.__date)
+                logging.debug("Write functione @timestamp timestamp=%s",
+                              self.__date)
                 logging.error("A timestamp problem occured")
                 sys.exit(2)
-        self._writer.write_org_subitem(output=output,
-                                       timestamp=timestamp,
-                                       note=notes,
-                                       tags=tags,
-                                       properties=properties)
+        self._writer.write_org_subitem(output = output,
+                                       timestamp = timestamp,
+                                       note = notes,
+                                       tags = tags,
+                                       properties = properties)
+
 
 class XmlMemacs(Memacs):
     def _parser_add_arguments(self):
@@ -309,7 +315,7 @@ class XmlMemacs(Memacs):
         self.__get_data_of_conf(section, conf)
         split = self._args.splitcriterion
 
-        data = data.decode("utf-8","replace")
+        data = data.decode("utf-8", "replace")
         try:
             xml.sax.parseString(data.encode('utf-8'),
                                 XmlSaxHandler(self._writer,
@@ -344,7 +350,7 @@ class XmlMemacs(Memacs):
         '''
         config = ConfigParser.ConfigParser()
         config.read(conf)
-        sectioncount = len(config.sections()) -1
+        sectioncount = len(config.sections()) - 1
         sectionnumber = int(section)
 
         if (sectioncount < sectionnumber):
@@ -354,17 +360,17 @@ class XmlMemacs(Memacs):
             logging.error("Section does not exist")
             sys.exit(2)
         else:
-            section = 'Section' + section;
+            section = 'Section' + section
 
-        self.__paras = [];
+        self.__paras = []
         self.__paras.append(self.__read_config_section(config,
                                                        section)['timestamp'])
         self.__paras.append(self.__read_config_section(config,
                                                        section)['output'])
         self.__paras.append(self.__read_config_section(config,
                                                        section)['note'])
-        self.__paras.append( self.__read_config_section(config,
-                                                        section)['properties'])
+        self.__paras.append(self.__read_config_section(config,
+                                                       section)['properties'])
         self.__paras.append(self.__read_config_section(config,
                                                        section)['tags'])
         self.__paras.append(self.__read_config_section(config,
@@ -384,23 +390,28 @@ class XmlMemacs(Memacs):
 
         if attimestamp:
             self.__paras.append(attimestamp.split(','))
-        else: self.__paras.append(None)
+        else:
+            self.__paras.append(None)
         if atoutput:
             self.__paras.append(atoutput.split(','))
-        else: self.__paras.append(None)
+        else:
+            self.__paras.append(None)
         if atnote:
             self.__paras.append(atnote.split(','))
-        else: self.__paras.append(None)
+        else:
+            self.__paras.append(None)
         if atproperties:
             self.__paras.append(atproperties.split(','))
-        else:self.__paras.append(None)
+        else:
+            self.__paras.append(None)
         if attags:
             self.__paras.append(attags.split(','))
-        else: self.__paras.append(None)
+        else:
+            self.__paras.append(None)
 
         if not self.__paras[6] in ('YYYYMMDD', 'YYYYMMDDTHHMMSSZ',
                                    'YYYY-MM-DD', 'YYYYMMDDTHHMMSST',
-                                   'YYYY-MM-DDTHH.MM.SS','YYYY',
-                                   'YYYY-MM-DDTHH.MM','timetuple'):
+                                   'YYYY-MM-DDTHH.MM.SS', 'YYYY',
+                                   'YYYY-MM-DDTHH.MM', 'timetuple'):
             logging.error("No correct timevalue given")
             sys.exit(2)

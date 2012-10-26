@@ -25,13 +25,15 @@ class TestTagstore(unittest.TestCase):
 
         self.assertEqual(
             data[0],
-            '** <2007-11-19 Mon 09:28:31> [[mailto:test.test@test.at]["test.test@test.at"]]: SomeSubject')
+            '** <2007-11-19 Mon 09:28:31> ' +
+            '[[mailto:test.test@test.at]["test.test@test.at"]]: SomeSubject')
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")
         self.assertEqual(
             data[3],
-            '   :ID:         <200711190928.lAJ9SVJr026663@fstgss22..at>')
+            '   :ID:         <200711190928.' +
+            'lAJ9SVJr026663@fstgss22..at>')
         self.assertEqual(
             data[4],
             "   :END:")
