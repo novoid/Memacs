@@ -24,8 +24,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
-        ],
-    long_description="""\
+        ], long_description="""\
 Memacs
 -----------------------------
 *What were you doing* on February 14th of 2007? On *which tasks* were
