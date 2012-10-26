@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-14 15:43:15 daniel>
+# Time-stamp: <2012-10-26 18:20:55 armin>
 
 import os.path
 from lib.orgformat import OrgFormat
@@ -105,12 +105,12 @@ class TagstoreMemacs(Memacs):
             timestamp = OrgFormat.strdatetime(timestamp)
             output = filename.decode("utf-8", "replace")
             data_for_hashing = output.decode("utf-8", "replace")
-            properties = OrgProperties(data_for_hashing = data_for_hashing)
-            self._writer.write_org_subitem(timestamp = timestamp,
-                                           output = output,
-                                           note = link,
-                                           tags = tagstoring,
-                                           properties = properties)
+            properties = OrgProperties(data_for_hashing=data_for_hashing)
+            self._writer.write_org_subitem(timestamp=timestamp,
+                                           output=output,
+                                           note=link,
+                                           tags=tagstoring,
+                                           properties=properties)
 
     def _main(self):
         """

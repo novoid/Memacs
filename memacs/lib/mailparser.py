@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-28 20:12:09 armin>
+# Time-stamp: <2012-10-26 18:18:47 armin>
 
 import time
 import logging
@@ -115,4 +115,3 @@ parses whole mail from string
             output = output_from + u": " + subject
 
         return timestamp, output, notes, properties
-

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-13 13:55:31 df>
+# Time-stamp: <2012-10-26 18:21:26 armin>
 
 import re
 import os
@@ -178,11 +178,10 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
 
         #getting properties
         if not self.__attrproperties:
-            properties = OrgProperties(data_for_hashing = self.__author
+            properties = OrgProperties(data_for_hashing=self.__author \
                                        + self.__msg + self.__date)
         else:
-            properties = OrgProperties(data_for_hashing =
-                                       self.__attrproperties)
+            properties = OrgProperties(data_for_hashing=self.__attrproperties)
 
         #getting notes
         if self.__attrnote:
@@ -235,11 +234,11 @@ class XmlSaxHandler(xml.sax.handler.ContentHandler):
                               self.__date)
                 logging.error("A timestamp problem occured")
                 sys.exit(2)
-        self._writer.write_org_subitem(output = output,
-                                       timestamp = timestamp,
-                                       note = notes,
-                                       tags = tags,
-                                       properties = properties)
+        self._writer.write_org_subitem(output=output,
+                                       timestamp=timestamp,
+                                       note=notes,
+                                       tags=tags,
+                                       properties=properties)
 
 
 class XmlMemacs(Memacs):
@@ -272,7 +271,7 @@ class XmlMemacs(Memacs):
            help="section of config file")
 
         self._parser.add_argument(
-           "-de", "--delimiter", dest ="splitcriterion",
+           "-de", "--delimiter", dest="splitcriterion",
            action="store",
            help="you can set this to specify a " +
                 "splitting-criterion for tags(" " is default")
