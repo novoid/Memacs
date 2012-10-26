@@ -101,7 +101,7 @@ example.config.section:
 :end=item
 
 Invocation:
-: $MEMACS_DIR/memacs_xml.py -u http://www.bob/foo.xml -i /path/to/xml.ini -se 5 -o /home/user/orgmode/memacs/svn-foo.org_archive
+: $MEMACS_DIR/memacs_xml.py -u http://www.bob/foo.xml -i /path/to/xml.ini -co 5 -o /home/user/orgmode/memacs/svn-foo.org_archive
 
 output:
 : * Memacs for xml          :Memacs:xml:
