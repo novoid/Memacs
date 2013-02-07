@@ -16,4 +16,6 @@ benchmarking
 core
 vktmp
 dist/
-MANIFEST
+MANIFESTtmp/sms/smsbackuprestore/
+tmp/phone-calls/calllogbackuprestore/
+tmp/sms/smsbackuprestore/
