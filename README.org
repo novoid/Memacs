@@ -1,4 +1,4 @@
-## Time-stamp: <2013-03-01 13:52:51 vk>
+## Time-stamp: <2013-03-01 13:54:33 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -32,7 +32,7 @@ For usage, best practices, frequently asked questions and their answers
 *please refer to the file docs/FAQs_and_Best_Practices.org*. If you
 want to use Memacs modules, please refer to the ~INSTALL.org~ file.
 
-- *target group* Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
+- *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
 - *skills necessary*: creating/modifying shell script code; creating
   scheduled tasks
 
