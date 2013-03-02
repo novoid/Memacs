@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 15:28:53 armin>
+# Time-stamp: <2013-03-02 21:35:32 vk>
 
 import sys
 import os
@@ -156,7 +156,7 @@ class PhonecallsMemacs(Memacs):
 
     def _main(self):
         """
-        get's automatically called from Memacs class
+        gets called automatically from Memacs class.
         read the lines from phonecalls backup xml file,
         parse and write them to org file
         """
