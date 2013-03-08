@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2013-03-08 11:09:44 armin>
 
 import os
 from lib.memacs import Memacs
@@ -37,6 +37,14 @@ class FileNameTimeStamps(Memacs):
                                   dest="follow_links", action="store_true",
                                   help="follow symbolics links," + \
                                       " default False")
+
+        self._parser.add_argument("--skip-file-time-extraction",
+                                  dest="skip_filetime_extraction",
+                                  action="store_true",
+                                  help="skip extraction of the file time " + \
+                                  " in files containing only the date in " + \
+                                  "the filename"
+        )
 
     def _parser_parse_args(self):
         Memacs._parser_parse_args(self)
@@ -88,15 +96,19 @@ class FileNameTimeStamps(Memacs):
             datestamp = DATESTAMP_REGEX.match(file).group()
             orgdate = OrgFormat.strdate(datestamp)
             orgdate_time_tupel = OrgFormat.datetupeliso8601(datestamp)
-            file_datetime = time.localtime(os.path.getmtime(link))
-            # check if the file - time information matches year,month,day,
-            # then update time
-            if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
-                    file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
-                    file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
-                logging.debug("found a time in file.setting %s-->%s",
-                              orgdate, OrgFormat.date(file_datetime, True))
-                orgdate = OrgFormat.date(file_datetime, True)
+
+            if self._args.skip_filetime_extraction != True:            
+
+                file_datetime = time.localtime(os.path.getmtime(link))
+                # check if the file - time information matches year,month,day,
+                # then update time
+                if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
+                   file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
+                   file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
+
+                    logging.debug("found a time in file.setting %s-->%s",
+                                  orgdate, OrgFormat.date(file_datetime, True))
+                    orgdate = OrgFormat.date(file_datetime, True)
 
         # write entry to org file
         output = OrgFormat.link(link=link, description=file)
