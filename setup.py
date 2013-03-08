@@ -5,7 +5,7 @@ setup(
     name="memacs",
     packages=["bin", "memacs", "memacs/lib", "memacs/lib/tests",
                 "memacs/tests"],
-    version="0.0.17",
+    version="0.0.18",
     description="Memacs extracts metadata from many different existing " + \
     " data sources on your computer and generates files which are readable" + \
     " by GNU Emacs (Org-Mode).",
