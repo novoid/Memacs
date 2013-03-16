@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-29 22:21:46 armin>
+# Time-stamp: <2013-03-16 19:07:38 vk>
 
 import time
 import calendar
@@ -125,10 +125,10 @@ class OrgFormat(object):
     def utcrange(begin_tupel, end_tupel):
         """
         returns a date(time) range string in org format
+        if both parameters do not contain time information, 
+        utcrange is same as daterange, else it is same as datetimerange.
 
-        @param begin,end: has to be a String:  YYYYMMDDTHHMMSSZ or
-                                               YYYYMMDDTHHMMSST or
-                                               YYYYMMDD
+        @param begin,end: has to be a a time.struct_time
         """
 
         if begin_tupel.tm_sec == 0 and \
@@ -218,7 +218,7 @@ class OrgFormat(object):
         """
         returns a time_tupel
         @param datetime_string: YYYYMMDDTHHMMSSZ or
-                                YYYYMMDDTHHMMSST or
+                                YYYYMMDDTHHMMSS or
                                 YYYYMMDD
         """
         assert datetime_string.__class__ == str or \
@@ -232,7 +232,7 @@ class OrgFormat(object):
                     calendar.timegm(
                         time.strptime(datetime_string, "%Y%m%dT%H%M%SZ")))
             elif string_length == 15:
-                #YYYYMMDDTHHMMSST
+                #YYYYMMDDTHHMMSS
                 return time.strptime(datetime_string, "%Y%m%dT%H%M%S")
             elif string_length == 8:
                 #YYYYMMDD
@@ -251,15 +251,15 @@ class OrgFormat(object):
         except ValueError, e:
             raise TimestampParseException(e)
 
-    @staticmethod
-    def date_tupel_mail_date(mail_date_string):
-        """
-        @param mail_date_string: following format:
-            "Mon, 26 Dec 2011 17:16:28 +0100"
-        @return: time_struct
-        """
-
-        return None
+    # @staticmethod
+    # def date_tupel_mail_date(mail_date_string):
+    #     """
+    #     @param mail_date_string: following format:
+    #         "Mon, 26 Dec 2011 17:16:28 +0100"
+    #     @return: time_struct
+    #     """
+    # 
+    #     return None
 
     @staticmethod
     def contact_mail_mailto_link(contact_mail_string):
