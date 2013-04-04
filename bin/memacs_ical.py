@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2013-04-04 16:18:50 vk>
 
 from memacs.ical import CalendarMemacs
 
@@ -12,7 +12,7 @@ PROG_DESCRIPTION = u"""This script parses a *.ics file and generates
 Entries for VEVENTS
 * other's like VALARM are not implemented by now
 """
-COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 

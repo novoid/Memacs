@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2013-04-04 16:19:47 vk>
 
 from memacs.rss import RssMemacs
 
@@ -28,7 +28,7 @@ Sample Org-entries
 :   :ID:      unique string per item
 :   :END:
 """
-COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 

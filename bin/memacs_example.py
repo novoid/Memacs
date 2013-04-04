@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-02-22 17:12:59 armin>
+# Time-stamp: <2013-04-04 16:18:07 vk>
 
 from memacs.example import Foo
 
@@ -24,7 +24,7 @@ bar = 1
 # set CONFIG_PARSER_NAME only, when you want to have a config file
 # otherwise you can comment it out
 # CONFIG_PARSER_NAME="memacs-example"
-COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
