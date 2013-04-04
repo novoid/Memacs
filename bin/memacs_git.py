@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-20 15:13:31 aw>
+# Time-stamp: <2013-04-04 16:18:40 vk>
 
 from memacs.git import GitMemacs
 
@@ -18,7 +18,7 @@ Then an Org-mode file is generated that contains all commit message
 
 If outputfile is specified, only non-existing commits are appended
 """
-COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-10 18:04:01 armin>
+# Time-stamp: <2013-04-04 16:19:39 vk>
 
 from memacs.photos import PhotosMemacs
 
@@ -15,7 +15,7 @@ If a photo is found, it will get a timestamp from the  exif information.
 
 Then an Org-mode file is generated.
 """
-COPYRIGHT_YEAR = "2012"
+COPYRIGHT_YEAR = "2012-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 

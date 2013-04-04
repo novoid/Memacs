@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-01-07 19:55:25 armin>
+# Time-stamp: <2013-04-04 16:19:02 vk>
 
 from memacs.imap import ImapMemacs
 
@@ -23,7 +23,7 @@ user = foo@gmail.com
 password = bar
 """
 CONFIG_PARSER_NAME = "memacs-imap"
-COPYRIGHT_YEAR = "2011-2012"
+COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
