@@ -20,3 +20,4 @@ MANIFESTtmp/sms/smsbackuprestore/
 tmp/phone-calls/calllogbackuprestore/
 tmp/sms/smsbackuprestore/
 .ropeproject
+tmp/phone-log/
