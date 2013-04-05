@@ -19,3 +19,4 @@ dist/
 MANIFESTtmp/sms/smsbackuprestore/
 tmp/phone-calls/calllogbackuprestore/
 tmp/sms/smsbackuprestore/
+.ropeproject
