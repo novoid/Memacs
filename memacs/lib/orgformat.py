@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 12:06:25 vk>
+# Time-stamp: <2013-04-05 14:46:31 vk>
 
 import time
 import datetime
@@ -332,3 +332,27 @@ class OrgFormat(object):
         @param return: [[news:comp.emacs][comp.emacs]]
         """
         return "[[news:" + newsgroup_string + "][" + newsgroup_string + "]]"
+
+
+    @staticmethod
+    def get_hms_from_sec(sec):
+        """
+        Returns a string of hours:minutes:seconds from the seconds given.
+
+        @param sec: seconds
+        @param return: h:m:s as string
+        """
+
+        assert sec.__class__ == int
+
+        seconds = sec % 60
+        minutes = (sec / 60) % 60
+        hours = (sec / (60*60))
+
+        return str(hours) + ":" + str(minutes).zfill(2) +  ":" + str(seconds).zfill(2)
+
+
+# Local Variables:
+# mode: flyspell
+# eval: (ispell-change-dictionary "en_US")
+# End:
