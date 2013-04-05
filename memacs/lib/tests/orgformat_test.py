@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-11-02 15:13:31 aw>
+# Time-stamp: <2013-04-05 14:45:33 vk>
 
 import unittest
 import time
@@ -147,3 +147,15 @@ class TestOrgFormat(unittest.TestCase):
 
     def test_n(self):
         self.assertEqual("[[news:foo][foo]]", OrgFormat.newsgroup_link("foo"))
+
+
+    def test_get_hms_from_sec(self):
+
+        self.assertEqual(OrgFormat.get_hms_from_sec(123), '0:02:03')
+        self.assertEqual(OrgFormat.get_hms_from_sec(9999), '2:46:39')
+
+
+# Local Variables:
+# mode: flyspell
+# eval: (ispell-change-dictionary "en_US")
+# End:
