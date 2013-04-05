@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 15:10:14 vk>
+# Time-stamp: <2013-04-05 17:59:11 vk>
 
 import unittest
 import time
@@ -45,15 +45,17 @@ class TestSimplePhoneLogs(unittest.TestCase):
         self.assertEqual(self.logmodule._determine_opposite_eventname(u'foo-end'), u'foo')
 
 
-    def test_generateOrgentry(self):
+    def test_generateOrgentry_basics(self):
 
+        foobar_timestamp = datetime.datetime(1970, 1, 1, 0, 0)
         test_timestamp = datetime.datetime(2013, 4, 5, 13, 39)
         test_timestamp_last_opposite = False
 
         self.assertEqual(
             self.logmodule._generateOrgentry(test_timestamp,
                                              u"boot", '42', '612',
-                                             test_timestamp_last_opposite),
+                                             test_timestamp_last_opposite,
+                                             foobar_timestamp),
             u'** <2013-04-05 Fri 13:39> boot\n' + \
                 u':PROPERTIES:\n' + \
                 u':IN-BETWEEN: -\n' + \
@@ -68,7 +70,8 @@ class TestSimplePhoneLogs(unittest.TestCase):
         self.assertEqual(
             self.logmodule._generateOrgentry(test_timestamp,
                                              u"boot", '42', '612',
-                                             test_timestamp_last_opposite),
+                                             test_timestamp_last_opposite,
+                                             foobar_timestamp),
             u'** <2013-04-05 Fri 13:39> boot (off for 0:09:00)\n' + \
                 u':PROPERTIES:\n' + \
                 u':IN-BETWEEN: 0:09:00\n' + \
@@ -77,6 +80,29 @@ class TestSimplePhoneLogs(unittest.TestCase):
                 u':UPTIME: 0:10:12\n' + \
                 u':UPTIME-S: 612\n' + \
                 u':END:\n')
+
+
+
+    def test_generateOrgentry_crashrecognition(self):
+
+        test_timestamp_last_opposite = datetime.datetime(2013, 4, 5, 13, 25)  ## shutdown
+        test_timestamp_last = datetime.datetime(2013, 4, 5, 13, 30)  ## boot
+        test_timestamp = datetime.datetime(2013, 4, 5, 13, 39)  ## boot
+
+        self.assertEqual(
+            self.logmodule._generateOrgentry(test_timestamp,
+                                             u"boot", '42', '612',
+                                             test_timestamp_last_opposite,
+                                             test_timestamp_last),
+            u'** <2013-04-05 Fri 13:39> boot after crash\n' + \
+                u':PROPERTIES:\n' + \
+                u':IN-BETWEEN: \n' + \
+                u':IN-BETWEEN-S: \n' + \
+                u':BATT-LEVEL: 42\n' + \
+                u':UPTIME: 0:10:12\n' + \
+                u':UPTIME-S: 612\n' + \
+                u':END:\n')
+
 
 
 

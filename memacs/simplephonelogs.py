@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 15:03:47 vk>
+# Time-stamp: <2013-04-05 17:58:42 vk>
 
 import sys
 import os
@@ -72,7 +72,7 @@ class SimplePhoneLogsMemacs(Memacs):
 
 
 
-    def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime, e_last_occurrence):
+    def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime, e_last_opposite_occurrence, e_last_occurrence):
         """
         takes the data from the parameters and generates an Org-mode entry.
 
@@ -80,6 +80,7 @@ class SimplePhoneLogsMemacs(Memacs):
         @param e_name: entry name/description
         @param e_batt: battery level
         @param e_uptime: uptime in seconds
+        @param e_last_opposite_occurrence: time-stamp of previous opposite occurrence
         @param e_last_occurrence: time-stamp of previous occurrence
         """
 
@@ -89,14 +90,18 @@ class SimplePhoneLogsMemacs(Memacs):
         assert e_name.__class__ == unicode
         assert e_batt.__class__ == str
         assert e_uptime.__class__ == str
+        assert (e_last_opposite_occurrence.__class__ == datetime.datetime or not e_last_opposite_occurrence)
         assert (e_last_occurrence.__class__ == datetime.datetime or not e_last_occurrence)
 
         last_info = u''
         in_between = u'-'
         in_between_s = u'-'
-        if e_last_occurrence:
-            in_between_s = (e_time - e_last_occurrence).seconds
+
+        if e_last_opposite_occurrence:
+
+            in_between_s = (e_time - e_last_opposite_occurrence).seconds
             in_between = unicode(OrgFormat.get_hms_from_sec(in_between_s))
+
             if e_name == u'boot':
                 last_info = u' (off for '
             elif e_name == u'shutdown':
@@ -107,6 +112,16 @@ class SimplePhoneLogsMemacs(Memacs):
                 last_info = u' ( not' + e_name + u' for '
             last_info += unicode(OrgFormat.get_hms_from_sec(in_between_s)) + u')'
 
+        if (e_name == u'boot') and \
+                (e_last_occurrence and e_last_opposite_occurrence) and \
+                (e_last_occurrence > e_last_opposite_occurrence):
+            ## last boot is more recent than last shutdown -> crash has happened
+            last_info = u' after crash'
+            in_between = u''
+            in_between_s = u''
+
+            ## the programmer recommends you to read "memacs/tests/simplephonelogs_test.py"
+            ## test_generateOrgentry_* for less cryptic examples on how this looks:
         return u'** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + u' ' + e_name + last_info + \
             u'\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between + \
             u'\n:IN-BETWEEN-S: ' + unicode(in_between_s) + \
@@ -181,7 +196,9 @@ class SimplePhoneLogsMemacs(Memacs):
             last_occurrences[e_name] = e_time
 
             self.orgmode_result += self._generateOrgentry(e_time, e_name, e_batt, 
-                                                          e_uptime, e_last_opposite_occurrence)
+                                                          e_uptime, 
+                                                          e_last_opposite_occurrence,
+                                                          last_occurrences[e_name])
 
             #pdb.set_trace()
             
