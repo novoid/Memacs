@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-04 19:47:35 vk>
+# Time-stamp: <2013-04-05 10:28:55 vk>
 
 import sys
 import os
@@ -59,7 +59,7 @@ class SimplePhoneLogsMemacs(Memacs):
     def _parse_data(self, data):
         """parses the phone log data"""
 
-last = { } # holds the last occurrences of each event
+        last = { } # holds the last occurrences of each event
 
         for rawline in data.split('\n'):
 
