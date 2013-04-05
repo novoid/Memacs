@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-03-16 19:07:38 vk>
+# Time-stamp: <2013-04-05 12:06:25 vk>
 
 import time
+import datetime
 import calendar
 import logging
 
@@ -22,6 +23,49 @@ class OrgFormat(object):
     """
     Class for handle special Org Formats linke link, time
     """
+
+    @staticmethod
+    def struct_time_to_datetime(tuple_date):
+        """
+        returns a datetime object which was generated from the struct_time parameter
+        @param struct_time with possible false day of week
+        """
+
+        assert tuple_date.__class__ == time.struct_time
+
+        return datetime.datetime(tuple_date.tm_year,
+                                 tuple_date.tm_mon,
+                                 tuple_date.tm_mday,
+                                 tuple_date.tm_hour,
+                                 tuple_date.tm_min,
+                                 tuple_date.tm_sec)
+
+
+    @staticmethod
+    def fix_struct_time_wday(tuple_date):
+        """
+        returns struct_time timestamp with correct day of week
+        @param struct_time with possible false day of week
+        """
+
+        assert tuple_date.__class__ == time.struct_time
+
+        datetimestamp = OrgFormat.struct_time_to_datetime(tuple_date)
+
+        return time.struct_time([datetimestamp.year,
+                                 datetimestamp.month,
+                                 datetimestamp.day,
+                                 datetimestamp.hour,
+                                 datetimestamp.minute,
+                                 datetimestamp.second,
+                                 datetimestamp.weekday(),
+                                 0,0])
+
+    ## timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
+    ## OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
+    ## OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
+
+
     @staticmethod
     def link(link, description=None):
         """
@@ -51,11 +95,11 @@ class OrgFormat(object):
 
         if show_time:
             if tuple_date.tm_sec == 0:
-                return time.strftime("<%Y-%m-%d %a %H:%M>", tuple_date)
+                return time.strftime("<%Y-%m-%d %a %H:%M>", OrgFormat.fix_struct_time_wday(tuple_date))
             else:
-                return time.strftime("<%Y-%m-%d %a %H:%M:%S>", tuple_date)
+                return time.strftime("<%Y-%m-%d %a %H:%M:%S>", OrgFormat.fix_struct_time_wday(tuple_date))
         else:
-            return time.strftime("<%Y-%m-%d %a>", tuple_date)
+            return time.strftime("<%Y-%m-%d %a>", OrgFormat.fix_struct_time_wday(tuple_date))
 
     @staticmethod
     def inactive_date(tuple_date, show_time=False):
@@ -71,11 +115,11 @@ class OrgFormat(object):
 
         if show_time:
             if tuple_date.tm_sec == 0:
-                return time.strftime("[%Y-%m-%d %a %H:%M]", tuple_date)
+                return time.strftime("[%Y-%m-%d %a %H:%M]", OrgFormat.fix_struct_time_wday(tuple_date))
             else:
-                return time.strftime("[%Y-%m-%d %a %H:%M:%S]", tuple_date)
+                return time.strftime("[%Y-%m-%d %a %H:%M:%S]", OrgFormat.fix_struct_time_wday(tuple_date))
         else:
-            return time.strftime("[%Y-%m-%d %a]", tuple_date)
+            return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(tuple_date))
 
     @staticmethod
     def datetime(tuple_datetime):

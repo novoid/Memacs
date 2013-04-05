@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-03-16 19:07:17 vk>
+# Time-stamp: <2013-04-05 12:09:56 vk>
 
 import unittest
 import time
@@ -42,17 +42,17 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed day:
         self.assertEqual(
             OrgFormat.date(time.struct_time([1980,12,31,0,0,0,0,0,0])),
-            u'<1980-12-31 Mon>' )  ## however, it was a Wednesday
+            u'<1980-12-31 Wed>' )
         
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.date(time.struct_time([1980,12,31,23,59,58,0,0,0]), 'foo'),
-            u'<1980-12-31 Mon 23:59:58>' )  ## however, it was a Wednesday
+            u'<1980-12-31 Wed 23:59:58>' )
 
         ## fixed time without seconds:
         self.assertEqual(
             OrgFormat.date(time.struct_time([1980,12,31,23,59,0,0,0,0]), 'foo'),
-            u'<1980-12-31 Mon 23:59>' )  ## however, it was a Wednesday
+            u'<1980-12-31 Wed 23:59>' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
         hhmmss = time.strftime('%H:%M:%S', time.localtime())
@@ -78,17 +78,17 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed day:
         self.assertEqual(
             OrgFormat.inactive_date(time.struct_time([1980,12,31,0,0,0,0,0,0])),
-            u'[1980-12-31 Mon]' )  ## however, it was a Wednesday
+            u'[1980-12-31 Wed]' )
         
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.inactive_date(time.struct_time([1980,12,31,23,59,58,0,0,0]), 'foo'),
-            u'[1980-12-31 Mon 23:59:58]' )  ## however, it was a Wednesday
+            u'[1980-12-31 Wed 23:59:58]' )
 
         ## fixed time without seconds:
         self.assertEqual(
             OrgFormat.inactive_date(time.struct_time([1980,12,31,23,59,0,0,0,0]), 'foo'),
-            u'[1980-12-31 Mon 23:59]' )  ## however, it was a Wednesday
+            u'[1980-12-31 Wed 23:59]' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
         hhmmss = time.strftime('%H:%M:%S', time.localtime())
@@ -114,12 +114,12 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.datetime(time.struct_time([1980,12,31,23,59,58,0,0,0])),
-            u'<1980-12-31 Mon 23:59:58>' )  ## however, it was a Wednesday
+            u'<1980-12-31 Wed 23:59:58>' )
 
         ## fixed time without seconds:
         self.assertEqual(
             OrgFormat.datetime(time.struct_time([1980,12,31,23,59,0,0,0,0])),
-            u'<1980-12-31 Mon 23:59>' )  ## however, it was a Wednesday
+            u'<1980-12-31 Wed 23:59>' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
         hhmmss = time.strftime('%H:%M:%S', time.localtime())
@@ -140,12 +140,12 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.inactive_datetime(time.struct_time([1980,12,31,23,59,58,0,0,0])),
-            u'[1980-12-31 Mon 23:59:58]' )  ## however, it was a Wednesday
+            u'[1980-12-31 Wed 23:59:58]' )
 
         ## fixed time without seconds:
         self.assertEqual(
             OrgFormat.inactive_datetime(time.struct_time([1980,12,31,23,59,0,0,0,0])),
-            u'[1980-12-31 Mon 23:59]' )  ## however, it was a Wednesday
+            u'[1980-12-31 Wed 23:59]' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
         hhmmss = time.strftime('%H:%M:%S', time.localtime())
@@ -169,7 +169,7 @@ class TestOrgFormat(unittest.TestCase):
                 time.struct_time([1980,12,31,23,59,58,0,0,0]),
                 time.struct_time([1981,1,15,15,30,02,0,0,0]),
                 ),
-            u'<1980-12-31 Mon>--<1981-01-15 Mon>' )  ## however, it was Wednesday to Thursday
+            u'<1980-12-31 Wed>--<1981-01-15 Thu>' )
 
         ## provoke error:
         with self.assertRaises(AssertionError):
@@ -183,14 +183,14 @@ class TestOrgFormat(unittest.TestCase):
                 time.struct_time([1980,12,31,23,59,58,0,0,0]),
                 time.struct_time([1981,1,15,15,30,02,0,0,0]),
                 ),
-            u'<1980-12-31 Mon 23:59:58>--<1981-01-15 Mon 15:30:02>' )  ## however, it was Wednesday to Thursday
+            u'<1980-12-31 Wed 23:59:58>--<1981-01-15 Thu 15:30:02>' )
 
         self.assertEqual(
             OrgFormat.datetimerange(
                 time.struct_time([1980,12,31,23,59,0,0,0,0]),
                 time.struct_time([1981,1,15,15,30,02,0,0,0]),
                 ),
-            u'<1980-12-31 Mon 23:59>--<1981-01-15 Mon 15:30:02>' )  ## however, it was Wednesday to Thursday
+            u'<1980-12-31 Wed 23:59>--<1981-01-15 Thu 15:30:02>' )
 
 
         self.assertEqual(
@@ -198,7 +198,7 @@ class TestOrgFormat(unittest.TestCase):
                 time.struct_time([1980,12,31,23,59,0,0,0,0]),
                 time.struct_time([1981,1,15,15,30,0,0,0,0]),
                 ),
-            u'<1980-12-31 Mon 23:59>--<1981-01-15 Mon 15:30>' )  ## however, it was Wednesday to Thursday
+            u'<1980-12-31 Wed 23:59>--<1981-01-15 Thu 15:30>' )
 
 
     def test_utcrange(self):
