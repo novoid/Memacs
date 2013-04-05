@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 17:58:42 vk>
+# Time-stamp: <2013-04-05 18:45:38 vk>
 
 import sys
 import os
@@ -26,7 +26,7 @@ class SimplePhoneLogsMemacs(Memacs):
     ##                     0            1  2    3            4    5
     LOGFILEENTRY_REGEX = re.compile("([12]\d\d\d-[012345]\d-[012345]\d)" +
                                     _REGEX_SEPARATOR +
-                                    "([ 012]\d)[:.]([012345])\d" +
+                                    "([ 012]\d)[:.]([012345]\d)" +
                                     _REGEX_SEPARATOR +
                                     "(.+)" +
                                     _REGEX_SEPARATOR +
@@ -80,7 +80,7 @@ class SimplePhoneLogsMemacs(Memacs):
         @param e_name: entry name/description
         @param e_batt: battery level
         @param e_uptime: uptime in seconds
-        @param e_last_opposite_occurrence: time-stamp of previous opposite occurrence
+        @param e_last_opposite_occurrence: time-stamp of previous opposite occurrence (if not False)
         @param e_last_occurrence: time-stamp of previous occurrence
         """
 
@@ -94,8 +94,8 @@ class SimplePhoneLogsMemacs(Memacs):
         assert (e_last_occurrence.__class__ == datetime.datetime or not e_last_occurrence)
 
         last_info = u''
-        in_between = u'-'
-        in_between_s = u'-'
+        in_between = u''
+        in_between_s = u''
 
         if e_last_opposite_occurrence:
 
@@ -107,9 +107,9 @@ class SimplePhoneLogsMemacs(Memacs):
             elif e_name == u'shutdown':
                 last_info = u' (on for '
             elif e_name.endswith(u'-end'):
-                last_info = u' (' + e_name[0:-4] + u' for '
+                last_info = u' (' + e_name[0:-4].replace('wifi-','') + u' for '
             else:
-                last_info = u' ( not' + e_name + u' for '
+                last_info = u' (not ' + e_name.replace('wifi-','') + u' for '
             last_info += unicode(OrgFormat.get_hms_from_sec(in_between_s)) + u')'
 
         if (e_name == u'boot') and \
@@ -119,6 +119,8 @@ class SimplePhoneLogsMemacs(Memacs):
             last_info = u' after crash'
             in_between = u''
             in_between_s = u''
+
+        #pdb.set_trace()
 
             ## the programmer recommends you to read "memacs/tests/simplephonelogs_test.py"
             ## test_generateOrgentry_* for less cryptic examples on how this looks:
@@ -162,8 +164,6 @@ class SimplePhoneLogsMemacs(Memacs):
                 continue
 
             ## reset entry
-            e_time, e_name, e_batt, e_uptime, e_last_opposite_occurrence = False
-
             line = rawline.encode('utf-8')
             logging.debug("line: %s", line)
 
@@ -179,9 +179,11 @@ class SimplePhoneLogsMemacs(Memacs):
             datestamp = components.groups()[self.RE_ID_DATESTAMP].strip()
             hours = int(components.groups()[self.RE_ID_HOURS].strip())
             minutes = int(components.groups()[self.RE_ID_MINUTES].strip())
-            e_name = components.groups()[self.RE_ID_NAME].strip().encode('utf-8')
+            e_name = unicode(components.groups()[self.RE_ID_NAME].strip())
             e_batt = components.groups()[self.RE_ID_BATT].strip()
             e_uptime = components.groups()[self.RE_ID_UPTIME].strip()
+
+            #pdb.set_trace()
 
             ## generating a datestamp object from the time information:
             e_time = datetime.datetime(int(datestamp.split('-')[0]),
@@ -190,42 +192,27 @@ class SimplePhoneLogsMemacs(Memacs):
                                        hours, minutes)
 
             opposite_e_name = self._determine_opposite_eventname(e_name)
-            e_last_opposite_occurrence = last_occurrences[opposite_e_name]
+            if opposite_e_name in last_occurrences:
+                e_last_opposite_occurrence = last_occurrences[opposite_e_name]
+            else:
+                ## no previous occurrence of the opposite event type
+                e_last_opposite_occurrence = False
 
-            ## update last_occurrences-dict
-            last_occurrences[e_name] = e_time
+            if e_name in last_occurrences:
+                last_time = last_occurrences[e_name]
+            else:
+                last_time = False
 
             self.orgmode_result += self._generateOrgentry(e_time, e_name, e_batt, 
                                                           e_uptime, 
                                                           e_last_opposite_occurrence,
-                                                          last_occurrences[e_name])
+                                                          last_time)
+
+            ## update last_occurrences-dict
+            last_occurrences[e_name] = e_time
 
             #pdb.set_trace()
             
-## - timestamp
-## - eventname
-## - previous-event-timestamp
-## - batt-level
-## - uptime
-        
-##     - case
-##       - boot
-##         - if last shutdown
-##           - add "(off for $diff)"
-##         - remember timestamp > last_ocurrences_dict
-##       - shutdown
-##         - if last boot
-##           - add "(on for $diff)"
-##         - remember timestamp > last_ocurrences_dict
-##       - FOO
-##         - if last FOO-end is found
-##           - add "(away/not FOO for $diff)"
-##         - remember timestamp > last_ocurrences_dict FOO
-##       - FOO-end
-##         - if last FOO is found
-##           - add "(FOO for $diff)"
-##         - remember timestamp > last_ocurrences_dict FOO-end
-
 ##  ** <2012-11-20 Tue 11:56> boot (off for ?)
 ##  :PROPERTIES:
 ##  :IN-BETWEEN: -
