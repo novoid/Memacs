@@ -21,3 +21,4 @@ tmp/phone-calls/calllogbackuprestore/
 tmp/sms/smsbackuprestore/
 .ropeproject
 tmp/phone-log/
+memacs/tests/error.org

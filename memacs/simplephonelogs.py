@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 16:47:49 vk>
+# Time-stamp: <2013-04-08 18:26:02 vk>
 
 import sys
 import os
@@ -125,6 +125,16 @@ class SimplePhoneLogsMemacs(Memacs):
 
         #pdb.set_trace()
 
+        properties = OrgProperties()
+        properties.add("IN-BETWEEN", in_between_hms)
+        properties.add("IN-BETWEEN-S", unicode(in_between_s))
+        properties.add("BATT-LEVEL", e_batt)
+        properties.add("UPTIME", OrgFormat.get_hms_from_sec(int(e_uptime)))
+        properties.add("UPTIME-S", e_uptime)
+        self._writer.write_org_subitem(timestamp = e_time.strftime('<%Y-%m-%d %a %H:%M>'),
+                                       output = e_name + last_info,
+                                       properties = properties)
+
             ## the programmer recommends you to read "memacs/tests/simplephonelogs_test.py"
             ## test_generateOrgentry_* for less cryptic examples on how this looks:
         return u'** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + u' ' + e_name + last_info + \
@@ -231,7 +241,7 @@ class SimplePhoneLogsMemacs(Memacs):
 
         self._parse_data()
 
-        print self.orgmode_result
+        #print self.orgmode_result
 
 # Local Variables:
 # mode: flyspell
