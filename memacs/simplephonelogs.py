@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 16:41:08 vk>
+# Time-stamp: <2013-04-08 16:47:49 vk>
 
 import sys
 import os
@@ -55,7 +55,7 @@ class SimplePhoneLogsMemacs(Memacs):
         self._parser.add_argument(
             "-f", "--file", dest="phonelogfile",
             action="store", required=True,
-            help="path to sms xml backup file")
+            help="path to phone log file")
 
 
     def _parser_parse_args(self):
@@ -231,6 +231,7 @@ class SimplePhoneLogsMemacs(Memacs):
 
         self._parse_data()
 
+        print self.orgmode_result
 
 # Local Variables:
 # mode: flyspell
