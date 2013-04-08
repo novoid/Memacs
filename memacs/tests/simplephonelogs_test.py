@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 18:38:47 vk>
+# Time-stamp: <2013-04-08 16:25:48 vk>
 
 import unittest
 import time
@@ -45,7 +45,7 @@ class TestSimplePhoneLogs(unittest.TestCase):
         self.assertEqual(self.logmodule._determine_opposite_eventname(u'foo-end'), u'foo')
 
 
-    def notest_generateOrgentry_basics(self):
+    def test_generateOrgentry_basics(self):
 
         foobar_timestamp = datetime.datetime(1970, 1, 1, 0, 0)
         test_timestamp = datetime.datetime(2013, 4, 5, 13, 39)
@@ -56,14 +56,14 @@ class TestSimplePhoneLogs(unittest.TestCase):
                                              u"boot", '42', '612',
                                              test_timestamp_last_opposite,
                                              foobar_timestamp),
-            u'** <2013-04-05 Fri 13:39> boot\n' + \
+            (u'** <2013-04-05 Fri 13:39> boot\n' + \
                 u':PROPERTIES:\n' + \
-                u':IN-BETWEEN: -\n' + \
-                u':IN-BETWEEN-S: -\n' + \
+                u':IN-BETWEEN: \n' + \
+                u':IN-BETWEEN-S: \n' + \
                 u':BATT-LEVEL: 42\n' + \
                 u':UPTIME: 0:10:12\n' + \
                 u':UPTIME-S: 612\n' + \
-                u':END:\n')
+                u':END:\n', False))
 
         test_timestamp_last_opposite = datetime.datetime(2013, 4, 5, 13, 30)
 
@@ -72,18 +72,18 @@ class TestSimplePhoneLogs(unittest.TestCase):
                                              u"boot", '42', '612',
                                              test_timestamp_last_opposite,
                                              foobar_timestamp),
-            u'** <2013-04-05 Fri 13:39> boot (off for 0:09:00)\n' + \
+            (u'** <2013-04-05 Fri 13:39> boot (off for 0:09:00)\n' + \
                 u':PROPERTIES:\n' + \
                 u':IN-BETWEEN: 0:09:00\n' + \
                 u':IN-BETWEEN-S: 540\n' + \
                 u':BATT-LEVEL: 42\n' + \
                 u':UPTIME: 0:10:12\n' + \
                 u':UPTIME-S: 612\n' + \
-                u':END:\n')
+                u':END:\n', False))
 
 
 
-    def notest_generateOrgentry_crashrecognition(self):
+    def test_generateOrgentry_crashrecognition(self):
 
         test_timestamp_last_opposite = datetime.datetime(2013, 4, 5, 13, 25)  ## shutdown
         test_timestamp_last = datetime.datetime(2013, 4, 5, 13, 30)  ## boot
@@ -94,14 +94,14 @@ class TestSimplePhoneLogs(unittest.TestCase):
                                              u"boot", '42', '612',
                                              test_timestamp_last_opposite,
                                              test_timestamp_last),
-            u'** <2013-04-05 Fri 13:39> boot after crash\n' + \
+            (u'** <2013-04-05 Fri 13:39> boot after crash\n' + \
                 u':PROPERTIES:\n' + \
                 u':IN-BETWEEN: \n' + \
                 u':IN-BETWEEN-S: \n' + \
                 u':BATT-LEVEL: 42\n' + \
                 u':UPTIME: 0:10:12\n' + \
                 u':UPTIME-S: 612\n' + \
-                u':END:\n')
+                u':END:\n', True))
 
 
 
@@ -124,6 +124,7 @@ class TestSimplePhoneLogs(unittest.TestCase):
         self.assertNotEqual(self.logmodule.phonelogfile_content, u'')
         self.assertNotEqual(self.logmodule.orgmode_result, u'')
 
+        ## self.test_file_result is defined below!
         self.assertEqual(self.logmodule.orgmode_result, self.test_file_result)
 
     def tearDown(self):
@@ -164,18 +165,18 @@ class TestSimplePhoneLogs(unittest.TestCase):
 :UPTIME: 0:01:57
 :UPTIME-S: 117
 :END:
-** <2012-11-20 Tue 23:52> shutdown (on for 2:19:00)
+** <2012-11-20 Tue 23:52> shutdown (on for 2:20:00)
 :PROPERTIES:
-:IN-BETWEEN: 2:19:00
+:IN-BETWEEN: 2:20:00
 :IN-BETWEEN-S: 8400
 :BATT-LEVEL: 63
 :UPTIME: 2:22:04
 :UPTIME-S: 8524
 :END:
-** <2012-11-21 Wed 07:23> boot (off for 7:29:00)
+** <2012-11-21 Wed 07:23> boot (off for 7:31:00)
 :PROPERTIES:
-:IN-BETWEEN: 7:29:00
-:IN-BETWEEN-S: 26940
+:IN-BETWEEN: 7:31:00
+:IN-BETWEEN-S: 27060
 :BATT-LEVEL: 100
 :UPTIME: 0:01:55
 :UPTIME-S: 115
@@ -217,28 +218,28 @@ class TestSimplePhoneLogs(unittest.TestCase):
 :IN-BETWEEN: 16:49:00
 :IN-BETWEEN-S: 60540
 :BATT-LEVEL: 39
-:UPTIME: 40089
-:UPTIME-S: 11:08:09
+:UPTIME: 11:08:09
+:UPTIME-S: 40089
 :END:
-** <2012-11-29 Thu 08:47> boot (off for 176:34:00)
+** <2012-11-29 Thu 08:47> boot (off for 176:35:00)
 :PROPERTIES:
-:IN-BETWEEN: 176:34:00
+:IN-BETWEEN: 176:35:00
 :IN-BETWEEN-S: 635700
 :BATT-LEVEL: 100
 :UPTIME: 0:01:54
 :UPTIME-S: 114
 :END:
-** <2012-11-29 Thu 08:48> wifi-home (after boot)
+** <2012-11-29 Thu 08:48> wifi-home (not home for 192:31:00)
 :PROPERTIES:
-:IN-BETWEEN: 
-:IN-BETWEEN-S: 
+:IN-BETWEEN: 192:31:00
+:IN-BETWEEN-S: 693060
 :BATT-LEVEL: 100
 :UPTIME: 0:01:58
 :UPTIME-S: 118
 :END:
-** <2012-11-29 Thu 09:41> wifi-home-end (home for 0:52:00)
+** <2012-11-29 Thu 09:41> wifi-home-end (home for 0:53:00)
 :PROPERTIES:
-:IN-BETWEEN: 0:52:00
+:IN-BETWEEN: 0:53:00
 :IN-BETWEEN-S: 3180
 :BATT-LEVEL: 98
 :UPTIME: 0:55:17
@@ -268,14 +269,15 @@ class TestSimplePhoneLogs(unittest.TestCase):
 :UPTIME: 8:18:32
 :UPTIME-S: 29912
 :END:
-** <2012-11-29 Thu 23:31> shutdown (on for 14:43:00)
+** <2012-11-29 Thu 23:31> shutdown (on for 14:44:00)
 :PROPERTIES:
-:IN-BETWEEN: 14:43:00
+:IN-BETWEEN: 14:44:00
 :IN-BETWEEN-S: 53040
 :BATT-LEVEL: 48
 :UPTIME: 14:45:46
 :UPTIME-S: 53146
-:END:"""
+:END:
+"""
 
 # Local Variables:
 # mode: flyspell

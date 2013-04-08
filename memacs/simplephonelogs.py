@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 18:45:38 vk>
+# Time-stamp: <2013-04-08 16:19:30 vk>
 
 import sys
 import os
@@ -96,10 +96,12 @@ class SimplePhoneLogsMemacs(Memacs):
         last_info = u''
         in_between = u''
         in_between_s = u''
+        ignore_occurrence = False
 
         if e_last_opposite_occurrence:
 
-            in_between_s = (e_time - e_last_opposite_occurrence).seconds
+            in_between_s = (e_time - e_last_opposite_occurrence).seconds + \
+                (e_time - e_last_opposite_occurrence).days * 3600 * 24
             in_between = unicode(OrgFormat.get_hms_from_sec(in_between_s))
 
             if e_name == u'boot':
@@ -119,6 +121,7 @@ class SimplePhoneLogsMemacs(Memacs):
             last_info = u' after crash'
             in_between = u''
             in_between_s = u''
+            ignore_occurrence = True
 
         #pdb.set_trace()
 
@@ -129,7 +132,7 @@ class SimplePhoneLogsMemacs(Memacs):
             u'\n:IN-BETWEEN-S: ' + unicode(in_between_s) + \
             u'\n:BATT-LEVEL: ' + e_batt + \
             u'\n:UPTIME: ' + unicode(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
-            u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n'
+            u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n', ignore_occurrence
 
 
     def _determine_opposite_eventname(self, e_name):
@@ -203,15 +206,19 @@ class SimplePhoneLogsMemacs(Memacs):
             else:
                 last_time = False
 
-            self.orgmode_result += self._generateOrgentry(e_time, e_name, e_batt, 
-                                                          e_uptime, 
-                                                          e_last_opposite_occurrence,
-                                                          last_time)
+            #pdb.set_trace()
+
+            result, ignore_occurrence = self._generateOrgentry(e_time, e_name, e_batt, 
+                                                               e_uptime, 
+                                                               e_last_opposite_occurrence,
+                                                               last_time)
+
+            self.orgmode_result += result
 
             ## update last_occurrences-dict
-            last_occurrences[e_name] = e_time
+            if not ignore_occurrence:
+                last_occurrences[e_name] = e_time
 
-            #pdb.set_trace()
             
 ##  ** <2012-11-20 Tue 11:56> boot (off for ?)
 ##  :PROPERTIES:
