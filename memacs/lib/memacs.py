@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-09-06 21:58:41 armin>
+# Time-stamp: <2013-04-08 17:45:43 vk>
 
 import logging
 import traceback
@@ -112,6 +112,11 @@ class Memacs(object):
         # handling autotagging
         autotag_dict = self.__handle_autotagfile()
 
+        ## collect additional header lines:
+        additional_headerlines = False
+        if self._args.columns_header:
+            additional_headerlines = '#+COLUMNS: ' + self._args.columns_header
+
         # set up orgoutputwriter
         self._writer = OrgOutputWriter(
             file_name=self._args.outputfile,
@@ -120,7 +125,8 @@ class Memacs(object):
             test=test,
             append=self._args.append,
             autotag_dict=autotag_dict,
-            number_entries=self._args.number_entries)
+            number_entries=self._args.number_entries,
+            additional_headerlines = additional_headerlines)
 
     def _get_config_option(self, option):
         """

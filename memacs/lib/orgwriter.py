@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 17:11:26 vk>
+# Time-stamp: <2013-04-08 17:45:56 vk>
 
 import codecs
 import sys
@@ -30,7 +30,8 @@ class OrgOutputWriter(object):
                  test=False,
                  append=False,
                  autotag_dict={},
-                 number_entries=None):
+                 number_entries=None,
+                 additional_headerlines=None):
         """
         @param file_name:
         """
@@ -46,6 +47,7 @@ class OrgOutputWriter(object):
         self.__number_entries = number_entries
         self.__entries_count = 0
         self.__lower_autotag_dict()
+        self.__additional_header_lines = additional_headerlines
 
         if file_name:
             if append and os.path.exists(file_name):
@@ -93,6 +95,9 @@ class OrgOutputWriter(object):
             "To add this file to your org-agenda files open the stub file " + \
                 " (file.org) not this file(file.org_archive) with emacs" + \
                 "and do following: M-x org-agenda-file-to-front")
+        if self.__additional_header_lines:
+            for line in self.__additional_header_lines.split('\n'):
+                self.writeln(line)
         self.write_org_item(
             self.__short_description + "          :Memacs:" + self.__tag + ":")
 
