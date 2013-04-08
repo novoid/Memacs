@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 16:25:48 vk>
+# Time-stamp: <2013-04-08 16:41:56 vk>
 
 import unittest
 import time
@@ -221,7 +221,7 @@ class TestSimplePhoneLogs(unittest.TestCase):
 :UPTIME: 11:08:09
 :UPTIME-S: 40089
 :END:
-** <2012-11-29 Thu 08:47> boot (off for 176:35:00)
+** <2012-11-29 Thu 08:47> boot (off for 7d 8:35:00)
 :PROPERTIES:
 :IN-BETWEEN: 176:35:00
 :IN-BETWEEN-S: 635700
@@ -229,7 +229,7 @@ class TestSimplePhoneLogs(unittest.TestCase):
 :UPTIME: 0:01:54
 :UPTIME-S: 114
 :END:
-** <2012-11-29 Thu 08:48> wifi-home (not home for 192:31:00)
+** <2012-11-29 Thu 08:48> wifi-home (not home for 8d 0:31:00)
 :PROPERTIES:
 :IN-BETWEEN: 192:31:00
 :IN-BETWEEN-S: 693060

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 14:45:33 vk>
+# Time-stamp: <2013-04-08 16:38:19 vk>
 
 import unittest
 import time
@@ -153,6 +153,14 @@ class TestOrgFormat(unittest.TestCase):
 
         self.assertEqual(OrgFormat.get_hms_from_sec(123), '0:02:03')
         self.assertEqual(OrgFormat.get_hms_from_sec(9999), '2:46:39')
+
+
+    def test_get_dhms_from_sec(self):
+
+        self.assertEqual(OrgFormat.get_dhms_from_sec(123), '0:02:03')
+        self.assertEqual(OrgFormat.get_dhms_from_sec(9999), '2:46:39')
+        self.assertEqual(OrgFormat.get_dhms_from_sec(99999), '1d 3:46:39')
+        self.assertEqual(OrgFormat.get_dhms_from_sec(12345678), '142d 21:21:18')
 
 
 # Local Variables:
