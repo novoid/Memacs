@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 16:19:30 vk>
+# Time-stamp: <2013-04-08 16:41:08 vk>
 
 import sys
 import os
@@ -94,7 +94,7 @@ class SimplePhoneLogsMemacs(Memacs):
         assert (e_last_occurrence.__class__ == datetime.datetime or not e_last_occurrence)
 
         last_info = u''
-        in_between = u''
+        in_between_hms = u''
         in_between_s = u''
         ignore_occurrence = False
 
@@ -102,7 +102,7 @@ class SimplePhoneLogsMemacs(Memacs):
 
             in_between_s = (e_time - e_last_opposite_occurrence).seconds + \
                 (e_time - e_last_opposite_occurrence).days * 3600 * 24
-            in_between = unicode(OrgFormat.get_hms_from_sec(in_between_s))
+            in_between_hms = unicode(OrgFormat.get_hms_from_sec(in_between_s))
 
             if e_name == u'boot':
                 last_info = u' (off for '
@@ -112,14 +112,14 @@ class SimplePhoneLogsMemacs(Memacs):
                 last_info = u' (' + e_name[0:-4].replace('wifi-','') + u' for '
             else:
                 last_info = u' (not ' + e_name.replace('wifi-','') + u' for '
-            last_info += unicode(OrgFormat.get_hms_from_sec(in_between_s)) + u')'
+            last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + u')'
 
         if (e_name == u'boot') and \
                 (e_last_occurrence and e_last_opposite_occurrence) and \
                 (e_last_occurrence > e_last_opposite_occurrence):
             ## last boot is more recent than last shutdown -> crash has happened
             last_info = u' after crash'
-            in_between = u''
+            in_between_hms = u''
             in_between_s = u''
             ignore_occurrence = True
 
@@ -128,7 +128,7 @@ class SimplePhoneLogsMemacs(Memacs):
             ## the programmer recommends you to read "memacs/tests/simplephonelogs_test.py"
             ## test_generateOrgentry_* for less cryptic examples on how this looks:
         return u'** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + u' ' + e_name + last_info + \
-            u'\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between + \
+            u'\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between_hms + \
             u'\n:IN-BETWEEN-S: ' + unicode(in_between_s) + \
             u'\n:BATT-LEVEL: ' + e_batt + \
             u'\n:UPTIME: ' + unicode(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
@@ -220,34 +220,6 @@ class SimplePhoneLogsMemacs(Memacs):
                 last_occurrences[e_name] = e_time
 
             
-##  ** <2012-11-20 Tue 11:56> boot (off for ?)
-##  :PROPERTIES:
-##  :IN-BETWEEN: -
-##  :IN-BETWEEN-S: -
-##  :BATT-LEVEL: 89
-##  :UPTIME: 1:51:39
-##  :UPTIME-S: 6692
-##  :END:
-## 
-##  ** <2012-11-20 Tue 11:56> boot after crash
-##  :PROPERTIES:
-##  :IN-BETWEEN: -
-##  :IN-BETWEEN-S: - 
-##  :BATT-LEVEL: 89
-##  :UPTIME: 1:51:34
-##  :UPTIME-S: 6694
-##  :END:
-## 
-##  ** <2012-11-20 Tue 19:59> shutdown (on for 9:54:42)
-##  :PROPERTIES:
-##  :IN-BETWEEN: 9:54:42
-##  :IN-BETWEEN-S: 35682
-##  :BATT-LEVEL: 72
-##  :UPTIME: 9:54:42
-##  :UPTIME-S: 35682
-##  :END:
-## 
-
     def _main(self):
         """
         gets called automatically from Memacs class.

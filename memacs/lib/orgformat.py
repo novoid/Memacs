@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 14:46:31 vk>
+# Time-stamp: <2013-04-08 16:35:14 vk>
 
 import time
 import datetime
@@ -340,7 +340,7 @@ class OrgFormat(object):
         Returns a string of hours:minutes:seconds from the seconds given.
 
         @param sec: seconds
-        @param return: h:m:s as string
+        @param return: h:mm:ss as string
         """
 
         assert sec.__class__ == int
@@ -350,6 +350,32 @@ class OrgFormat(object):
         hours = (sec / (60*60))
 
         return str(hours) + ":" + str(minutes).zfill(2) +  ":" + str(seconds).zfill(2)
+
+
+    @staticmethod
+    def get_dhms_from_sec(sec):
+        """
+        Returns a string of days hours:minutes:seconds (like 
+        "9d 13:59:59") from the seconds given. If days is zero, omit 
+        the part of the days (like "13:59:59").
+
+        @param sec: seconds
+        @param return: xd h:mm:ss as string
+        """
+
+        assert sec.__class__ == int
+
+        seconds = sec % 60
+        minutes = (sec / 60) % 60
+        hours = (sec / (60*60))%24
+        days = (sec / (60*60*24))
+
+        if days>0:
+            daystring = str(days) + "d "
+        else:
+            daystring = ''
+
+        return daystring + str(hours) + ":" + str(minutes).zfill(2) +  ":" + str(seconds).zfill(2)
 
 
 # Local Variables:
