@@ -1,4 +1,4 @@
-## Time-stamp: <2013-03-01 13:54:33 vk>
+## Time-stamp: <2013-04-09 12:18:35 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -29,8 +29,12 @@ connectors that add data from individual data sources. Those connectors
 are called «Memacs modules» or short «module».
 
 For usage, best practices, frequently asked questions and their answers
-*please refer to the file docs/FAQs_and_Best_Practices.org*. If you
-want to use Memacs modules, please refer to the ~INSTALL.org~ file.
+please refer to the file [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]. 
+
+If you want to use Memacs modules, please refer to the [[https://github.com/novoid/Memacs/blob/master/INSTALL.org][INSTALL.org]]
+file.
+
+For more information about the modules, visit [[https://github.com/novoid/Memacs/tree/master/docs][the docs folder]].
 
 - *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
 - *skills necessary*: creating/modifying shell script code; creating

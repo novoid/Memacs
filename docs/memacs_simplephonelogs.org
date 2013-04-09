@@ -1,0 +1,328 @@
+## Time-stamp: <2013-04-09 19:46:20 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-simplephonelogs
+
+** Current status
+
+Done. If you find any errors do not hesitate to contact us.
+
+** Data Source
+
+On Android devices you can install [[http://tasker.dinglisch.net/][Tasker]] which is a very flexible
+app to customize your device.
+
+I am using Tasker to log certain things like booting (after awaking),
+shutdown (before sleeping), recognizing my home WiFi (coming home),
+losing my home WiFi (leaving home), and so forth.
+
+Every now and then, I copy the generated log file (example see below)
+to my computer and run this Memacs module. This way, I do get the
+events into my Agenda.
+
+** Example Tasker Scripts
+
+I am using this script to log, when my phone boots into ~/sdvcard/path/to/syncfolder/phone-logs.csv~:
+: <TaskerData sr="" dvi="1" tv="1.3.3u2">
+: 	<Profile sr="prof41" ve="2">
+: 		<cdate>1362471068320</cdate>
+: 		<clp>true</clp>
+: 		<edate>1362472983691</edate>
+: 		<flags>16</flags>
+: 		<id>41</id>
+: 		<mid0>40</mid0>
+: 		<nme>log phone boot</nme>
+: 		<Event sr="con0" ve="2">
+: 			<code>411</code>
+: 		</Event>
+: 	</Profile>
+: 	<Task sr="task40">
+: 		<cdate>1362471068355</cdate>
+: 		<edate>1362472983691</edate>
+: 		<id>40</id>
+: 		<nme>log device boot</nme>
+: 		<pri>10</pri>
+: 		<Action sr="act0" ve="3">
+: 			<code>410</code>
+: 			<Str sr="arg0" ve="3">path/to/syncfolder/phone-logs.csv</Str>
+: 			<Str sr="arg1" ve="3">%DATE # %TIME # boot # %BATT # %UPS</Str>
+: 			<Int sr="arg2" val="1"/>
+: 			<Int sr="arg3" val="1"/>
+: 		</Action>
+: 	</Task>
+: </TaskerData>
+
+Following script I am using for logging shutdown events:
+: <TaskerData sr="" dvi="1" tv="1.3.3u2">
+: 	<Profile sr="prof29" ve="2">
+: 		<cdate>1362471068321</cdate>
+: 		<clp>true</clp>
+: 		<edate>1362473001325</edate>
+: 		<flags>16</flags>
+: 		<id>29</id>
+: 		<mid0>28</mid0>
+: 		<nme>log phone shutdown</nme>
+: 		<Event sr="con0" ve="2">
+: 			<code>413</code>
+: 			<pri>1</pri>
+: 		</Event>
+: 	</Profile>
+: 	<Task sr="task28">
+: 		<cdate>1362471068303</cdate>
+: 		<edate>1362473001324</edate>
+: 		<id>28</id>
+: 		<nme>log phone shutdown</nme>
+: 		<pri>10</pri>
+: 		<Action sr="act0" ve="3">
+: 			<code>410</code>
+: 			<Str sr="arg0" ve="3">path/to/syncfolder/phone-logs.csv</Str>
+: 			<Str sr="arg1" ve="3">%DATE # %TIME # shutdown #  %BATT # %UPS</Str>
+: 			<Int sr="arg2" val="1"/>
+: 			<Int sr="arg3" val="1"/>
+: 		</Action>
+: 	</Task>
+: </TaskerData>
+
+This profile logs when my phone enters and leaves my home WiFi (ID is ~MY-WIFI-ID~):
+: <TaskerData sr="" dvi="1" tv="1.3.3u2">
+: 	<Profile sr="prof38" ve="2">
+: 		<cdate>1362471068351</cdate>
+: 		<clp>true</clp>
+: 		<edate>1362472952981</edate>
+: 		<flags>16</flags>
+: 		<id>38</id>
+: 		<mid0>42</mid0>
+: 		<mid1>45</mid1>
+: 		<nme>log phone wifi-home</nme>
+: 		<State sr="con0">
+: 			<code>160</code>
+: 			<Str sr="arg0" ve="3">MY-WIFI-ID</Str>
+: 			<Str sr="arg1" ve="3"/>
+: 			<Str sr="arg2" ve="3"/>
+: 		</State>
+: 	</Profile>
+: 	<Task sr="task42">
+: 		<cdate>1362471068353</cdate>
+: 		<edate>1362472897795</edate>
+: 		<id>42</id>
+: 		<nme>log phone wifi-home</nme>
+: 		<pri>10</pri>
+: 		<Action sr="act0" ve="3">
+: 			<code>410</code>
+: 			<Str sr="arg0" ve="3">path/to/syncfolder/phone-logs.csv</Str>
+: 			<Str sr="arg1" ve="3">%DATE # %TIME # wifi-home # %BATT # %UPS</Str>
+: 			<Int sr="arg2" val="1"/>
+: 			<Int sr="arg3" val="1"/>
+: 		</Action>
+: 	</Task>
+: 	<Task sr="task45">
+: 		<cdate>1362471068356</cdate>
+: 		<edate>1362472952981</edate>
+: 		<id>45</id>
+: 		<nme>log phone wifi-home-end</nme>
+: 		<pri>10</pri>
+: 		<Action sr="act0" ve="3">
+: 			<code>410</code>
+: 			<Str sr="arg0" ve="3">path/to/syncfolder/phone-logs.csv</Str>
+: 			<Str sr="arg1" ve="3">%DATE # %TIME # wifi-home-end # %BATT # %UPS</Str>
+: 			<Int sr="arg2" val="1"/>
+: 			<Int sr="arg3" val="1"/>
+: 		</Action>
+: 	</Task>
+: </TaskerData>
+
+Of course, you can adopt these scripts to your needs and add profiles
+for your office-wifi or similar. If you try to log places with
+multiple access points per WiFi network, it might be a good idea to
+add the [[https://en.wikipedia.org/wiki/Mac_address][MAC]] of the access point to the Tasker profile.
+
+** Example Logfile
+
+This is an example phone log from my phone:
+: 2013-04-06 # 15.55 # boot # 84 # 25761
+: 2013-04-06 # 22.10 # wifi-home # 75 # 48241
+: 2013-04-06 # 23.31 # shutdown #  71 # 53150
+: 2013-04-07 # 09.50 # boot # 100 # 81
+: 2013.04.07 # 09.50 # wifi-home # 100 # 98
+: 2013-04-07 # 17.55 # wifi-home-end # 82 # 29158
+: 2013-04-07 # 17.59 # wifi-home # 82 # 29441
+: 2013-04-07 # 21.06 # wifi-home # 68 # 97
+: 2013-04-07 # 21.06 # boot # 68 # 104
+: 2013-04-08 # 00.19 # shutdown #  56 # 11692
+: 2013-04-08 # 10.10 # boot # 100 # 82
+: 2013-04-08 # 10.10 # wifi-home # 100 # 89
+: 2013-04-09 # 00.11 # shutdown #  73 # 50596
+: 2013-04-09 # 09.02 # boot # 100 # 94
+: 2013-04-09 # 09.02 # wifi-home # 100 # 97
+: 2013-04-09 # 12.42 # wifi-home-end # 81 # 474
+
+** Example Invocation
+
+Minimal:
+: bin/memacs_simplephonelogs.py --file /path/to/phone-log/logs.csv > phonelog.org_archive
+
+Fancy:
+: PYTHONPATH="~/src/memacs/memacs:" bin/memacs_simplephonelogs.py --file /path/to/phone-log/logs.csv --output phonelog.org_archive --columns-header "%65ITEM(What) %10UPTIME(uptime) %10BATT-LEVEL(batt) %10IN-BETWEEN-S(in-between)" 
+
+** Example Org-mode entries
+
+This is the Org-mode result file of the example log file from above:
+
+: ## -*- coding: utf-8 mode: org -*-
+: ## this file is generated by bin/memacs_simplephonelogs.py. Any modification will be overwritten upon next invocation!
+: ## To add this file to your org-agenda files open the stub file  (file.org) not this file(file.org_archive) with emacsand do following: M-x org-agenda-file-to-front
+: #+COLUMNS: %65ITEM(What) %10UPTIME(uptime) %10BATT-LEVEL(batt) %10IN-BETWEEN-S(in-between)
+: * Memacs for simple phone logs          :Memacs:phonelog:
+: ** <2013-04-06 Sat 15:55> boot
+:    :PROPERTIES:
+:    :IN-BETWEEN:   
+:    :BATT-LEVEL:   84
+:    :UPTIME:       7:09:21
+:    :UPTIME-S:     25761
+:    :IN-BETWEEN-S: 
+:    :ID:           c5b661d6a8f4d6764de222fe4c5d9b3809f407f2
+:    :END:
+: 
+: ** <2013-04-06 Sat 22:10> wifi-home
+:    :PROPERTIES:
+:    :IN-BETWEEN:   
+:    :BATT-LEVEL:   75
+:    :UPTIME:       13:24:01
+:    :UPTIME-S:     48241
+:    :IN-BETWEEN-S: 
+:    :ID:           e43d41ec999efd0437df37471efb4b5aff774f9a
+:    :END:
+: 
+: ** <2013-04-06 Sat 23:31> shutdown (on for 7:36:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   7:36:00
+:    :BATT-LEVEL:   71
+:    :UPTIME:       14:45:50
+:    :UPTIME-S:     53150
+:    :IN-BETWEEN-S: 27360
+:    :ID:           2cfab66399455cb6907d4e413a7b2c3a5cf4778f
+:    :END:
+: 
+: ** <2013-04-07 Sun 09:50> boot (off for 10:19:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   10:19:00
+:    :BATT-LEVEL:   100
+:    :UPTIME:       0:01:21
+:    :UPTIME-S:     81
+:    :IN-BETWEEN-S: 37140
+:    :ID:           ea0194482671b593413f7f8115ec516cc26b4b93
+:    :END:
+: 
+: ** <2013-04-07 Sun 17:55> wifi-home-end (home for 19:45:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   19:45:00
+:    :BATT-LEVEL:   82
+:    :UPTIME:       8:05:58
+:    :UPTIME-S:     29158
+:    :IN-BETWEEN-S: 71100
+:    :ID:           c5b49df472feaf4d85c17b652862f354191080b1
+:    :END:
+: 
+: ** <2013-04-07 Sun 17:59> wifi-home (not home for 0:04:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   0:04:00
+:    :BATT-LEVEL:   82
+:    :UPTIME:       8:10:41
+:    :UPTIME-S:     29441
+:    :IN-BETWEEN-S: 240
+:    :ID:           584f367cb14158f9be8ea2afd0e976990791d7c1
+:    :END:
+: 
+: ** <2013-04-07 Sun 21:06> wifi-home (not home for 3:11:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   3:11:00
+:    :BATT-LEVEL:   68
+:    :UPTIME:       0:01:37
+:    :UPTIME-S:     97
+:    :IN-BETWEEN-S: 11460
+:    :ID:           c6a8391e2b167b9de3c2799096ed84489114352f
+:    :END:
+: 
+: ** <2013-04-07 Sun 21:06> boot after crash
+:    :PROPERTIES:
+:    :IN-BETWEEN:   
+:    :BATT-LEVEL:   68
+:    :UPTIME:       0:01:44
+:    :UPTIME-S:     104
+:    :IN-BETWEEN-S: 
+:    :ID:           f1dd366c9104bc1dca357b4e27690337bf7cc209
+:    :END:
+: 
+: ** <2013-04-08 Mon 00:19> shutdown (on for 14:29:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   14:29:00
+:    :BATT-LEVEL:   56
+:    :UPTIME:       3:14:52
+:    :UPTIME-S:     11692
+:    :IN-BETWEEN-S: 52140
+:    :ID:           16bcadaebb4fe7a5c27f624b355462edd35f7769
+:    :END:
+: 
+: ** <2013-04-08 Mon 10:10> boot (off for 9:51:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   9:51:00
+:    :BATT-LEVEL:   100
+:    :UPTIME:       0:01:22
+:    :UPTIME-S:     82
+:    :IN-BETWEEN-S: 35460
+:    :ID:           8c21fc93ba5e2784d614cbdab1bbe07188f56c2e
+:    :END:
+: 
+: ** <2013-04-08 Mon 10:10> wifi-home (not home for 16:15:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   16:15:00
+:    :BATT-LEVEL:   100
+:    :UPTIME:       0:01:29
+:    :UPTIME-S:     89
+:    :IN-BETWEEN-S: 58500
+:    :ID:           99874ecc984ea8439c401d3edec2765e76a9b0b4
+:    :END:
+: 
+: ** <2013-04-09 Tue 00:11> shutdown (on for 14:01:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   14:01:00
+:    :BATT-LEVEL:   73
+:    :UPTIME:       14:03:16
+:    :UPTIME-S:     50596
+:    :IN-BETWEEN-S: 50460
+:    :ID:           fbc7611c3b92207be81f763d4ac8cddded0dc24b
+:    :END:
+: 
+: ** <2013-04-09 Tue 09:02> boot (off for 8:51:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   8:51:00
+:    :BATT-LEVEL:   100
+:    :UPTIME:       0:01:34
+:    :UPTIME-S:     94
+:    :IN-BETWEEN-S: 31860
+:    :ID:           0b65fa0ea8ec0ea744d9c42acbffb1bd9bc4ccf2
+:    :END:
+: 
+: ** <2013-04-09 Tue 09:02> wifi-home (not home for 1d 15:07:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   39:07:00
+:    :BATT-LEVEL:   100
+:    :UPTIME:       0:01:37
+:    :UPTIME-S:     97
+:    :IN-BETWEEN-S: 140820
+:    :ID:           5dda4b8862028a6acf7d1b8e5f497c44765f5cd4
+:    :END:
+: 
+: ** <2013-04-09 Tue 12:42> wifi-home-end (home for 3:40:00)
+:    :PROPERTIES:
+:    :IN-BETWEEN:   3:40:00
+:    :BATT-LEVEL:   81
+:    :UPTIME:       0:07:54
+:    :UPTIME-S:     474
+:    :IN-BETWEEN-S: 13200
+:    :ID:           cfc66c9b44599f09e5558364a5485d06cf5a7f5d
+:    :END:
+: 
+: * successfully parsed 15 entries by bin/memacs_simplephonelogs.py at [2013-04-09 Tue 19:42:50] in ~0.002607s .
+
+
