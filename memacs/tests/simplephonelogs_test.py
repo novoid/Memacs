@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 19:08:31 vk>
+# Time-stamp: <2013-04-09 12:04:04 vk>
 
 import unittest
 import time
@@ -9,12 +9,162 @@ import os
 from memacs.simplephonelogs import SimplePhoneLogsMemacs
 from memacs.lib.reader import CommonReader
 
+## FIXXME: (Note) These test are *not* exhaustive unit tests. They only 
+##         show the usage of the methods. Please add "mean" test cases and
+##         borderline cases!
 
-class TestSimplePhoneLogs(unittest.TestCase):
 
-    ## FIXXME: (Note) These test are *not* exhaustive unit tests. They only 
-    ##         show the usage of the methods. Please add "mean" test cases and
-    ##         borderline cases!
+class TestSimplePhoneLogs_Basics(unittest.TestCase):
+
+    argv = False
+    logmodule = False
+    input_file = False
+    result_file = False
+    maxDiff = None  ## show also large diff
+
+    def setUp(self):
+
+        self.result_file = os.path.dirname(
+            os.path.abspath(__file__)) + os.path.sep + "phonelog-result-TEMP-DELETEME.org"
+
+        self.input_file = os.path.dirname(
+            os.path.abspath(__file__)) + os.path.sep + "phonelog-input-TEMP-DELETEME.csv"
+
+        self.argv = "--suppress-messages --file " + self.input_file + " --output " + self.result_file
+
+
+
+    def tearDown(self):
+
+        os.remove(self.result_file)
+        os.remove(self.input_file)
+
+
+    def get_result_from_file(self):
+        """reads out the resulting file and returns its content
+        without header lines, main heading, last finish message, and
+        empty lines"""
+
+        result_from_module = CommonReader.get_data_from_file(self.result_file)
+
+        result_from_module_without_header_and_last_line = u''
+
+        ## remove header and last line (which includes execution-specific timing)
+        for line in result_from_module.split('\n'):
+            if line.startswith(u'* successfully parsed ') or \
+                    line.startswith(u'#') or \
+                    line.startswith(u'* ') or \
+                    line == u'':
+                pass
+            else:
+                result_from_module_without_header_and_last_line += line + '\n'
+
+        return result_from_module_without_header_and_last_line
+
+
+    def test_boot_without_shutdown(self):
+
+        with open(self.input_file, 'w') as inputfile:
+            inputfile.write('2013-04-05 # 13.39 # boot # 42 # 612\n')
+
+        self.logmodule = SimplePhoneLogsMemacs(argv = self.argv.split())
+        self.logmodule.handle_main()
+
+        result = self.get_result_from_file()
+
+        self.assertEqual(result, u"""** <2013-04-05 Fri 13:39> boot
+   :PROPERTIES:
+   :IN-BETWEEN:   
+   :BATT-LEVEL:   42
+   :UPTIME:       0:10:12
+   :UPTIME-S:     612
+   :IN-BETWEEN-S: 
+   :ID:           50f3642555b86335789cc0850ee02652765b30a8
+   :END:
+""")
+
+
+    def test_shutdown_with_boot(self):
+
+        with open(self.input_file, 'w') as inputfile:
+            inputfile.write('1970-01-01 # 00.01 # shutdown # 1 # 1\n' +
+                            '2013-04-05 # 13.39 # boot # 42 # 612\n')
+
+        self.logmodule = SimplePhoneLogsMemacs(argv = self.argv.split())
+        self.logmodule.handle_main()
+
+        result = self.get_result_from_file()
+
+        self.assertEqual(result, u"""** <1970-01-01 Thu 00:01> shutdown
+   :PROPERTIES:
+   :IN-BETWEEN:   
+   :BATT-LEVEL:   1
+   :UPTIME:       0:00:01
+   :UPTIME-S:     1
+   :IN-BETWEEN-S: 
+   :ID:           908b94cc00a0981c811f8392b85d4b5603476907
+   :END:
+** <2013-04-05 Fri 13:39> boot (off for 15800d 13:38:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   379213:38:00
+   :BATT-LEVEL:   42
+   :UPTIME:       0:10:12
+   :UPTIME-S:     612
+   :IN-BETWEEN-S: 1365169080
+   :ID:           0602b98ba31416e5ae7e2964455de121c7492a70
+   :END:
+""")
+        
+
+    def test_crashrecognition(self):
+
+
+        with open(self.input_file, 'w') as inputfile:
+            inputfile.write('2013-04-05 # 13.25 # shutdown # 1 # 10\n' +
+                            '2013-04-05 # 13.30 # boot # 2 # 11\n' +
+                            '2013-04-05 # 13.39 # boot # 3 # 12\n')
+
+        self.logmodule = SimplePhoneLogsMemacs(argv = self.argv.split())
+        self.logmodule.handle_main()
+
+        result = self.get_result_from_file()
+
+        self.assertEqual(result, u"""** <2013-04-05 Fri 13:25> shutdown
+   :PROPERTIES:
+   :IN-BETWEEN:   
+   :BATT-LEVEL:   1
+   :UPTIME:       0:00:10
+   :UPTIME-S:     10
+   :IN-BETWEEN-S: 
+   :ID:           0ec0d92a33e4476756659fe6ca0ab78fc470747c
+   :END:
+** <2013-04-05 Fri 13:30> boot (off for 0:05:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   0:05:00
+   :BATT-LEVEL:   2
+   :UPTIME:       0:00:11
+   :UPTIME-S:     11
+   :IN-BETWEEN-S: 300
+   :ID:           5af2d989502a85deefc296936e9bf59087ecec2b
+   :END:
+** <2013-04-05 Fri 13:39> boot after crash
+   :PROPERTIES:
+   :IN-BETWEEN:   
+   :BATT-LEVEL:   3
+   :UPTIME:       0:00:12
+   :UPTIME-S:     12
+   :IN-BETWEEN-S: 
+   :ID:           00903218ae1c5d02f79f9d527c5767dce580f10f
+   :END:
+""")
+
+
+
+
+
+
+
+class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
 
     logmodule = False
 
@@ -33,78 +183,12 @@ class TestSimplePhoneLogs(unittest.TestCase):
         self.logmodule.handle_main()
 
 
-    def test_all(self):
-
-        pass
-
-
     def test_determine_opposite_eventname(self):
 
         self.assertEqual(self.logmodule._determine_opposite_eventname(u"boot"), u'shutdown')
         self.assertEqual(self.logmodule._determine_opposite_eventname(u'shutdown'), u'boot')
         self.assertEqual(self.logmodule._determine_opposite_eventname(u'foo'), u'foo-end')
         self.assertEqual(self.logmodule._determine_opposite_eventname(u'foo-end'), u'foo')
-
-
-    def NOtest_generateOrgentry_basics(self):
-
-        foobar_timestamp = datetime.datetime(1970, 1, 1, 0, 0)
-        test_timestamp = datetime.datetime(2013, 4, 5, 13, 39)
-        test_timestamp_last_opposite = False
-
-        self.assertEqual(
-            self.logmodule._generateOrgentry(test_timestamp,
-                                             u"boot", '42', '612',
-                                             test_timestamp_last_opposite,
-                                             foobar_timestamp),
-            (u'** <2013-04-05 Fri 13:39> boot\n' + \
-                u':PROPERTIES:\n' + \
-                u':IN-BETWEEN: \n' + \
-                u':IN-BETWEEN-S: \n' + \
-                u':BATT-LEVEL: 42\n' + \
-                u':UPTIME: 0:10:12\n' + \
-                u':UPTIME-S: 612\n' + \
-                u':END:\n', False))
-
-        test_timestamp_last_opposite = datetime.datetime(2013, 4, 5, 13, 30)
-
-        self.assertEqual(
-            self.logmodule._generateOrgentry(test_timestamp,
-                                             u"boot", '42', '612',
-                                             test_timestamp_last_opposite,
-                                             foobar_timestamp),
-            (u'** <2013-04-05 Fri 13:39> boot (off for 0:09:00)\n' + \
-                u':PROPERTIES:\n' + \
-                u':IN-BETWEEN: 0:09:00\n' + \
-                u':IN-BETWEEN-S: 540\n' + \
-                u':BATT-LEVEL: 42\n' + \
-                u':UPTIME: 0:10:12\n' + \
-                u':UPTIME-S: 612\n' + \
-                u':END:\n', False))
-
-
-
-    def NOtest_generateOrgentry_crashrecognition(self):
-
-        test_timestamp_last_opposite = datetime.datetime(2013, 4, 5, 13, 25)  ## shutdown
-        test_timestamp_last = datetime.datetime(2013, 4, 5, 13, 30)  ## boot
-        test_timestamp = datetime.datetime(2013, 4, 5, 13, 39)  ## boot
-
-        self.assertEqual(
-            self.logmodule._generateOrgentry(test_timestamp,
-                                             u"boot", '42', '612',
-                                             test_timestamp_last_opposite,
-                                             test_timestamp_last),
-            (u'** <2013-04-05 Fri 13:39> boot after crash\n' + \
-                u':PROPERTIES:\n' + \
-                u':IN-BETWEEN: \n' + \
-                u':IN-BETWEEN-S: \n' + \
-                u':BATT-LEVEL: 42\n' + \
-                u':UPTIME: 0:10:12\n' + \
-                u':UPTIME-S: 612\n' + \
-                u':END:\n', True))
-
-
 
 
     def test_parser(self):
@@ -135,10 +219,6 @@ class TestSimplePhoneLogs(unittest.TestCase):
         os.remove(result_file)
 
 
-
-    def tearDown(self):
-        #print self.logmodule.orgmode_result
-        pass
 
     maxDiff = None  ## show also large diff
 
