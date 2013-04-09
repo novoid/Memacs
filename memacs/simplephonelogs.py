@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 18:26:02 vk>
+# Time-stamp: <2013-04-09 12:07:46 vk>
 
 import sys
 import os
@@ -12,7 +12,7 @@ from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
-import pdb
+#import pdb
 
 
 
@@ -40,9 +40,6 @@ class SimplePhoneLogsMemacs(Memacs):
     RE_ID_BATT = 4
     RE_ID_UPTIME = 5
 
-    phonelogfile_content = u""
-
-    orgmode_result = u""
 
     def _parser_add_arguments(self):
         """
@@ -84,8 +81,6 @@ class SimplePhoneLogsMemacs(Memacs):
         @param e_last_occurrence: time-stamp of previous occurrence
         """
 
-        #print "e_batt.__class__: [" + str(e_batt.__class__) + "]"
-
         assert e_time.__class__ == datetime.datetime
         assert e_name.__class__ == unicode
         assert e_batt.__class__ == str
@@ -122,8 +117,6 @@ class SimplePhoneLogsMemacs(Memacs):
             in_between_hms = u''
             in_between_s = u''
             ignore_occurrence = True
-
-        #pdb.set_trace()
 
         properties = OrgProperties()
         properties.add("IN-BETWEEN", in_between_hms)
@@ -166,12 +159,12 @@ class SimplePhoneLogsMemacs(Memacs):
             return e_name + u'-end'
 
 
-    def _parse_data(self):
+    def _parse_data(self, data):
         """parses the phone log data"""
 
         last_occurrences = { } # holds the last occurrences of each event
 
-        for rawline in self.phonelogfile_content.split('\n'):
+        for rawline in data.split('\n'):
 
             if not rawline:
                 continue
@@ -196,8 +189,6 @@ class SimplePhoneLogsMemacs(Memacs):
             e_batt = components.groups()[self.RE_ID_BATT].strip()
             e_uptime = components.groups()[self.RE_ID_UPTIME].strip()
 
-            #pdb.set_trace()
-
             ## generating a datestamp object from the time information:
             e_time = datetime.datetime(int(datestamp.split('-')[0]),
                                        int(datestamp.split('-')[1]),
@@ -216,14 +207,10 @@ class SimplePhoneLogsMemacs(Memacs):
             else:
                 last_time = False
 
-            #pdb.set_trace()
-
             result, ignore_occurrence = self._generateOrgentry(e_time, e_name, e_batt, 
                                                                e_uptime, 
                                                                e_last_opposite_occurrence,
                                                                last_time)
-
-            self.orgmode_result += result
 
             ## update last_occurrences-dict
             if not ignore_occurrence:
@@ -237,11 +224,9 @@ class SimplePhoneLogsMemacs(Memacs):
         parse and write them to org file
         """
 
-        self.phonelogfile_content = CommonReader.get_data_from_file(self._args.phonelogfile)
+        self._parse_data(CommonReader.get_data_from_file(self._args.phonelogfile))
 
-        self._parse_data()
 
-        #print self.orgmode_result
 
 # Local Variables:
 # mode: flyspell
