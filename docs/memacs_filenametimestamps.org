@@ -1,4 +1,4 @@
-## Time-stamp: <2012-03-10 18:57:05 armin>
+## Time-stamp: <2013-04-09 12:26:40 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
@@ -16,7 +16,6 @@ contain a direct reference to a certain day (or time).
 
 ** Example Invocation
 
-
 : /home/user/Memacs/bin/memacs_filenametimestamps.py -f "/home/user/Documents" -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
 
 ** Example Orgmode entries
@@ -27,4 +26,30 @@ contain a direct reference to a certain day (or time).
 :    :PROPERTIES:
 :    :ID:         5b6e980e83fe22e1d149b837b1bcb2560aadace3
 :    :END:
+: ** <2010-03-12 Fri> [[/home/armin/misc/2010-03-10T09.55 Foobar.pdf][2010-03-10T09.55 Foobar.pdf]]
+:    :PROPERTIES:
+:    :ID:         3456e980e83fe22e1d149b837b1bcb2560aadbcc
+:    :END:
+
+
+** Background
+
+This module is probably the most valuable Memacs module of all. You
+can refer to any (time-stamped) file within your Org-mode. You don't
+have to care, in which folder you put the file in!
+
+It's handy to add a custom link like this to your Org-mode configuration:
+
+: (setq org-link-abbrev-alist
+:       '(
+: 	("tsfile" . "~/path/to/memacs/files.org_archive::/\*.*%s/")
+: 	))
+
+For quick entering a link, you might as well like following [[http://emacswiki.org/emacs/Yasnippet][yasnippet]]:
+
+: # name : expand link to filename with datestamp
+: # --
+: [[tsfile:$1][${2:$$(unless yas-modified-p
+:  (let ((field (nth 0 (yas--snippet-fields (first (yas--snippets-at-point))))))
+:    (concat (buffer-substring (yas--field-start field) (yas--field-end field)))))}]] $0
 
