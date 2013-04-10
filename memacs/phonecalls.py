@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-10 16:08:46 vk>
+# Time-stamp: <2013-04-10 16:22:42 vk>
 
 import sys
 import os
@@ -70,7 +70,10 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             call_outgoing = call_type == 2
             call_missed = call_type == 3
 
-            call_name = attrs['contact_name']
+            call_name = call_number
+            if 'contact_name' in attrs:
+                ## NOTE: older version of backup app did now insert contact_name into XML
+                call_name = attrs['contact_name']
 
             output = "Phonecall "
 
