@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-03-02 21:35:32 vk>
+# Time-stamp: <2013-04-10 11:52:26 vk>
 
 import sys
 import os
@@ -69,6 +69,8 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             call_outgoing = call_type == 2
             call_missed = call_type == 3
 
+            call_name = attrs['contact_name']
+
             output = "Phonecall "
 
             skip = False
@@ -88,19 +90,31 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             else:
                 raise Exception("Invalid Phonecall Type: %d", call_type)
 
+            call_number_string = ""
             if call_number != "-1":
-                output += call_number
+                call_number_string = call_number
             else:
-                output += "Unknown Number"
+                call_number_string = "Unknown Number"
 
-            output += " Duration: %d sec" % call_duration
+            name_string = ""
+            if call_name != "(Unknown)":
+                name_string = '[[contact:' + call_name + '][' + call_name + ']]'
+            else:
+                name_string = "Unknown"
+            output += name_string
+
+            #output += " Duration: %d sec" % call_duration
 
             if call_duration < self._minimum_duration:
                 skip = True
 
+            ## FIXXME: enddatetime = call_date + duraction
             timestamp = OrgFormat.datetime(time.gmtime(call_date))
             data_for_hashing = output + timestamp
             properties = OrgProperties(data_for_hashing=data_for_hashing)
+            properties.add("NUMBER", call_number_string)
+            properties.add("DURATION", call_duration)
+            properties.add("NAME", call_name)
 
             if not skip:
                 self._writer.write_org_subitem(output=output,
