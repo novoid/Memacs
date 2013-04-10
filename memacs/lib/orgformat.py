@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 16:35:14 vk>
+# Time-stamp: <2013-04-10 15:35:44 vk>
 
 import time
 import datetime
@@ -39,6 +39,19 @@ class OrgFormat(object):
                                  tuple_date.tm_hour,
                                  tuple_date.tm_min,
                                  tuple_date.tm_sec)
+
+
+    @staticmethod
+    def datetime_to_struct_time(tuple_date):
+        """
+        returns time.struct_time which was generated from the datetime.datetime parameter
+        @param datetime object
+        """
+
+        assert tuple_date.__class__ == datetime.datetime
+
+        return tuple_date.timetuple()
+
 
 
     @staticmethod
@@ -87,19 +100,28 @@ class OrgFormat(object):
         returns a date string in org format
         i.e.: * <YYYY-MM-DD Sun>
               * <YYYY-MM-DD Sun HH:MM>
-        @param tuple_date: has to be a time.struct_time
+        @param tuple_date: has to be of type time.struct_time or datetime
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert tuple_date.__class__ == time.struct_time
+        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
+
+        local_structtime = False
+
+        if tuple_date.__class__ == time.struct_time:
+            ## fix day of week in struct_time
+            local_structtime = OrgFormat.fix_struct_time_wday(tuple_date)
+        else:
+            ## convert datetime to struc_time
+            local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
-            if tuple_date.tm_sec == 0:
-                return time.strftime("<%Y-%m-%d %a %H:%M>", OrgFormat.fix_struct_time_wday(tuple_date))
+            if local_structtime.tm_sec == 0:
+                return time.strftime("<%Y-%m-%d %a %H:%M>", local_structtime)
             else:
-                return time.strftime("<%Y-%m-%d %a %H:%M:%S>", OrgFormat.fix_struct_time_wday(tuple_date))
+                return time.strftime("<%Y-%m-%d %a %H:%M:%S>", local_structtime)
         else:
-            return time.strftime("<%Y-%m-%d %a>", OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime("<%Y-%m-%d %a>", local_structtime)
 
     @staticmethod
     def inactive_date(tuple_date, show_time=False):

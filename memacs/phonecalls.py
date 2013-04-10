@@ -1,22 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-10 11:52:26 vk>
+# Time-stamp: <2013-04-10 16:08:46 vk>
 
 import sys
 import os
 import logging
 import xml.sax
-import time
+import time, datetime
 from xml.sax._exceptions import SAXParseException
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
-
+#import pdb
 
 class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
     """
     Sax handler for following xml's:
+    2013-04-10: update: contact_name is also recognized
 
     <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 
@@ -103,13 +104,18 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
                 name_string = "Unknown"
             output += name_string
 
-            #output += " Duration: %d sec" % call_duration
-
             if call_duration < self._minimum_duration:
                 skip = True
 
-            ## FIXXME: enddatetime = call_date + duraction
             timestamp = OrgFormat.datetime(time.gmtime(call_date))
+
+            end_datetimestamp = datetime.datetime.utcfromtimestamp(call_date + call_duration)
+            logging.debug("timestamp[%s] duration[%s] end[%s]" % 
+                          (str(timestamp), str(call_duration), str(end_datetimestamp)))
+
+            end_timestamp_string = OrgFormat.datetime(end_datetimestamp)
+            logging.debug("end_time [%s]" % end_timestamp_string)
+
             data_for_hashing = output + timestamp
             properties = OrgProperties(data_for_hashing=data_for_hashing)
             properties.add("NUMBER", call_number_string)
@@ -118,7 +124,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
 
             if not skip:
                 self._writer.write_org_subitem(output=output,
-                                               timestamp=timestamp,
+                                               timestamp=timestamp + '-' + end_timestamp_string,
                                                properties=properties
                                                )
 
@@ -157,6 +163,7 @@ class PhonecallsMemacs(Memacs):
             action="store", type=int,
             help="[sec] show only calls with duration >= this argument")
 
+
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
@@ -167,6 +174,7 @@ class PhonecallsMemacs(Memacs):
         if not (os.path.exists(self._args.smsxmlfile) or \
                      os.access(self._args.smsxmlfile, os.R_OK)):
             self._parser.error("input file not found or not readable")
+
 
     def _main(self):
         """
