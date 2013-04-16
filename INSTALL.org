@@ -1,4 +1,4 @@
-## Time-stamp: <2013-04-16 13:47:47 vk>
+## Time-stamp: <2013-04-16 15:28:18 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * How to install and set up Memacs
@@ -37,11 +37,17 @@ Summary:
 You don't have to activate the virtualenv for further calls. Just
 start the modules located in the bin-folder of Memacs.
 
-*** Updating PIP-Memacs
+**** Updating PIP-Memacs
 
 : cd memacs
 : . bin/activate
 : pip install memacs --upgrade
+
+*** Installing on OS X with homebrew without virtualenv
+
+If you decide not to use virtualenv (not recommended), you are
+probably interested in [[https://github.com/novoid/Memacs/issues/8#issuecomment-16441471][a comment of a user who described the manual
+process here]].
 
 ** *Choose* the *modules* you want to use
 
