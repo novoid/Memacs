@@ -1,18 +1,52 @@
-## Time-stamp: <2012-07-12 11:38:22 vk>
+## Time-stamp: <2013-04-16 13:47:47 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * How to install and set up Memacs
 
 ** *Obtain Memacs*
 
-- using one of github download mechanisms OR
+- using one of github download mechanisms *OR*
 - use ~pip install memacs~ which handles dependencies
   - you might as well want to use [[http://pypi.python.org/pypi/virtualenv][virtualenv]] before
 - make sure that you have *Python v2.7* installed
 
+*** Installing Using virtualenv and PIP (recommended!)
+
+I installed Memacs using PIP with the following commands:
+
+First, I created a virtualenv environment using a local installation
+of Python 2.7 (you can use the Python installation of your site of
+course): 
+: ~/.local/lib/python2.7/site-packages/virtualenv.py -p /home/karl/bin/Python-2.7.2/bin/python memacs
+
+I entered the folder ~cd memacs~ and activated the environment
+~. bin/activate~. 
+After that, I installed Memacs using PIP with ~pip install memacs~
+
+Within this activated virtualenv, PYTHONPATH is set correctly and I am
+able to start any module directly like 
+: ~/src/memacs/bin/memacs_rss.py -u ... 
+
+Summary:
+: ~/.local/lib/python2.7/site-packages/virtualenv.py -p /home/karl/bin/Python-2.7.2/bin/python memacs
+: cd memacs
+: . bin/activate
+: pip install memacs
+: ~/src/memacs/bin/memacs_rss.py --help
+
+You don't have to activate the virtualenv for further calls. Just
+start the modules located in the bin-folder of Memacs.
+
+*** Updating PIP-Memacs
+
+: cd memacs
+: . bin/activate
+: pip install memacs --upgrade
+
 ** *Choose* the *modules* you want to use
 
 - read the files in the ~docs~ folder
+- start the modules from the ~bin~ folder of Memacs
 
 ** *Set up one module* after another
 
