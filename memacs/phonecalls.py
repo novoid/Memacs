@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-10 16:22:42 vk>
+# Time-stamp: <2013-05-02 20:36:03 vk>
 
 import sys
 import os
@@ -72,7 +72,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
 
             call_name = call_number
             if 'contact_name' in attrs:
-                ## NOTE: older version of backup app did now insert contact_name into XML
+                ## NOTE: older version of backup app did not insert contact_name into XML
                 call_name = attrs['contact_name']
 
             output = "Phonecall "
