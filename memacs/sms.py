@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 15:31:36 armin>
+# Time-stamp: <2013-05-02 20:39:34 vk>
 
 import sys
 import os
@@ -43,6 +43,10 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
             sms_body = attrs['body']
             sms_address = attrs['address']
             sms_type_incoming = int(attrs['type']) == 1
+            contact_name = False
+            if 'contact_name' in attrs:
+                ## NOTE: older version of backup app did not insert contact_name into XML
+                contact_name = attrs['contact_name']
 
             skip = False
 
@@ -56,8 +60,14 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                     skip = True
 
             if not skip:
-                output += sms_address + ": "
-
+    
+                name_string = ""
+                if contact_name:
+                    name_string = '[[contact:' + contact_name + '][' + contact_name + ']]'
+                else:
+                    name_string = "Unknown"
+                output += name_string + ": "
+    
                 if sms_subject != "null":
                     # in case of MMS we have a subject
                     output += sms_subject
@@ -69,6 +79,9 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 timestamp = OrgFormat.datetime(time.gmtime(sms_date))
                 data_for_hashing = output + timestamp + notes
                 properties = OrgProperties(data_for_hashing=data_for_hashing)
+
+                properties.add("NUMBER", sms_address)
+                properties.add("NAME", contact_name)
 
                 self._writer.write_org_subitem(output=output,
                                                timestamp=timestamp,
