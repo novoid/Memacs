@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 14:07:00 vk>
+# Time-stamp: <2013-05-14 15:45:57 vk>
 
 import time
 import datetime
 import calendar
 import logging
-
+import re
+#import pdb
 
 class TimestampParseException(Exception):
     """
@@ -392,6 +393,58 @@ class OrgFormat(object):
             daystring = ''
 
         return daystring + str(hours) + ":" + str(minutes).zfill(2) +  ":" + str(seconds).zfill(2)
+
+
+    @staticmethod
+    def orgmode_timestamp_to_datetime(orgtime):
+        """
+        Returns a datetime object containing the time-stamp of an Org-mode time-stamp.
+
+        @param orgtime: <YYYY-MM-DD Sun HH:MM>
+        @param return: date time object
+        """
+
+        assert orgtime.__class__ == str or \
+            orgtime.__class__ == unicode
+
+        ORGMODE_TIMESTAMP_REGEX = re.compile("<([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
+                                             "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
+                                             "(([01]\d)|(20|21|22|23)):([012345]\d)>$")
+
+        components = re.match(ORGMODE_TIMESTAMP_REGEX, orgtime)
+
+        assert components
+
+        ## components: <1980-12-31 Wed 23:59>
+        ## components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
+
+        year = int(components.groups(1)[0])
+        month = int(components.groups(1)[1])
+        day = int(components.groups(1)[2])
+        hour = int(components.groups(1)[4])
+        minute = int(components.groups(1)[7])
+
+        #pdb.set_trace()
+        return datetime.datetime(year, month, day, hour, minute, 0)
+
+
+    @staticmethod
+    def apply_timedelta_to_Orgmode_timestamp(orgtime, deltahours):
+        """
+        Returns a string containing an Org-mode time-stamp which has
+        delta added in hours.
+
+        @param orgtime: <YYYY-MM-DD Sun HH:MM>
+        @param deltahours: integer like, e.g., "3" or "-2" (in hours)
+        @param return: <YYYY-MM-DD Sun HH:MM>
+        """
+
+        assert deltahours.__class__ == int
+        assert orgtime.__class__ == str or \
+            orgtime.__class__ == unicode
+
+        return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) + \
+                              datetime.timedelta(0, 0, 0, 0, 0, deltahours))
 
 
 # Local Variables:
