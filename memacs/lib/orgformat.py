@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 15:45:57 vk>
+# Time-stamp: <2013-05-14 16:49:31 vk>
 
 import time
 import datetime
@@ -407,9 +407,11 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        ORGMODE_TIMESTAMP_REGEX = re.compile("<([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
-                                             "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
-                                             "(([01]\d)|(20|21|22|23)):([012345]\d)>$")
+        SINGLE_TIMESTAMP = "<([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
+            "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
+            "(([01]\d)|(20|21|22|23)):([012345]\d)>"
+
+        ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_TIMESTAMP + "$")
 
         components = re.match(ORGMODE_TIMESTAMP_REGEX, orgtime)
 
@@ -432,7 +434,9 @@ class OrgFormat(object):
     def apply_timedelta_to_Orgmode_timestamp(orgtime, deltahours):
         """
         Returns a string containing an Org-mode time-stamp which has
-        delta added in hours.
+        delta added in hours. It works also for a time-stamp range
+        which uses two strings <YYYY-MM-DD Sun HH:MM> concatenated
+        with one or two dashes.
 
         @param orgtime: <YYYY-MM-DD Sun HH:MM>
         @param deltahours: integer like, e.g., "3" or "-2" (in hours)
@@ -443,8 +447,29 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) + \
-                              datetime.timedelta(0, 0, 0, 0, 0, deltahours))
+        SINGLE_TIMESTAMP = "(<([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
+            "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
+            "(([01]\d)|(20|21|22|23)):([012345]\d)>)"
+
+        ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(SINGLE_TIMESTAMP + "-(-)?" + SINGLE_TIMESTAMP + "$")
+
+        ## first time-stamp: range_components.groups(0)[0]
+        ## second time-stamp: range_components.groups(0)[10]
+        range_components = re.match(ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
+
+        if range_components:
+            return OrgFormat.datetime(
+                OrgFormat.orgmode_timestamp_to_datetime(
+                    range_components.groups(0)[0]) + \
+                    datetime.timedelta(0, 0, 0, 0, 0, deltahours)) + \
+                    "-" + \
+                    OrgFormat.datetime(
+                        OrgFormat.orgmode_timestamp_to_datetime(
+                            range_components.groups(0)[10]) + \
+                            datetime.timedelta(0, 0, 0, 0, 0, deltahours))
+        else:
+            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) + \
+                                          datetime.timedelta(0, 0, 0, 0, 0, deltahours))
 
 
 # Local Variables:
