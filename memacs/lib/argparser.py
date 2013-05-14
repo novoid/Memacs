@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 17:29:59 vk>
+# Time-stamp: <2013-05-14 16:20:34 vk>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 import os
-
+import re
 
 class MemacsArgumentParser(ArgumentParser):
     """
@@ -103,6 +103,13 @@ class MemacsArgumentParser(ArgumentParser):
                           "its content as STRING",
                           metavar="STRING")
 
+        self.add_argument("--add-to-time-stamps",
+                          dest="timestamp_delta",
+                          help="if data is off by, e.g., two hours, you can specify \"+2\" " + \
+                              "or \"-2\" here to correct it with plus/minus two hours",
+                          metavar="STRING")
+
+
 
         # ---------------------
         # Config parser
@@ -140,6 +147,12 @@ class MemacsArgumentParser(ArgumentParser):
             if not os.access(args.autotagfile, os.R_OK):
                 self.error("Autotag file (%s) is not readable!" %
                            args.autotagfile)
+
+        if args.timestamp_delta:
+            timestamp_components = re.match('[+-]\d\d?', args.timestamp_delta)
+            if not timestamp_components:
+                self.error("format of \"--add-to-time-stamps\" is not recognized. Should be similar " + \
+                           "to ,e.g., \"+1\" or \"-3\".")
 
         # ---------------------
         # Config parser
