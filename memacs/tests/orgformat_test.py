@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 15:45:41 vk>
+# Time-stamp: <2013-05-14 16:48:43 vk>
 
 import unittest
 import time
@@ -371,6 +371,10 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual(
             OrgFormat.apply_timedelta_to_Orgmode_timestamp(u"<1981-01-01 Thu 01:59>", -2),
             u"<1980-12-31 Wed 23:59>" )
+
+        self.assertEqual(
+            OrgFormat.apply_timedelta_to_Orgmode_timestamp(u"<2009-12-07 Mon 12:25>-<2009-12-07 Mon 12:26>", -2),
+            u"<2009-12-07 Mon 10:25>-<2009-12-07 Mon 10:26>" )
 
 
     def tearDown(self):
