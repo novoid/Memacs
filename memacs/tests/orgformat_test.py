@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-05 12:09:56 vk>
+# Time-stamp: <2013-05-14 14:11:50 vk>
 
 import unittest
 import time
@@ -47,7 +47,7 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.date(time.struct_time([1980,12,31,23,59,58,0,0,0]), 'foo'),
-            u'<1980-12-31 Wed 23:59:58>' )
+            u'<1980-12-31 Wed 23:59>' )  ## seconds are not (yet) defined in Org-mode
 
         ## fixed time without seconds:
         self.assertEqual(
@@ -55,7 +55,7 @@ class TestOrgFormat(unittest.TestCase):
             u'<1980-12-31 Wed 23:59>' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
-        hhmmss = time.strftime('%H:%M:%S', time.localtime())
+        hhmmss = time.strftime('%H:%M', time.localtime())  ## seconds are not (yet) defined in Org-mode
 
         ## simple form with current day:
         self.assertEqual(
@@ -83,7 +83,7 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.inactive_date(time.struct_time([1980,12,31,23,59,58,0,0,0]), 'foo'),
-            u'[1980-12-31 Wed 23:59:58]' )
+            u'[1980-12-31 Wed 23:59]' )  ## seconds are not (yet) defined in Org-mode
 
         ## fixed time without seconds:
         self.assertEqual(
@@ -91,7 +91,7 @@ class TestOrgFormat(unittest.TestCase):
             u'[1980-12-31 Wed 23:59]' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
-        hhmmss = time.strftime('%H:%M:%S', time.localtime())
+        hhmmss = time.strftime('%H:%M', time.localtime())  ## seconds are not (yet) defined in Org-mode
 
         ## simple form with current day:
         self.assertEqual(
@@ -114,7 +114,7 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.datetime(time.struct_time([1980,12,31,23,59,58,0,0,0])),
-            u'<1980-12-31 Wed 23:59:58>' )
+            u'<1980-12-31 Wed 23:59>' )  ## seconds are not (yet) defined in Org-mode
 
         ## fixed time without seconds:
         self.assertEqual(
@@ -122,7 +122,7 @@ class TestOrgFormat(unittest.TestCase):
             u'<1980-12-31 Wed 23:59>' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
-        hhmmss = time.strftime('%H:%M:%S', time.localtime())
+        hhmmss = time.strftime('%H:%M', time.localtime())  ## seconds are not (yet) defined in Org-mode
 
         ## show_time parameter not named:
         self.assertEqual(
@@ -140,7 +140,7 @@ class TestOrgFormat(unittest.TestCase):
         ## fixed time with seconds:
         self.assertEqual(
             OrgFormat.inactive_datetime(time.struct_time([1980,12,31,23,59,58,0,0,0])),
-            u'[1980-12-31 Wed 23:59:58]' )
+            u'[1980-12-31 Wed 23:59]' )  ## seconds are not (yet) defined in Org-mode
 
         ## fixed time without seconds:
         self.assertEqual(
@@ -148,7 +148,7 @@ class TestOrgFormat(unittest.TestCase):
             u'[1980-12-31 Wed 23:59]' )
 
         YYYYMMDDwday = time.strftime('%Y-%m-%d %a', time.localtime())
-        hhmmss = time.strftime('%H:%M:%S', time.localtime())
+        hhmmss = time.strftime('%H:%M', time.localtime())  ## seconds are not (yet) defined in Org-mode
 
         ## show_time parameter not named:
         self.assertEqual(
@@ -183,14 +183,14 @@ class TestOrgFormat(unittest.TestCase):
                 time.struct_time([1980,12,31,23,59,58,0,0,0]),
                 time.struct_time([1981,1,15,15,30,02,0,0,0]),
                 ),
-            u'<1980-12-31 Wed 23:59:58>--<1981-01-15 Thu 15:30:02>' )
+            u'<1980-12-31 Wed 23:59>--<1981-01-15 Thu 15:30>' )  ## seconds are not (yet) defined in Org-mode
 
         self.assertEqual(
             OrgFormat.datetimerange(
                 time.struct_time([1980,12,31,23,59,0,0,0,0]),
                 time.struct_time([1981,1,15,15,30,02,0,0,0]),
                 ),
-            u'<1980-12-31 Wed 23:59>--<1981-01-15 Thu 15:30:02>' )
+            u'<1980-12-31 Wed 23:59>--<1981-01-15 Thu 15:30>' )
 
 
         self.assertEqual(
@@ -276,7 +276,7 @@ class TestOrgFormat(unittest.TestCase):
         
         self.assertEqual(
             OrgFormat.strdatetimeiso8601('1981-01-15T15.10.23'),
-            u'<1981-01-15 Thu 15:10:23>' )
+            u'<1981-01-15 Thu 15:10>' )  ## seconds are not (yet) defined in Org-mode
         
         with self.assertRaises(TimestampParseException):
             OrgFormat.strdatetimeiso8601('1981-01-15T15:10')

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-10 15:35:44 vk>
+# Time-stamp: <2013-05-14 14:07:00 vk>
 
 import time
 import datetime
@@ -116,10 +116,7 @@ class OrgFormat(object):
             local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
-            if local_structtime.tm_sec == 0:
-                return time.strftime("<%Y-%m-%d %a %H:%M>", local_structtime)
-            else:
-                return time.strftime("<%Y-%m-%d %a %H:%M:%S>", local_structtime)
+            return time.strftime("<%Y-%m-%d %a %H:%M>", local_structtime)
         else:
             return time.strftime("<%Y-%m-%d %a>", local_structtime)
 
@@ -136,10 +133,7 @@ class OrgFormat(object):
         assert tuple_date.__class__ == time.struct_time
 
         if show_time:
-            if tuple_date.tm_sec == 0:
-                return time.strftime("[%Y-%m-%d %a %H:%M]", OrgFormat.fix_struct_time_wday(tuple_date))
-            else:
-                return time.strftime("[%Y-%m-%d %a %H:%M:%S]", OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime("[%Y-%m-%d %a %H:%M]", OrgFormat.fix_struct_time_wday(tuple_date))
         else:
             return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(tuple_date))
 
