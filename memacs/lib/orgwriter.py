@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 17:45:56 vk>
+# Time-stamp: <2013-05-14 16:21:42 vk>
 
 import codecs
 import sys
@@ -31,7 +31,8 @@ class OrgOutputWriter(object):
                  append=False,
                  autotag_dict={},
                  number_entries=None,
-                 additional_headerlines=None):
+                 additional_headerlines=None,
+                 timestamp_delta=None):
         """
         @param file_name:
         """
@@ -48,6 +49,9 @@ class OrgOutputWriter(object):
         self.__entries_count = 0
         self.__lower_autotag_dict()
         self.__additional_header_lines = additional_headerlines
+        self.__timestamp_delta = timestamp_delta
+
+        logging.debug("orgwriter: timestamp_delta found: " + timestamp_delta)
 
         if file_name:
             if append and os.path.exists(file_name):
@@ -205,6 +209,10 @@ class OrgOutputWriter(object):
         if self.__autotag_dict != {}:
             self.__get_autotags(tags, output)
 
+        ## fix time-stamps (if user wants to)
+        if self.__timestamp_delta:
+            timestamp = OrgFormat.apply_timedelta_to_Orgmode_timestamp(timestamp, int(self.__timestamp_delta))
+
         if self.__append:
             self.__append_org_subitem(timestamp,
                                       output,
@@ -217,6 +225,7 @@ class OrgOutputWriter(object):
                                      note,
                                      properties,
                                      tags)
+
 
     def __append_org_subitem(self,
                              timestamp,
