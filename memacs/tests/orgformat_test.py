@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 14:11:50 vk>
+# Time-stamp: <2013-05-14 15:45:41 vk>
 
 import unittest
 import time
+import datetime
 from memacs.lib.orgformat import OrgFormat
 from memacs.lib.orgformat import TimestampParseException
 
@@ -353,6 +354,23 @@ class TestOrgFormat(unittest.TestCase):
             OrgFormat.newsgroup_link("foo.bar.baz"),
             u"[[news:foo.bar.baz][foo.bar.baz]]" )
 
+
+    def test_orgmode_timestamp_to_datetime(self):
+
+        self.assertEqual(
+            OrgFormat.orgmode_timestamp_to_datetime(u"<1980-12-31 Wed 23:59>"),
+            datetime.datetime(1980, 12, 31, 23, 59, 0))
+        
+
+    def test_apply_timedelta_to_Orgmode_timestamp(self):
+
+        self.assertEqual(
+            OrgFormat.apply_timedelta_to_Orgmode_timestamp(u"<1980-12-31 Wed 23:59>", +2),
+            u"<1981-01-01 Thu 01:59>" )
+
+        self.assertEqual(
+            OrgFormat.apply_timedelta_to_Orgmode_timestamp(u"<1981-01-01 Thu 01:59>", -2),
+            u"<1980-12-31 Wed 23:59>" )
 
 
     def tearDown(self):
