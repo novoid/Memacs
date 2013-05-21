@@ -16,7 +16,7 @@ from optparse import OptionParser
 
 PROG_VERSION_NUMBER = "0.1"
 PROG_VERSION_DATE = "2011-09-16"
-INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
+INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
 
 ## better performance if pre-compiled:
 SUBJECT_REGEX = re.compile("Subject: (.*)")
