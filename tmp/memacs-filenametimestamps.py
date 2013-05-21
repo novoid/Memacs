@@ -10,7 +10,7 @@ from optparse import OptionParser
 
 PROG_VERSION_NUMBER = "0.2"
 PROG_VERSION_DATE = "2011-10-10"
-INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
+INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
 MATCHING_LEVEL = {'day': 1, 'minutes': 2, 'seconds': 3, 'notmatching': 4}
 
 ## better performance if pre-compiled:
