@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 16:49:31 vk>
+# Time-stamp: <2013-05-21 18:30:21 vk>
+
+## This file is originally from Memacs
+## https://github.com/novoid/Memacs
+## and was written mainly by https://github.com/awieser
+## see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
+## for unit tests, see: https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
 
 import time
 import datetime
 import calendar
 import logging
 import re
+
 #import pdb
 
 class TimestampParseException(Exception):
@@ -407,9 +414,9 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        SINGLE_TIMESTAMP = "<([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
+        SINGLE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
             "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
-            "(([01]\d)|(20|21|22|23)):([012345]\d)>"
+            "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
 
         ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_TIMESTAMP + "$")
 
@@ -420,13 +427,12 @@ class OrgFormat(object):
         ## components: <1980-12-31 Wed 23:59>
         ## components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
 
-        year = int(components.groups(1)[0])
-        month = int(components.groups(1)[1])
-        day = int(components.groups(1)[2])
-        hour = int(components.groups(1)[4])
-        minute = int(components.groups(1)[7])
+        year = int(components.group(2))
+        month = int(components.group(3))
+        day = int(components.group(4))
+        hour = int(components.group(6))
+        minute = int(components.group(9))
 
-        #pdb.set_trace()
         return datetime.datetime(year, month, day, hour, minute, 0)
 
 
@@ -447,9 +453,9 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        SINGLE_TIMESTAMP = "(<([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
+        SINGLE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
             "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
-            "(([01]\d)|(20|21|22|23)):([012345]\d)>)"
+            "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
 
         ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(SINGLE_TIMESTAMP + "-(-)?" + SINGLE_TIMESTAMP + "$")
 
