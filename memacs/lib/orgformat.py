@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-21 18:30:21 vk>
+# Time-stamp: <2013-05-23 15:19:11 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -14,6 +14,7 @@ import logging
 import re
 
 #import pdb
+
 
 class TimestampParseException(Exception):
     """
@@ -48,7 +49,6 @@ class OrgFormat(object):
                                  tuple_date.tm_min,
                                  tuple_date.tm_sec)
 
-
     @staticmethod
     def datetime_to_struct_time(tuple_date):
         """
@@ -59,8 +59,6 @@ class OrgFormat(object):
         assert tuple_date.__class__ == datetime.datetime
 
         return tuple_date.timetuple()
-
-
 
     @staticmethod
     def fix_struct_time_wday(tuple_date):
@@ -80,12 +78,11 @@ class OrgFormat(object):
                                  datetimestamp.minute,
                                  datetimestamp.second,
                                  datetimestamp.weekday(),
-                                 0,0])
+                                 0, 0])
 
     ## timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
     ## OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
     ## OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
-
 
     @staticmethod
     def link(link, description=None):
@@ -193,7 +190,7 @@ class OrgFormat(object):
     def utcrange(begin_tupel, end_tupel):
         """
         returns a date(time) range string in org format
-        if both parameters do not contain time information, 
+        if both parameters do not contain time information,
         utcrange is same as daterange, else it is same as datetimerange.
 
         @param begin,end: has to be a a time.struct_time
@@ -310,8 +307,7 @@ class OrgFormat(object):
                 datetime_string = datetime_string.split(".")[0] + "Z"
                 return time.localtime(
                     calendar.timegm(
-                        time.strptime(
-                                      datetime_string,
+                        time.strptime(datetime_string,
                                       "%Y-%m-%dT%H:%M:%SZ")))
             else:
                 logging.error("string has no correct format: %s",
@@ -326,7 +322,7 @@ class OrgFormat(object):
     #         "Mon, 26 Dec 2011 17:16:28 +0100"
     #     @return: time_struct
     #     """
-    # 
+    #
     #     return None
 
     @staticmethod
@@ -357,7 +353,6 @@ class OrgFormat(object):
         """
         return "[[news:" + newsgroup_string + "][" + newsgroup_string + "]]"
 
-
     @staticmethod
     def get_hms_from_sec(sec):
         """
@@ -371,16 +366,15 @@ class OrgFormat(object):
 
         seconds = sec % 60
         minutes = (sec / 60) % 60
-        hours = (sec / (60*60))
+        hours = (sec / (60 * 60))
 
-        return str(hours) + ":" + str(minutes).zfill(2) +  ":" + str(seconds).zfill(2)
-
+        return str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
     @staticmethod
     def get_dhms_from_sec(sec):
         """
-        Returns a string of days hours:minutes:seconds (like 
-        "9d 13:59:59") from the seconds given. If days is zero, omit 
+        Returns a string of days hours:minutes:seconds (like
+        "9d 13:59:59") from the seconds given. If days is zero, omit
         the part of the days (like "13:59:59").
 
         @param sec: seconds
@@ -391,16 +385,15 @@ class OrgFormat(object):
 
         seconds = sec % 60
         minutes = (sec / 60) % 60
-        hours = (sec / (60*60))%24
-        days = (sec / (60*60*24))
+        hours = (sec / (60 * 60)) % 24
+        days = (sec / (60 * 60 * 24))
 
-        if days>0:
+        if days > 0:
             daystring = str(days) + "d "
         else:
             daystring = ''
 
-        return daystring + str(hours) + ":" + str(minutes).zfill(2) +  ":" + str(seconds).zfill(2)
-
+        return daystring + str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
     @staticmethod
     def orgmode_timestamp_to_datetime(orgtime):
@@ -434,7 +427,6 @@ class OrgFormat(object):
         minute = int(components.group(9))
 
         return datetime.datetime(year, month, day, hour, minute, 0)
-
 
     @staticmethod
     def apply_timedelta_to_Orgmode_timestamp(orgtime, deltahours):
