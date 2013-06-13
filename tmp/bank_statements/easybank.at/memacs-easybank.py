@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-21 11:58:27 vk>
+# Time-stamp: <2013-06-13 21:52:51 vk>
 
 import os
 import sys
@@ -9,6 +9,7 @@ import time
 import logging
 from optparse import OptionParser
 import codecs ## for writing unicode file
+import pdb
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -133,12 +134,18 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
     """handle known entries in the CSV file"""
 
     ## Auszahlung Maestro                           MC/000002270|BANKOMAT 29511 KARTE1 18.04.UM 11.34
-    if descriptionparts[0][:20] == u'Auszahlung Maestro  ':
+    if descriptionparts[0].startswith(u'Auszahlung Maestro  '):
         logging.debug("found special case \"Auszahlung Maestro\"")
         name = None
-        shortdescription = descriptionparts[1].split(" ")[:2]  ## the 1st two words of the 2nd part
-        shortdescription = " ".join(shortdescription)
+        if len(descriptionparts)>1:
+            shortdescription = descriptionparts[1].split(" ")[:2]  ## the 1st two words of the 2nd part
+            shortdescription = " ".join(shortdescription)
+        else:
+            logging.warning("could not find descriptionparts[1]; using " + \
+                                "\"Auszahlung Maestro\" instead")
+            shortdescription = u"Auszahlung Maestro"
         logging.debug("shortdescr.=" + str(shortdescription))
+            
 
     ## Bezahlung Maestro      MC/000002281|2108  K1 01.05.UM 17.43|OEBB 2483 FSA\\Ebreich sdorf         2483
     ## Bezahlung Maestro      MC/000002277|2108  K1 27.04.UM 17.10|OEBB 8020 FSA\\Graz                  8020
@@ -146,24 +153,24 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
     ## Bezahlung Maestro      MC/000002272|BRAUN        0001  K1 19.04.UM 23.21|BRAUN DE PRAUN         \
     ## Bezahlung Maestro      MC/000002308|BILLA DANKT  6558  K1 11.06.UM 10.21|BILLA 6558             \
     ## Bezahlung Maestro      MC/000002337|AH10  K1 12.07.UM 11.46|Ecotec Computer Dat\\T imelkam       4850
-    elif descriptionparts[0][:19] == u'Bezahlung Maestro  ' and len(descriptionparts)>2:
+    elif descriptionparts[0].startswith(u'Bezahlung Maestro  ') and len(descriptionparts)>2:
         logging.debug("found special case \"Bezahlung Maestro\"")
         shortdescription = descriptionparts[2].strip()  ## the last part
         name = None
         ## does not really work well with Unicode ... (yet)
-        ##if shortdescription[:4] == u"OEBB":
+        ##if shortdescription.startswith(u"OEBB"):
         ##    logging.debug("found special case \"ÖBB Fahrscheinautomat\"")
         ##    #shortdescription.replace("\\",' ')
         ##    logging.debug("sd[2]: [" + descriptionparts[2].strip() + "]")
         ##    re.sub(ur'OEBB (\d\d\d\d) FSA\\(.*)\s\s+(\\\d)?(\d\d+).*', ur'ÖBB Fahrschein \4 \2', descriptionparts[2].strip())
 
-    elif descriptionparts[0][:27] == u'easykreditkarte MasterCard ':
+    elif descriptionparts[0].startswith(u'easykreditkarte MasterCard '):
         logging.debug("found special case \"easykreditkarte\"")
         name = None
         shortdescription = "MasterCard Abrechnung"
 
-    elif descriptionparts[0][:23] == u'Gutschrift Überweisung ' and \
-            descriptionparts[1][:29] == u'TECHNISCHE UNIVERSITAET GRAZ ':
+    elif len(descriptionparts)>1 and descriptionparts[0].startswith(u'Gutschrift Überweisung ') and \
+            descriptionparts[1].startswith(u'TECHNISCHE UNIVERSITAET GRAZ '):
         logging.debug("found special case \"Gutschrift Überweisung, TUG\"")
         name = "TU Graz"
         shortdescription = "Gehalt"
