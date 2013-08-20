@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-23 15:19:11 vk>
+# Time-stamp: <2013-08-20 17:01:05 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -33,6 +33,15 @@ class OrgFormat(object):
     Class for handle special Org Formats linke link, time
     """
 
+    SINGLE_ORGMODE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
+            "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
+            "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
+
+    ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "$")
+
+    ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "-(-)?" + SINGLE_ORGMODE_TIMESTAMP + "$")
+
+        
     @staticmethod
     def struct_time_to_datetime(tuple_date):
         """
@@ -407,13 +416,7 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        SINGLE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
-            "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
-            "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
-
-        ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_TIMESTAMP + "$")
-
-        components = re.match(ORGMODE_TIMESTAMP_REGEX, orgtime)
+        components = re.match(OrgFormat.ORGMODE_TIMESTAMP_REGEX, orgtime)
 
         assert components
 
@@ -445,15 +448,9 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        SINGLE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
-            "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
-            "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
-
-        ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(SINGLE_TIMESTAMP + "-(-)?" + SINGLE_TIMESTAMP + "$")
-
         ## first time-stamp: range_components.groups(0)[0]
         ## second time-stamp: range_components.groups(0)[10]
-        range_components = re.match(ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
+        range_components = re.match(OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
 
         if range_components:
             return OrgFormat.datetime(
