@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 17:01:05 vk>
+# Time-stamp: <2013-08-22 14:33:30 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -34,14 +34,13 @@ class OrgFormat(object):
     """
 
     SINGLE_ORGMODE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
-            "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
-            "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
+        "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
+        "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
 
     ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "$")
 
     ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "-(-)?" + SINGLE_ORGMODE_TIMESTAMP + "$")
 
-        
     @staticmethod
     def struct_time_to_datetime(tuple_date):
         """
@@ -455,16 +454,16 @@ class OrgFormat(object):
         if range_components:
             return OrgFormat.datetime(
                 OrgFormat.orgmode_timestamp_to_datetime(
-                    range_components.groups(0)[0]) + \
-                    datetime.timedelta(0, 0, 0, 0, 0, deltahours)) + \
-                    "-" + \
-                    OrgFormat.datetime(
-                        OrgFormat.orgmode_timestamp_to_datetime(
-                            range_components.groups(0)[10]) + \
-                            datetime.timedelta(0, 0, 0, 0, 0, deltahours))
+                    range_components.groups(0)[0]) +
+                datetime.timedelta(0, 0, 0, 0, 0, deltahours)) + \
+                "-" + \
+                OrgFormat.datetime(
+                    OrgFormat.orgmode_timestamp_to_datetime(
+                        range_components.groups(0)[10]) +
+                    datetime.timedelta(0, 0, 0, 0, 0, deltahours))
         else:
-            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) + \
-                                          datetime.timedelta(0, 0, 0, 0, 0, deltahours))
+            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) +
+                                      datetime.timedelta(0, 0, 0, 0, 0, deltahours))
 
 
 # Local Variables:
