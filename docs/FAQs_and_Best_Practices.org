@@ -155,19 +155,19 @@ performance,  but it is perfectly usable for me.
 *** SSD versus HDD
 
 By using [[http://en.wikipedia.org/wiki/Ssd][SSD]]s instead of hard disks, you get a huge performance
-boost. For example lets see following command:
+boost. For example with the following command:
 
 : find /home -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f 2>/dev/null | \
 : egrep -v '(/s/|temporary|/\.|/restricted/)' > /tmp/files-tmp && \
 : ~/bin/memacs-filenametimestamps.py -f /tmp/files-tmp \
 :        -w -o ~/org-mode/memacs/files.org_archive
 
-It crawls over 132,000 files of my home folder, filters using an
+It crawls over 132,000 files of my home folder, filters using a
 [[http://en.wikipedia.org/wiki/Regex][regular expression]], removes paths containing temporary or restricted
 folders, and generates Orgmode Memacs entries for over 24,000 files
-resulting in four and a half megabytes of file size.
+resulting in a file of four and a half megabytes.
 
-This command does not take longer than *two and a half seconds* on an
+This command takes no longer than *two and a half seconds* on an
 SSD which is quite remarkable. Using a normal hard disk, a comparable
 call takes *one minute and fifteen seconds*.
 
