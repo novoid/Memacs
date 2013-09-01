@@ -270,9 +270,9 @@ and stores them in a list. On writing(append) it first checks against that list.
 
 
 * FAQs
-If you have one question, please contact «Karl dot Voit
+If you have a question, please contact «Karl dot Voit
 at IST dot TUGraz dot at» and he is happy to answer it.
 
-** Emacs always complains what to do with changed org files
-Solution is to add this to your emacs config file (.emacs):
+** Emacs always asks about what to do with changed org files
+The solution is to add this to your emacs config file (.emacs):
 : (global-auto-revert-mode t)
