@@ -65,4 +65,4 @@ probably interested in [[https://github.com/novoid/Memacs/issues/8#issuecomment-
 - you probably want to *develop and test a module invocation* in the
   command line and when it works:
 - set up a periodical invocation
-  - read the ~Invocation~ section of ~docs/FAQs_and_Best_Practices.org~
+  - read the [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#invocation][Invocation]] section of [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]
