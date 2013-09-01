@@ -16,16 +16,16 @@ I installed Memacs using PIP with the following commands:
 
 First, I created a virtualenv environment using a local installation
 of Python 2.7 (you can use the Python installation of your site of
-course): 
+course):
 : ~/.local/lib/python2.7/site-packages/virtualenv.py -p /home/karl/bin/Python-2.7.2/bin/python memacs
 
 I entered the folder ~cd memacs~ and activated the environment
-~. bin/activate~. 
+~. bin/activate~.
 After that, I installed Memacs using PIP with ~pip install memacs~
 
 Within this activated virtualenv, PYTHONPATH is set correctly and I am
-able to start any module directly like 
-: ~/src/memacs/bin/memacs_rss.py -u ... 
+able to start any module directly like
+: ~/src/memacs/bin/memacs_rss.py -u ...
 
 Summary:
 : ~/.local/lib/python2.7/site-packages/virtualenv.py -p /home/karl/bin/Python-2.7.2/bin/python memacs
@@ -56,7 +56,7 @@ process here]].
 
 ** *Set up one module* after another
 
-- please do read ~docs/FAQs_and_Best_Practices.org~
+- please make sure you read ~docs/FAQs_and_Best_Practices.org~
   - it contains many tips and tricks on how to meet your
     requirements and on how to choose a reasonable setup
 - start the module of your choice with the argument ~--help~
@@ -67,4 +67,3 @@ process here]].
   command line and when it works:
 - set up a periodical invocation
   - read the ~Invocation~ section of ~docs/FAQs_and_Best_Practices.org~
-
