@@ -190,12 +190,12 @@ generated Memacs Orgmode files:
 : /home/user/orgmode/memacs/module2.org
 : /home/user/orgmode/memacs/module2.org_archive
 : /home/user/orgmode/memacs/error.org          <- See Section Error Handling
-** Power Consumption while being on battery
+** Power Consumption while on battery
 
 When you are using Memacs on a notebook, you might not want to execute
-certain cron jobs while being on battery power only.
+certain cron jobs while being on battery power.
 
-Ubuntu GNU/Linux is using the [[http://en.wikipedia.org/wiki/Procfs][proc file system]] where you can access
+Ubuntu GNU/Linux uses the [[http://en.wikipedia.org/wiki/Procfs][proc file system]] where you can access
 many hardware-related information such as battery state:
 
 : vk@gary ~ % cat /proc/acpi/battery/BAT0/state
@@ -219,7 +219,7 @@ many hardware-related information such as battery state:
 : vk@gary ~ %
 
 With a simple shell script named «no-power-supply.sh», you can execute cron job commands only
-when having external power supply:
+when connected to an external power supply:
 
 : #!/bin/sh
 : grep discharging /proc/acpi/battery/BAT0/state >/dev/null
@@ -235,7 +235,7 @@ Then some example cron jobs look like:
 : 10 * * * * /usr/local/bin/no-power-supply.sh || { find ....  | egrep '...' > tmpfile && do_that.sh }
 
 Whenever your notebook is in state «discharge» those cronjobs are not
-being executed.
+executed.
 
 
 * Internals
