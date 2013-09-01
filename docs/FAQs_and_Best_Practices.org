@@ -131,7 +131,7 @@ opportunity to get the verbose information on demand.
 
 See:  [[http://orgmode.org/org.html#Agenda-commands]["v A" in Agenda-view]]
 
-*** Performance of Agenda
+*** Performance of the Agenda
 
 I am using Org-mode with following archive files:
 
@@ -149,8 +149,8 @@ When I am in agenda view and I switch to the agenda entries as well
 (using «v A»), I face a delay of less than four seconds.
 
 After that it depends on how many entries you have got for that
-specific view (day, week, ...). I get only a slightly worse feedback
-then. But it is perfectly usable to me.
+specific view (day, week, ...). I get only a slightly worse
+performance,  but it is perfectly usable for me.
 
 *** SSD versus HDD
 
