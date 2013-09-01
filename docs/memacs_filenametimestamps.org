@@ -11,7 +11,7 @@ Done, if you find any errors do not hesitate to contact us.
 
 Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
 «2011-02-14T14.35.42_img_0815.jpg» or «2011-02-14 slide GTD tools.jpg»
-contain a direct reference to a certain day (or time).
+contains a direct reference to a certain day (or time).
 
 
 ** Example Invocation
@@ -36,7 +36,7 @@ contain a direct reference to a certain day (or time).
 
 This module is probably the most valuable Memacs module of all. You
 can refer to any (time-stamped) file within your Org-mode. You don't
-have to care, in which folder you put the file in!
+have to care, which folder you put the file in!
 
 It's handy to add a custom link like this to your Org-mode configuration:
 
@@ -45,11 +45,10 @@ It's handy to add a custom link like this to your Org-mode configuration:
 : 	("tsfile" . "~/path/to/memacs/files.org_archive::/\*.*%s/")
 : 	))
 
-For quick entering a link, you might as well like following [[http://emacswiki.org/emacs/Yasnippet][yasnippet]]:
+For quickly entering a link, you may like following [[http://emacswiki.org/emacs/Yasnippet][yasnippet]]:
 
 : # name : expand link to filename with datestamp
 : # --
 : [[tsfile:$1][${2:$$(unless yas-modified-p
 :  (let ((field (nth 0 (yas--snippet-fields (first (yas--snippets-at-point))))))
 :    (concat (buffer-substring (yas--field-start field) (yas--field-end field)))))}]] $0
-
