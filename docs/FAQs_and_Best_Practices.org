@@ -8,9 +8,9 @@
 Most of the time you probably want to invoke Memacs modules
 automatically and periodically. Here are some tips for achieving this.
 
-For each Memacs module there is a documentation <memacs_module.org> located in the same 
-folder as this file. Additionally you get help of each module by execute it with 
-argument "-h" i.e.: 
+For each Memacs module there is a documentation <memacs_module.org> located in the same
+folder as this file. Additionally you get help of each module by execute it with
+argument "-h" i.e.:
 : ./bin/memacs_module.py -h
 
 *** Important: Pythonpath environment variable
@@ -36,20 +36,20 @@ Older versions of Mac OS X used to support cron. But since OS X 10.4 «Tiger» y
 
 Please refer to [[http://support.microsoft.com/kb/308569][Windows Task Scheduler]].
 
-** Error Handling 
-Because we let our memacs-modules automatically run, it would be difficult 
+** Error Handling
+Because we let our memacs-modules automatically run, it would be difficult
 to get informed in case of an error. So memacs-modules have a nice error handling:
 
 When you specify an outputfile like this:
 
 : memacs-module.py -o /path/to/output.org_archive
 
-Then errors are automatically added to 
+Then errors are automatically added to
 : /path/to/error.org
 
 - Create the file containing following information:
   : ## -*- coding: utf-8 mode: org -*-
-  : ## this file is for error-messages of Memacs 
+  : ## this file is for error-messages of Memacs
   : ## to add this file to your org-agenda open error.org with emacs and: M-x org-agenda-file-to-front
   : ##
   : ## Main idea of this file:
@@ -63,18 +63,18 @@ Then errors are automatically added to
 - Add the file to Org-Agenda:
   - open the file in emacs and M-x org-agenda-file-to-front
 
-If an error occurs it will be added to the error.org with an repeating timestamp every day. 
+If an error occurs it will be added to the error.org with an repeating timestamp every day.
 You have to delete the error manually.
 
-** Autotagging 
-Autotagging allows to set for each entry other tagging Information.
+** Autotagging
+Autotagging allows tags to be set for each entry automatically.
 
-By now autotagging is only available for the <headline> of the entry. 
+For now autotagging is only available for the <headline> of the entry.
 
 : *** <1900-00-00> <headline> :tags:
 :     <additional data>
-:     :PROPERTIES: 
-:     :END: 
+:     :PROPERTIES:
+:     :END:
 
 *Example Autotag file:*
 : [autotag]
@@ -88,7 +88,7 @@ By now autotagging is only available for the <headline> of the entry.
 : ....
 
 *Example file without Autotag:*
-: ** <1970-01-01 Thu 00:00> foo	
+: ** <1970-01-01 Thu 00:00> foo
 : ** <1970-01-01 Thu 00:00> bar	:tag1:tag2
 
 *Example file with Autotag:*
@@ -205,10 +205,10 @@ many hardware-related information such as battery state:
 : present rate:            0 mW
 : remaining capacity:      35290 mWh
 : present voltage:         12526 mV
-: vk@gary ~ % 
-: 
+: vk@gary ~ %
+:
 : ## now I disconnect the battery from external power supply
-: 
+:
 : vk@gary ~ % cat /proc/acpi/battery/BAT0/state
 : present:                 yes
 : capacity state:          ok
@@ -239,36 +239,36 @@ being executed.
 
 
 * Internals
-** How to write a memacs module? 
-see 
+** How to write a memacs module?
+see
 : Memacs/bin/memacs_example.py
 : Memacs/memacs/example.py
 : Memacs/tests/example_test.py
-** Testing 
+** Testing
 Use [[http://readthedocs.org/docs/nose/en/latest/][nosetests]] for executing tests
 install it with:
 : % easy_install nosetests
-or 
+or
 : # aptitude install python-nose
 ** how works the *appendmode* of memacs? / How is the :ID: Property generated?
 All properties (:PROPERTIES: drawer) are stored in a dict
 : i.e.: :FOO: <bar>
 : key = "FOO , value = <bar>
 
-generation: 
-: id-hash = sha1(<all values> + <all keys>) 
+generation:
+: id-hash = sha1(<all values> + <all keys>)
 
 Before writing an entry to the org-file, the id is generated.
 
-If Memacs module is in appendmode, it looks for those :ID: properties 
+If Memacs module is in appendmode, it looks for those :ID: properties
 and stores them in a list. On writing(append) it first checks against that list.
 
-*** what to do if our :PROPERTIES: give not enough unique data? 
+*** what to do if our :PROPERTIES: give not enough unique data?
     ... so that a hash cannot be unique too?
 
     you can set OrgProperties(data_for_hashing="more_data") for this problem
 
-    
+
 * FAQs
 If you have one question, please contact «Karl dot Voit
 at IST dot TUGraz dot at» and he is happy to answer it.
