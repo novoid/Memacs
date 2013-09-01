@@ -46,8 +46,7 @@ start the modules located in the bin-folder of Memacs.
 *** Installing on OS X with homebrew without virtualenv
 
 If you decide not to use virtualenv (not recommended), you are
-probably interested in [[https://github.com/novoid/Memacs/issues/8#issuecomment-16441471][a comment of a user who described the manual
-process here]].
+probably interested in [[https://github.com/novoid/Memacs/issues/8#issuecomment-16441471][a comment of a user who described the manualprocess here]] .
 
 ** *Choose* the *modules* you want to use
 
@@ -56,7 +55,7 @@ process here]].
 
 ** *Set up one module* after another
 
-- please make sure you read ~docs/FAQs_and_Best_Practices.org~
+- please make sure you read [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]
   - it contains many tips and tricks on how to meet your
     requirements and on how to choose a reasonable setup
 - start the module of your choice with the argument ~--help~
