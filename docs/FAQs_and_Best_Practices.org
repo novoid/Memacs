@@ -103,21 +103,19 @@ For now autotagging is only available for the <headline> of the entry.
 
 *** File names of generated Memacs files: archive
 
-Memacs is usually generating [[http://orgmode.org/org.html#Archiving][Org-mode archive files]]:
+Memacs usually generates [[http://orgmode.org/org.html#Archiving][Org-mode archive files]]:
 
 - «emails.org» ... only a stub
-- «emails.org_archive» ... containing Orgmode heading lines with
-  Memacs data
+- «emails.org_archive» ... containing Orgmode heading lines with Memacs data
 
-This has following advantage: in normal mode, Memacs entries do
-not interfere with the Org-mode data you are processing daily. It is
-as fast as usual.
+Thus in day to day use Memacs entries are not processed by Org Agenda
+commands, so do not slow down your Agenda.
 
-Only when you choose to view also the archive files ([[http://orgmode.org/org.html#Agenda-commands]["v A" in
-Agenda-view]]) you get the data Memacs displayed in your Orgmode Agenda.
+Only when you choose to view the archive files ([[http://orgmode.org/org.html#Agenda-commands]["v A" in
+Agenda-view]]) will you get the Memacs data displayed in your Orgmode Agenda.
 
-This should not lead to any slow down in your daily work while having
-the tremendous opportunity to get the verbose information on demand.
+So your daily work will not be slowed down, but you have the
+opportunity to get the verbose information on demand.
 
 **** How to use archive files
 
