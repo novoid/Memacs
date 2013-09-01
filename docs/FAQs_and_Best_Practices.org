@@ -22,10 +22,10 @@ can put following line at the top of your crontab:
 
 *** GNU/Linux (like Ubuntu, SuSE, RedHat, Debian, ...)
 
-You are lucky because [[http://en.wikipedia.org/wiki/Cron][cron]] is providing a fairly easy to use interface
+You are lucky because [[http://en.wikipedia.org/wiki/Cron][cron]] provides a fairly easy to use interface
 for this!
 
-Wikipedia is offering [[http://en.wikipedia.org/wiki/Cron#Predefined_scheduling_definitions][a cool example section]] on how to generate
+Wikipedia offers [[http://en.wikipedia.org/wiki/Cron#Predefined_scheduling_definitions][a cool example section]] on how to generate
 cronjob entries. Most of the time you only have to call «crontab -e»
 and you can start entering a line.
 
