@@ -26,7 +26,7 @@ using [[https://play.google.com/store/apps/details?id%3Dcom.riteshsahu.SMSBackup
 
 : /path/to/Memacs/bin/memacs_sms.py -f /path/to/sms-xml-file.xml -o /home/user/orgmode/memacs/sms-foo.org_archive
 
-For more options see help page (<memacs_sms.py -h>)
+For more options see the help page (<memacs_sms.py -h>)
 ** Example Orgmode entries
 : ** <2011-08-04 Thu 10:05:53> SMS from +436812314123: did you see the new sms memacs module?
 :    :PROPERTIES:
