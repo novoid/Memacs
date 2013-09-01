@@ -5,14 +5,14 @@
 
 ** Data Source
 
-[[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kind of data
+[[http://en.wikipedia.org/wiki/Revision_control][Version control systems]] are quite common to manage all kinds of data
 with. [[http://en.wikipedia.org/wiki/Git_(software)][git]] is a modern distributed system that has an enormous feature
 set.
 
 memacs_git.py parses the output of:
 : git rev-list --all --pretty=raw
 
-If a outfile is specified, only new commits are appended.
+If an outfile is specified, only new commits are appended.
 
 ** Example Invocation
 *** Example with rev-list file:
@@ -20,26 +20,27 @@ If a outfile is specified, only new commits are appended.
 : ./memacs_git.py -f /tmp/file -o /path/to/git-project.org_archive
 
 *** Example Crontab Entry
-Every 60 minutes try to fetch something new from git repository and parse output
+Every 60 minutes try to fetch something new from git repository and
+parse the output
 
 : ORG_DIR="/home/user/orgmode/memacs"
 : MEMACS_DIR="/home/user/git/Memacs"
 : */60   *   *   *  *    /home/user/bin/no-power-supply.sh || cd "/home/user/git/Memacs" && git fetch && git rev-list --all --pretty=raw | $MEMACS_DIR/versioning_systems/memacs_git.py -o $ORG_DIR/git-memacs.org_archive
 
 *** .gitconfig - alias
-For easily adding a crontab entry, you can modify your .gitconfig and 
+For easily adding a crontab entry, you can modify your .gitconfig and
 add an alias like memacs-add-crontab to the [alias] section.
 
-It could look like this: (adjust the paths!) 
+It could look like this: (adjust the paths!)
 
 : [alias]
-:       ... 
+:       ...
 : 	memacs-add-crontab = "! crontab -l > /tmp/crontab &&  echo \"*/60   *   *   *  *    /home/user/bin/no-power-supply.sh || cd \"$(git rev-parse --show-toplevel)\" && git fetch && git rev-list --all --pretty=raw | /path/to/memacs/versioning_systems/memacs_git.py -o ~/orgmode/memacs/git-$(basename $(git rev-parse --show-toplevel)).org_archive\n\" >> /tmp/crontab && crontab /tmp/crontab && rm /tmp/crontab"
-	
-*** filter by username 
-use option 
+
+*** filter by username
+use option
 : ./memacs_git.py <...> -g "Forename Lastname"
-or 
+or
 : ./memacs_git.py <...> --grep-user "Forename Lastname"
 ** Example Orgmode entries
 
