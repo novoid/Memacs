@@ -14,9 +14,10 @@ executing it with the "-h" argument e.g.:
 : ./bin/memacs_module.py -h
 
 *** Important: Pythonpath environment variable
-Memacs folder has to be on the PYTHONPATH. Just google for it how to set it.
+The Memacs folder has to be on the PYTHONPATH. Just Google for it how to set it.
 
-If using crontab you have to set it there too. You can put following line on top:
+If you are using crontab you have to set the PYTHONPATH there too. You
+can put following line at the top of your crontab:
 : PYTHONPATH=/path/to/Memacs
 
 *** GNU/Linux (like Ubuntu, SuSE, RedHat, Debian, ...)
