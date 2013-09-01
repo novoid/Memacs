@@ -250,7 +250,7 @@ install it with:
 : % easy_install nosetests
 or
 : # aptitude install python-nose
-** how works the *appendmode* of memacs? / How is the :ID: Property generated?
+** how does the *appendmode* of memacs work? / How is the :ID: Property generated?
 All properties (:PROPERTIES: drawer) are stored in a dict
 : i.e.: :FOO: <bar>
 : key = "FOO , value = <bar>
@@ -260,13 +260,13 @@ generation:
 
 Before writing an entry to the org-file, the id is generated.
 
-If Memacs module is in appendmode, it looks for those :ID: properties
+If a Memacs module is in appendmode, it looks for those :ID: properties
 and stores them in a list. On writing(append) it first checks against that list.
 
-*** what to do if our :PROPERTIES: give not enough unique data?
-    ... so that a hash cannot be unique too?
+*** what to do if our :PROPERTIES: do not give unique data?
+    ... so that a hash is not unique?
 
-    you can set OrgProperties(data_for_hashing="more_data") for this problem
+    you can set OrgProperties(data_for_hashing="more_data") to solve this problem
 
 
 * FAQs
