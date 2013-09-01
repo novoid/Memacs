@@ -119,12 +119,12 @@ opportunity to get the verbose information on demand.
 
 **** How to use archive files
 
-1. generate a stub file like «~/org-mode/files.org»
-2. you might want to enter some information there but you can as well
+1. Generate a stub file like «~/org-mode/files.org»
+2. You might want to enter some information there but you can choose to
    leave the file empty
-3. let Memacs generate your Org-mode archive file like «~/org-mode/files.org_archive»
-4. open «~/org-mode/files.org» in your GNU Emacs and invoke «M-x org-agenda-file-to-front»
-5. You successfully added this Memacs module to your Org-mode Agenda
+3. Let Memacs generate your Org-mode archive file like «~/org-mode/files.org_archive»
+4. Open «~/org-mode/files.org» in your GNU Emacs and invoke «M-x org-agenda-file-to-front»
+5. You have successfully added this Memacs module to your Org-mode Agenda
 6. Whenever you want to see the entries of «files.org_archive» (or any
    other archive file) in your Agenda, invoke «v A» when you are in
    your normal Agenda view.
