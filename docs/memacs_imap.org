@@ -9,7 +9,7 @@ Done, if you find any errors do not hesitate to contact us.
 
 ** Data Source
 
-[[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] is a popular protocol for e-mail retrivals. Many email servers support this access.
+[[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] is a popular protocol for retrieving e-mail. Many email servers support this protocol.
 
 ** Example Config File
 - sample config path and filename
@@ -37,11 +37,11 @@ You will see possible folders. Now we can set one Folder:
 
 Add param -o like in other memacs modules to specify output file.
 ** Performance:
-The performance of an orgfile with too much entries is very bad. 
+The performance of an orgfile with too many entries is very bad.
 There is an argument to fetch only the last x messages:
 : --fetch-number <int>
 i.e:
-: --fetch-number 1000 
+: --fetch-number 1000
 fetches the last 1000 mails
 ** Example Orgmode entries
 
