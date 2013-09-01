@@ -38,8 +38,9 @@ Older versions of Mac OS X used to support cron. But since OS X 10.4 «Tiger» y
 Please refer to [[http://support.microsoft.com/kb/308569][Windows Task Scheduler]].
 
 ** Error Handling
-Because we let our memacs-modules automatically run, it would be difficult
-to get informed in case of an error. So memacs-modules have a nice error handling:
+Because our memacs-modules run automatically, it would be difficult
+to be notified in case of an error. So memacs-modules handle errors
+by appending them to a file:
 
 When you specify an outputfile like this:
 
@@ -64,7 +65,7 @@ Then errors are automatically added to
 - Add the file to Org-Agenda:
   - open the file in emacs and M-x org-agenda-file-to-front
 
-If an error occurs it will be added to the error.org with an repeating timestamp every day.
+If an error occurs it will be added to the error.org with a repeating timestamp every day.
 You have to delete the error manually.
 
 ** Autotagging
