@@ -8,9 +8,9 @@
 Most of the time you probably want to invoke Memacs modules
 automatically and periodically. Here are some tips for achieving this.
 
-For each Memacs module there is a documentation <memacs_module.org> located in the same
-folder as this file. Additionally you get help of each module by execute it with
-argument "-h" i.e.:
+For each Memacs module there is documentation <memacs_module.org> located in the same
+folder as the file. Additionally you can get help for each module by
+executing it with the "-h" argument e.g.:
 : ./bin/memacs_module.py -h
 
 *** Important: Pythonpath environment variable
