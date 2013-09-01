@@ -2,7 +2,7 @@
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-phonecalls
-  
+
 ** Current status
 
 Done. If you find any errors do not hesitate to contact us.
@@ -13,7 +13,7 @@ Any [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartph
 let you backup those call logs to your computer.
 
 This module takes call logs from the backup app [[https://play.google.com/store/apps/details?id%3Dcom.riteshsahu.CallLogBackupRestore&hl%3Den][Call Logs Backup &
-Restore]] and puts it into your Agenda - right where it belongs to.
+Restore]] and puts it into your Agenda - right where it belongs.
 
 *** Example Phonecall XML Backup File
 
@@ -28,7 +28,7 @@ Restore]] and puts it into your Agenda - right where it belongs to.
 :   <call number="+4388812345678" duration="16" date="1303410146890" type="1" readable_date="2011/21/04 20:22:26" contact_name="Peter Foobar" />
 :   <call number="+438889876543" duration="110" date="1303758829585" type="2" readable_date="2011/25/04 21:13:49" contact_name="My Voicemail" />
 : </calls>
- 
+
 ** Example Invocation
 
 minimal:
@@ -37,7 +37,7 @@ minimal:
 fancy:
 : /path/to/Memacs/bin/memacs_phonecalls.py --file /path/to/phonecalls-xml-file.xml --output /home/user/orgmode/memacs/phonecalls.org_archive --columns-header "%29ITEM %20NAME %20NUMBER %4DURATION"
 
-For more options see help page of ~memacs_phonecalls.py -h~
+For more options see the help page: ~memacs_phonecalls.py -h~
 
 ** Example Org-mode entries
 
@@ -55,7 +55,7 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       Peter Foobar
 :    :ID:         83958506b4be48a231325cb5f02c4478bfa02338
 :    :END:
-: 
+:
 : ** <2011-04-21 Thu 09:36:32>-<2011-04-21 Thu 09:37:48> Phonecall to [[contact:Peter Foobar][Peter Foobar]]
 :    :PROPERTIES:
 :    :DURATION:   76
@@ -63,7 +63,7 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       Peter Foobar
 :    :ID:         d451756cb8944f869bf940218252c75e1a055fa1
 :    :END:
-: 
+:
 : ** <2011-04-21 Thu 09:38:03>-<2011-04-21 Thu 09:39:09> Phonecall to [[contact:Big Boss][Big Boss]]
 :    :PROPERTIES:
 :    :DURATION:   66
@@ -71,7 +71,7 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       Big Boss
 :    :ID:         d7a258ec013febd62727e8092400d051826ec005
 :    :END:
-: 
+:
 : ** <2011-04-21 Thu 10:50:53>-<2011-04-21 Thu 10:51:42> Phonecall to [[contact:Peter Foobar][Peter Foobar]]
 :    :PROPERTIES:
 :    :DURATION:   49
@@ -79,7 +79,7 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       Peter Foobar
 :    :ID:         30e8413a188a025f90d61c0fbfb826d9a1a3f397
 :    :END:
-: 
+:
 : ** <2011-04-21 Thu 11:26:16>-<2011-04-21 Thu 11:32:29> Phonecall from Unknown
 :    :PROPERTIES:
 :    :DURATION:   373
@@ -87,7 +87,7 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       (Unknown)
 :    :ID:         75d5b67cddbea7e24da0bf6a9122644e26639c94
 :    :END:
-: 
+:
 : ** <2011-04-21 Thu 18:22:26>-<2011-04-21 Thu 18:22:42> Phonecall from [[contact:Peter Foobar][Peter Foobar]]
 :    :PROPERTIES:
 :    :DURATION:   16
@@ -95,7 +95,7 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       Peter Foobar
 :    :ID:         928413407ddc09829670de700f9bce34816c9407
 :    :END:
-: 
+:
 : ** <2011-04-25 Mon 19:13:49>-<2011-04-25 Mon 19:15:39> Phonecall to [[contact:My Voicemail][My Voicemail]]
 :    :PROPERTIES:
 :    :DURATION:   110
@@ -103,9 +103,5 @@ Following Org-mode file will be generated from the example data above:
 :    :NAME:       My Voicemail
 :    :ID:         b660c2934b2860f900f21b61d69d67dbe5bf7ad4
 :    :END:
-: 
+:
 : * successfully parsed 7 entries by bin/memacs_phonecalls.py at [2013-04-10 Wed 16:05:24] in ~0.003216s .
-
-
-
-   

@@ -9,10 +9,8 @@ Done, if you find any errors do not hesitate to contact us.
 
 ** Data Source
 
-This memacs module will parse SMS - XML Backups. You can get this Backups from following Android App:
-
-TODO
-TBD 
+This memacs module will parse SMS - XML Backups. You make SMS Backups
+using [[https://play.google.com/store/apps/details?id%3Dcom.riteshsahu.SMSBackupRestore&hl%3Den][SMS Backup and Restore]] .
 
 *** example sms xml backup file:
 : <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
@@ -28,7 +26,7 @@ TBD
 
 : /path/to/Memacs/bin/memacs_sms.py -f /path/to/sms-xml-file.xml -o /home/user/orgmode/memacs/sms-foo.org_archive
 
-For more options see help page (<memacs_sms.py -h>)
+For more options see the help page (<memacs_sms.py -h>)
 ** Example Orgmode entries
 : ** <2011-08-04 Thu 10:05:53> SMS from +436812314123: did you see the new sms memacs module?
 :    :PROPERTIES:
@@ -38,4 +36,3 @@ For more options see help page (<memacs_sms.py -h>)
 :    :PROPERTIES:
 :    :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709
 :    :END:
-

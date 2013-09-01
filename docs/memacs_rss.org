@@ -14,12 +14,11 @@ the internet.
 
 ** Dependencies
 
-This module uses the Python library [[http://code.google.com/p/feedparser/][feedparser]] which might be
-necessary to be installed before using this module.
+This module uses the Python library [[http://code.google.com/p/feedparser/][feedparser]] which might need to be to be installed before using this module.
 
 When using [[http://www.ubuntu.com/][Ubuntu GNU/Linux]] or any other [[http://www.debian.org/][Debian GNU/Linux]] based
 distribution you can install the package by invoking «apt-get install
-python-feedparser» as root user.
+python-feedparser» as the root user.
 
 ** Automatic appending
 
@@ -27,10 +26,10 @@ the <guid> property of an <item> in rss becomes following:
 : :PROPERTIES:
 : ...
 : :ID: <id>
-: ... 
-: :END: 
+: ...
+: :END:
 
-At beginning, if an outputfile exists this memacs module looks for existing id's. 
+At beginning, if an outputfile exists this memacs module looks for existing id's.
 Only new items are then appended.
 
 ** Example Invocation

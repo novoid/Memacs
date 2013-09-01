@@ -29,7 +29,7 @@
 - resulting files:
   - »memacs.org_archive« OR one file per Module
 
-Extension ".org_archive" more or less necessary to avoid performance
+Using the extension ".org_archive" is more or less required to avoid performance
 troubles in daily work.
 
 ** NEXT format of the result file(s)
@@ -64,13 +64,13 @@ Possibilities:
 :ID: 8dd36514-ed8a-4a3d-a8b2-5416120b577a
 :END:
 
-Format should be INI format because it is human readable and there are
-good libraries to use it. See code of tagstore and TagVizor.
+The format should be like the file INI format, because it is human readable and there are
+good libraries to use it. See the code of tagstore and TagVizor.
 
 - one configuration file:
   - everything in one place
   - Memacs and each Module gets an individual section
-  - user(?) can mix up sections or do other harm
+  - user(?) cannot mix up sections or do other harm
 - each Module in its own INI file:
   - clean separation
   - user has to create (correct) INI files
@@ -92,7 +92,7 @@ good libraries to use it. See code of tagstore and TagVizor.
 :ID: 2bc5d6fc-a5a5-45e7-9f37-a8d74849f6fe
 :END:
 
-[[http://orgmode.org/org.html#Drawers][Drawers]] are good places to store meta data. Most prominent drawer:
+[[http://orgmode.org/org.html#Drawers][Drawers]] are good places to store meta data. The most prominent drawer:
 [[http://orgmode.org/org.html#Properties-and-Columns][PROPERTIES]].
 
 Some things that do not appear in header line but are important should
@@ -257,7 +257,7 @@ see file:README.org::*tagstore-Module
 :  vk@gary ~ts/.tagstore % head store.tgs
 :  [settings]
 :  config_format=1
-:  
+:
 :  [files]
 :  Antikes%20Rom.png\tags=2011-03
 :  Antikes%20Rom.png\timestamp=2011-03-08 16:56:44
@@ -343,7 +343,7 @@ see file:README.org::*svn-Module
 Module-specific configuration:
 - list of local repositories to include
 - option to include only own commits (and not everyones)
-- 
+-
 
 ** TODO SMS-backup-Module [0/1]
 :PROPERTIES:
@@ -390,7 +390,7 @@ see file:README.org::*JPilot-todo-Module
 #+end_example
 
 Module-specific configuration:
-- 
+-
 
 ** WISH JPilot-event-Module [0/0]                                 :KarlVoit:
 :PROPERTIES:
@@ -409,7 +409,7 @@ see file:README.org::*JPilot-event-Module
 #+end_example
 
 Module-specific configuration:
-- 
+-
 
 ** WISH Serendipity-Module [0/0]                                  :KarlVoit:
 :PROPERTIES:
@@ -428,9 +428,8 @@ see file:README.org::*Serendipity-Module
 #+end_example
 
 Module-specific configuration:
-- 
+-
 
 - Suderei: export
   - «<pubDate>Sun, 28 Oct 2007 00:09:18 +0200</pubDate>»
   - probably provide time zone delta for parsing time
-

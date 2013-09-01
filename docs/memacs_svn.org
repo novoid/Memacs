@@ -9,8 +9,8 @@ Done, if you find any errors do not hesitate to contact us.
 
 ** Data Source
 
-Version control systems are quite common to manage all kind of data
-with. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
+Version control systems are quite commonly used to manage all kind of
+data. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
 revision control.
 
 This memacs module parses output of:
@@ -23,7 +23,7 @@ This memacs module parses output of:
 : cd /path/to/svn-repo/
 : svn log --xml | /path/to/Memacs/memacs_svn.py -f /path/to/svn-xml-file.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
 
-or in one line: 
+or in one line:
 
 : cd /path/to/svn-repo/ && svn log --xml | /path/to/Memacs/memacs_svn.py -f /path/to/svn-xml-file.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
 
@@ -32,7 +32,7 @@ or in one line:
 : svn log --xml > /tmp/svn-log.xml
 : /path/to/Memacs/memacs_svn.py -f /tmp/svn-log.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
 
-or in one line: 
+or in one line:
 
 : cd /path/to/svn-repo/ &&  svn log --xml > /tmp/svn-log.xml &&  /path/to/Memacs/memacs_svn.py -f /tmp/svn-log.xml -o /home/user/orgmode/memacs/svn-foo.org_archive
 
