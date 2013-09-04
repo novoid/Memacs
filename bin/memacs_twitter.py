@@ -19,6 +19,7 @@ APP_SECRET =
 OAUTH_TOKEN =
 OAUTH_TOKEN_SECRET =
 screen_name =
+count =
 
 
 """
