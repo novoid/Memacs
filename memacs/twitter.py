@@ -29,6 +29,8 @@ class Twitter(Memacs):
 
         screen_name = self._get_config_option("screen_name")
 
+        count = self._get_config_option("count")
+
         print "APP_KEY: %s\nAPP_SECRET: %s\nOAUTH_OKEN: %s\nOAUTH_TOKEN_SECRET: %s " % (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
         twitter = Twython(
@@ -38,7 +40,7 @@ class Twitter(Memacs):
             OAUTH_TOKEN_SECRET
             )
         try:
-            home_timeline = twitter.get_home_timeline(screenname=screen_name, count=50)
+            home_timeline = twitter.get_home_timeline(screenname=screen_name, count=count)
 
         except TwythonError as e:
             logging.error(e)
@@ -46,7 +48,7 @@ class Twitter(Memacs):
 
         for tweet in home_timeline:
             # strptime doesn't support timezone info, so w are using dateutils.
-            date_object = parser.parse(tweet['created_at'].encode('utf-8'))
+            date_object = parser.parse(tweet['created_at'])
 
             #timestamp = OrgFormat.datetime(time.gmtime(0))
             print "Created: %s Tweet: %s" % (tweet['created_at'], tweet['text'])
@@ -62,13 +64,13 @@ class Twitter(Memacs):
             data_for_hashing = output + timestamp + output
             properties = OrgProperties(data_for_hashing=data_for_hashing)
 
-            properties.add("name", tweet['user']['name'].encode('utf-8'))
+            properties.add("name", tweet['user']['name'])
             properties.add("twitter_id", tweet['id'])
             properties.add("contributors", tweet['contributors'])
             properties.add("truncated", tweet['truncated'])
             properties.add("in_reply_to_status_id", tweet['in_reply_to_status_id'])
             properties.add("favorite_count", tweet['favorite_count'])
-            properties.add("source", tweet['source'].encode('utf-8'))
+            properties.add("source", tweet['source'])
             properties.add("retweeted", tweet['retweeted'])
             properties.add("coordinates", tweet['coordinates'])
             properties.add("entities", tweet['entities'])
