@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 03:38:09 armin>
+# Time-stamp: <2013-09-04 18:41 ian>
 
 import logging
 import time
@@ -16,9 +16,6 @@ from lib.orgproperty import OrgProperties
 
 class Twitter(Memacs):
     def _main(self):
-
-
-
         APP_KEY = self._get_config_option("APP_KEY")
 
         APP_SECRET = self._get_config_option("APP_SECRET")
@@ -30,8 +27,6 @@ class Twitter(Memacs):
         screen_name = self._get_config_option("screen_name")
 
         count = self._get_config_option("count")
-
-        print "APP_KEY: %s\nAPP_SECRET: %s\nOAUTH_OKEN: %s\nOAUTH_TOKEN_SECRET: %s " % (APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
         twitter = Twython(
             APP_KEY,
@@ -50,11 +45,9 @@ class Twitter(Memacs):
             # strptime doesn't support timezone info, so w are using dateutils.
             date_object = parser.parse(tweet['created_at'])
 
-            #timestamp = OrgFormat.datetime(time.gmtime(0))
-            print "Created: %s Tweet: %s" % (tweet['created_at'], tweet['text'])
+
             timestamp = OrgFormat.datetime(date_object)
             try:
-                #output = tweet['text'].decode('utf-8')
                 # Data is already Unicode, so don't try to re-encode it.
                 output = tweet['text']
             except:
