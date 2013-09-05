@@ -5,23 +5,25 @@
 
 
 ** Current Status.
-
+Experimental. Please report any problems you find to ian@manor-farm.org
 
 ** Obtaining a Twitter Key.
-Install Tywthon
+Before obtaining a Twitter Key you will need to install [[https://github.com/ryanmcgrath/twython][Twython]]:
+
+: pip install twython
 
 *** First Step.
 Go over to [[https://dev.twitter.com/apps]] and register your
 application. Note for this application you don't need to specify a
-Callback Url. Make a note of the Consumer Key and Consumer Secret. Now
-you need to authorize your app.
+Callback Url. Make a note of the Consumer Key (APP_KEY) and Consumer
+Secret (APP_SECRET). Now you need to authorize your app in the Second Step.
 
 *** Second Step.
 We are going to use OAuth1 authentication. This is a rather convoluted
-process, but at the end you should have a set of tokens that you read
-and write to your Twitter account. You need to create
+process, but at the end you should have a set of tokens that enable you read
+and write to your Twitter account.
 
-We need to obtain an Authorization Url:
+You need to obtain an Authorization Url. Create and run the following program:
 
 #+begin_src python :shebang #!/usr/bin/python2 :tangle ./twitter_get_auth.py :exports none :noweb yes
 from twython import Twython
@@ -36,8 +38,7 @@ print auth
 #+end_src
 
 This will get your Secret Token and a PIN number from Twitter (click
-on the link to get your PIN).
-
+on the link to get your PIN). An example set of results is shown below.
 
 #+begin_example
 {u'oauth_token_secret': u'SecretToken', 'auth_url': 'https://api.twitter.com/oauth/authenticate?oauth_token=some_very_long_token ', u'oauth_token': u'SecretToken', u'oauth_callback_confirmed': u'true'}
@@ -46,6 +47,8 @@ PIN 1234567
 
 #+end_example
 
+Now that you have this data, proceed to the third step, where you will
+obtain your Final Tokens.
 
 *** Third Step.
 Finally enter the data you got from running the program twitter_get_auth.py into the
@@ -80,19 +83,18 @@ Now you can use the final OAuth tokens, together with APP_KEY and
 APP_SECRET that you obtained when you registered your app with Twitter
 to connect to Twitter with Twython:
 
-#+begin_src python
-twitter = Twython(
-            APP_KEY,
-            APP_SECRET,
-            OAUTH_TOKEN,
-            OAUTH_TOKEN_SECRET
-            )
-
-twitter.statuses.update(status="Hello, world!")
-#+end_src
+: twitter = Twython(
+:             APP_KEY,
+:             APP_SECRET,
+:             OAUTH_TOKEN, # Your final OAuth token
+:             OAUTH_TOKEN_SECRET # Your final secret token
+:             )
+:
+: # Post a status update.
+:  twitter.statuses.update(status="Hello, world!")
 
 ** Data Source.
-This program will get the specified (up to 200) tweets from your
+This program will get the specified number (up to 200) of tweets from your
 Twitter home time line.
 
 ** Example Config File.
