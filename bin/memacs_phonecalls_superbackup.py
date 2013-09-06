@@ -32,7 +32,7 @@ Armin Wieser <armin.wieser@gmail.com>
 Ian Barton <ian@manor-farm.org>"""
 
 if __name__ == "__main__":
-    memacs = PhonecallsMemacs(
+    memacs = PhonecallsSuperBackupMemacs(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
         prog_description=PROG_DESCRIPTION,
