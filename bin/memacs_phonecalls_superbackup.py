@@ -28,7 +28,8 @@ Then an Org-mode file is generated.
 """
 COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
-Armin Wieser <armin.wieser@gmail.com>"""
+Armin Wieser <armin.wieser@gmail.com>
+Ian Barton <ian@manor-farm.org>"""
 
 if __name__ == "__main__":
     memacs = PhonecallsMemacs(
