@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:19:18 vk>
 
-from memacs.phonecalls_superbackup import PhonecallsMemacs
+from memacs.phonecalls_superbackup import PhonecallsSuperBackupMemacs
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2012-03-08"
