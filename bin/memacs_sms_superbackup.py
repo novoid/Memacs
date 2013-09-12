@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-04 16:19:53 vk>
+# Time-stamp: <2013-09-12 09:11 igb>
 
 from memacs.sms_superbackup import SmsSuperBackupMemacs
 
