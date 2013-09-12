@@ -1,0 +1,48 @@
+## Time-stamp: [2013-09-12 Thu 09:12] igb
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-phonecalls_superbackup
+This app provides the same functionality as memacs-phonecall, but uses the
+[[https://play.google.com/store/search?q%3Dsuperbackup&c%3Dapps][SuperBackup]] app from the Google Play store to provide the data.
+
+** Current Status.
+Experimental. Please report any problems you find to ian@manor-farm.org
+
+** Data Source.
+This memacs module will parse SMS - XML Backups. You can get this
+Backups from following Android App:
+
+[[https://play.google.com/store/search?q%3Dsuperbackup&c%3Dapps][SuperBackup]]
+
+*** example phonecall xml backup file:
+
+: <?xml version="1.0" encoding="UTF-8"?>
+: <alllogs count="500">
+: 	<log number="01270811333" time="3 Sep 2013 10:03:26" date="1378199006383" type="1" name="" new="1" dur="30" />
+: 	<log number="01270588896" time="1 Sep 2013 19:41:05" date="1378060865117" type="2" name="A Name" new="1" dur="143" />
+: </alllogs>
+
+** Example Invocation
+
+: /path/to/Memacs/bin/memacs_phonecalls_superbackup.py -f /path/to/sms-xml-file.xml -o /home/user/orgmode/memacs/sms-foo.org_archive
+
+For more options see help page (<memacs_sms.py -h>)
+** Example Orgmode entries
+
+: * Memacs for phonecalls          :Memacs:phonecalls:
+:
+: ** <2013-09-01 Sun 18:41>-<2013-09-01 Sun 18:43> Phonecall to [[contact:Nick Powell][A Contact]]
+:    :PROPERTIES:
+:    :DURATION:   143
+:    :NUMBER:     12352345
+:    :NAME:       A name
+:    :ID:         8ec8ee729a13fd1de25f3a55b1eb2562014cd36e
+:    :END:
+:
+: ** <2013-09-01 Sun 12:41>-<2013-09-01 Sun 12:41> Phonecall from [[contact:Anne Barton][Another Contact]]
+:    :PROPERTIES:
+:    :DURATION:   19
+:    :NUMBER:     123456
+:    :NAME:       Another Name
+:    :ID:         59279a5615371fdafaddcd93d07c2928116a2c60
+:    :END:
