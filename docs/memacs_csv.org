@@ -6,20 +6,20 @@
 ** Data Source
 [[http://en.wikipedia.org/wiki/Comma-separated_values][Comma seperated values (CSV)]] files are quite common method to export various data.
 
-** Example Invocation 
+** Example Invocation
 
-Because memacs_csv is a general memacs (not for a specific datasource) there are a lot of parameters.
+Because memacs_csv is general for the whole of memacs (not for a specific datasource) there are a lot of parameters.
 - encoding (optional)
   It is important to know the source's encoding. (default is utf-8)
-  : -e <encoding> 
-  or 
+  : -e <encoding>
+  or
   : --encoding <encoding>
-  
+
   replace <encoding> with the apropriate encoding. See [[http://docs.python.org/library/codecs.html#standard-encodings]] for possible encodings.
 
 - timestamp-index (required)
   : -ti <timestamp-index>
-  or 
+  or
   : --time-stamp-index
   the index/column of the containing time-stamp (we start counting with 0)
 
@@ -32,17 +32,17 @@ Because memacs_csv is a general memacs (not for a specific datasource) there are
 
 - output-indices (required)
   : -oi <output-indices>
-  or 
+  or
   : --output-indices <output-indices>
   The indices/columns of we want to see in Orgfile. i.e. "1 2 3" for indices/columns 1,2 and 3.
 
 - delimiter (optional)
-  Default delimiter is ";" specify other delimiters with 
-  : -d <delimiter> 
-  or 
+  Default delimiter is ";" specify other delimiters with
+  : -d <delimiter>
+  or
   : --delimiter <delimiter>
-  
-** Example  
+
+** Example
 example.csv:
 : 23.02.2012;"Amazon";23.02.2012;100,00;EUR;23.02.2012 14:40:59:936;
 
@@ -55,5 +55,3 @@ output:
 :    :PROPERTIES:
 :    :ID:         da39a3ee5e6b4b0d3255bfef95601890afd80709
 :    :END:
-
-
