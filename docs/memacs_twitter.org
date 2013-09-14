@@ -1,0 +1,148 @@
+## Time-stamp: [2013-09-04 Wed 18:35] ian
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-twitter
+
+
+** Current Status.
+Experimental. Please report any problems you find to ian@manor-farm.org
+
+** Obtaining a Twitter Key.
+Before obtaining a Twitter Key you will need to install [[https://github.com/ryanmcgrath/twython][Twython]]:
+
+: pip install twython
+
+*** First Step.
+Go over to [[https://dev.twitter.com/apps]] and register your
+application. Note for this application you don't need to specify a
+Callback Url. Make a note of the Consumer Key (APP_KEY) and Consumer
+Secret (APP_SECRET). Now you need to authorize your app in the Second Step.
+
+*** Second Step.
+We are going to use OAuth1 authentication. This is a rather convoluted
+process, but at the end you should have a set of tokens that enable you read
+and write to your Twitter account.
+
+You need to obtain an Authorization Url. Create and run the following program:
+
+#+begin_src python :shebang #!/usr/bin/python2 :tangle ./twitter_get_auth.py :exports none :noweb yes
+from twython import Twython
+APP_KEY = 'Your Consumer Key'
+APP_SECRET = 'Your Consumer Secret'
+
+twitter = Twython(APP_KEY, APP_SECRET)
+auth = twitter.get_authentication_tokens()
+print auth
+
+
+#+end_src
+
+This will get your Secret Token and a PIN number from Twitter (click
+on the link to get your PIN). An example set of results is shown below.
+
+#+begin_example
+{u'oauth_token_secret': u'SecretToken', 'auth_url': 'https://api.twitter.com/oauth/authenticate?oauth_token=some_very_long_token ', u'oauth_token': u'SecretToken', u'oauth_callback_confirmed': u'true'}
+
+PIN 1234567
+
+#+end_example
+
+Now that you have this data, proceed to the third step, where you will
+obtain your Final Tokens.
+
+*** Third Step.
+Finally enter the data you got from running the program twitter_get_auth.py into the
+program below to get your final tokens.
+
+#+begin_src python :shebang #!/usr/bin/python2 :tangle ./twitter_get_final_tokens.py :exports none :noweb yes
+from twython import Twython
+APP_KEY = 'Your Consumer Key'
+APP_SECRET = 'Your Consumer Secret'
+
+OAUTH_TOKEN = 'Token obtained from running twitter_get_auth.py'
+OAUTH_TOKEN_SECRET = 'Secret Token obtained from running twitter_get_auth.py'
+
+twitter = Twython(APP_KEY, APP_SECRET,
+                  OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+
+final_step = twitter.get_authorized_tokens('PIN Number')
+print final_step
+
+#+end_src
+
+
+This will print your Final Tokens. Make sure that you save all this
+information as you will require it to authenticate with Twitter.
+
+#+begin_example
+{u'oauth_token_secret': u'Your final secret token', u'user_id': u'1234567', u'oauth_token': u'Final OAuth token', u'screen_name': u'your screen name'}
+
+#+end_example
+
+Now you can use the final OAuth tokens, together with APP_KEY and
+APP_SECRET that you obtained when you registered your app with Twitter
+to connect to Twitter with Twython:
+
+: twitter = Twython(
+:             APP_KEY,
+:             APP_SECRET,
+:             OAUTH_TOKEN, # Your final OAuth token
+:             OAUTH_TOKEN_SECRET # Your final secret token
+:             )
+:
+: # Post a status update.
+:  twitter.statuses.update(status="Hello, world!")
+
+** Data Source.
+This program will get the specified number (up to 200) of tweets from your
+Twitter home time line.
+
+** Example Config File.
+- sample config path and filename
+: ~/.memacs-twitter
+- Content:
+: [memacs-imap]
+: host = imap.gmail.com
+: port = 993
+: user = foo@gmail.com
+: password = bar
+
+** Example Invocation.
+
+: /path/to/Memacs/bin/memacs_twitter.py -c ~/.memacs-twitter -o ./twitter.org
+
+** Example Orgmode Entries.
+
+: * Memacs for Twitter           :Memacs:mytag:
+
+: ** <2013-09-04 Wed 14:27> #LakeDistrict bosses hit back at George #Monbiot's 'sheepwrecked' claims http://t.co/Bi8cygyIje #TheGuardian
+:    :PROPERTIES:
+:    :ENTITIES:              {u'symbols': [], u'user_mentions': [], u'hashtags': [{u'indices': [0, 13], u'text': u'LakeDistrict'}, {u'indices': [40, 48], u'text': u'Monbiot'}, {u'indices': [96, 108], u'text': u'TheGuardian'}], u'urls': [{u'url': u'http://t.co/Bi8cygyIje', u'indices': [73, 95], u'expanded_url': u'http://bit.ly/1dGyboH', u'display_url': u'bit.ly/1dGyboH'}]}
+:    :NAME:                  grough.co.uk
+:    :CONTRIBUTORS:          None
+:    :TRUNCATED:             False
+:    :RETWEETED:             False
+:    :TWITTER_ID:            375263760425840640
+:    :COORDINATES:           None
+:    :SOURCE:                web
+:    :IN_REPLY_TO_STATUS_ID: None
+:    :FAVORITE_COUNT:        1
+:    :ID:                    52d5502cbf6ab20ab59029029e4a357050f10b04
+:    :END:
+
+: ** <2013-09-04 Wed 13:34> RT @RISCOScode: HDMI cable for £1 at poundland.
+: Why pay more ?
+: http://t.co/7RUAQpEqum
+:    :PROPERTIES:
+:    :ENTITIES:              {u'symbols': [], u'user_mentions': [{u'id': 290214935, u'indices': [3, 14], u'id_str': u'290214935', u'screen_name': u'RISCOScode', u'name': u'Martin Hansen'}], u'hashtags': [], u'urls': [{u'url': u'http://t.co/7RUAQpEqum', u'indices': [63, 85], u'expanded_url': u'http://www.poundland.co.uk/signalex-hdmi-cable-1m', u'display_url': u'poundland.co.uk/signalex-hdmi-\u2026'}]}
+:    :NAME:                  Raspberry Pi
+:    :CONTRIBUTORS:          None
+:    :TRUNCATED:             False
+:    :RETWEETED:             False
+:    :TWITTER_ID:            375250488435814400
+:    :COORDINATES:           None
+:    :SOURCE:                <a href="http://www.tweetdeck.com" rel="nofollow">TweetDeck</a>
+:    :IN_REPLY_TO_STATUS_ID: None
+:    :FAVORITE_COUNT:        0
+:    :ID:                    471379d63365722c5ba87956f2cbef3e851ee031
+:    :END:
