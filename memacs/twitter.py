@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-09-04 18:41 ian>
+# Time-stamp: <2013-09-14 14:49:06 vk>
 
 import logging
 import time
@@ -44,7 +44,6 @@ class Twitter(Memacs):
         for tweet in home_timeline:
             # strptime doesn't support timezone info, so we are using dateutils.
             date_object = parser.parse(tweet['created_at'])
-
 
             timestamp = OrgFormat.datetime(date_object)
             try:
