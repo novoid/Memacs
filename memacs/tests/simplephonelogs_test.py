@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-09 12:04:04 vk>
+# Time-stamp: <2013-09-16 19:13:46 vk>
 
 import unittest
 import time
@@ -400,6 +400,116 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
    :UPTIME-S:     53146
    :IN-BETWEEN-S: 53040
    :ID:           1388ccd5e0c9a54e166b41be1431eae18b6c5031
+   :END:
+
+** <2013-09-10 Tue 07:00> boot (off for 284d 7:29:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   6823:29:00
+   :BATT-LEVEL:   100
+   :UPTIME:       0:02:10
+   :UPTIME-S:     130
+   :IN-BETWEEN-S: 24564540
+   :ID:           1ab501758e7c68e6ce9455dc0262cc66947b52a5
+   :END:
+
+** <2013-09-10 Tue 08:23> wifi-office
+   :PROPERTIES:
+   :IN-BETWEEN:   
+   :BATT-LEVEL:   95
+   :UPTIME:       1:23:16
+   :UPTIME-S:     4996
+   :IN-BETWEEN-S: 
+   :ID:           721bed72de6ba9295e7e0c5ca26414b1cbc819b5
+   :END:
+
+** <2013-09-10 Tue 12:13> wifi-office-end (office for 3:50:00; today 3:50:00; today total 3:50:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   3:50:00
+   :BATT-LEVEL:   87
+   :UPTIME:       5:13:46
+   :UPTIME-S:     18826
+   :IN-BETWEEN-S: 13800
+   :ID:           c668c3a34c5b6e8260c8b512af4697079d48cdc0
+   :END:
+
+** <2013-09-10 Tue 12:59> wifi-office (not office for 0:46:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   0:46:00
+   :BATT-LEVEL:   85
+   :UPTIME:       6:00:00
+   :UPTIME-S:     21600
+   :IN-BETWEEN-S: 2760
+   :ID:           4b681ff00c7ce3a8475319c10488b5d623dfb451
+   :END:
+
+** <2013-09-10 Tue 17:46> wifi-office-end (office for 4:47:00; today 8:37:00; today total 9:23:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   4:47:00
+   :BATT-LEVEL:   73
+   :UPTIME:       10:47:06
+   :UPTIME-S:     38826
+   :IN-BETWEEN-S: 17220
+   :ID:           754e6caaa22dc067440d4e0336dc3fd9b58faf22
+   :END:
+
+** <2013-09-10 Tue 22:10> shutdown (on for 15:10:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   15:10:00
+   :BATT-LEVEL:   58
+   :UPTIME:       15:10:38
+   :UPTIME-S:     54638
+   :IN-BETWEEN-S: 54600
+   :ID:           e1fe490c7090ba02640e9f01bb6f29d7973fbb1d
+   :END:
+
+** <2013-09-11 Wed 12:15> boot (off for 14:05:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   14:05:00
+   :BATT-LEVEL:   87
+   :UPTIME:       5:15:05
+   :UPTIME-S:     18905
+   :IN-BETWEEN-S: 50700
+   :ID:           c135298c813b09d23150777f7fa82cd6070db427
+   :END:
+
+** <2013-09-11 Wed 13:19> wifi-office (not office for 19:33:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   19:33:00
+   :BATT-LEVEL:   82
+   :UPTIME:       6:19:29
+   :UPTIME-S:     22769
+   :IN-BETWEEN-S: 70380
+   :ID:           35b64d133eb69ff2527769b3f836a352a9918bea
+   :END:
+
+** <2013-09-11 Wed 18:55> wifi-office-end (office for 5:36:00; today 5:36:00; today total 5:36:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   5:36:00
+   :BATT-LEVEL:   69
+   :UPTIME:       11:56:01
+   :UPTIME-S:     42961
+   :IN-BETWEEN-S: 20160
+   :ID:           d67377260ad01ee8794224392c858b171ddfbf11
+   :END:
+
+** <2013-09-11 Wed 19:10> wifi-home (not home for 286d 2:06:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   6866:06:00
+   :BATT-LEVEL:   68
+   :UPTIME:       12:10:46
+   :UPTIME-S:     43846
+   :IN-BETWEEN-S: 24717960
+   :ID:           d3a6e6cc276d43ce021f391c2a7443f4cf2957b9
+   :END:
+
+** <2013-09-11 Wed 22:55> shutdown (on for 10:40:00)
+   :PROPERTIES:
+   :IN-BETWEEN:   10:40:00
+   :BATT-LEVEL:   53
+   :UPTIME:       15:55:23
+   :UPTIME-S:     57323
+   :IN-BETWEEN-S: 38400
+   :ID:           740eab692eb65559a005511d8926546bd780d787
    :END:
 
 
