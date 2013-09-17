@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-09 12:07:46 vk>
+# Time-stamp: <2013-09-17 16:12:22 vk>
 
 import sys
 import os
@@ -12,7 +12,7 @@ from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
-#import pdb
+#import pdb  ## pdb.set_trace()  ## FIXXME
 
 
 
@@ -69,7 +69,9 @@ class SimplePhoneLogsMemacs(Memacs):
 
 
 
-    def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime, e_last_opposite_occurrence, e_last_occurrence):
+    def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime, 
+                          e_last_opposite_occurrence, e_last_occurrence, 
+                          prev_office_sum, prev_office_first_begin):
         """
         takes the data from the parameters and generates an Org-mode entry.
 
@@ -79,6 +81,9 @@ class SimplePhoneLogsMemacs(Memacs):
         @param e_uptime: uptime in seconds
         @param e_last_opposite_occurrence: time-stamp of previous opposite occurrence (if not False)
         @param e_last_occurrence: time-stamp of previous occurrence
+        @param additional_paren_string: string that gets appended to the parenthesis 
+        @param prev_office_sum: holds the sum of all previous working duration today
+        @param prev_office_first_begin: holds the first time-stamp of wifi-office for today
         """
 
         assert e_time.__class__ == datetime.datetime
@@ -92,6 +97,10 @@ class SimplePhoneLogsMemacs(Memacs):
         in_between_hms = u''
         in_between_s = u''
         ignore_occurrence = False
+
+        ## convert parameters to be writable:
+        office_sum = prev_office_sum
+        office_first_begin = prev_office_first_begin
 
         if e_last_opposite_occurrence:
 
@@ -107,8 +116,41 @@ class SimplePhoneLogsMemacs(Memacs):
                 last_info = u' (' + e_name[0:-4].replace('wifi-','') + u' for '
             else:
                 last_info = u' (not ' + e_name.replace('wifi-','') + u' for '
-            last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + u')'
 
+            ## handle special case: office hours
+            additional_paren_string = ""
+            if e_name == 'wifi-office-end':
+                office_total = None
+                ## calculate office_sum and office_total
+                if not office_sum:
+                    office_sum = (e_time - e_last_opposite_occurrence).seconds
+                    office_total = office_sum
+                else:
+                    assert(office_first_begin)
+                    assert(office_sum)
+                    office_sum = office_sum + (e_time - e_last_opposite_occurrence).seconds
+                    office_total = int(time.mktime(e_time.timetuple()) - time.mktime(office_first_begin.timetuple()))
+
+                assert(type(office_total) == int)
+                assert(type(office_sum) == int)
+                assert(type(in_between_s) == int)
+
+                ## come up with the additional office-hours string:
+                additional_paren_string = u'; today ' + OrgFormat.get_hms_from_sec(office_sum) + \
+                    '; today total ' + OrgFormat.get_hms_from_sec(office_total)
+
+            if additional_paren_string:
+                last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + additional_paren_string + u')'
+            else:
+                last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + u')'
+
+        ## handle special case: office hours
+        if e_name == 'wifi-office':
+            if not office_sum or not office_first_begin:
+                ## new day
+                office_first_begin = e_time
+
+        ## handle special case: boot without previous shutdown = crash
         if (e_name == u'boot') and \
                 (e_last_occurrence and e_last_opposite_occurrence) and \
                 (e_last_occurrence > e_last_opposite_occurrence):
@@ -135,7 +177,8 @@ class SimplePhoneLogsMemacs(Memacs):
             u'\n:IN-BETWEEN-S: ' + unicode(in_between_s) + \
             u'\n:BATT-LEVEL: ' + e_batt + \
             u'\n:UPTIME: ' + unicode(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
-            u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n', ignore_occurrence
+            u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n', \
+            ignore_occurrence, office_sum, office_first_begin
 
 
     def _determine_opposite_eventname(self, e_name):
@@ -162,7 +205,11 @@ class SimplePhoneLogsMemacs(Memacs):
     def _parse_data(self, data):
         """parses the phone log data"""
 
-        last_occurrences = { } # holds the last occurrences of each event
+        last_occurrences = { }  ## holds the last occurrences of each event
+
+        office_day = None  ## holds the current day (in order to recognize day change)
+        office_first_begin = None  ## holds the time-stamp of the first appearance of wifi-office
+        office_sum = None  ## holds the sum of periods of all office-durations for this day
 
         for rawline in data.split('\n'):
 
@@ -174,6 +221,7 @@ class SimplePhoneLogsMemacs(Memacs):
             logging.debug("line: %s", line)
 
             components = re.match(self.LOGFILEENTRY_REGEX, line)
+            additional_paren_string = None  ## optional string for the parenthesis (in output header)
 
             if components:
                 logging.debug("line matches")
@@ -195,6 +243,20 @@ class SimplePhoneLogsMemacs(Memacs):
                                        int(datestamp.split('-')[2]),
                                        hours, minutes)
 
+            ## resetting office_day
+            if e_name == 'wifi-office':
+                if not office_day:
+                    office_sum = None
+                    office_day = datestamp
+                elif office_day != datestamp:
+                    office_sum = None
+                    office_day = datestamp
+
+            # if e_name == 'wifi-office-end':
+            #     if not office_day:
+            #         logging.error('On ' + datestamp + ' I found \"wifi-office-end\" without a begin. ' + \
+            #                           'Please do not work after midnight ;-)')
+
             opposite_e_name = self._determine_opposite_eventname(e_name)
             if opposite_e_name in last_occurrences:
                 e_last_opposite_occurrence = last_occurrences[opposite_e_name]
@@ -207,10 +269,12 @@ class SimplePhoneLogsMemacs(Memacs):
             else:
                 last_time = False
 
-            result, ignore_occurrence = self._generateOrgentry(e_time, e_name, e_batt, 
-                                                               e_uptime, 
-                                                               e_last_opposite_occurrence,
-                                                               last_time)
+            result, ignore_occurrence, office_sum, office_first_begin = \
+                self._generateOrgentry(e_time, e_name, e_batt, 
+                                       e_uptime, 
+                                       e_last_opposite_occurrence,
+                                       last_time,
+                                       office_sum, office_first_begin)
 
             ## update last_occurrences-dict
             if not ignore_occurrence:
