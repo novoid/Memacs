@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 16:48:43 vk>
+# Time-stamp: <2013-09-28 13:02:55 vk>
 
 import unittest
 import time
@@ -247,6 +247,22 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual(
             OrgFormat.strdate('1981-01-15'),
             u'<1981-01-15 Thu>' )
+
+        self.assertEqual(
+            OrgFormat.strdate('1980-12-31', False),
+            u'<1980-12-31 Wed>' )
+        
+        self.assertEqual(
+            OrgFormat.strdate('1981-01-15', False),
+            u'<1981-01-15 Thu>' )
+
+        self.assertEqual(
+            OrgFormat.strdate('1980-12-31', True),
+            u'[1980-12-31 Wed]' )
+        
+        self.assertEqual(
+            OrgFormat.strdate('1981-01-15', True),
+            u'[1981-01-15 Thu]' )
 
         with self.assertRaises(TimestampParseException):
             OrgFormat.strdate('1981-01-15foo'),

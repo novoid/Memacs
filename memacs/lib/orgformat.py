@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-22 14:33:30 vk>
+# Time-stamp: <2013-09-28 13:00:43 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -216,15 +216,19 @@ class OrgFormat(object):
             return OrgFormat.datetimerange(begin_tupel, end_tupel)
 
     @staticmethod
-    def strdate(date_string):
+    def strdate(date_string, inactive=False):
         """
         returns a date string in org format
         i.e.: * <YYYY-MM-DD Sun>
         @param date-string: has to be a str in following format:  YYYY-MM-DD
+        @param inactive: (boolean) True: use inactive time-stamp; else use active
         """
         assert date_string.__class__ == str or date_string.__class__ == unicode
         tuple_date = OrgFormat.datetupeliso8601(date_string)
-        return OrgFormat.date(tuple_date, show_time=False)
+        if inactive:
+            return OrgFormat.inactive_date(tuple_date, show_time=False)
+        else:
+            return OrgFormat.date(tuple_date, show_time=False)
 
     @staticmethod
     def strdatetime(datetime_string):
