@@ -1,4 +1,4 @@
-## Time-stamp: <2013-04-09 19:46:20 vk>
+## Time-stamp: <2013-10-18 16:42:33 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-simplephonelogs
@@ -6,6 +6,9 @@
 ** Current status
 
 Done. If you find any errors do not hesitate to contact us.
+
+If you would like to use this module to track your office hours,
+please refer to the example in [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#Tracking-office-hours][FAQs and Best Practices]].
 
 ** Data Source
 

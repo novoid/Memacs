@@ -1,4 +1,4 @@
-## Time-stamp: <2012-05-30 18:23:28 armin>
+## Time-stamp: <2013-10-18 16:40:14 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -237,6 +237,112 @@ Then some example cron jobs look like:
 Whenever your notebook is in state «discharge» those cronjobs are not
 executed.
 
+** Tracking office hours
+:PROPERTIES:
+:CREATED:  [2013-10-18 Fri 15:01]
+:END:
+
+There are multiple ways to track office hours. Here, I describe one
+possible method which requires an Android phone and Memacs.
+
+
+Phone:
+
+Using [[http://tasker.dinglisch.net/][Tasker]], I am writing a log entry in case I recognize the WiFi
+network of my company (see [[https://github.com/novoid/Memacs/blob/master/docs/memacs_simplephonelogs.org][memacs_simplephonelogs.org]] for details).
+
+In this case, the lines have to look like this:
+
+: 2013-10-01 # 09.14 # wifi-office # 90 # 9742
+: 2013-10-01 # 19.00 # wifi-office-end # 66 # 44906
+: 
+: 2013-10-02 # 08.57 # wifi-office # 98 # 4313
+: 2013-10-02 # 12.29 # wifi-office-end # 91 # 17066
+: 2013-10-02 # 16.02 # wifi-office # 91 # 29836
+: 2013-10-02 # 17.37 # wifi-office-end # 80 # 35537
+: 
+: 2013-10-03 # 08.58 # wifi-office # 97 # 5300
+: 2013-10-03 # 18.41 # wifi-office-end # 69 # 11166
+: 
+: 2013-10-04 # 09.02 # wifi-office # 97 # 5591
+: 2013-10-04 # 13.28 # wifi-office-end # 89 # 21512
+
+It is mandatory that you are using ~wifi-office~ and ~wifi-office-end~
+as logging strings. This way, memacs\_simplephonelogs is recognizing
+office hours and handle them accordingly (and different).
+
+Example scripts, data format, and more is explained in the
+[[https://github.com/novoid/Memacs/blob/master/docs/memacs_simplephonelogs.org][documentation of the simplephonelogs module]].
+
+
+Computer:
+
+From time to time, I use [[https://play.google.com/store/apps/details?id%3Deu.kowalczuk.rsync4android&hl%3Den][rsync for Android]] to transfer this log file
+to my computer. There, [[https://github.com/novoid/Memacs/blob/master/docs/memacs_simplephonelogs.org][memacs_simplephonelogs.org]] parses it and
+generates ~/org/memacs/phonelog.org_archive.
+
+The phone log lines from above result in following headings:
+
+: ** <2013-10-01 Tue 09:14> wifi-office (not office for 15:14:00)
+: ** <2013-10-01 Tue 19:00> wifi-office-end (office for 9:46:00; today 9:46:00; today total 9:46:00)
+: ** <2013-10-02 Wed 08:57> wifi-office (not office for 13:57:00)
+: ** <2013-10-02 Wed 12:29> wifi-office-end (office for 3:32:00; today 3:32:00; today total 3:32:00)
+: ** <2013-10-02 Wed 16:02> wifi-office (not office for 3:33:00)
+: ** <2013-10-02 Wed 17:37> wifi-office-end (office for 1:35:00; today 5:07:00; today total 8:40:00)
+: ** <2013-10-03 Thu 08:58> wifi-office (not office for 15:21:00)
+: ** <2013-10-03 Thu 18:41> wifi-office-end (office for 9:43:00; today 9:43:00; today total 9:43:00)
+: ** <2013-10-04 Fri 09:02> wifi-office (not office for 14:21:00)
+: ** <2013-10-04 Fri 13:28> wifi-office-end (office for 4:26:00; today 4:26:00; today total 4:26:00)
+
+
+Using a [[http://orgmode.org/worg/org-contrib/babel/][babel]] script, I grab all office-end-lines, re-format them to
+get a decent Org-mode table result, and filter for a month (here: 2013-10):
+
+: #+NAME: office_hours
+: #+BEGIN_SRC sh
+: echo " day | duration  today-sum  today-total"
+: grep '\*\* ' ~/org/memacs/phonelog.org_archive | \
+: grep '(office' | \
+: sed 's/:00)//' | \
+: sed 's/:00//g' | \
+: sed 's/\*\*//' | \
+: sed 's/wifi-office-end (office for//' | \
+: sed 's/today//' | \
+: sed 's/today total//' | \
+: sed 's/;//g' | \
+: grep 2013-10
+: #+END_SRC
+
+This results in something similar to this:
+
+#+RESULTS: office_hours
+| Datum                  | duration | today-sum | today-total |
+| <2013-10-01 Tue 19:01> |     9:46 |      9:46 |        9:46 |
+| <2013-10-02 Wed 12:29> |     3:32 |      3:32 |        3:32 |
+| <2013-10-02 Wed 17:37> |     1:35 |      5:07 |        8:40 |
+| <2013-10-03 Thu 18:41> |     9:43 |      9:43 |        9:43 |
+| <2013-10-04 Fri 13:28> |     4:26 |      4:26 |        4:26 |
+
+The column ~duration~ is the difference between entering and leaving
+the office on an event basis.
+
+The column ~today-sum~ is the sum of all durations (office time) of
+that day.
+
+The last column ~today-total~ is the difference between entering the
+office for the first time and leaving the office for the last time (on
+that day; including all absent times as well!).
+
+You can manually remove lines in case you left and re-entered
+office. In the example above, I would delete the line with
+<2013-10-02 Wed 12:29> because I got all necessary information in the
+last line of that day: <2013-10-02 Wed 17:37>.
+
+With the usual spreadsheet features, you can use this data to
+calculate even more or you can enter them to the time-tracking system
+of your company.
+
+Have fun :-)
 
 * Internals
 ** How to write a memacs module?
@@ -270,8 +376,9 @@ and stores them in a list. On writing(append) it first checks against that list.
 
 
 * FAQs
-If you have a question, please contact «Karl dot Voit
-at IST dot TUGraz dot at» and he is happy to answer it.
+
+If you have a question, please contact «memacs at Karl minus Voit
+dot at» and he is happy to answer it.
 
 ** Emacs always asks about what to do with changed org files
 The solution is to add this to your emacs config file (.emacs):
