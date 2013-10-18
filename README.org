@@ -1,4 +1,4 @@
-## Time-stamp: <2013-05-18 11:07:20 vk>
+## Time-stamp: <2013-10-18 14:48:07 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -55,7 +55,9 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
 - *calendar*:
   - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see docs/memacs_calendar.org
   - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see docs/memacs_csv.org
-- *SMS*: see docs/memacs_sms.org
+- *SMS*:
+  - docs/memacs_sms.org: SMS Backup and Restore (Android)
+  - docs/memacs_smssuperbackup.org: SuperBackup (Android)
 - *Phonecalls*: see docs/memacs_phonecalls.org
 - *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
 - *example*: see docs/memacs_csv.org
