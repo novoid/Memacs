@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-06-22 16:24:57 vk>
+# Time-stamp: <2013-10-23 12:32:21 armin>
 
 import codecs
 import sys
@@ -52,7 +52,7 @@ class OrgOutputWriter(object):
         self.__timestamp_delta = timestamp_delta
 
         if self.__timestamp_delta:
-            logging.debug("orgwriter: timestamp_delta found: " + timestamp_delta)
+            logging.debug("orgwriter: timestamp_delta found: %s" , timestamp_delta)
 
         if file_name:
             if append and os.path.exists(file_name):
