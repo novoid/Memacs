@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-04 16:17:58 vk>
+# Time-stamp: <2013-12-15 14:51:50 vk>
 
 from memacs.filenametimestamps import FileNameTimeStamps
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-28"
+PROG_VERSION_NUMBER = u"0.2"
+PROG_VERSION_DATE = u"2013-12-15"
 PROG_SHORT_DESCRIPTION = u"Memacs for file name time stamp"
 PROG_TAG = u"filedatestamps"
 PROG_DESCRIPTION = u"""This script parses a text file containing absolute paths

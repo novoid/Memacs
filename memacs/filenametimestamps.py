@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-03-08 11:09:44 armin>
+# Time-stamp: <2013-12-15 15:58:14 vk>
 
 import os
 from lib.memacs import Memacs
@@ -10,6 +10,8 @@ from lib.orgproperty import OrgProperties
 import re
 import logging
 import time
+import sys
+import codecs
 
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
 TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d)" + \
@@ -33,6 +35,14 @@ class FileNameTimeStamps(Memacs):
                         help="path to excluding folder, for more excludes " + \
                              "use this: -x /path/exclude -x /path/exclude")
 
+        self._parser.add_argument("--filelist", dest="filelist",
+                        help="file containing a list of files to process. " + \
+                             "either use \"--folder\" or the \"--filelist\" argument, not both.")
+
+        self._parser.add_argument("--ignore-non-existing-items",
+                                  dest="ignore_nonexisting", action="store_true",
+                                  help="ignores non-existing files or folders within filelist")
+
         self._parser.add_argument("-l", "--follow-links",
                                   dest="follow_links", action="store_true",
                                   help="follow symbolics links," + \
@@ -48,13 +58,23 @@ class FileNameTimeStamps(Memacs):
 
     def _parser_parse_args(self):
         Memacs._parser_parse_args(self)
-        if not self._args.filenametimestamps_folder:
+
+        if self._args.filenametimestamps_folder and self._args.filelist:
+            self._parser.error("You gave both \"--filelist\" and \"--folder\" argument. Please use either or.\n")
+
+        if not self._args.filelist and not self._args.filenametimestamps_folder:
             self._parser.error("no filenametimestamps_folder specified")
 
-        for f in self._args.filenametimestamps_folder:
-            if not os.path.isdir(f):
-                self._parser.error("Check the folderlist - " + \
-                                       "one or more aren't folders")
+        if self._args.filelist:
+            if not os.path.isfile(self._args.filelist):
+                self._parser.error("Check the filelist argument: " + \
+                                       "[" + str(self._args.filelist) + "] is not an existing file")
+
+        if self._args.filenametimestamps_folder:
+            for f in self._args.filenametimestamps_folder:
+                if not os.path.isdir(f):
+                    self._parser.error("Check the folderlist argument: " + \
+                                           "[" + str(f) + "] and probably more aren't folders")
 
     def __ignore_dir(self, ignore_dir):
         """
@@ -99,16 +119,19 @@ class FileNameTimeStamps(Memacs):
 
             if self._args.skip_filetime_extraction != True:            
 
-                file_datetime = time.localtime(os.path.getmtime(link))
-                # check if the file - time information matches year,month,day,
-                # then update time
-                if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
-                   file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
-                   file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
-
-                    logging.debug("found a time in file.setting %s-->%s",
-                                  orgdate, OrgFormat.date(file_datetime, True))
-                    orgdate = OrgFormat.date(file_datetime, True)
+                if os.path.exists(link):
+                  file_datetime = time.localtime(os.path.getmtime(link))
+                  # check if the file - time information matches year,month,day,
+                  # then update time
+                  if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
+                     file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
+                     file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
+                  
+                      logging.debug("found a time in file.setting %s-->%s",
+                                    orgdate, OrgFormat.date(file_datetime, True))
+                      orgdate = OrgFormat.date(file_datetime, True)
+                else:
+                    logging.debug("item [%s] not found and thus could not determine mtime" % link)
 
         # write entry to org file
         output = OrgFormat.link(link=link, description=file)
@@ -125,7 +148,7 @@ class FileNameTimeStamps(Memacs):
         """
         # don't handle emacs tmp files (file~)
         if DATESTAMP_REGEX.match(file) and file[-1:] != '~':
-            link = rootdir + os.sep + file
+            link = os.path.join(rootdir, file)
             logging.debug(link)
             try:
                 # we put this in a try block because:
@@ -138,5 +161,27 @@ class FileNameTimeStamps(Memacs):
                 logging.warning("False date(time) in file: %s", link)
 
     def _main(self):
-        for folder in self._args.filenametimestamps_folder:
-            self.__handle_folder(folder)
+
+        if self._args.filenametimestamps_folder:
+
+            for folder in self._args.filenametimestamps_folder:
+                self.__handle_folder(folder)
+
+        elif self._args.filelist:
+
+            for rawitem in codecs.open(self._args.filelist, "r", "utf-8"):
+
+                item = rawitem.strip()
+
+                if not os.path.exists(item):
+                    if self._args.ignore_nonexisting:
+                        logging.debug("File or folder does not exist: [%s] (add due to set ignore-nonexisting argument)", item)
+                        self.__handle_file(os.path.basename(item), os.path.dirname(item))
+                    else:
+                        logging.warning("File or folder does not exist: [%s]", item)
+                else:
+                    self.__handle_file(os.path.basename(item), os.path.dirname(item))
+
+        else:
+            logging.error("\nERROR: You did not provide \"--filelist\" nor \"--folder\" argument. Please use one of them.\n")
+            sys.exit(3)
