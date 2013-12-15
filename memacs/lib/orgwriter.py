@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-06-22 16:24:57 vk>
+# Time-stamp: <2013-12-15 14:32:11 vk>
 
 import codecs
 import sys
@@ -32,7 +32,8 @@ class OrgOutputWriter(object):
                  autotag_dict={},
                  number_entries=None,
                  additional_headerlines=None,
-                 timestamp_delta=None):
+                 timestamp_delta=None,
+                 inactive_timestamps=False):
         """
         @param file_name:
         """
@@ -50,6 +51,7 @@ class OrgOutputWriter(object):
         self.__lower_autotag_dict()
         self.__additional_header_lines = additional_headerlines
         self.__timestamp_delta = timestamp_delta
+        self.__inactive_timestamps = inactive_timestamps
 
         if self.__timestamp_delta:
             logging.debug("orgwriter: timestamp_delta found: " + timestamp_delta)
@@ -213,6 +215,13 @@ class OrgOutputWriter(object):
         ## fix time-stamps (if user wants to)
         if self.__timestamp_delta:
             timestamp = OrgFormat.apply_timedelta_to_Orgmode_timestamp(timestamp, int(self.__timestamp_delta))
+
+        ## a bit of a hack to get inactive time-stamps:
+        ## FIXXME: use OrgFormat method to generate inactive time-stamps in the first place and remove asserts
+        if self.__inactive_timestamps:
+            assert(timestamp[0] == '<')  ## at least try to find cases where this replace method fails
+            assert(timestamp[-1] == '>')  ## at least try to find cases where this replace method fails
+            timestamp = '[' + timestamp[1:-1] + ']'
 
         if self.__append:
             self.__append_org_subitem(timestamp,

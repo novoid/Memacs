@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 16:20:34 vk>
+# Time-stamp: <2013-12-14 17:18:55 vk>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -109,7 +109,12 @@ class MemacsArgumentParser(ArgumentParser):
                               "or \"-2\" here to correct it with plus/minus two hours",
                           metavar="STRING")
 
-
+        self.add_argument("--inactive-time-stamps",
+                          dest="inactive_timestamps",
+                          help="""inactive time-stamps are written to the output file 
+                          instead of active time-stamps. Helps to move modules with many entries
+                          to the inactive layer of the agenda.""",
+                          action="store_true")
 
         # ---------------------
         # Config parser
