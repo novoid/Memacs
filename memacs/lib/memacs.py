@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-14 16:16:36 vk>
+# Time-stamp: <2013-12-14 17:33:43 vk>
 
 import logging
 import traceback
@@ -127,7 +127,8 @@ class Memacs(object):
             autotag_dict=autotag_dict,
             number_entries=self._args.number_entries,
             additional_headerlines = additional_headerlines,
-            timestamp_delta=self._args.timestamp_delta)
+            timestamp_delta=self._args.timestamp_delta,
+            inactive_timestamps=self._args.inactive_timestamps)
 
 
     def _get_config_option(self, option):

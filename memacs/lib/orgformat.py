@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-09-28 13:00:43 vk>
+# Time-stamp: <2013-12-15 14:41:52 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -13,7 +13,7 @@ import calendar
 import logging
 import re
 
-#import pdb
+#import pdb  ## pdb.set_trace()  ## FIXXME
 
 
 class TimestampParseException(Exception):
