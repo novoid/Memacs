@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-12-14 17:18:55 vk>
+# Time-stamp: <2014-01-28 16:17:20 vk>
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -100,6 +100,12 @@ class MemacsArgumentParser(ArgumentParser):
         self.add_argument("--columns-header",
                           dest="columns_header",
                           help="if you want to add an #+COLUMNS header, please specify " + \
+                          "its content as STRING",
+                          metavar="STRING")
+
+        self.add_argument("--custom-header",
+                          dest="custom_header",
+                          help="if you want to add an arbitrary header line, please specify " + \
                           "its content as STRING",
                           metavar="STRING")
 
