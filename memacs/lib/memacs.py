@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-12-14 17:33:43 vk>
+# Time-stamp: <2014-01-28 16:19:18 vk>
 
 import logging
 import traceback
@@ -116,6 +116,8 @@ class Memacs(object):
         additional_headerlines = False
         if self._args.columns_header:
             additional_headerlines = '#+COLUMNS: ' + self._args.columns_header
+        if self._args.custom_header:
+            additional_headerlines = self._args.custom_header
 
         # set up orgoutputwriter
         self._writer = OrgOutputWriter(
