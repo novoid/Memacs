@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-09-17 16:12:22 vk>
+# Time-stamp: <2014-03-05 20:08:08 vk>
 
 import sys
 import os
@@ -32,7 +32,7 @@ class SimplePhoneLogsMemacs(Memacs):
                                     _REGEX_SEPARATOR +
                                     "(\d+)" +
                                     _REGEX_SEPARATOR +
-                                    "(\d+)$")
+                                    "(\d+)$", flags = re.U)
     RE_ID_DATESTAMP = 0
     RE_ID_HOURS = 1
     RE_ID_MINUTES = 2
@@ -88,8 +88,8 @@ class SimplePhoneLogsMemacs(Memacs):
 
         assert e_time.__class__ == datetime.datetime
         assert e_name.__class__ == unicode
-        assert e_batt.__class__ == str
-        assert e_uptime.__class__ == str
+        assert e_batt.__class__ == unicode
+        assert e_uptime.__class__ == unicode
         assert (e_last_opposite_occurrence.__class__ == datetime.datetime or not e_last_opposite_occurrence)
         assert (e_last_occurrence.__class__ == datetime.datetime or not e_last_occurrence)
 
@@ -211,13 +211,11 @@ class SimplePhoneLogsMemacs(Memacs):
         office_first_begin = None  ## holds the time-stamp of the first appearance of wifi-office
         office_sum = None  ## holds the sum of periods of all office-durations for this day
 
-        for rawline in data.split('\n'):
+        for line in data.split('\n'):
 
-            if not rawline:
+            if not line:
                 continue
 
-            ## reset entry
-            line = rawline.encode('utf-8')
             logging.debug("line: %s", line)
 
             components = re.match(self.LOGFILEENTRY_REGEX, line)
@@ -229,7 +227,7 @@ class SimplePhoneLogsMemacs(Memacs):
                 logging.debug("line does not match! (skipping this line)")
                 continue
 
-                ## extracting the components to easy to use variables:
+            ## extracting the components to easy to use variables:
             datestamp = components.groups()[self.RE_ID_DATESTAMP].strip()
             hours = int(components.groups()[self.RE_ID_HOURS].strip())
             minutes = int(components.groups()[self.RE_ID_MINUTES].strip())
