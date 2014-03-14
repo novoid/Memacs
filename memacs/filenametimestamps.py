@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-12-15 15:58:14 vk>
+# Time-stamp: <2014-03-13 17:32:22 karl.voit>
 
 import os
 from lib.memacs import Memacs
@@ -133,8 +133,8 @@ class FileNameTimeStamps(Memacs):
                 else:
                     logging.debug("item [%s] not found and thus could not determine mtime" % link)
 
-        # write entry to org file
-        output = OrgFormat.link(link=link, description=file)
+        # write entry to org file (omit replacement of spaces in file names)
+        output = OrgFormat.link(link=link, description=file, replacespaces=False)
         # we need optional data for hashing due it can be, that more
         # than one file have the same timestamp
         properties = OrgProperties(data_for_hashing=output)

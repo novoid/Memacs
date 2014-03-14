@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-12-15 14:41:52 vk>
+# Time-stamp: <2014-03-13 17:13:23 karl.voit>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -93,14 +93,16 @@ class OrgFormat(object):
     ## OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
 
     @staticmethod
-    def link(link, description=None):
+    def link(link, description=None, replacespaces=True):
         """
         returns string of a link in org-format
         @param link link to i.e. file
         @param description optional
+        @param replacespaces: if True (default), spaces within link are being sanitized
         """
 
-        link = link.replace(" ", "%20")
+        if replacespaces:
+            link = link.replace(" ", "%20")
 
         if description:
             return u"[[" + link + u"][" + description + u"]]"

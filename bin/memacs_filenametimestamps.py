@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-12-15 14:51:50 vk>
+# Time-stamp: <2014-01-31 11:11:39 karl.voit>
 
 from memacs.filenametimestamps import FileNameTimeStamps
 
-PROG_VERSION_NUMBER = u"0.2"
+PROG_VERSION_NUMBER = u"0.3"
 PROG_VERSION_DATE = u"2013-12-15"
 PROG_SHORT_DESCRIPTION = u"Memacs for file name time stamp"
 PROG_TAG = u"filedatestamps"
@@ -23,7 +23,7 @@ At files, containing only the date information i.e. "2013-03-08_foo.txt", the
 time will be extracted from the filesystem, when both dates are matching. To
 Turn off this feature see argument "--skip-file-time-extraction"
 """
-COPYRIGHT_YEAR = "2011-2013"
+COPYRIGHT_YEAR = "2011-2014"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
