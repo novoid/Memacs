@@ -1,4 +1,4 @@
-## Time-stamp: <2013-10-18 16:40:14 vk>
+## Time-stamp: <2014-05-03 18:19:52 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -380,6 +380,22 @@ and stores them in a list. On writing(append) it first checks against that list.
 If you have a question, please contact «memacs at Karl minus Voit
 dot at» and he is happy to answer it.
 
-** Emacs always asks about what to do with changed org files
+** Emacs always asks about what to do with changed org files when Memacs re-generates them in the background
+
 The solution is to add this to your emacs config file (.emacs):
 : (global-auto-revert-mode t)
+
+** Why is Memacs implemented in Python and not in Elisp?
+:PROPERTIES:
+:CREATED:  [2014-05-03 Sat 18:16]
+:END:
+
+We are power-users of GNU/Emacs. Unfortunately, we do not have much
+[[https://en.wikipedia.org/wiki/Elisp][Elisp]] knowledge. Therefore, we decided to implement Memacs with
+Python, a scripting language we knew and which is far more common than
+Elisp.
+
+This way, other Emacs users without Elisp knowledge are able to
+implement Memacs modules as well.
+
+Feel free and re-implement Memacs in Elisp and let us know!
