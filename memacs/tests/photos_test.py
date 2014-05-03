@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 15:39:33 armin>
+# Time-stamp: <2014-05-03 17:46:44 vk>
 
 import unittest
 import os
@@ -22,14 +22,14 @@ class TestPhotoMemacs(unittest.TestCase):
 
         self.assertEqual(
             data[0],
-             "** <2000-08-04 Fri 18:22:57> [[/home/armin/repos/Memacs/mema" + \
+             u"** <2000-08-04 Fri 18:22> [[/home/vk/src/memacs/mema" + \
              "cs/tests/tmp/fujifilm-finepix40i.jpg][fujifilm-finepix40i.jpg]]")
         self.assertEqual(
             data[1],
              "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-             "   :ID:         c593ea66ff52d070902d0a8e0952875fa6a53bf9")
+             u"   :ID:         c2833ac1c683dea5b600ac4f303a572d2148e1e7")
         self.assertEqual(
             data[3],
              "   :END:")
