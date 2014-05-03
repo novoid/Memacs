@@ -1,4 +1,4 @@
-## Time-stamp: <2013-10-18 14:48:07 vk>
+## Time-stamp: <2014-05-03 18:19:26 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -169,7 +169,6 @@ using tags without a hierarchy of folders. As a natural extension,
 tagstore targets associative access for (local) files. You might want
 to check out tagstore too. Memacs and tagstore are a very useful
 combination.
-
 
 * Contribute! We are looking for your ideas:
 
