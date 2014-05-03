@@ -15,7 +15,7 @@ setup(
     download_url="https://github.com/novoid/Memacs/zipball/master",
     keywords=["org-mode", "org"],
     scripts=glob.glob("bin/memacs_*"),
-    install_requires=["PIL", "icalendar>=3.0", "feedparser"],
+    install_requires=["Pillow", "icalendar>=3.0", "feedparser"],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
