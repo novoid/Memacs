@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-04 16:19:53 vk>
+# Time-stamp: <2014-12-13 13:39:15 vk>
 
 from memacs.sms import SmsMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2012-03-07"
+PROG_VERSION_NUMBER = u"0.2"
+PROG_VERSION_DATE = u"2014-12-13"
 PROG_SHORT_DESCRIPTION = u"Memacs for sms"
 PROG_TAG = u"sms"
 PROG_DESCRIPTION = u"""
@@ -15,7 +15,7 @@ This Memacs module will parse output of sms xml backup files
 
 Then an Org-mode file is generated.
 """
-COPYRIGHT_YEAR = "2011-2013"
+COPYRIGHT_YEAR = "2011-2014"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
