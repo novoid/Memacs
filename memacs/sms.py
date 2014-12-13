@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-12-13 13:39:42 vk>
+# Time-stamp: <2014-12-13 16:09:49 vk>
 
 import sys
 import os
 import logging
 import xml.sax
 import time
-import re
-import codecs
+import re          ## RegEx for detecting patterns
+import codecs      ## Unicode conversion
+import HTMLParser  ## un-escaping HTML entities like emojis
+import tempfile    ## create temporary files
 from xml.sax._exceptions import SAXParseException
 from lib.orgformat import OrgFormat
 from lib.orgproperty import OrgProperties
@@ -21,6 +23,79 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
     Sax handler for sms backup xml files.
     See documentation memacs_sms.org for an example.
     """
+
+    ## from https://github.com/wooorm/emoji-emotion/blob/master/Support.md
+    EMOJIS = {
+        u'\ud83d\udc7f':'imp',
+        u'\ud83d\ude3e':'pouting_cat',
+        u'\ud83d\ude21':'rage',
+        u'\ud83d\ude20':'angry',
+        u'\ud83d\ude27':'anguished',
+        u'\ud83d\ude2d':'sob',
+        u'\ud83d\ude31':'scream',
+        u'\ud83d\ude40':'scream_cat',
+        u'\ud83d\ude08':'smiling_imp',
+        u'\ud83d\ude1f':'worried',
+        u'\ud83d\ude3f':'crying_cat_face',
+        u'\ud83d\ude15':'confused',
+        u'\ud83d\ude16':'confounded',
+        u'\ud83d\ude30':'cold_sweat',
+        u'\ud83d\ude22':'cry',
+        u'\ud83d\ude1e':'disappointed',
+        u'\ud83d\ude33':'flushed',
+        u'\ud83d\ude28':'fearful',
+        u'\ud83d\ude2c':'grimacing',
+        u'\ud83d\ude2e':'open_mouth',
+        u'\ud83d\ude23':'persevere',
+        u'\ud83d\ude2b':'tired_face',
+        u'\ud83d\ude12':'unamused',
+        u'\ud83d\ude29':'weary',
+        u'\ud83d\ude35':'dizzy_face',
+        u'\ud83d\ude25':'disappointed_relieved',
+        u'\ud83d\ude26':'frowning',
+        u'\ud83d\ude01':'grin',
+        u'\ud83d\ude2f':'hushed',
+        u'\ud83d\ude37':'mask',
+        u'\ud83d\ude14':'pensive',
+        u'\ud83d\ude13':'sweat',
+        u'\ud83d\ude1c':'stuck_out_tongue_winking_eye',
+        u'\ud83d\ude11':'expressionless',
+        u'\ud83d\ude36':'no_mouth',
+        u'\ud83d\ude10':'neutral_face',
+        u'\ud83d\ude34':'sleeping',
+        u'\ud83d\ude1d':'stuck_out_tongue_closed_eyes',
+        u'\ud83d\ude2a':'sleepy',
+        u'\ud83d\ude06':'laughing; satisfied',
+        u'\ud83d\ude0e':'sunglasses',
+        u'\ud83d\ude1b':'stuck_out_tongue',
+        u'\ud83d\ude32':'astonished',
+        u'\ud83d\ude0a':'blush',
+        u'\ud83d\ude00':'grinning',
+        u'\ud83d\ude3d':'kissing_cat',
+        u'\ud83d\ude19':'kissing_smiling_eyes',
+        u'\ud83d\ude17':'kissing',
+        u'\ud83d\ude1a':'kissing_closed_eyes',
+        u'\u263a\ufe0f':'relaxed',
+        u'\ud83d\ude0c':'relieved',
+        u'\ud83d\ude04':'smile',
+        u'\ud83d\ude3c':'smirk_cat',
+        u'\ud83d\ude38':'smile_cat',
+        u'\ud83d\ude03':'smiley',
+        u'\ud83d\ude3a':'smiley_cat',
+        u'\ud83d\ude05':'sweat_smile',
+        u'\ud83d\ude0f':'smirk',
+        u'\ud83d\ude3b':'heart_eyes_cat',
+        u'\ud83d\ude0d':'heart_eyes',
+        u'\ud83d\ude07':'innocent',
+        u'\ud83d\ude02':'joy',
+        u'\ud83d\ude39':'joy_cat',
+        u'\ud83d\ude18':'kissing_heart',
+        u'\ud83d\ude09':'wink',
+        u'\ud83d\ude0b':'yum',
+        u'\ud83d\ude24':'triumph'}
+
+    EMOJI_ENCLOSING_CHARACTER = "~" ## character which encloses emojis found ~wink~
+
 
     def __init__(self, writer, ignore_incoming, ignore_outgoing, numberdict):
         """
@@ -40,6 +115,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
         at every <sms> tag write to orgfile
         """
         logging.debug("Handler @startElement name=%s,attrs=%s", name, attrs)
+        htmlparser = HTMLParser.HTMLParser()
 
         if name == "sms":
             sms_subject = attrs['subject']
@@ -75,6 +151,14 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 else:
                     name_string = "Unknown"
                 output += name_string + ": "
+
+                ## reverse encoding hack from just before:
+                sms_body = htmlparser.unescape(sms_body.replace(u'EnCoDiNgHaCk42', u'&#'))
+                for emoji in self.EMOJIS.keys():
+                    ## FIXXME: this is a horrible dumb brute-force algorithm.
+                    ##         In case of bad performance, this can be optimized dramtically
+                    sms_body = sms_body.replace(emoji, self.EMOJI_ENCLOSING_CHARACTER + \
+                                                self.EMOJIS[emoji] + self.EMOJI_ENCLOSING_CHARACTER).replace(u'\n', u'⏎')
 
                 if sms_subject != "null":
                     # in case of MMS we have a subject
@@ -222,7 +306,29 @@ class SmsMemacs(Memacs):
         parse and write them to org file
         """
 
-        data = CommonReader.get_data_from_file(self._args.smsxmlfile)
+        ## replace HTML entities "&#" in original file to prevent XML parser from worrying:
+        temp_xml_file = tempfile.mkstemp()[1]
+        line_number = 0
+        logging.debug("tempfile [%s]", str(temp_xml_file))
+        with codecs.open(temp_xml_file, 'w', encoding='utf-8') as outputhandle:
+            for line in codecs.open(self._args.smsxmlfile, 'r', encoding='utf-8'):
+                try:
+                    ## NOTE: this is a dirty hack to prevent te XML parser from complainaing about
+                    ##       encoding issues of UTF-8 encoded emojis. Will be reverted when parsing sms_body
+                    outputhandle.write(line.replace(u'&#', u'EnCoDiNgHaCk42') + u'\n')
+                except IOError as e:
+                    print "tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]"
+                    print "I/O error({0}): {1}".format(e.errno, e.strerror)
+                except ValueError as e:
+                    print "tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]"
+                    print "Value error: {0}".format(e)
+                    #print "line [%s]" % str(line)
+                except:
+                    print "tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]"
+                    print "Unexpected error:", sys.exc_info()[0]
+                    raise
+
+        data = CommonReader.get_data_from_file(temp_xml_file)
 
         try:
             xml.sax.parseString(data.encode('utf-8'),
@@ -233,3 +339,5 @@ class SmsMemacs(Memacs):
         except SAXParseException:
             logging.error("No correct XML given")
             sys.exit(1)
+        else:
+            os.remove(temp_xml_file)
