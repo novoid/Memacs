@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-02 20:39:34 vk>
+# Time-stamp: <2014-12-13 13:02:50 vk>
 
 import sys
 import os
@@ -41,7 +41,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
             sms_subject = attrs['subject']
             sms_date = int(attrs['date']) / 1000     # unix epoch
             sms_body = attrs['body']
-            sms_address = attrs['address']
+            sms_address = attrs['address'].replace('-', '')
             sms_type_incoming = int(attrs['type']) == 1
             contact_name = False
             if 'contact_name' in attrs:
