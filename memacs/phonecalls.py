@@ -37,21 +37,24 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
                  ignore_incoming,
                  ignore_outgoing,
                  ignore_missed,
+                 ignore_cancelled,
                  minimum_duration
                  ):
         """
         Ctor
 
         @param writer: orgwriter
-        @param ignore_incoming: ignore incoming phonecalls
-        @param ignore_outgoing: ignore outgoing phonecalls
-        @param ignore_missed:   ignore missed   phonecalls
-        @param minimum_duration:    ignore phonecalls less than that time
+        @param ignore_incoming:  ignore incoming  phonecalls
+        @param ignore_outgoing:  ignore outgoing  phonecalls
+        @param ignore_missed:    ignore missed    phonecalls
+        @param ignore_cancelled: ignore cancelled phonecalls
+        @param minimum_duration: ignore phonecalls less than that time
         """
         self._writer = writer
         self._ignore_incoming = ignore_incoming
         self._ignore_outgoing = ignore_outgoing
         self._ignore_missed = ignore_missed
+        self._ignore_cancelled = ignore_cancelled
         self._minimum_duration = minimum_duration
 
     def startElement(self, name, attrs):
@@ -69,6 +72,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             call_incoming = call_type == 1
             call_outgoing = call_type == 2
             call_missed = call_type == 3
+            call_cancelled = call_type == 5
 
             call_name = call_number
             if 'contact_name' in attrs:
@@ -90,6 +94,10 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             elif call_missed:
                 output += "missed "
                 if self._ignore_missed:
+                    skip = True
+            elif call_cancelled:
+                output += "cancelled "
+                if self._ignore_cancelled:
                     skip = True
             else:
                 raise Exception("Invalid Phonecall Type: %d", call_type)
@@ -162,6 +170,11 @@ class PhonecallsMemacs(Memacs):
             help="ignore outgoing phonecalls")
 
         self._parser.add_argument(
+            "--ignore-cancelled", dest="ignore_cancelled",
+            action="store_true",
+            help="ignore cancelled phonecalls")
+
+        self._parser.add_argument(
             "--minimum-duration", dest="minimum_duration",
             action="store", type=int,
             help="[sec] show only calls with duration >= this argument")
@@ -194,6 +207,7 @@ class PhonecallsMemacs(Memacs):
                                               self._args.ignore_incoming,
                                               self._args.ignore_outgoing,
                                               self._args.ignore_missed,
+                                              self._args.ignore_cancelled,
                                               self._args.minimum_duration,
                                               ))
         except SAXParseException:
