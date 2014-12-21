@@ -1,4 +1,4 @@
-## Time-stamp: <2013-04-16 15:28:18 vk>
+## Time-stamp: <2014-12-21 13:01:19 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * How to install and set up Memacs
@@ -6,13 +6,13 @@
 ** *Obtain Memacs*
 
 - using one of github download mechanisms *OR*
-- use ~pip install memacs~ which handles dependencies
+- use ~pip install [[https://pypi.python.org/pypi/memacs][memacs]]~ which handles dependencies
   - you might as well want to use [[http://pypi.python.org/pypi/virtualenv][virtualenv]] before
 - make sure that you have *Python v2.7* installed
 
 *** Installing Using virtualenv and PIP (recommended!)
 
-I installed Memacs using PIP with the following commands:
+I installed [[https://pypi.python.org/pypi/memacs][Memacs using PIP]] with the following commands:
 
 First, I created a virtualenv environment using a local installation
 of Python 2.7 (you can use the Python installation of your site of
