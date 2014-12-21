@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-12-13 16:09:49 vk>
+# Time-stamp: <2014-12-21 12:45:53 vk>
 
 import sys
 import os
@@ -121,7 +121,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
             sms_subject = attrs['subject']
             sms_date = int(attrs['date']) / 1000     # unix epoch
             sms_body = attrs['body']
-            sms_address = attrs['address'].replace('-', '')
+            sms_address = attrs['address'].strip().replace('-',u'').replace('/',u'').replace(' ',u'').replace('+',u'00')
             sms_type_incoming = int(attrs['type']) == 1
             contact_name = False
             if 'contact_name' in attrs:
@@ -264,7 +264,7 @@ class SmsMemacs(Memacs):
 
                 phone_components = re.match(PHONE_REGEX, line)
                 if phone_components:
-                    phonenumber = phone_components.group(2).strip().replace('-',u'').replace('/',u'').replace(' ',u'')
+                    phonenumber = phone_components.group(2).strip().replace('-',u'').replace('/',u'').replace(' ',u'').replace('+',u'00')
                     contacts[phonenumber] = current_name
                 elif line == u':END:':
                     status = headersearch
