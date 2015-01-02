@@ -57,15 +57,17 @@ class TestOrgFormat(unittest.TestCase):
 
     def test_iso8601(self):
         # testing iso8601
-        self.assertEqual("<2011-11-30 Wed 21:06>",
-                         OrgFormat.strdatetimeiso8601("2011-11-30T21.06"),
-                         "datetimeiso8601 error")
-        self.assertEqual("<2011-11-30 Wed 21:06>",
-                         OrgFormat.strdatetimeiso8601("2011-11-30T21.06.00"),
-                         "datetimeiso8601 error")
-        self.assertEqual("<2011-11-30 Wed 21:06:02>",
-                         OrgFormat.strdatetimeiso8601("2011-11-30T21.06.02"),
-                         "datetimeiso8601 error")
+        self.assertEqual(
+            "<2011-11-30 Wed 21:06>", OrgFormat.strdatetimeiso8601("2011-11-30T21.06")
+        )
+        self.assertEqual(
+            "<2011-11-30 Wed 21:06>",
+            OrgFormat.strdatetimeiso8601("2011-11-30T21.06.00")
+        )
+        self.assertEqual(
+            "<2011-11-30 Wed 21:06>",
+            OrgFormat.strdatetimeiso8601("2011-11-30T21.06.02"),
+        )
 
     def test_iso8601_datetimetupel(self):
         self.assertEqual(
@@ -119,22 +121,30 @@ class TestOrgFormat(unittest.TestCase):
             OrgFormat.datetimetupeliso8601("2011-11-30T22.06.02"))
         self.assertEqual(
             datetimerange,
-            "<2011-11-30 Wed 21:06:02>--<2011-11-30 Wed 22:06:02>")
+            "<2011-11-30 Wed 21:06>--<2011-11-30 Wed 22:06>")
 
     def test_utc_time(self):
         os.environ['TZ'] = "Europe/Vienna"
         time.tzset()
+
         self.assertEqual(
             OrgFormat.date(
-                OrgFormat.datetupelutctimestamp("20111219T205510Z"), True),
-            "<2011-12-19 Mon 21:55:10>")
+                OrgFormat.datetupelutctimestamp("20111219T205510Z"), True
+            ),
+            "<2011-12-19 Mon 21:55>"
+        )
+
         self.assertEqual(
-            OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219T205510"),
-                           True),
-            "<2011-12-19 Mon 20:55:10>")
+            OrgFormat.date(
+                OrgFormat.datetupelutctimestamp("20111219T205510"),
+                True
+            ),
+            "<2011-12-19 Mon 20:55>")
+
         self.assertEqual(
             OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219"), False),
-            "<2011-12-19 Mon>")
+            "<2011-12-19 Mon>"
+        )
 
     def test_contact_mail_mailto_link(self):
         mail_link1 = OrgFormat.contact_mail_mailto_link(
