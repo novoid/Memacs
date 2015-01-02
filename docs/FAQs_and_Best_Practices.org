@@ -1,4 +1,4 @@
-## Time-stamp: <2014-05-03 18:19:52 vk>
+## Time-stamp: <2015-01-02 16:00:11 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
@@ -133,14 +133,32 @@ See:  [[http://orgmode.org/org.html#Agenda-commands]["v A" in Agenda-view]]
 
 *** Performance of the Agenda
 
-I am using Org-mode with following archive files:
+I am using Org-mode with following archive files containing 238287
+headings (as of 2015-01-02):
 
-:   lines kByte file
-:   24493  4476 files.org_archive
-:    5919  1222 mbox.org_archive
-:    5117   927 news.org_archive
-: ---------------------------------
-:   35529  6625 total
+:    lines file
+: --------------------------------
+:    53652 archive.org_archive
+:     2204 bank.org_archive
+:    35513 datebk6.org_archive
+:    23155 delicious.org_archive
+:        1 error.org_archive
+:   372165 files.org_archive
+:     1523 gcal.org_archive
+:    14538 git.org_archive
+:    19077 mbox.org_archive
+:     6830 news.org_archive
+:    33918 phonecalls.org_archive
+:    57136 roylog.org_archive
+:    69284 sms.org_archive
+:    51066 tweets.org_archive
+:   403645 www.org_archive
+: --------------------------------
+:  1143707 total
+
+Additionally, my non-memacs Org-mode files do contain 400328 lines
+in 17869 headings. So in total, I've got over 600000 lines and over
+250000 headings.
 
 Starting the «normal» Agenda (without archive files activated) is not
 affected by the *.org_archive files at all.
@@ -151,6 +169,14 @@ When I am in agenda view and I switch to the agenda entries as well
 After that it depends on how many entries you have got for that
 specific view (day, week, ...). I get only a slightly worse
 performance,  but it is perfectly usable for me.
+
+**** Optimize Emacs/Org-mode configuration for performance
+:PROPERTIES:
+:CREATED:  [2015-01-02 Fri 15:54]
+:END:
+
+You might as well check [[http://orgmode.org/worg/agenda-optimization.html][this page on Worg]] for optimizations regarding
+the agenda generation process.
 
 *** SSD versus HDD
 
@@ -170,7 +196,6 @@ resulting in a file of four and a half megabytes.
 This command takes no longer than *two and a half seconds* on an
 SSD which is quite remarkable. Using a normal hard disk, a comparable
 call takes *one minute and fifteen seconds*.
-
 
 ** File organization
 
