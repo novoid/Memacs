@@ -10,7 +10,8 @@ class TestRss(unittest.TestCase):
 
     def setUp(self):
         self.test_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), 'tmp', "sample-rss.txt"
+            os.path.dirname(os.path.abspath(__file__)),
+            'data', 'sample-rss.txt'
         )
         self.argv = "-s -f " + self.test_file
 

@@ -14,7 +14,7 @@ class TestSmsMemacs(unittest.TestCase):
 
     def setUp(self):
         self._test_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), 'tmp', "smsxml.txt"
+            os.path.dirname(os.path.abspath(__file__)), 'data', 'smsxml.txt'
         )
         argv = "-s -f " + self._test_file
         memacs = SmsMemacs(argv=argv.split())

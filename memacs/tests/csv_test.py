@@ -9,8 +9,9 @@ from memacs.csv import Csv
 class TestCsv(unittest.TestCase):
 
     def test_example1(self):
-        example1 = os.path.dirname(os.path.abspath(__file__)) + \
-        os.sep + "tmp" + os.sep + "example1.csv"
+        example1 = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'data', 'example1.csv'
+        )
 
         argv = []
         argv.append("-f")
@@ -38,8 +39,9 @@ class TestCsv(unittest.TestCase):
             "   :END:")
 
     def test_example2_delimiter(self):
-        example1 = os.path.dirname(os.path.abspath(__file__)) + \
-        os.sep + "tmp" + os.sep + "example2.csv"
+        example1 = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'data', 'example2.csv'
+        )
 
         argv = []
         argv.append("--delimiter")

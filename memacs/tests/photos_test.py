@@ -10,7 +10,7 @@ class TestPhotoMemacs(unittest.TestCase):
 
     def test_from_file(self):
         test_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), 'tmp'
+            os.path.dirname(os.path.abspath(__file__)), 'data'
         )
         argv = "-s -f " + test_path
         memacs = PhotosMemacs(argv=argv.split())
