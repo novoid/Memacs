@@ -117,6 +117,16 @@ Agenda-view]]) will you get the Memacs data displayed in your Orgmode Agenda.
 So your daily work will not be slowed down, but you have the
 opportunity to get the verbose information on demand.
 
+To ensure that this agenda with the verbose information comes up reasonably
+quickly, make sure you have the following configuration in your emacs config --
+
+   #+BEGIN_SRC emacs-lisp
+     (setq org-agenda-inhibit-startup t
+           org-agenda-use-tag-inheritance nil)
+   #+END_SRC
+
+For other tips on optimizing the agenda, see this [[http://orgmode.org/worg/agenda-optimization.html][wiki page]].
+
 **** How to use archive files
 
 1. Generate a stub file like «~/org-mode/files.org»
