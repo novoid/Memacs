@@ -8,9 +8,6 @@ from memacs.csv import Csv
 
 class TestCsv(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
     def test_example1(self):
         example1 = os.path.dirname(os.path.abspath(__file__)) + \
         os.sep + "tmp" + os.sep + "example1.csv"
@@ -25,18 +22,11 @@ class TestCsv(unittest.TestCase):
         argv.append("-oi")
         argv.append("4 3 1")
         memacs = Csv(argv=argv)
-        # or when in append mode:
-        # memacs = Foo(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
-
-        # generate assertEquals :)
-#        for d in range(len(data)):
-#           print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
-#                (d, data[d])
 
         self.assertEqual(
             data[0],
-            "** <2012-02-23 Thu 14:40:59> EUR 100,00 Amazon")
+            "** <2012-02-23 Thu 14:40> EUR 100,00 Amazon")
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")
@@ -63,18 +53,11 @@ class TestCsv(unittest.TestCase):
         argv.append("-oi")
         argv.append("4 3 1")
         memacs = Csv(argv=argv)
-        # or when in append mode:
-        # memacs = Foo(argv=argv.split(), append=True)
         data = memacs.test_get_entries()
-
-        # generate assertEquals :)
-#        for d in range(len(data)):
-#           print "self.assertEqual(\n\tdata[%d],\n\t\"%s\")" % \
-#                (d, data[d])
 
         self.assertEqual(
             data[0],
-            "** <2012-02-23 Thu 14:40:59> EUR 100,00 Amazon")
+            "** <2012-02-23 Thu 14:40> EUR 100,00 Amazon")
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")
@@ -84,6 +67,3 @@ class TestCsv(unittest.TestCase):
         self.assertEqual(
             data[3],
             "   :END:")
-
-    def tearDown(self):
-        pass
