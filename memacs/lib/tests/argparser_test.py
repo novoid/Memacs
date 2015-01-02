@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-12-30 12:16:47 armin>
 
-import unittest
 import os
+import shutil
+import tempfile
+import unittest
+
 from memacs.lib.argparser import MemacsArgumentParser
 
 
@@ -19,11 +22,11 @@ class TestArgParser(unittest.TestCase):
             prog_version_date=self.prog_version_date,
             copyright_authors=self.copyright_authors,
             copyright_year=self.copyright_year)
-        self.TMPFOLDER = os.path.normpath(
-            os.path.dirname(os.path.abspath(__file__)) + os.path.sep + \
-                "tmp") + os.sep
-        if not os.path.exists(self.TMPFOLDER):
-            os.makedirs(self.TMPFOLDER)
+
+        self.TMPFOLDER = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.TMPFOLDER)
 
     def test_verbose(self):
         """

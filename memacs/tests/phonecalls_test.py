@@ -14,7 +14,7 @@ class TestPhonecallsMemacs(unittest.TestCase):
 
     def setUp(self):
         self._test_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), 'tmp', 'calls.xml'
+            os.path.dirname(os.path.abspath(__file__)), 'data', 'calls.xml'
         )
         argv = "-s -f " + self._test_file
         memacs = PhonecallsMemacs(argv=argv.split())

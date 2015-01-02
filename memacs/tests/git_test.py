@@ -40,18 +40,16 @@ class TestCommit(unittest.TestCase):
 class TestGitMemacs(unittest.TestCase):
 
     def setUp(self):
-        self.test_file = os.path.dirname(os.path.abspath(__file__)) + \
-            os.sep + "tmp" + os.sep + "git-rev-list-raw.txt"
+        self.test_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'data', 'git-rev-list-raw.txt'
+        )
 
     def test_from_file(self):
         argv = "-s -f " + self.test_file
         memacs = GitMemacs(argv=argv.split())
         data = memacs.test_get_entries()
 
-        # generate assertEquals :)
-        #for d in range(len(data)):
-        #    print "self.assertEqual(\n\tdata[%d],\n\t \"%s\")" % \
-        #       (d, data[d])
         self.assertEqual(
             data[0],
              "** <2011-11-19 Sat 11:50> Karl Voit:" + \
