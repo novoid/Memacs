@@ -449,7 +449,7 @@ class OrgFormat(object):
         @param return: <YYYY-MM-DD Sun HH:MM>
         """
 
-        assert deltahours.__class__ == int
+        assert deltahours.__class__ in (int, float)
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
