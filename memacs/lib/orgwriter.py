@@ -214,7 +214,9 @@ class OrgOutputWriter(object):
 
         ## fix time-stamps (if user wants to)
         if self.__timestamp_delta:
-            timestamp = OrgFormat.apply_timedelta_to_Orgmode_timestamp(timestamp, int(self.__timestamp_delta))
+            timestamp = OrgFormat.apply_timedelta_to_Orgmode_timestamp(
+                timestamp, float(self.__timestamp_delta)
+            )
 
         ## a bit of a hack to get inactive time-stamps:
         ## FIXXME: use OrgFormat method to generate inactive time-stamps in the first place and remove asserts
