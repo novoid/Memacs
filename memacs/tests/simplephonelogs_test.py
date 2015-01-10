@@ -2,43 +2,29 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-09-16 19:13:46 vk>
 
-import unittest
-import time
-import datetime
 import os
+import shutil
+import tempfile
+import unittest
+
 from memacs.simplephonelogs import SimplePhoneLogsMemacs
 from memacs.lib.reader import CommonReader
 
-## FIXXME: (Note) These test are *not* exhaustive unit tests. They only 
+## FIXXME: (Note) These test are *not* exhaustive unit tests. They only
 ##         show the usage of the methods. Please add "mean" test cases and
 ##         borderline cases!
 
 
-class TestSimplePhoneLogs_Basics(unittest.TestCase):
-
-    argv = False
-    logmodule = False
-    input_file = False
-    result_file = False
-    maxDiff = None  ## show also large diff
+class PhoneLogsTestCase(unittest.TestCase):
+    """ Base class for PhoneLogs test cases. """
 
     def setUp(self):
-
-        self.result_file = os.path.dirname(
-            os.path.abspath(__file__)) + os.path.sep + "phonelog-result-TEMP-DELETEME.org"
-
-        self.input_file = os.path.dirname(
-            os.path.abspath(__file__)) + os.path.sep + "phonelog-input-TEMP-DELETEME.csv"
-
-        self.argv = "--suppress-messages --file " + self.input_file + " --output " + self.result_file
-
-
+        self.temp_dir = tempfile.mkdtemp()
+        self.result_file = os.path.join(self.temp_dir, 'result.org')
+        self.input_file = os.path.join(self.temp_dir, 'input.csv')
 
     def tearDown(self):
-
-        os.remove(self.result_file)
-        os.remove(self.input_file)
-
+        shutil.rmtree(self.temp_dir)
 
     def get_result_from_file(self):
         """reads out the resulting file and returns its content
@@ -53,14 +39,26 @@ class TestSimplePhoneLogs_Basics(unittest.TestCase):
         for line in result_from_module.split('\n'):
             if line.startswith(u'* successfully parsed ') or \
                     line.startswith(u'#') or \
-                    line.startswith(u'* ') or \
-                    line == u'':
+                    line.startswith(u'* '):
                 pass
             else:
+                line = line.rstrip()
                 result_from_module_without_header_and_last_line += line + '\n'
 
-        return result_from_module_without_header_and_last_line
+        return result_from_module_without_header_and_last_line.strip()
 
+
+class TestSimplePhoneLogsBasic(PhoneLogsTestCase):
+
+    argv = False
+    logmodule = False
+    input_file = False
+    result_file = False
+    maxDiff = None  ## show also large diff
+
+    def setUp(self):
+        super(TestSimplePhoneLogsBasic, self).setUp()
+        self.argv = "--suppress-messages --file " + self.input_file + " --output " + self.result_file
 
     def test_boot_without_shutdown(self):
 
@@ -74,15 +72,13 @@ class TestSimplePhoneLogs_Basics(unittest.TestCase):
 
         self.assertEqual(result, u"""** <2013-04-05 Fri 13:39> boot
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   42
    :UPTIME:       0:10:12
    :UPTIME-S:     612
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           50f3642555b86335789cc0850ee02652765b30a8
-   :END:
-""")
-
+   :END:""")
 
     def test_shutdown_with_boot(self):
 
@@ -97,13 +93,14 @@ class TestSimplePhoneLogs_Basics(unittest.TestCase):
 
         self.assertEqual(result, u"""** <1970-01-01 Thu 00:01> shutdown
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   1
    :UPTIME:       0:00:01
    :UPTIME-S:     1
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           908b94cc00a0981c811f8392b85d4b5603476907
    :END:
+
 ** <2013-04-05 Fri 13:39> boot (off for 15800d 13:38:00)
    :PROPERTIES:
    :IN-BETWEEN:   379213:38:00
@@ -112,9 +109,8 @@ class TestSimplePhoneLogs_Basics(unittest.TestCase):
    :UPTIME-S:     612
    :IN-BETWEEN-S: 1365169080
    :ID:           0602b98ba31416e5ae7e2964455de121c7492a70
-   :END:
-""")
-        
+   :END:""")
+
 
     def test_crashrecognition(self):
 
@@ -131,13 +127,14 @@ class TestSimplePhoneLogs_Basics(unittest.TestCase):
 
         self.assertEqual(result, u"""** <2013-04-05 Fri 13:25> shutdown
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   1
    :UPTIME:       0:00:10
    :UPTIME-S:     10
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           0ec0d92a33e4476756659fe6ca0ab78fc470747c
    :END:
+
 ** <2013-04-05 Fri 13:30> boot (off for 0:05:00)
    :PROPERTIES:
    :IN-BETWEEN:   0:05:00
@@ -147,41 +144,33 @@ class TestSimplePhoneLogs_Basics(unittest.TestCase):
    :IN-BETWEEN-S: 300
    :ID:           5af2d989502a85deefc296936e9bf59087ecec2b
    :END:
+
 ** <2013-04-05 Fri 13:39> boot after crash
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   3
    :UPTIME:       0:00:12
    :UPTIME-S:     12
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           00903218ae1c5d02f79f9d527c5767dce580f10f
-   :END:
-""")
+   :END:""")
 
 
 
 
-
-
-
-class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
+class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
     logmodule = False
 
     def setUp(self):
-
-        result_file = os.path.dirname(
-            os.path.abspath(__file__)) + os.path.sep + "sample-phonelog-result-TEMP.org"
-
-        self.test_file = os.path.dirname(
-            os.path.abspath(__file__)) + os.sep + "tmp" \
-            + os.path.sep + "sample-phonelog.csv"
-
-        self.argv = "-s -f " + self.test_file + " --output " + result_file
-
+        super(TestSimplePhoneLogsFull, self).setUp()
+        self.test_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'data', 'sample-phonelog.csv'
+        )
+        self.argv = "-s -f " + self.test_file + " --output " + self.result_file
         self.logmodule = SimplePhoneLogsMemacs(argv = self.argv.split())
         self.logmodule.handle_main()
-
 
     def test_determine_opposite_eventname(self):
 
@@ -193,52 +182,34 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
 
     def test_parser(self):
 
-        result_file = os.path.dirname(
-            os.path.abspath(__file__)) + os.path.sep + "sample-phonelog-result-TEMP.org"
-
         argv = "-f " + self.test_file + \
-            " --output " + result_file
+            " --output " + self.result_file
 
         localmodule = SimplePhoneLogsMemacs(argv = argv.split())
         localmodule.handle_main()
 
-        result_from_module = CommonReader.get_data_from_file(result_file)
-
-        result_from_module_without_header_and_last_line = u''
-        for line in result_from_module.split('\n'):
-            if line.startswith(u'* successfully parsed ') or \
-                    line.startswith(u'#') or \
-                    line.startswith(u'* '):
-                pass
-            else:
-                result_from_module_without_header_and_last_line += line + '\n'
-
-        ## self.reference_result is defined below!
-        self.assertEqual(result_from_module_without_header_and_last_line, self.reference_result)
-        
-        os.remove(result_file)
-
-
+        result = self.get_result_from_file()
+        self.assertEqual(result, self.reference_result)
 
     maxDiff = None  ## show also large diff
 
     reference_result = u"""** <2012-11-20 Tue 11:56> boot
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   89
    :UPTIME:       1:51:32
    :UPTIME-S:     6692
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           746417eaaf657df53a744aa10bc925fef8b7901b
    :END:
 
 ** <2012-11-20 Tue 11:56> boot
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   89
    :UPTIME:       1:51:34
    :UPTIME-S:     6694
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           2da1bc746cdb4ca6f1a4d5c77673212d8a9ff762
    :END:
 
@@ -284,11 +255,11 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
 
 ** <2012-11-21 Wed 07:52> wifi-home
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   95
    :UPTIME:       0:31:19
    :UPTIME-S:     1879
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           9a65cf95dcf23a2a5add2238888cc7158e8615b6
    :END:
 
@@ -304,11 +275,11 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
 
 ** <2012-11-21 Wed 13:06> boot after crash
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   77
    :UPTIME:       0:02:04
    :UPTIME-S:     124
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           70ccb21b1c0e75e93fcdc70d1eed5c24c5657074
    :END:
 
@@ -364,11 +335,11 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
 
 ** <2012-11-29 Thu 14:46> wifi-office
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   81
    :UPTIME:       6:00:33
    :UPTIME-S:     21633
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           7e9e6f886f4b6445cb7bb2046dfe8bfc1fc787ff
    :END:
 
@@ -414,11 +385,11 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
 
 ** <2013-09-10 Tue 08:23> wifi-office
    :PROPERTIES:
-   :IN-BETWEEN:   
+   :IN-BETWEEN:
    :BATT-LEVEL:   95
    :UPTIME:       1:23:16
    :UPTIME-S:     4996
-   :IN-BETWEEN-S: 
+   :IN-BETWEEN-S:
    :ID:           721bed72de6ba9295e7e0c5ca26414b1cbc819b5
    :END:
 
@@ -510,10 +481,7 @@ class TestSimplePhoneLogs_full_example_file(unittest.TestCase):
    :UPTIME-S:     57323
    :IN-BETWEEN-S: 38400
    :ID:           740eab692eb65559a005511d8926546bd780d787
-   :END:
-
-
-"""
+   :END:"""
 
 
 # Local Variables:

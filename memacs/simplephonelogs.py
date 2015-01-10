@@ -2,20 +2,17 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2014-03-05 20:08:08 vk>
 
-import sys
+import datetime
+import logging
 import os
 import re
-import logging
+import textwrap
 import time
-import datetime
+
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 from lib.reader import CommonReader
 from lib.orgproperty import OrgProperties
-#import pdb  ## pdb.set_trace()  ## FIXXME
-
-
-
 
 
 class SimplePhoneLogsMemacs(Memacs):
@@ -69,8 +66,8 @@ class SimplePhoneLogsMemacs(Memacs):
 
 
 
-    def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime, 
-                          e_last_opposite_occurrence, e_last_occurrence, 
+    def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime,
+                          e_last_opposite_occurrence, e_last_occurrence,
                           prev_office_sum, prev_office_first_begin):
         """
         takes the data from the parameters and generates an Org-mode entry.
@@ -81,7 +78,7 @@ class SimplePhoneLogsMemacs(Memacs):
         @param e_uptime: uptime in seconds
         @param e_last_opposite_occurrence: time-stamp of previous opposite occurrence (if not False)
         @param e_last_occurrence: time-stamp of previous occurrence
-        @param additional_paren_string: string that gets appended to the parenthesis 
+        @param additional_paren_string: string that gets appended to the parenthesis
         @param prev_office_sum: holds the sum of all previous working duration today
         @param prev_office_first_begin: holds the first time-stamp of wifi-office for today
         """
@@ -170,8 +167,6 @@ class SimplePhoneLogsMemacs(Memacs):
                                        output = e_name + last_info,
                                        properties = properties)
 
-            ## the programmer recommends you to read "memacs/tests/simplephonelogs_test.py"
-            ## test_generateOrgentry_* for less cryptic examples on how this looks:
         return u'** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + u' ' + e_name + last_info + \
             u'\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between_hms + \
             u'\n:IN-BETWEEN-S: ' + unicode(in_between_s) + \
@@ -184,7 +179,7 @@ class SimplePhoneLogsMemacs(Memacs):
     def _determine_opposite_eventname(self, e_name):
         """
         Takes a look at the event and returns the name of the opposite event description.
-        Opposite of 'boot' is 'shutdown' (and vice versa). 
+        Opposite of 'boot' is 'shutdown' (and vice versa).
         Opposite of 'foo' is 'foo-end' (and vice versa).
 
         @param e_name: string of an event name/description
@@ -219,7 +214,6 @@ class SimplePhoneLogsMemacs(Memacs):
             logging.debug("line: %s", line)
 
             components = re.match(self.LOGFILEENTRY_REGEX, line)
-            additional_paren_string = None  ## optional string for the parenthesis (in output header)
 
             if components:
                 logging.debug("line matches")
@@ -250,11 +244,6 @@ class SimplePhoneLogsMemacs(Memacs):
                     office_sum = None
                     office_day = datestamp
 
-            # if e_name == 'wifi-office-end':
-            #     if not office_day:
-            #         logging.error('On ' + datestamp + ' I found \"wifi-office-end\" without a begin. ' + \
-            #                           'Please do not work after midnight ;-)')
-
             opposite_e_name = self._determine_opposite_eventname(e_name)
             if opposite_e_name in last_occurrences:
                 e_last_opposite_occurrence = last_occurrences[opposite_e_name]
@@ -268,8 +257,8 @@ class SimplePhoneLogsMemacs(Memacs):
                 last_time = False
 
             result, ignore_occurrence, office_sum, office_first_begin = \
-                self._generateOrgentry(e_time, e_name, e_batt, 
-                                       e_uptime, 
+                self._generateOrgentry(e_time, e_name, e_batt,
+                                       e_uptime,
                                        e_last_opposite_occurrence,
                                        last_time,
                                        office_sum, office_first_begin)
@@ -278,7 +267,7 @@ class SimplePhoneLogsMemacs(Memacs):
             if not ignore_occurrence:
                 last_occurrences[e_name] = e_time
 
-            
+
     def _main(self):
         """
         gets called automatically from Memacs class.

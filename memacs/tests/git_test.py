@@ -24,7 +24,7 @@ class TestCommit(unittest.TestCase):
         self.assertEqual(output, "Armin Wieser: i'm the subject")
         self.assertEqual(note, "i'm in the body\n")
         self.assertEqual(author, "Armin Wieser")
-        self.assertEqual(timestamp, "<2011-12-21 Wed 00:14:38>")
+        self.assertEqual(timestamp, "<2011-12-21 Wed 00:14>")
 
         #for p in unicode(properties).splitlines():
         #    print "\"" + p + "\\n\""
@@ -40,21 +40,19 @@ class TestCommit(unittest.TestCase):
 class TestGitMemacs(unittest.TestCase):
 
     def setUp(self):
-        self.test_file = os.path.dirname(os.path.abspath(__file__)) + \
-            os.sep + "tmp" + os.sep + "git-rev-list-raw.txt"
+        self.test_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'data', 'git-rev-list-raw.txt'
+        )
 
     def test_from_file(self):
         argv = "-s -f " + self.test_file
         memacs = GitMemacs(argv=argv.split())
         data = memacs.test_get_entries()
 
-        # generate assertEquals :)
-        #for d in range(len(data)):
-        #    print "self.assertEqual(\n\tdata[%d],\n\t \"%s\")" % \
-        #       (d, data[d])
         self.assertEqual(
             data[0],
-             "** <2011-11-19 Sat 11:50:55> Karl Voit:" + \
+             "** <2011-11-19 Sat 11:50> Karl Voit:" + \
              " corrected cron-info for OS X")
         self.assertEqual(
             data[1],
@@ -84,7 +82,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[9],
-             "** <2011-11-19 Sat 11:50:30> Karl Voit: added RSS " + \
+             "** <2011-11-19 Sat 11:50> Karl Voit: added RSS " + \
              "module description")
         self.assertEqual(
             data[10],
@@ -114,7 +112,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[18],
-             "** <2011-11-02 Wed 22:46:06> Armin Wieser: add" + \
+             "** <2011-11-02 Wed 22:46> Armin Wieser: add" + \
              "ed Orgformate.date()")
         self.assertEqual(
             data[19],
@@ -147,7 +145,7 @@ class TestGitMemacs(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[28],
-             "** <2011-11-02 Wed 19:58:32> Armin Wieser: orgf" + \
+             "** <2011-11-02 Wed 19:58> Armin Wieser: orgf" + \
              "ormat added for orgmode-syntax")
         self.assertEqual(
             data[29],
