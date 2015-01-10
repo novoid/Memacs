@@ -29,12 +29,12 @@ Bob
         self.assertEqual(output, "[[mailto:alice@ally.com]" + \
                          "[Alice Ally]]: Bob sends a mesage")
         self.assertEqual(notes, "")
-        p = """   :PROPERTIES:
-   :TO:         Bob Bobby <Bob@bobby.com>
-   :ID:         8fd560c32d51c455744df7abd26ea545924ba632
-   :END:"""
-
-        self.assertEqual(unicode(properties), p)
+        self.assertEqual(
+            properties.get_value('TO'), 'Bob Bobby <Bob@bobby.com>'
+        )
+        for key in ('FROM', 'SUBJECT', 'DATE', 'MESSAGE-ID', 'X-SCANNED-BY'):
+            with self.assertRaises(KeyError):
+                properties.get_value(key)
 
     def test_parse_mail_with_body(self):
         message = """Date: Wed, 28 Dec 2011 14:02:00 +0100
@@ -59,12 +59,12 @@ Bob"""
                          "[Alice Ally]]: Bob sends a mesage")
         self.assertEqual(notes, "Hi!\n\nHope you can read my message\n" + \
                             "\nkind reagards,\nBob")
-        p = """   :PROPERTIES:
-   :TO:         Bob Bobby <Bob@bobby.com>
-   :ID:         8fd560c32d51c455744df7abd26ea545924ba632
-   :END:"""
-
-        self.assertEqual(unicode(properties), p)
+        self.assertEqual(
+            properties.get_value('TO'), 'Bob Bobby <Bob@bobby.com>'
+        )
+        for key in ('FROM', 'SUBJECT', 'DATE', 'MESSAGE-ID', 'X-SCANNED-BY'):
+            with self.assertRaises(KeyError):
+                properties.get_value(key)
 
     def test_parse_ng_with_body(self):
         message = """Path: news.tugraz.at!not-for-mail
@@ -82,15 +82,18 @@ i just want to say that i love Memacs
             MailParser.parse_message(message,
                                      True)
 
-        self.assertEqual(timestamp, "<2011-11-17 Thu 22:02:06>")
+        self.assertEqual(timestamp, "<2011-11-17 Thu 22:02>")
         self.assertEqual(output,
                          "[[mailto:alice@ally.com][Alice Ally]]@[[news:tu-" + \
                          "graz.betriebssysteme.linux]" + \
                          "[tu-graz.betriebssysteme.linux]]: I love Memacs")
         self.assertEqual(notes, "i just want to say that i love Memacs\n")
-        p = """   :PROPERTIES:\n   :REPLY-TO:   news@ally.com
-   :NEWSGROUPS: tu-graz.betriebssysteme.linux
-   :ID:         53e60f934645301478db6c9d5d3df71a043f9851
-   :END:"""
-
-        self.assertEqual(unicode(properties), p)
+        self.assertEqual(
+            properties.get_value('NEWSGROUPS'), 'tu-graz.betriebssysteme.linux'
+        )
+        self.assertEqual(
+            properties.get_value('REPLY-TO'), 'news@ally.com'
+        )
+        for key in ('FROM', 'SUBJECT', 'DATE', 'MESSAGE-ID', 'CONTENT-TYPE'):
+            with self.assertRaises(KeyError):
+                properties.get_value(key)
