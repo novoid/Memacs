@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-12-21 12:45:53 vk>
+# Time-stamp: <2015-01-30 18:30:03 vk>
 
 import sys
 import os
@@ -238,7 +238,7 @@ class SmsMemacs(Memacs):
 
         HEADER_REGEX = re.compile('^(\*+)\s+(.*?)(\s+(:\S+:)+)?$')
         PHONE = '\s+([\+\d\-/ ]{7,})$'
-        PHONE_REGEX = re.compile(':(PHONE|MOBILE|HOMEPHONE|WORKPHONE):' + PHONE)
+        PHONE_REGEX = re.compile(':(PHONE|oldPHONE|MOBILE|oldMOBILE|HOMEPHONE|oldHOMEPHONE|WORKPHONE|oldWORKPHONE):' + PHONE)
 
         for rawline in codecs.open(orgfile, 'r', encoding='utf-8'):
             line = rawline.strip()   ## trailing and leading spaces are stupid
