@@ -1,4 +1,4 @@
-## Time-stamp: <2014-05-03 18:19:26 vk>
+## Time-stamp: <2015-03-29 13:20:39 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -63,7 +63,7 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
 - *example*: see docs/memacs_csv.org
   This module is just for developing purposes.
 
-Those modules are *not* adopted to the new framework:
+Those modules are *not* adopted to the new unified framework yet:
 
 - *mails*:
   - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see emails/mbox/works-for-me-hack/memacs_mbox.org
@@ -75,36 +75,34 @@ Those modules are *not* adopted to the new framework:
 - *newsgroups*
   - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see emails/mbox/works-for-me-hack/memacs_mbox.org 
 
-Those modules will be developed in the *next weeks or months*:
-
-- *[[http://tagstore.org][tagstore]]*: see tmp/tagstore/memacs_tagstore.org
-
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
 
+- *[[http://tagstore.org][tagstore]]*: see tmp/tagstore/memacs_tagstore.org
+
 - *calendar*:
   - [[http://www.jpilot.org/][JPilot]]-datebook: see calendar/memacs_jpilot-datebook.org
+
 - *tasks*:
   - [[http://www.jpilot.org/][JPilot]]-todos: see tasklists/jpilot-todos/memacs_jpilot-todos.org
+
 - *blog_systems*:
   - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see blog_systems/serendipity/memacs_serendipity.org
 
 
 * Example Story
 
-Imagine you are already using a Memacs.
+Imagine you are already using Memacs.
 
 When remembering that day, when you joined an interesting talk about
 «[[http://en.wikipedia.org/wiki/Getting_Things_Done][Getting Things Done]]» (GTD), you start up your GNU Emacs with your main
 Org-mode file. There you go to the Agenda-view and select this
 specific day a couple of months ago.
 
-There it is, from 2pm to 3pm you scheduled this talk in your
-calendar. And then you realize that within this time frame, there
-appear some [[http://en.wikipedia.org/wiki/Jpeg][JPEG files]] containing an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp (with periods
-instead of colons - just because the [[http://msdn.microsoft.com/en-us/library/aa365247(v%3Dvs.85).aspx#naming_conventions][ancient limitations of Microsoft
-based file systems]]; like «2011-02-14T14.35.42 ideas.jpg») are indexed
-by one module. (filenametimestamp-module)
+There it is, from 2pm to 3pm you scheduled this talk in your calendar.
+And then you realize that within this time frame, there appear some
+[[http://en.wikipedia.org/wiki/Jpeg][JPEG files]] containing an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp[1] are indexed by one
+module. (filenametimestamp-module)
 
 This image contains a slide you found interesting and which you
 photographed using your sleek smartphone. Who would remember having
@@ -119,18 +117,21 @@ the author of the talk. Now you remember having had a cool
 conversation at the end of the talk where he promised you some
 additional information about that nice little GTD tool on his
 computer. Great that you got that link to that email too. Without
-Memacs you would probably never got to that email
-again. (Maildir-module)
+Memacs you would probably never remembered that email again.
+(Maildir-module)
 
 And then there were some bookmarks you saved this day, almost all
-related to ideas you got from the GTD talk. (delicious-module)
+related to great ideas you got from the GTD talk. (delicious-module)
 
 This small story shows only a few use cases where different modules
 combine given data sources and their information to provide an overall
 view related to an event. Since Org-mode has got links, no actual data
-has to be duplicated (except the small meta data extracted by
-Memacs). Emails, files, bookmarks, and so forth are linked rather than
-copied.
+has to be duplicated (except the meta data extracted by Memacs).
+Emails, files, bookmarks, and so forth are linked rather than copied.
+
+[1] with periods instead of colons - just because the [[http://msdn.microsoft.com/en-us/library/aa365247(v%3Dvs.85).aspx#naming_conventions][ancient
+limitations of Microsoft based file systems]]; like «2011-02-14T14.35.42
+ideas.jpg»
 
 * Background
 
@@ -151,8 +152,8 @@ took photographs ([[http://en.wikipedia.org/wiki/Sensecam][SenseCam]]). This wor
 software product. Bell and Gemmell wrote a book called «[[http://www.amazon.de/gp/product/0525951342/ref%3Das_li_ss_tl?ie%3DUTF8&tag%3Dkarlssuder-21&linkCode%3Das2&camp%3D1638&creative%3D19454&creativeASIN%3D0525951342][Total Recall]]».
 
 The Memacs project tries to implement the ideas of Vannevar Bush's
-vision with open source and open standards. It's name «Memacs» is the
-obvious combination of «[[http://www.gnu.org/software/emacs/][GNU Emacs]]» and «Memex».
+vision with open source and open standards. Hence, it's name «Memacs»
+is the obvious combination of «[[http://www.gnu.org/software/emacs/][GNU Emacs]]» and «Memex».
 
 Memacs uses GNU Emacs Org-mode to visualize and access information
 extracted by Memacs modules: using tags, time stamps, full text
@@ -163,12 +164,19 @@ according to the time frame selected. But you can derive other views
 too. For example you can choose to generate a condensed search result
 using a [[http://en.wikipedia.org/wiki/Boolean_algebra_(logic)][boolean combination]] of tags.
 
-Deeply related to Memacs, the project leader developed a research
-software *[[http://tagstore.org][tagstore]]*. This system allows users to store (local) files
+Related to Memacs, the project founder developed a research software
+called *[[http://tagstore.org][tagstore]]*. This system allows users to store (local) files
 using tags without a hierarchy of folders. As a natural extension,
 tagstore targets associative access for (local) files. You might want
 to check out tagstore too. Memacs and tagstore are a very useful
 combination.
+
+If you do like to know how to efficiently organize digital files in a
+simple and operating system independent way, read [[http://karl-voit.at/managing-digital-photographs/][this blog post]] from
+Karl. It might give you ideas for your workflows as well.
+
+Karl also wrote [[http://arxiv.org/abs/1304.1332][a whitepaper on Memacs]] which describes Memacs from a
+scientists point of view.
 
 * Contribute! We are looking for your ideas:
 
