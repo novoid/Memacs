@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-03-05 20:08:08 vk>
+# Time-stamp: <2015-04-01 16:27:26 vk>
 
 import datetime
 import logging
 import os
 import re
-import textwrap
 import time
 
 from lib.orgformat import OrgFormat
@@ -29,14 +28,13 @@ class SimplePhoneLogsMemacs(Memacs):
                                     _REGEX_SEPARATOR +
                                     "(\d+)" +
                                     _REGEX_SEPARATOR +
-                                    "(\d+)$", flags = re.U)
+                                    "(\d+)$", flags=re.U)
     RE_ID_DATESTAMP = 0
     RE_ID_HOURS = 1
     RE_ID_MINUTES = 2
     RE_ID_NAME = 3
     RE_ID_BATT = 4
     RE_ID_UPTIME = 5
-
 
     def _parser_add_arguments(self):
         """
@@ -51,7 +49,6 @@ class SimplePhoneLogsMemacs(Memacs):
             action="store", required=True,
             help="path to phone log file")
 
-
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
@@ -59,12 +56,9 @@ class SimplePhoneLogsMemacs(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
-        if not (os.path.exists(self._args.phonelogfile) or \
-                     os.access(self._args.phonelogfile, os.R_OK)):
+        if not (os.path.exists(self._args.phonelogfile) or
+                os.access(self._args.phonelogfile, os.R_OK)):
             self._parser.error("input file not found or not readable")
-
-
-
 
     def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime,
                           e_last_opposite_occurrence, e_last_occurrence,
@@ -110,9 +104,9 @@ class SimplePhoneLogsMemacs(Memacs):
             elif e_name == u'shutdown':
                 last_info = u' (on for '
             elif e_name.endswith(u'-end'):
-                last_info = u' (' + e_name[0:-4].replace('wifi-','') + u' for '
+                last_info = u' (' + e_name[0:-4].replace('wifi-', '') + u' for '
             else:
-                last_info = u' (not ' + e_name.replace('wifi-','') + u' for '
+                last_info = u' (not ' + e_name.replace('wifi-', '') + u' for '
 
             ## handle special case: office hours
             additional_paren_string = ""
@@ -163,9 +157,9 @@ class SimplePhoneLogsMemacs(Memacs):
         properties.add("BATT-LEVEL", e_batt)
         properties.add("UPTIME", OrgFormat.get_hms_from_sec(int(e_uptime)))
         properties.add("UPTIME-S", e_uptime)
-        self._writer.write_org_subitem(timestamp = e_time.strftime('<%Y-%m-%d %a %H:%M>'),
-                                       output = e_name + last_info,
-                                       properties = properties)
+        self._writer.write_org_subitem(timestamp=e_time.strftime('<%Y-%m-%d %a %H:%M>'),
+                                       output=e_name + last_info,
+                                       properties=properties)
 
         return u'** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + u' ' + e_name + last_info + \
             u'\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between_hms + \
@@ -174,7 +168,6 @@ class SimplePhoneLogsMemacs(Memacs):
             u'\n:UPTIME: ' + unicode(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
             u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n', \
             ignore_occurrence, office_sum, office_first_begin
-
 
     def _determine_opposite_eventname(self, e_name):
         """
@@ -196,11 +189,10 @@ class SimplePhoneLogsMemacs(Memacs):
         else:
             return e_name + u'-end'
 
-
     def _parse_data(self, data):
         """parses the phone log data"""
 
-        last_occurrences = { }  ## holds the last occurrences of each event
+        last_occurrences = {}  ## holds the last occurrences of each event
 
         office_day = None  ## holds the current day (in order to recognize day change)
         office_first_begin = None  ## holds the time-stamp of the first appearance of wifi-office
@@ -267,7 +259,6 @@ class SimplePhoneLogsMemacs(Memacs):
             if not ignore_occurrence:
                 last_occurrences[e_name] = e_time
 
-
     def _main(self):
         """
         gets called automatically from Memacs class.
@@ -276,7 +267,6 @@ class SimplePhoneLogsMemacs(Memacs):
         """
 
         self._parse_data(CommonReader.get_data_from_file(self._args.phonelogfile))
-
 
 
 # Local Variables:
