@@ -48,6 +48,7 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
 - *file name timestamps*: see docs/memacs_filenametimestamps.org
 - *emails*:
   - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] : see docs/memacs_imap.org
+  - [[http://www.djcbsoftware.nl/code/mu/][Mu]] : see docs/memacs_mumail.org
 - *RSS*: see docs/memacs_rss.org i.e. for twitter,delicious,...
 - *versioning systems*:
   - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see docs/memacs_git.org

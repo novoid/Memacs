@@ -1,0 +1,54 @@
+## Time-stamp: <2011-12-30 14:33:51 armin>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-imap
+
+** Current status
+
+Done, if you find any errors do not hesitate to contact us.
+
+** Data Source
+
+[[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] is a popular protocol for retrieving e-mail. Many email servers support this protocol.
+
+** Example Config File
+- sample config path and filename
+: ~/.emacs.d/memacs/gmail.ini
+- Content:
+: [memacs-imap]
+: host = imap.gmail.com
+: port = 993
+: user = foo@gmail.com
+: password = bar
+
+** Example Invocation
+
+Be sure that you have made a config file. (see above)
+
+- You have to select a folder, so we first list your possible folders:
+: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" -l
+: or
+: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" --list
+
+You will see possible folders. Now we can set one Folder:
+: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" -f "INBOX"
+: or
+: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" --folder-name "INBOX"
+
+Add param -o like in other memacs modules to specify output file.
+** Performance:
+The performance of an orgfile with too many entries is very bad.
+There is an argument to fetch only the last x messages:
+: --fetch-number <int>
+i.e:
+: --fetch-number 1000
+fetches the last 1000 mails
+** Example Orgmode entries
+
+We will probably visualize an e-mail from Maildir like this:
+
+: ** <2011-12-28 Wed 13:02> [[bob.bar@example.com][Bob Bar]]: argparse
+:    :PROPERTIES:
+:    :TO:         Alice Ally <alice@ally.com>
+:    :ID:         0b4f3ca74dcad0e3ba62c38e07f6d9068e2ba4d1
+:    :END:
