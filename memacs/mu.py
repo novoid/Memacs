@@ -52,14 +52,12 @@ class MuMail(Memacs):
         self._onlySent = None
         self._sender = ""
         if self._args.search_time:
-            self._search_string.append("d:"+self._args.search_time)
+            self._search_string.append("date:"+self._args.search_time)
             
         if self._args.flag:
-            flags = self._args.flag.split("#")
-            for flag in flags:
-                self._search_string.append("flag:"+flag)
-                if flag == "flagged" or flag == "f":
-                    self._flagged = True
+            self._args.flag = "\""+self._args.flag+"\""
+            self._search_string.append("flag:"+self._args.flag)
+            print(self._args.flag)
 
         if self._args.sender:
             self._sender = self._args.sender
@@ -68,31 +66,6 @@ class MuMail(Memacs):
             self._search_string.append("m:"+self._args.maildir_name)
 
         #self._search_string = self._search_string.strip()
-
-    def __parseXML(self, xml_mails):
-        """
-        parse xml Tree of messages into list of dictonaries containing the
-        information for generating the org file
-        """
-        messages = []
-        tree = etree.fromstring(xml_mails)
-        messages_xml = list(tree)
-
-        for message in messages_xml:
-            msg = {}
-            msg['from'] = message.findtext('from')
-            msg['to'] = message.findtext('to')#.decode('utf-8')
-            msg['date'] = message.findtext('date')#.decode('utf-8')
-            msg['msgid'] = message.findtext('msgid')#.decode('utf-8')
-            msg['flag'] = message.findtext('flag')
-            if  message.findtext('subject'):
-                msg['subject'] = message.findtext('subject')#.decode('utf-8')
-                msg['subject'] = msg['subject'].replace("[","<")
-                msg['subject'] = msg['subject'].replace("]",">")
-            else:
-                msg['subject'] = u"Kein Betreff"
-            messages.append(msg)
-        return messages
 
     def __parse_Plain(self,plain_mails):
         messages = plain_mails.decode('utf-8')
@@ -149,6 +122,8 @@ class MuMail(Memacs):
         properties = OrgProperties()
         for message in messages:
             (an,datum,von,flags,betreff,msgid) = message.split(":#:")
+            if flags.find('F') >= 0:
+                self._flagged = True
             betreff = betreff.replace("[","<")
             betreff = betreff.replace("]",">")
             properties.add('TO',an)
@@ -165,7 +140,6 @@ class MuMail(Memacs):
                     notes = "SCHEDULED: "+date
                     timestamp = ""
                     if  self._sender == vmail:
-
                         output = "".join(["WAITING T: ",an,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
                     else:
                         output = "".join(["NEXT F: ",sender,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
