@@ -60,7 +60,8 @@ class MuMail(Memacs):
             print(self._args.flag)
 
         if self._args.sender:
-            self._sender = self._args.sender
+            self._args.sendern = self._args.sender.strip()
+            self._sender = self._args.sender.split(" ")
 
         if self._args.maildir_name:
             self._search_string.append("m:"+self._args.maildir_name)
@@ -134,17 +135,18 @@ class MuMail(Memacs):
                 properties.add_data_for_hashing(timestamp + "_" + msgid)
                 properties.add("FROM",sender)
                 notes = ""
+                print(vmail)
 
                 if self._flagged:
                     date = self.__getTimestamp(datum,True)
                     notes = "SCHEDULED: "+date
                     timestamp = ""
-                    if  self._sender == vmail:
+                    if  vmail in self._sender:
                         output = "".join(["WAITING T: ",an,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
                     else:
                         output = "".join(["NEXT F: ",sender,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
                 else:
-                    if  self._sender == vmail:
+                    if  vmail in self._sender:
                         output = "".join(["T: ",an,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
                     else:
                         output = "".join(["F: ",sender,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
