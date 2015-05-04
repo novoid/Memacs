@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import subprocess
-import xml.etree.ElementTree as etree
 from datetime import datetime
 from lib.orgproperty import OrgProperties
 from lib.orgformat import OrgFormat
