@@ -20,53 +20,43 @@ class MuMail(Memacs):
         Memacs._parser_add_arguments(self)
 
         self._parser.add_argument(
-           "-d", "--date",
-           dest="search_time",
-           help="specify startdate or daterange for email search")
+           "-q", "--query",
+           dest="query",
+           help="mu search query")
 
         self._parser.add_argument(
-           "-m", "--maildir_name",
-           dest="maildir_name",
-           help="name of mu folder to get emails from")
-
-        self._parser.add_argument(
-           "-f", "--flag",
-           dest="flag",
-           help="fetch only messages with flag")
-
-        self._parser.add_argument(
-           "-x", "--xaccount",
+           "-m", "--me",
            dest="sender",
-           help="fetch only messages send from specific mail account x")
+           help="space seperated list of mail addresses that belongs to you")
+        
+        self._parser.add_argument(
+            "-d", "--delegation",
+            dest="todo",
+            action='store_true',
+            help="adds NEXT or WAITING state to flagged messages")
 
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
-
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
 
-        self._search_string = []
-        self._flagged = False
-        self._onlySent = None
-        self._sender = ""
-        if self._args.search_time:
-            self._search_string.append("date:"+self._args.search_time)
-            
-        if self._args.flag:
-            self._args.flag = "\""+self._args.flag+"\""
-            self._search_string.append("flag:"+self._args.flag)
-            print(self._args.flag)
+        self._query = []
 
         if self._args.sender:
             self._args.sendern = self._args.sender.strip()
-            self._sender = self._args.sender.split(" ")
+            self._sender = list(self._args.sender.split(" "))
+        else:
+            raise ValueError('You have to specify at least one e mail adress')
 
-        if self._args.maildir_name:
-            self._search_string.append("m:"+self._args.maildir_name)
+        if self._args.query:
+            self._query = self._args.query
 
-        #self._search_string = self._search_string.strip()
+        if self._args.todo:
+            self._todo = True
+        else:
+            self._todo = False
 
     def __parse_Plain(self,plain_mails):
         messages = plain_mails.decode('utf-8')
@@ -78,10 +68,6 @@ class MuMail(Memacs):
         Do  6 Nov 21:22:17 2014
         """
         time = time.strip().encode('utf-8')
-        #time = time.replace("Okt","Oct")
-        #time = time.replace("Dez","Dec")
-        #time = time.replace("Mär","Mar")
-        #time = time.replace("Mai","May")
 
         mail_date = datetime.strptime(time,"%a %d %b %H:%M:%S %Y")
         if onlyDate is False:
@@ -109,12 +95,11 @@ class MuMail(Memacs):
         get's automatically called from Memacs class
         fetches all mails out of mu database
         """
-        command = ["mu","find"]
-        command.extend(self._search_string)
-        command.extend(["--fields=t:#:d:#:f:#:g:#:s:#:i","--format=plain"])
-        #xml_mails = subprocess.check_output(["mu", "find", self._search_string ,"--fields=t:#:d:#:f:#:g:#:s:#:i","--format=plain"])
+        command = self._query
+        # command.extend(self._query)
+        command = command+" --fields=t:#:d:#:f:#:g:#:s:#:i --format=plain"
         try:
-            xml_mails = subprocess.check_output(command)
+            xml_mails = subprocess.check_output(command, shell=True)
         except:
             print("something goes wrong")
             exit()
@@ -123,8 +108,6 @@ class MuMail(Memacs):
         properties = OrgProperties()
         for message in messages:
             (an,datum,von,flags,betreff,msgid) = message.split(":#:")
-            if flags.find('F') >= 0:
-                self._flagged = True
             betreff = betreff.replace("[","<")
             betreff = betreff.replace("]",">")
             properties.add('TO',an)
@@ -135,24 +118,17 @@ class MuMail(Memacs):
                 properties.add_data_for_hashing(timestamp + "_" + msgid)
                 properties.add("FROM",sender)
                 notes = ""
-                print(vmail)
-
-                if self._flagged:
+                if any(match in vmail for match in self._sender):
+                    output = output = "".join(["T: ",an,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
+                    pre = 'WAITING '
+                else:
+                    output = "".join(["F: ",sender,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
+                    pre = 'NEXT '
+                if (flags.find('F') >= 0 and self._todo):
                     date = self.__getTimestamp(datum,True)
                     notes = "SCHEDULED: "+date
                     timestamp = ""
-                    if  vmail in self._sender:
-                        output = "".join(["WAITING T: ",an,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
-                    else:
-                        output = "".join(["NEXT F: ",sender,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
-                else:
-                    if  vmail in self._sender:
-                        output = "".join(["T: ",an,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
-                    else:
-                        output = "".join(["F: ",sender,": [[mu4e:msgid:",msgid,"][",betreff,"]]"])
-            self._writer.write_org_subitem(timestamp,
-                                               output,
-                                               notes,
-                                               properties)
+                    output = pre+output
+            self._writer.write_org_subitem(timestamp, output, notes, properties)
 
 
