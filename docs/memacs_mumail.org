@@ -1,4 +1,4 @@
-## Time-stamp: <2015-04-29 Mi 20:30 matthias>
+## Time-stamp: <2015-05-05 Di 14:05 matthias>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-mumail
@@ -21,9 +21,11 @@ Look [[https://gist.github.com/areina/3879626][here]] for how to set up mu4e wit
 *** Basic Invocation
 
 
-: $ /path/to/Memacs/bin/memacs_mumail.py -m /YourMaildir -x you@domain.org
+: $ /path/to/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "you@domain.org"
 
-The -x param with your emailaddress will check if the mail was from or to you.
+
+
+The -m param with your emailaddress will check if the mail was from or to you.
 
 An entry with a mail from you will look like this:
 
@@ -46,13 +48,16 @@ An entry with a mail to you will look like this
 
 *** Advanced Invocation
 
+You can use the -q param with every input for mu find that is supported by mu.
+Check out [[http://www.djcbsoftware.nl/code/mu/cheatsheet.html][Mu Cheatsheet]] and  [[http://manpages.ubuntu.com/manpages/lucid/man1/mu-find.1.html][ubuntu manuals mu]].
+
 **** Unread  mails
 
 For people using the agenda a lot, it could be nice to see new (unread) mails
 directly on the agenda.
 The following invocation will list just all unread mails in your Maildir
 
-: $ /path/Memacs/bin/memacs_mumail.py -m /YourMaildir -x you@domain.org -f unread 
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:unread" -m "you@domain.org" 
 
 To see the mails on your agenda add the -o param and include the selected file
 .org file (not .org_archive) to your org-agenda-files. 
@@ -66,7 +71,7 @@ are at home you forget it?
 
 With this option flagged mails will  appear on your agenda:
 
-: $ /path/Memacs/bin/memacs_mumail.py -m /YourMaildir -x you@domain.org -f flagged
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged" -m "you@domain.org"
 
 
 Entry for a flagged mail in your inbox
@@ -93,31 +98,22 @@ Entry for a flagged mail in your sent folder
 To see the mails on your agenda add the -o param and include the selected file
 .org file (not .org_archive) to your org-agenda-files. 
 
-*************** TODO -f flagged -f unread
-               :LOGBOOK:  
-               - State "TODO"       from ""           [2015-04-29 Mi 20:17]
-               :END:      
-               :PROPERTIES:
-               :CREATED:  [2015-04-29 Mi 20:17]
-               :END:
-*************** END
 
 To get both unread and flagged mails use the following Invocation
-: $ /path/Memacs/bin/memacs_mumail.py -m /YourMaildir -x you@domain.org -f flagged -f unread
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged or maildir:'/YourMaildir' and flag:unread " -m "you@domain.org"
 
 
-
-
-**** TODO Using a catchall domain
+**** Using a catchall domain
 
 When you are using a catch all domain, you can use the following invocation
 to check whether the mail was sent from or to you.
 
-: $ /path/to/Memacs/bin/memacs_mumail.py -m /YourMaildir -z @domain.org 
+: $ /path/to/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "@domain.org" 
 
-For the Case that you are using a catch all domain (as subdomain) and
+For the Case that you are using a catch all domain (e.g. as subdomain) and
 another address at the same time you can use:
 
-: $ /path/to/Memacs/bin/memacs_mumail.py -m /YourMaildir -x you@domain.org-z @sub.domain.org 
+: $ /path/to/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "you@domain.org @sub.domain.org" 
+
 
 
