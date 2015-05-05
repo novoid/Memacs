@@ -71,8 +71,10 @@ are at home you forget it?
 
 With this option flagged mails will  appear on your agenda:
 
-: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged" -m "you@domain.org"
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged" -m "you@domain.org -d"
 
+If you add the param -d, messages in your INBOX that are flagged will be marked as NEXT
+and messages in Your Sent folder will be marked as WAITING.
 
 Entry for a flagged mail in your inbox
 
