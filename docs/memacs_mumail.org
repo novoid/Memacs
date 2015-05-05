@@ -1,4 +1,4 @@
-## Time-stamp: <2015-04-29 Mi 17:44 matthias>
+## Time-stamp: <2015-04-29 Mi 20:30 matthias>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-mumail
@@ -8,51 +8,11 @@
 Experimental. Please report any problems you find opening a new issue or writing a
 mail to [[mailto:memacs-mumail@m.stennes.org][memacs-mumail@m.stennes.org]]
 
+
 ** Data Source
 This memacs module will parse your mails after they are indexed by [[http://www.djcbsoftware.nl/code/mu/][mu]].
-
-To make clickable links you will need [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] (an emacs-based e-mail client based
-on mu) and the function org-mu4e-store-link taken from [[http://stackoverflow.com/questions/17254967/using-org-capture-templates-with-mu4e][here]]:
-
-: (require 'org-mu4e)
-: 
-: (defun org-mu4e-store-link ()
-: "Store a link to a mu4e query or message."
-: (cond
-:  ;; storing links to queries
-:  ((eq major-mode 'mu4e-headers-mode)
-:   (let* ((query (mu4e-last-query))
-:       desc link)
-: (org-store-link-props :type "mu4e" :query query)
-: (setq
-:   desc (concat "mu4e:query:" query)
-:   link desc)
-: (org-add-link-props :link link :description desc)
-: link))
-:   ;; storing links to messages
-: ((eq major-mode 'mu4e-view-mode)
-:   (let* ((msg  (mu4e-message-at-point))
-:      (msgid   (or (plist-get msg :message-id) "<none>"))
-:      (from (car (car (mu4e-message-field msg :from))))
-:      (to (car (car (mu4e-message-field msg :to))))
-:      (subject (mu4e-message-field msg :subject))
-:      link)
-:    (setq link (concat "mu4e:msgid:" msgid))
-:    (org-store-link-props :type "mu4e" :link link
-:              :message-id msgid)
-:    (setq link (concat "mu4e:msgid:" msgid))
-:    (org-store-link-props 
-:     :type "mu4e" :from from :to to :subject subject
-:           :message-id msgid)
-: 
-:    (org-add-link-props :link link
-: 	  :description (funcall org-mu4e-link-desc-func msg))
-:    link))))
-: 
-: (org-add-link-type "mu4e" 'org-mu4e-open)
-: ;; (add-hook 'org-store-link-functions 'org-mu4e-store-link)
-
-
+Clickable links have just been tested with [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] (an emacs-based e-mail client based
+on mu) as frontend.
 
 Look [[https://gist.github.com/areina/3879626][here]] for how to set up mu4e with offlineimap.
 
