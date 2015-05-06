@@ -1,54 +1,121 @@
-## Time-stamp: <2011-12-30 14:33:51 armin>
+## Time-stamp: <2015-05-05 Di 14:05 matthias>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-* memacs-imap
+* memacs-mumail
 
 ** Current status
 
-Done, if you find any errors do not hesitate to contact us.
+Experimental. Please report any problems you find opening a new issue or writing a
+mail to [[mailto:memacs-mumail@m.stennes.org][memacs-mumail@m.stennes.org]]
+
 
 ** Data Source
+This memacs module will parse your mails after they are indexed by [[http://www.djcbsoftware.nl/code/mu/][mu]].
+Clickable links have just been tested with [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] (an emacs-based e-mail client based
+on mu) as frontend.
 
-[[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] is a popular protocol for retrieving e-mail. Many email servers support this protocol.
-
-** Example Config File
-- sample config path and filename
-: ~/.emacs.d/memacs/gmail.ini
-- Content:
-: [memacs-imap]
-: host = imap.gmail.com
-: port = 993
-: user = foo@gmail.com
-: password = bar
+Look [[https://gist.github.com/areina/3879626][here]] for how to set up mu4e with offlineimap.
 
 ** Example Invocation
 
-Be sure that you have made a config file. (see above)
+*** Basic Invocation
 
-- You have to select a folder, so we first list your possible folders:
-: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" -l
-: or
-: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" --list
 
-You will see possible folders. Now we can set one Folder:
-: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" -f "INBOX"
-: or
-: $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" --folder-name "INBOX"
+: $ /path/to/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "you@domain.org"
 
-Add param -o like in other memacs modules to specify output file.
-** Performance:
-The performance of an orgfile with too many entries is very bad.
-There is an argument to fetch only the last x messages:
-: --fetch-number <int>
-i.e:
-: --fetch-number 1000
-fetches the last 1000 mails
-** Example Orgmode entries
 
-We will probably visualize an e-mail from Maildir like this:
 
-: ** <2011-12-28 Wed 13:02> [[bob.bar@example.com][Bob Bar]]: argparse
-:    :PROPERTIES:
-:    :TO:         Alice Ally <alice@ally.com>
-:    :ID:         0b4f3ca74dcad0e3ba62c38e07f6d9068e2ba4d1
-:    :END:
+The -m param with your emailaddress will check if the mail was from or to you.
+
+An entry with a mail from you will look like this:
+
+: ** <2011-11-03 Do 13:31> F: [[mailto:sender@domain.org][Sender Name]]: [[mu4e:msgid:1554232683.7822665.1320323516478.JavaMail.fmail@mwmweb024][subject]]
+:   :PROPERTIES:
+:   :TO:         Your Name <you@domain.org>
+:   :FROM:       [[mailto:sender@domain.org][Sender Name]]
+:   :ID:         638a689e6e40abe4f3ae1da6834da42f44082577
+:   :END:
+
+An entry with a mail to you will look like this
+
+: ** <2012-07-05 Do 21:21> T: [[mailto:recipient@domain.org][Recipient Name]]: [[mu4e:msgid:3EDBEB35-D9CA-4A10-8582-A98A65B30097@arcor.de][Re: subject]]
+:   :PROPERTIES:
+:   :TO:         Recipient Name <recipient@domain.org>
+:   :FROM:       [[mailto:you@domain.org][Your Name]]
+:   :ID:         591a0dcf4bf83c8b508324c7c954d2e7b1a0b822
+:   :END:
+
+
+*** Advanced Invocation
+
+You can use the -q param with every input for mu find that is supported by mu.
+Check out [[http://www.djcbsoftware.nl/code/mu/cheatsheet.html][Mu Cheatsheet]] and  [[http://manpages.ubuntu.com/manpages/lucid/man1/mu-find.1.html][ubuntu manuals mu]].
+
+**** Unread  mails
+
+For people using the agenda a lot, it could be nice to see new (unread) mails
+directly on the agenda.
+The following invocation will list just all unread mails in your Maildir
+
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:unread" -m "you@domain.org" 
+
+To see the mails on your agenda add the -o param and include the selected file
+.org file (not .org_archive) to your org-agenda-files. 
+
+
+**** Flagged mails
+
+Do you know this: 
+You check your mails on the road, but you do not have time to reply and when you
+are at home you forget it?
+
+With this option flagged mails will  appear on your agenda:
+
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged" -m "you@domain.org -d"
+
+If you add the param -d, messages in your INBOX that are flagged will be marked as NEXT
+and messages in Your Sent folder will be marked as WAITING.
+
+Entry for a flagged mail in your inbox
+
+: ** NEXT <2011-11-03 Do 13:31> F: [[mailto:sender@domain.org][Sender Name]]: [[mu4e:msgid:1554232683.7822665.1320323516478.JavaMail.fmail@mwmweb024][subject]]
+:   SCHEDULED: <2011-11-03 Do>
+:   :PROPERTIES:
+:   :TO:         Your Name <you@domain.org>
+:   :FROM:       [[mailto:sender@domain.org][Sender Name]]
+:   :ID:         638a689e6e40abe4f3ae1da6834da42f44082577
+:   :END:
+
+
+Entry for a flagged mail in your sent folder
+
+: ** WAITING <2012-07-05 Do 21:21> T: [[mailto:recipient@domain.org][Recipient Name]]: [[mu4e:msgid:3EDBEB35-D9CA-4A10-8582-A98A65B30097@arcor.de][Re: subject]]
+:   SCHEDULED: <2012-07-05 Do>
+:   :PROPERTIES:
+:   :TO:         Recipient Name <recipient@domain.org>
+:   :FROM:       [[mailto:you@domain.org][Your Name]]
+:   :ID:         591a0dcf4bf83c8b508324c7c954d2e7b1a0b822
+:   :END:
+
+To see the mails on your agenda add the -o param and include the selected file
+.org file (not .org_archive) to your org-agenda-files. 
+
+
+To get both unread and flagged mails use the following Invocation
+: $ /path/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged or maildir:'/YourMaildir' and flag:unread " -m "you@domain.org"
+
+
+**** Using a catchall domain
+
+When you are using a catch all domain, you can use the following invocation
+to check whether the mail was sent from or to you.
+
+: $ /path/to/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "@domain.org" 
+
+For the Case that you are using a catch all domain (e.g. as subdomain) and
+another address at the same time you can use:
+
+: $ /path/to/Memacs/bin/memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "you@domain.org @sub.domain.org" 
+
+
+
