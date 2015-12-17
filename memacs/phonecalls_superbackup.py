@@ -28,7 +28,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             <log number="+447943549963" time="1 Sep 2013 13:26:31" date="1378038391562" type="2" name="John M Barton" new="1" dur="0" />
             <log number="+447943549963" time="1 Sep 2013 13:11:46" date="1378037506896" type="2" name="John M Barton" new="1" dur="0" />
 
-    </alllogs>
+    </alllogs>"""
 
 
     def __init__(self,
