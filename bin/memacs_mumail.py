@@ -3,9 +3,6 @@
 # Time-stamp: <2015-04-30 17:12:02 vs>
 
 from memacs.mu import MuMail
-import locale
-
-locale.setlocale(locale.LC_ALL,'de_DE.utf-8')
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2015-03-08"
@@ -18,7 +15,6 @@ CONFIG_PARSER_NAME = ""
 COPYRIGHT_YEAR = "2011-2015"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Stephanus Volke <post@stephanus-volke.de>"""
-
 
 if __name__ == "__main__":
     

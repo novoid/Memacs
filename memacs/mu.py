@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import subprocess
 from datetime import datetime
 from lib.orgproperty import OrgProperties
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
 import re
-import locale
 
 class MuMail(Memacs):
         
@@ -68,7 +68,7 @@ class MuMail(Memacs):
         """
         time = time.strip().encode('utf-8')
 
-        mail_date = datetime.strptime(time,"%a %d %b %H:%M:%S %Y")
+        mail_date = datetime.strptime(time,"%c")
         if onlyDate is False:
             return OrgFormat.datetime(mail_date)
         return OrgFormat.date(mail_date)
@@ -129,5 +129,3 @@ class MuMail(Memacs):
                     timestamp = ""
                     output = pre+output
             self._writer.write_org_subitem(timestamp, output, notes, properties)
-
-
