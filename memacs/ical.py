@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-05-24 19:18:21 armin>
+# Time-stamp: <2016-01-23 18:09:38 vk>
 
 import sys
 import os
@@ -92,6 +92,14 @@ class CalendarMemacs(Memacs):
         else:
             return nonetype
 
+    def __get_datetime(self, mydate):
+        """
+        @return string: Datetime - in Org Format
+        """
+        mydate_tupel = OrgFormat.datetupelutctimestamp(mydate)
+
+        return OrgFormat.date(mydate_tupel)
+
     def __get_datetime_range(self, dtstart, dtend):
         """
         @return string: Datetime - Range in Org Format
@@ -127,8 +135,10 @@ class CalendarMemacs(Memacs):
         description = self.__vtext_to_unicode(component.get('description'))
         # format: 20091207T180000Z or 20100122
         dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical())
+
         # format: 20091207T180000Z or 20100122
-        dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical())
+        if 'DTEND' in component.keys():
+            dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical())
 
         # format: 20091207T180000Z
         # not used: Datestamp created
@@ -138,7 +148,11 @@ class CalendarMemacs(Memacs):
         # not implemented due to org-mode datestime-range cannot be repeated
         # component.get('rrule')
 
-        orgdate = self.__get_datetime_range(dtstart, dtend)
+        ## notice: end date/time is optional; no end date results in end date 9999-12-31
+        if 'DTEND' in component.keys():
+            orgdate = self.__get_datetime_range(dtstart, dtend)
+        else:
+            orgdate = self.__get_datetime(dtstart) + u"-<9999-12-31 Fri>"
 
         logging.debug(orgdate + " " + summary)
 

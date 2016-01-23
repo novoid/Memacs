@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2016-01-23 18:07:46 vk>
 
 import unittest
 import os
@@ -581,3 +581,9 @@ class TestCalendar(unittest.TestCase):
         self.assertEqual(
             data[187],
              "   :END:")
+        self.assertEqual(
+            data[188:194], [u'** <2011-08-22 Mon>-<9999-12-31 Fri> No end time/date',
+                            u'   :PROPERTIES:',
+                            u'   :DESCRIPTION: No end time/date',
+                            u'   :ID:          62bf353bf19c0379faf4910741635dfd6a804b11',
+                            u'   :END:'])
