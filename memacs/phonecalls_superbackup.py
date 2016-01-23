@@ -28,7 +28,7 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             <log number="+447943549963" time="1 Sep 2013 13:26:31" date="1378038391562" type="2" name="John M Barton" new="1" dur="0" />
             <log number="+447943549963" time="1 Sep 2013 13:11:46" date="1378037506896" type="2" name="John M Barton" new="1" dur="0" />
 
-    </alllogs>
+    </alllogs>"""
 
 
     def __init__(self,
@@ -36,21 +36,30 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
                  ignore_incoming,
                  ignore_outgoing,
                  ignore_missed,
+                 ignore_voicemail,
+                 ignore_rejected,
+                 ignore_refused,
                  minimum_duration
                  ):
         """
         Ctor
 
         @param writer: orgwriter
-        @param ignore_incoming: ignore incoming phonecalls
-        @param ignore_outgoing: ignore outgoing phonecalls
-        @param ignore_missed:   ignore missed   phonecalls
+        @param ignore_incoming:  ignore incoming phonecalls
+        @param ignore_outgoing:  ignore outgoing phonecalls
+        @param ignore_missed:    ignore missed   phonecalls
+        @param ignore_voicemail: ignore voicemail phonecalls
+        @param ignore_rejected:  ignore rejected phonecalls
+        @param ignore_refused:   ignore refused  phonecalls
         @param minimum_duration:    ignore phonecalls less than that time
         """
         self._writer = writer
         self._ignore_incoming = ignore_incoming
         self._ignore_outgoing = ignore_outgoing
         self._ignore_missed = ignore_missed
+        self._ignore_voicemail = ignore_voicemail
+        self._ignore_rejected = ignore_rejected
+        self._ignore_refused = ignore_refused
         self._minimum_duration = minimum_duration
 
     def startElement(self, name, attrs):
@@ -69,6 +78,9 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             call_incoming = call_type == 1
             call_outgoing = call_type == 2
             call_missed = call_type == 3
+            call_voicemail = call_type == 4
+            call_rejected = call_type == 5
+            call_refused = call_type == 6
 
             call_name = attrs['name']
 
@@ -87,6 +99,18 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             elif call_missed:
                 output += "missed "
                 if self._ignore_missed:
+                    skip = True
+            elif call_voicemail:
+                output += "voicemail "
+                if self._ignore_voicemail:
+                    skip = True
+            elif call_rejected:
+                output += "rejected "
+                if self._ignore_rejected:
+                    skip = True
+            elif call_refused:
+                output += "refused "
+                if self._ignore_refused:
                     skip = True
             else:
                 raise Exception("Invalid Phonecall Type: %d", call_type)
@@ -159,6 +183,21 @@ class PhonecallsSuperBackupMemacs(Memacs):
             help="ignore outgoing phonecalls")
 
         self._parser.add_argument(
+            "--ignore-voicemail", dest="ignore_voicemail",
+            action="store_true",
+            help="ignore voicemail phonecalls")
+
+        self._parser.add_argument(
+            "--ignore-rejected", dest="ignore_rejected",
+            action="store_true",
+            help="ignore rejected phonecalls")
+
+        self._parser.add_argument(
+            "--ignore-refused", dest="ignore_refused",
+            action="store_true",
+            help="ignore refused phonecalls")
+
+        self._parser.add_argument(
             "--minimum-duration", dest="minimum_duration",
             action="store", type=int,
             help="[sec] show only calls with duration >= this argument")
@@ -191,6 +230,9 @@ class PhonecallsSuperBackupMemacs(Memacs):
                                               self._args.ignore_incoming,
                                               self._args.ignore_outgoing,
                                               self._args.ignore_missed,
+                                              self._args.ignore_voicemail,
+                                              self._args.ignore_rejected,
+                                              self._args.ignore_refused,
                                               self._args.minimum_duration,
                                               ))
         except SAXParseException:
