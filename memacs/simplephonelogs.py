@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2015-04-01 16:27:26 vk>
+# Time-stamp: <2016-07-11 20:48:23 vk>
 
 import datetime
 import logging
@@ -62,7 +62,7 @@ class SimplePhoneLogsMemacs(Memacs):
 
     def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime,
                           e_last_opposite_occurrence, e_last_occurrence,
-                          prev_office_sum, prev_office_first_begin):
+                          prev_office_sum, prev_office_first_begin, office_lunchbreak):
         """
         takes the data from the parameters and generates an Org-mode entry.
 
@@ -75,6 +75,7 @@ class SimplePhoneLogsMemacs(Memacs):
         @param additional_paren_string: string that gets appended to the parenthesis
         @param prev_office_sum: holds the sum of all previous working duration today
         @param prev_office_first_begin: holds the first time-stamp of wifi-office for today
+        @param office_lunchbreak: array of begin- and end-time-stamp of lunch-break (if any)
         """
 
         assert e_time.__class__ == datetime.datetime
@@ -140,6 +141,12 @@ class SimplePhoneLogsMemacs(Memacs):
             if not office_sum or not office_first_begin:
                 ## new day
                 office_first_begin = e_time
+            else:
+                ## check if we've found a lunch-break (first wifi-office between 11:30-13:00 where not office for > 17min)
+                if e_time.time() > datetime.time(11, 30) and e_time.time() < datetime.time(13, 00) and e_last_opposite_occurrence:
+                    if e_last_opposite_occurrence.date() == e_time.date() and in_between_s > (17 * 60) and in_between_s < (80 * 60):
+                        #import pdb; pdb.set_trace()
+                        office_lunchbreak = [e_last_opposite_occurrence.time(), e_time.time()]
 
         ## handle special case: boot without previous shutdown = crash
         if (e_name == u'boot') and \
@@ -157,6 +164,18 @@ class SimplePhoneLogsMemacs(Memacs):
         properties.add("BATT-LEVEL", e_batt)
         properties.add("UPTIME", OrgFormat.get_hms_from_sec(int(e_uptime)))
         properties.add("UPTIME-S", e_uptime)
+        if e_name == 'wifi-office-end' and office_lunchbreak:
+            properties.add("OFFICE-SUMMARY",
+                           e_last_opposite_occurrence.strftime('| %Y-%m-%d | %a ') +
+                           prev_office_first_begin.strftime('| %H:%M ') +
+                           office_lunchbreak[0].strftime('| %H:%M ') +
+                           office_lunchbreak[1].strftime('| %H:%M ') +
+                           e_time.strftime('| %H:%M | | |'))
+        elif e_name == 'wifi-office-end' and not office_lunchbreak:
+            properties.add("OFFICE-SUMMARY",
+                           e_last_opposite_occurrence.strftime('| %Y-%m-%d | %a ') +
+                           prev_office_first_begin.strftime('| %H:%M | 11:30 | 12:00 ') +
+                           e_time.strftime('| %H:%M | | |'))
         self._writer.write_org_subitem(timestamp=e_time.strftime('<%Y-%m-%d %a %H:%M>'),
                                        output=e_name + last_info,
                                        properties=properties)
@@ -167,7 +186,7 @@ class SimplePhoneLogsMemacs(Memacs):
             u'\n:BATT-LEVEL: ' + e_batt + \
             u'\n:UPTIME: ' + unicode(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
             u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n', \
-            ignore_occurrence, office_sum, office_first_begin
+            ignore_occurrence, office_sum, office_first_begin, office_lunchbreak
 
     def _determine_opposite_eventname(self, e_name):
         """
@@ -197,6 +216,7 @@ class SimplePhoneLogsMemacs(Memacs):
         office_day = None  ## holds the current day (in order to recognize day change)
         office_first_begin = None  ## holds the time-stamp of the first appearance of wifi-office
         office_sum = None  ## holds the sum of periods of all office-durations for this day
+        office_lunchbreak = [] ## array of begin and end time of lunch break
 
         for line in data.split('\n'):
 
@@ -232,9 +252,11 @@ class SimplePhoneLogsMemacs(Memacs):
                 if not office_day:
                     office_sum = None
                     office_day = datestamp
+                    office_lunchbreak = []
                 elif office_day != datestamp:
                     office_sum = None
                     office_day = datestamp
+                    office_lunchbreak = []
 
             opposite_e_name = self._determine_opposite_eventname(e_name)
             if opposite_e_name in last_occurrences:
@@ -248,12 +270,12 @@ class SimplePhoneLogsMemacs(Memacs):
             else:
                 last_time = False
 
-            result, ignore_occurrence, office_sum, office_first_begin = \
+            result, ignore_occurrence, office_sum, office_first_begin, office_lunchbreak = \
                 self._generateOrgentry(e_time, e_name, e_batt,
                                        e_uptime,
                                        e_last_opposite_occurrence,
                                        last_time,
-                                       office_sum, office_first_begin)
+                                       office_sum, office_first_begin, office_lunchbreak)
 
             ## update last_occurrences-dict
             if not ignore_occurrence:
