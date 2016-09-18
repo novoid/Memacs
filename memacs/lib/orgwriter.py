@@ -159,14 +159,14 @@ class OrgOutputWriter(object):
         timestamp = timestamp.strip()
 
         self.writeln(u"** " + timestamp + u" " + output + output_tags)
-        if note != "":
-            for n in note.splitlines():
-                self.writeln("   " + n)
         self.writeln(unicode(properties))
         if self.__test:
             self.write(properties.get_multiline_properties())
         else:
             self.writeln(properties.get_multiline_properties())
+        if note != "":
+            for n in note.splitlines():
+                self.writeln("   " + n)
 
     def write_org_subitem(self,
                           timestamp,
