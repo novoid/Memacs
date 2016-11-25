@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2016-07-11 20:48:23 vk>
+# Time-stamp: <2016-11-25 18:49:05 vk>
 
 import datetime
 import logging
@@ -135,6 +135,13 @@ class SimplePhoneLogsMemacs(Memacs):
                 last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + additional_paren_string + u')'
             else:
                 last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + u')'
+
+        elif e_last_occurrence:
+
+            in_between_s = (e_time - e_last_occurrence).seconds + \
+                (e_time - e_last_occurrence).days * 3600 * 24
+            in_between_hms = unicode(OrgFormat.get_hms_from_sec(in_between_s))
+
 
         ## handle special case: office hours
         if e_name == 'wifi-office':
