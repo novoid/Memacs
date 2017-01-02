@@ -1,4 +1,4 @@
-## Time-stamp: <2017-01-02 11:13:43 vk>
+## Time-stamp: <2017-01-02 20:22:41 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
@@ -109,9 +109,9 @@ It explains following code:
                        (s-trim
                         (shell-command-to-string
                          (concat
-                          "grep "
+                          "grep \""
                           querystring
-                          " "
+                          "\" "
                           (concat memacs-root memacs-file-pattern))))
                        "\n" t)))
     ;; check length of list (number of lines)
