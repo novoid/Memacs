@@ -1,4 +1,4 @@
-## Time-stamp: <2013-04-09 12:26:40 vk>
+## Time-stamp: <2017-01-02 11:13:43 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
@@ -10,7 +10,7 @@ Done, if you find any errors do not hesitate to contact us.
 ** Data Source
 
 Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
-«2011-02-14T14.35.42_img_0815.jpg» or «2011-02-14 slide GTD tools.jpg»
+=2011-02-14T14.35.42_img_0815.jpg= or =2011-02-14 slide GTD tools.jpg=
 contains a direct reference to a certain day (or time).
 
 
@@ -20,6 +20,7 @@ contains a direct reference to a certain day (or time).
 
 ** Example Orgmode entries
 
+The resulting =filenametimestamps.org_archive= file looks like following:
 
 : * Memacs for file name time stamp                      :Memacs:filedatestamps:
 : ** <2010-03-12 Fri> [[/home/armin/Documents/scan/Graz/Strom%20-%20Gas/2010-03-12.pdf][2010-03-12.pdf]]
@@ -31,19 +32,51 @@ contains a direct reference to a certain day (or time).
 :    :ID:         3456e980e83fe22e1d149b837b1bcb2560aadbcc
 :    :END:
 
+After the general heading, a (long) list of second level headings is
+generated. For each file containing an ISO time-stamp, a heading is
+created. It consists of the heading including the absolute path to the
+file and an unique ID property.
 
 ** Background
 
 This module is probably the most valuable Memacs module of all. You
 can refer to any (time-stamped) file within your Org-mode. You don't
-have to care, which folder you put the file in!
+have to care, which folder you put the file in! Files can be moved
+from one location to another. As long as both locations are indexed by
+this Memacs module, links to files don't get broken.
 
-It's handy to add a custom link like this to your Org-mode configuration:
+This is a normal hard-coded link to a file with an absolute path:
+
+: [[/home/armin/misc/2010-03-10 Foo bar baz.pdf]]
+
+Using this Memacs module, the link looks different:
+
+: [[tsfile:2010-03-10 Foo bar baz.pdf]]
+
+You recognize easily that the path is missing.
+
+When you want to open the PDF file, you put the cursor on the link and
+press =C-c C-o= (for =org-open-at-point()=). Emacs opens the
+=filenametimestamps.org_archive= (from example invocation above) in a
+buffer and jumps right to the heading of this file. The heading
+consists of an absolute link to the file in your file system.
+Therefore, when you press =C-c C-o= once again, your PDF file opens
+before your eyes.
+
+Nifty, isn't it?
+
+** Emacs Configuration
+
+To access those links, it is necessary to add a custom link like this
+to your Org-mode configuration:
 
 : (setq org-link-abbrev-alist
 :       '(
 : 	("tsfile" . "~/path/to/memacs/files.org_archive::/\*.*%s/")
 : 	))
+
+As you can see, I am using =tsfile= which is short for «a time-stamp
+file». Choose your own link name.
 
 For quickly entering a link, you may like following [[http://emacswiki.org/emacs/Yasnippet][yasnippet]]:
 
@@ -52,3 +85,52 @@ For quickly entering a link, you may like following [[http://emacswiki.org/emacs
 : [[tsfile:$1][${2:$$(unless yas-modified-p
 :  (let ((field (nth 0 (yas--snippet-fields (first (yas--snippets-at-point))))))
 :    (concat (buffer-substring (yas--field-start field) (yas--field-end field)))))}]] $0
+
+** Bonus: Fast Opening of Memacs Indexed Files
+
+If you are indexing many files containing an ISO datestamp, you end up
+with a very large Org-mode file that holds many links.
+
+This can slow down the access method mentioned in the previous section.
+
+To keep a very fast access speed, you might check out [[http://karl-voit.at/2017/01/01/memacs-grep/][a blog article
+that describes a fast method using grep]].
+
+It explains following code:
+
+#+BEGIN_SRC elisp
+(defvar memacs-root "~/orgmode/memacs/")
+(defvar memacs-file-pattern "filenametimestamps.org_archive") ;; also possible: "*.org"
+
+;; by John Kitchin
+(defun my-handle-tsfile-link (querystring)
+  ;; get a list of hits
+  (let ((queryresults (split-string
+                       (s-trim
+                        (shell-command-to-string
+                         (concat
+                          "grep "
+                          querystring
+                          " "
+                          (concat memacs-root memacs-file-pattern))))
+                       "\n" t)))
+    ;; check length of list (number of lines)
+    (cond
+     ((= 0 (length queryresults))
+      ;; edge case: empty query result
+      (message "Sorry, no results found for query: %s" querystring))
+     (t
+      (with-temp-buffer
+        (insert (if (= 1 (length queryresults))
+                    (car queryresults)
+                  (completing-read "Choose: " queryresults)))
+        (org-mode)
+        (goto-char (point-min))
+        (org-next-link)
+        (org-open-at-point))))))
+
+(org-link-set-parameters
+ "tsfile"
+ :follow (lambda (path) (my-handle-tsfile-link path))
+ :help-echo "Opens the linked file with your default application")
+#+END_SRC
