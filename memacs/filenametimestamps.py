@@ -175,7 +175,7 @@ class FileNameTimeStamps(Memacs):
 
             self.__write_file(file, link, orgdate)
 
-        if DATESTAMP_REGEX.match(file):
+        elif DATESTAMP_REGEX.match(file):
             try:
                 # we put this in a try block because:
                 # if a timestamp is false i.e. 2011-14-19 or false time
