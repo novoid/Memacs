@@ -101,7 +101,7 @@ class OrgOutputWriter(object):
         self.write_commentln(
             "To add this file to your org-agenda files open the stub file " + \
                 " (file.org) not this file(file.org_archive) with emacs" + \
-                "and do following: M-x org-agenda-file-to-front")
+                " and do following: M-x org-agenda-file-to-front")
         if self.__additional_header_lines:
             for line in self.__additional_header_lines.split('\n'):
                 self.writeln(line)
