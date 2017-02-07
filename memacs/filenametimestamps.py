@@ -27,9 +27,9 @@ class FileNameTimeStamps(Memacs):
                                   dest="filenametimestamps_folder",
                                   action="append",
                                   help="path to a folder to search for " + \
-                                      "filenametimestamps, " + \
-                                  "multiple folders can be specified: " + \
-                                      "-f /path1 -f /path2")
+                                       "filenametimestamps, " + \
+                                       "multiple folders can be specified: " + \
+                                       "-f /path1 -f /path2")
 
         self._parser.add_argument("-x", "--exclude", dest="exclude_folder",
                         help="path to excluding folder, for more excludes " + \
@@ -53,6 +53,13 @@ class FileNameTimeStamps(Memacs):
                                   action="store_true",
                                   help="skip extraction of the file time " + \
                                   " in files containing only the date in " + \
+                                  "the filename")
+
+        self._parser.add_argument("--force-file-date-extraction",
+                                  dest="force_filedate_extraction",
+                                  action="store_true",
+                                  help="force extraction of the file date" + \
+                                  " even if there is no ISO datestamp in " + \
                                   "the filename"
         )
 
@@ -99,7 +106,7 @@ class FileNameTimeStamps(Memacs):
                 for file in files:
                     self.__handle_file(file, rootdir)
 
-    def __parse_and_write_file(self, file, link):
+    def __parse_file(self, file, link):
         """
         Parses the date+time and writes entry to outputfile
 
@@ -120,25 +127,30 @@ class FileNameTimeStamps(Memacs):
             if self._args.skip_filetime_extraction != True:            
 
                 if os.path.exists(link):
-                  file_datetime = time.localtime(os.path.getmtime(link))
-                  # check if the file - time information matches year,month,day,
-                  # then update time
-                  if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
-                     file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
-                     file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
+                    file_datetime = time.localtime(os.path.getmtime(link))
+                    # check if the file - time information matches year,month,day,
+                    # then update time
+                    if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
+                        file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
+                        file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
                   
-                      logging.debug("found a time in file.setting %s-->%s",
+                        logging.debug("found a time in file.setting %s-->%s",
                                     orgdate, OrgFormat.date(file_datetime, True))
-                      orgdate = OrgFormat.date(file_datetime, True)
+                        orgdate = OrgFormat.date(file_datetime, True)
                 else:
                     logging.debug("item [%s] not found and thus could not determine mtime" % link)
 
-        # write entry to org file (omit replacement of spaces in file names)
+        self.__write_file(file, link, orgdate)
+
+    def __write_file(self, file, link, timestamp):
+        """
+        write entry to org file (omit replacement of spaces in file names)
+        """
         output = OrgFormat.link(link=link, description=file, replacespaces=False)
         # we need optional data for hashing due it can be, that more
         # than one file have the same timestamp
         properties = OrgProperties(data_for_hashing=output)
-        self._writer.write_org_subitem(timestamp=orgdate,
+        self._writer.write_org_subitem(timestamp=timestamp,
                                        output=output,
                                        properties=properties)
 
@@ -147,16 +159,30 @@ class FileNameTimeStamps(Memacs):
         handles a file
         """
         # don't handle emacs tmp files (file~)
-        if DATESTAMP_REGEX.match(file) and file[-1:] != '~':
-            link = os.path.join(rootdir, file)
-            logging.debug(link)
+        if file[-1:] == '~':
+            return
+
+        link = os.path.join(rootdir, file)
+        logging.debug(link)
+
+        if self._args.force_filedate_extraction:
+            file_datetime = time.localtime(os.path.getmtime(link))
+
+            if self._args.skip_filetime_extraction:
+                orgdate = OrgFormat.date(file_datetime)
+            else:
+                orgdate = OrgFormat.datetime(file_datetime)
+
+            self.__write_file(file, link, orgdate)
+
+        if DATESTAMP_REGEX.match(file):
             try:
                 # we put this in a try block because:
                 # if a timestamp is false i.e. 2011-14-19 or false time
                 # we can handle those not easy with REGEX, therefore we have
                 # an Exception TimestampParseException, which is thrown,
                 # wen strptime (parse from string to time tupel) fails
-                self.__parse_and_write_file(file, link)
+                self.__parse_file(file, link)
             except TimestampParseException, e:
                 logging.warning("False date(time) in file: %s", link)
 
