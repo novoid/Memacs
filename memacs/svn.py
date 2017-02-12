@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
