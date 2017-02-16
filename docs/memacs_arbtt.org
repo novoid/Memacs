@@ -1,0 +1,81 @@
+## Time-stamp: [2017-02-07 Wed 19:25] manu
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-arbtt
+
+#+BEGIN_QUOTE
+arbtt is a cross-platform, completely automatic time tracker.
+#+END_QUOTE
+
+** Current status
+
+Works for me on Archlinux and Xubuntu 16.04 with arbtt v0.9. Please report any problems you find opening a new issue
+or writing an email to [[mailto:mankoell@gmail.com][mankoell@gmail.com]].
+
+** Installation
+
+Make sure you've [[https://arbtt.nomeata.de][arbtt]] installed and [[http://arbtt.nomeata.de/doc/users_guide/configuration.html][configured]] properly.
+
+*** Archlinux
+
+You need to use [[https://wiki.archlinux.org/index.php/haskell#cabal-install][cabal-install]]:
+
+~cabal install arbtt~
+
+*** Ubuntu
+
+~sudo apt-get install arbtt~
+
+** Data Source
+
+Using ~arbtt-stats~ to dump intervals of tags or categories.
+
+** Example Invocation
+
+Depending on your arbtt tags and categories you can also use multiple ~--intervals~ (at least one is required) and set
+the ~--logfile~ and ~--categorizefile~ paths manually. ~--also-inactive~ will include idle times as well. Use ~--csv~
+to import an already existing stats file.
+
+~memacs_arbtt.py --intervals web -o /path/to/arbtt.org_archive~
+
+~memacs_arbtt.py --intervals Program: -o /path/to/arbtt.org_archive~
+
+~memacs_arbtt.py --intervals Desktop: --also-inactive -o /path/to/arbtt.org_archive~
+
+** Example Orgmode entries
+
+#+BEGIN_SRC org
+* Memacs for arbtt                                          :Memacs:arbtt:
+#+END_SRC
+
+#+BEGIN_SRC org
+** <2017-02-05 Sun 20:00:00>--<2017-02-05 Sun 20:15:00> Web	:web:
+   :PROPERTIES:
+   :DURATION:   900
+   :ID:         6c5bf1a0332016ada4b02854dc3047f46eb9a3cf
+   :END:
+#+END_SRC
+
+#+BEGIN_SRC org
+** <2017-01-05 Thu 02:05:39>--<2017-01-05 Thu 02:06:44> Program	:Program:xfce4-terminal:
+   :PROPERTIES:
+   :DURATION:   65
+   :ID:         4ea74246bc56d260e9877c244c16b00c16fbe883
+   :END:
+#+END_SRC
+
+#+BEGIN_SRC org
+** <2017-01-05 Thu 02:28:58>--<2017-01-05 Thu 02:31:22> Program	:Program:pcmanfm:
+   :PROPERTIES:
+   :DURATION:   144
+   :ID:         c6e48aaeb8dffcbe9e3f6cbfc206fdcb544a3c42
+   :END:
+#+END_SRC
+
+#+BEGIN_SRC org
+** <2017-01-05 Thu 02:28:58>--<2017-01-05 Thu 03:07:04> Desktop	:Desktop:2:
+   :PROPERTIES:
+   :DURATION:   2286
+   :ID:         daecc9cc9d4a233d49c6bd9d66cd075f4026a3a9
+   :END:
+#+END_SRC
