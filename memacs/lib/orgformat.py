@@ -344,19 +344,22 @@ class OrgFormat(object):
         """
         @param contact_mailto_string: possibilities:
         - "Bob Bobby <bob.bobby@example.com>" or
-        - <Bob@example.com>"
+        - <Bob@example.com>" or
+        - Bob@example.com
 
         @return:
         - [[mailto:bob.bobby@example.com][Bob Bobby]]
         - [[mailto:bob.bobby@example.com][bob.bobby@excample.com]]
         """
         delimiter = contact_mail_string.find("<")
-        name = contact_mail_string[:delimiter].strip()
-        mail = contact_mail_string[delimiter + 1:][:-1].strip()
-        if name != "":
+
+        if delimiter != -1:
+            name = contact_mail_string[:delimiter].strip()
+            mail = contact_mail_string[delimiter + 1:][:-1].strip()
             return u"[[mailto:" + mail + u"][" + name + u"]]"
+
         else:
-            return u"[[mailto:" + mail + u"][" + mail + u"]]"
+            return u"[[mailto:" + contact_mail_string + u"][" + contact_mail_string + u"]]"
 
     @staticmethod
     def newsgroup_link(newsgroup_string):
