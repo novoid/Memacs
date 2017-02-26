@@ -22,6 +22,12 @@ class LastFM(Memacs):
         """
         Memacs._parser_add_arguments(self)
 
+        self._parser.add_argument(
+            '--output-format', dest='output_format',
+            action='store', default=u'{title}',
+            help='formt string to use for the output'
+        )
+
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
@@ -30,6 +36,9 @@ class LastFM(Memacs):
         """
         Memacs._parser_parse_args(self)
 
+        if self._args.output_format:
+            self._args.output_format = self._args.output_format.decode('utf-8')
+
     def _handle_recent_tracks(self, tracks):
         """parse recent tracks"""
         logging.debug(tracks)
@@ -37,12 +46,16 @@ class LastFM(Memacs):
         for t in tracks:
             timestamp = datetime.datetime.fromtimestamp(int(t.timestamp))
 
+            output = self._args.output_format.format(title=t.track.title,
+                                                     artist=t.track.artist,
+                                                     album=t.album)
+
             properties = OrgProperties(data_for_hashing=t.timestamp)
             properties.add('ARTIST', t.track.artist)
             properties.add('ALBUM', t.album)
 
             self._writer.write_org_subitem(timestamp=OrgFormat.datetime(timestamp),
-                                           output=t.track.title,
+                                           output=output,
                                            properties=properties)
 
     def _main(self):
