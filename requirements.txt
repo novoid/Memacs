@@ -3,6 +3,4 @@ Pillow==2.4.0
 argparse==1.2.1
 feedparser==5.1.2
 icalendar==3.1
-
-
-
+pylast==1.8.0
