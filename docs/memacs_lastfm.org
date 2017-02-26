@@ -19,7 +19,7 @@ network = [lastfm or librefm]
 
 ** Options
 
-none.
+- ~--output-format~ format string to use for the output, use ~{title}~, ~{artist}~ or ~{album}~ as placeholder
 
 ** Example
 
