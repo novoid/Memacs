@@ -55,6 +55,8 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
   - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see docs/svn/memacs_svn.org
 - *time tracker*:
   - [[https://arbtt.nomeata.de][arbtt]]: see docs/memacs_arbtt.org
+- *messenger*:
+  - WhatsApp: see docs/memacs_whatsapp.org
 - *calendar*:
   - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see docs/memacs_calendar.org
   - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see docs/memacs_csv.org
