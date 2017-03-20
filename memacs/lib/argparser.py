@@ -125,7 +125,7 @@ class MemacsArgumentParser(ArgumentParser):
         # ---------------------
         # Config parser
         # ---------------------
-        if self.__use_config_parser_name != "":
+        if self.__use_config_parser_name:
             self.add_argument("-c", "--config",
                               dest="configfile",
                               help="path to config file",
@@ -168,7 +168,16 @@ class MemacsArgumentParser(ArgumentParser):
         # ---------------------
         # Config parser
         # ---------------------
-        if self.__use_config_parser_name != "":
+        if self.__use_config_parser_name:
+            xdg = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+            configdir = os.path.join(xdg, 'memacs')
+
+            if os.path.isdir(configdir):
+                for filename in os.listdir(configdir):
+                    if self.__use_config_parser_name == os.path.splitext(filename)[0]:
+                        args.configfile = os.path.join(configdir, filename)
+                        continue
+
             if args.configfile:
                 if not os.path.exists(args.configfile):
                     self.error("Config file (%s) does not exist" %
