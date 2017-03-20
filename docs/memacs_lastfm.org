@@ -1,0 +1,45 @@
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-lastfm
+
+Get recent tracks (scrobbles) from your last.fm account.
+
+** Configuration
+
+Create an [[https://www.last.fm/api/account/create][api key]] first or start using [[https://libre.fm/][libre.fm]]
+
+#+BEGIN_EXAMPLE
+[memacs-lastfm]
+api_secret =
+api_key =
+password =
+username =
+network = [lastfm or librefm]
+#+END_EXAMPLE
+
+** Options
+
+- ~--output-format~ format string to use for the output, use ~{title}~, ~{artist}~ or ~{album}~ as placeholder
+
+** Example
+
+: memacs_lastfm.py -c ~/.config/memacs/memacs-lastfm.ini
+
+#+BEGIN_EXAMPLE
+* Memacs for lastfm          :Memacs:lastfm:
+** <2017-02-25 Sat 23:31> Breath of Life
+   :PROPERTIES:
+   :ALBUM:      Snow White & The Huntsman
+   :ARTIST:     Florence + the Machine
+   :ID:         68eaffc2186f8a3d999bec7c96fe1c2547b08736
+   :END:
+
+** <2016-02-25 Sat 23:27> Serenata Immortale
+   :PROPERTIES:
+   :ALBUM:      Trailerhead
+   :ARTIST:     Immediate Music
+   :ID:         9a258992ab94c6f0ece0da491db0deb3c209517b
+   :END:
+
+...
+#+END_EXAMPLE
