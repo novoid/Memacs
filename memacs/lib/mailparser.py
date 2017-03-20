@@ -5,6 +5,7 @@ import time
 import logging
 from email import message_from_string
 from email.utils import parsedate
+from email.header import decode_header
 from orgproperty import OrgProperties
 from orgformat import OrgFormat
 
@@ -16,12 +17,22 @@ class MailParser(object):
         """
         @param return: headers[key] if exist else ""
         """
-        ret = ""
+        ret = ''
         if key in headers:
             ret = headers[key]
             if remove_newline:
                 ret = ret.replace("\n", "")
-        return ret
+
+            arr = []
+            for item in decode_header(ret):
+                value, charset = item
+
+                if charset:
+                    arr.append(value.decode(charset))
+                else:
+                    arr.append(value)
+
+        return ' '.join(arr)
 
     @staticmethod
     def parse_message(message, add_body=False):
@@ -64,7 +75,7 @@ class MailParser(object):
             if key in use_headers:
                 headers[key] = value
                 if key not in not_properties:
-                    properties.add(key, value.replace("\n", ""))
+                    properties.add(key, MailParser.get_value_or_empty_str(headers, key, True))
 
             if key.upper() == "MESSAGE-ID":
                 msg_id = value
