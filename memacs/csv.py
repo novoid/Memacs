@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-12-30 03:38:09 armin>
 
+import argparse
 import logging
 import time
-import os
 import sys
+import json
+import datetime
+
 from lib.orgformat import OrgFormat
 from lib.memacs import Memacs
-from lib.reader import UnicodeCsvReader
+from lib.reader import UnicodeDictReader
 from lib.orgproperty import OrgProperties
 
 
@@ -22,41 +25,48 @@ class Csv(Memacs):
         Memacs._parser_add_arguments(self)
 
         self._parser.add_argument(
-           "-f", "--file", dest="csvfile",
-           action="store",
-           help="input csv file")
+           "-f", "--file", dest="csvfile", required=True,
+           action="store", help="input csv file", type=argparse.FileType('rb'))
 
         self._parser.add_argument(
-           "-d", "--delimiter", dest="delimiter",
-           action="store",
-           help="delimiter, default \";\"")
+           "-d", "--delimiter", dest="delimiter", default=";",
+           action="store", help='delimiter, default ";"')
 
         self._parser.add_argument(
            "-e", "--encoding", dest="encoding",
-           action="store",
-           help="default encoding utf-8, see " + \
-           "http://docs.python.org/library/codecs.html#standard-encodings" + \
+           action="store", default="utf-8", help="default encoding utf-8, " +
+           "see http://docs.python.org/library/codecs.html#standard-encodings" +
            "for possible encodings")
 
         self._parser.add_argument(
-           "-ti", "--timestamp-index", dest="timestamp_index",
-           action="store",
-           help="on which column is timestamp?")
+            "-n", "--fieldnames", dest="fieldnames", default=None,
+            action="store", help="header field names of the columns",
+            type=str.lower)
 
         self._parser.add_argument(
-           "-tf", "--timestamp-format", dest="timestamp_format",
-           action="store",
-           #help="format of the timestamp, i.e. \"%d.%m.%Y %H:%M:%S:%f\" " + \
-           help="format of the timestamp, i.e. " + \
-           "\"%%d.%%m.%%Y %%H:%%M:%%S:%%f\" " + \
-           "for  \"14.02.2012 10:22:37:958\" see " + \
-           "http://docs.python.org/library/time.html#time.strftime" + \
-           "for possible formats")
+            "-p", "--properties", dest="properties", default='',
+            action="store", help="fields to use for properties",
+            type=str.lower)
 
         self._parser.add_argument(
-           "-oi", "--output-indices", dest="output_indices",
-           action="store",
-           help="indices to use for output i.e. \"1 2 3\"")
+            "--timestamp-field", dest="timestamp_field", required=True,
+            action="store", help="field name of the timestamp",
+            type=str.lower)
+
+        self._parser.add_argument(
+            "--timestamp-format", dest="timestamp_format",
+            action="store", help='format of the timestamp, i.e. ' +
+            '"%d.%m.%Y %H:%M:%S" for "14.02.2012 10:22:37" ' +
+            'see http://docs.python.org/library/time.html#time.strftime' +
+            'for possible formats, default unix timestamp')
+
+        self._parser.add_argument(
+            "--output-format", dest="output_format", required=True,
+            action="store", help="format string to use for the output")
+
+        self._parser.add_argument(
+            "--skip-header", dest="skip_header",
+            action="store_true", help="skip first line of the csv file")
 
     def _parser_parse_args(self):
         """
@@ -65,80 +75,74 @@ class Csv(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
-        if not self._args.csvfile:
-            self._parser.error("please specify input csv file")
-        if not (os.path.exists(self._args.csvfile) or \
-            os.access(self._args.csvfile, os.R_OK)):
-            self._parser.error("input file not found or not readable")
 
-        if self._args.delimiter:
-            self._args.delimiter = self._args.delimiter
-        else:
-            self._args.delimiter = ";"
+        if self._args.fieldnames:
+            self._args.fieldnames = [name.strip() for name in self._args.fieldnames.split(',')]
 
-        if not self._args.encoding:
-            self._args.encoding = "utf-8"
+    def _handle_row(self, row):
+        """
+        handle a single row
+        """
 
-        if not self._args.timestamp_index:
-            self._parser.error("need to know timestamp index")
-        else:
-            try:
-                self._args.timestamp_index = int(self._args.timestamp_index)
-            except ValueError:
-                self._parser.error("timestamp index not an int")
+        try:
+            # assume unix timestamp
+            if not self._args.timestamp_format:
+                timestamp = datetime.datetime.fromtimestamp(int(row[self._args.timestamp_field]))
+            else:
+                timestamp = time.strptime(row[self._args.timestamp_field], self._args.timestamp_format)
 
-        if not self._args.timestamp_format:
-            self._parser.error("need to know timestamp format")
+            # show time with the timestamp format, but only
+            # if it contains at least hours and minutes
+            if not self._args.timestamp_format and \
+            (x in self._args.timestamp_format for x in ['%H', '%M']):
+                timestamp = OrgFormat.datetime(timestamp)
+            else:
+                timestamp = OrgFormat.date(timestamp)
 
-        if not self._args.output_indices:
-            self._parser.error("need to know output indices")
-        else:
-            try:
-                self._args.output_indices = map(
-                    int, self._args.output_indices.split())
-            except ValueError:
-                self._parser.error("output-indices must have " + \
-                                   "following format i.e: \"1 2 3\"")
+        except ValueError, e:
+            logging.error("timestamp-format does not match: %s", e)
+            sys.exit(1)
+
+        except IndexError, e:
+            logging.error("did you specify the right delimiter?", e)
+            sys.exit(1)
+
+        properties = OrgProperties(data_for_hashing=json.dumps(row))
+        output = self._args.output_format.format(**row)
+
+        if self._args.properties:
+            for prop in self._args.properties.split(','):
+                properties.add(prop.upper().strip(), row[prop])
+
+        self._writer.write_org_subitem(timestamp=timestamp,
+                                       output=output,
+                                       properties=properties)
 
     def _main(self):
         """
         get's automatically called from Memacs class
         """
 
-        with open(self._args.csvfile, 'rb') as f:
+        with self._args.csvfile as f:
+
             try:
-                for row in UnicodeCsvReader(f, encoding=self._args.encoding,
-                                         delimiter=self._args.delimiter):
+                reader = UnicodeDictReader(f,
+                                           self._args.delimiter,
+                                           self._args.encoding,
+                                           self._args.fieldnames)
+
+                if self._args.skip_header:
+                    next(reader)
+
+                for row in reader:
+                    self._handle_row(row)
                     logging.debug(row)
-                    try:
-                        tstamp = time.strptime(row[self._args.timestamp_index],
-                                               self._args.timestamp_format)
-                    except ValueError, e:
-                        logging.error("timestamp-format does not match: %s",
-                                      e)
-                        sys.exit(1)
-                    except IndexError, e:
-                        logging.error("did you specify the right delimiter?",
-                                      e)
-                        sys.exit(1)
 
-                    timestamp = OrgFormat.datetime(tstamp)
+            except TypeError, e:
+                logging.error("not enough fieldnames or wrong delimiter given")
+                logging.debug("Error: %s" % e)
+                sys.exit(1)
 
-                    output = []
-                    for i in self._args.output_indices:
-                        output.append(row[i])
-                    output = " ".join(output)
-
-                    data_for_hashing = "".join(row)
-
-                    properties = OrgProperties(
-                            data_for_hashing=data_for_hashing)
-
-                    self._writer.write_org_subitem(timestamp=timestamp,
-                                                   output=output,
-                                                   properties=properties,
-                                                   )
             except UnicodeDecodeError, e:
-                logging.error("could not decode file in utf-8," + \
-                              "please specify input encoding")
+                logging.error("could not decode file in utf-8, please specify input encoding")
                 sys.exit(1)
