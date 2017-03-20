@@ -126,3 +126,24 @@ class UnicodeCsvReader:
 
     def __iter__(self):
         return self
+
+
+class UnicodeDictReader:
+    """
+    from http://stackoverflow.com/questions/19740385/dictreader-and-unicodeerror
+
+    A CSV reader which will iterate over lines in the CSV file "f",
+    which is encoded in the given encoding.
+    """
+
+    def __init__(self, f, delimiter=";", encoding="utf-8", fieldnames=None, **kwds):
+        f = UTF8Recoder(f, encoding)
+        self.reader = csv.DictReader(f, delimiter=delimiter, fieldnames=fieldnames, **kwds)
+
+    def next(self):
+        row = self.reader.next()
+        return {k.lower(): unicode(v, "utf-8") for k, v in row.iteritems()}
+
+    def __iter__(self):
+        return self
+
