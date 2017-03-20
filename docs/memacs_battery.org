@@ -1,0 +1,24 @@
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-battery
+
+** Options
+
+- ~-b, --battery~ select battery to read stats from, default ~BAT0~
+- ~--output-format~ format string to use for the output, see [[https://github.com/nicolargo/batinfo][batinfo]] default ~{battery.name}~
+
+** Example
+
+: memacs_battery.py --battery BAT1 --output-format "{battery.name} {battery.status}"
+
+#+BEGIN_EXAMPLE
+* Memacs for battery          :Memacs:battery:
+** <2017-02-24 Fri 12:20> BAT1 discharging
+   :PROPERTIES:
+   :STATUS:      discharging
+   :CAPACITY:    88%
+   :CYCLE_COUNT: 866
+   :CONSUMPTION: 12.5 W
+   :ID:          5248c6260f05f307533203be97e53cd38f8e628c
+   :END:
+#+END_EXAMPLE
