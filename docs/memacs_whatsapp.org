@@ -1,0 +1,32 @@
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-whatsapp
+
+In order to use this memacs module you need the decrypted msgstore.db file.
+The easiest way is to use an android phone (rooted) and copy the file from
+~/data/data/com.whatsapp/databases/msgstore.db~.
+
+** Options
+
+- ~-f~, ~--file~ path to decrypted msgstore.db file
+- ~--ignore-incoming~ ignore received messages
+- ~--ignore-outgoing~ ignore sent messages
+- ~--output-format~ format string to use for the headline, default ~{verb} [[{handler}:{number}][{number}]]: {text}~
+- ~--set-handler~ set link handler, default ~tel~
+- ~--demojize~ replace emoji with the appropriate ~:short_code:~
+- ~--skip-emoji~ skip all emoji (including emoji only messages)
+
+** Example
+
+#+BEGIN_EXAMPLE
+memacs_whatsapp.py -f /path/to/msgstore.db --output-format '{text}'
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+** <2016-10-15 Sat 20:18> Hello World!
+   :PROPERTIES:
+   :TYPE:       INCOMING
+   :NUMBER:     00436604444333
+   :ID:         d8fa64a86286432a42a13f129cad0d7ebd56873e
+   :END:
+#+END_EXAMPLE
