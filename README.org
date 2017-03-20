@@ -62,6 +62,7 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
 - *SMS*: see docs/memacs_sms.org
 - *Phonecalls*: see docs/memacs_phonecalls.org
 - *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
+- *Music*: see docs/memacs_lastfm.org
 - *example*: see docs/memacs_csv.org
   This module is just for developing purposes.
 
