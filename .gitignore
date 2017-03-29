@@ -22,3 +22,6 @@ tmp/sms/smsbackuprestore/
 .ropeproject
 tmp/phone-log/
 memacs/tests/error.org
+MANIFEST
+setup.py
+error.org
