@@ -63,13 +63,13 @@ Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best
 - [[docs/memacs_arbtt.org][arbtt]]
 - [[docs/memacs_battery.org][battery]]
 - [[docs/memacs_csv.org][csv]]
-- *[[docs/memacs_filenametimestamps][filenametimestamps]]*
+- *[[docs/memacs_filenametimestamps.org][filenametimestamps]]*
 - [[docs/memacs_git.org][git]]
 - [[docs/memacs_gpx.org][gpx]]
 - [[docs/memacs_ical.org][ical]]
 - [[docs/memacs_imap.org][imap]]
 - [[docs/memacs_lastfm.org][lastfm]]
-- [[docs/memacs_mu.org][mu]]
+- [[docs/memacs_mumail.org][mu]]
 - [[docs/memacs_phonecalls.org][phonecalls]]
 - [[docs/memacs_photos.org][photos]]
 - [[docs/memacs_rss.org][rss]]
@@ -81,8 +81,8 @@ Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best
 
 Those modules are *not* adopted to the new unified framework yet:
 
-- [[tmp/maildir/memacs_maildir.org][maildir]]
-- [[tmp/mbox/memacs_mbox.org][mbox]] (also useful for newsgroups)
+- [[tmp/emails/maildir/memacs_maildir.org][maildir]]
+- [[tmp/emails/mbox/memacs_mbox.org][mbox]] (also useful for newsgroups)
   
 Following modules exist as a rough idea only and might get implemented some day (by you?):
 
