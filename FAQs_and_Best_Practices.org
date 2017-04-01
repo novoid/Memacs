@@ -1,4 +1,3 @@
-## Time-stamp: <2015-01-02 16:00:11 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * Best Practices
