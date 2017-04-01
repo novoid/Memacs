@@ -1,11 +1,11 @@
-## Time-stamp: <2011-12-30 14:33:51 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-imap
 
-** Current status
+** Options
 
-Done, if you find any errors do not hesitate to contact us.
+- ~-l~, ~--list-folders~, show possible folders of connection
+- ~-f~, ~--folder-name~, name of the folder to get emails from, when you don't know name call ~--list-folders~
 
 ** Data Source
 

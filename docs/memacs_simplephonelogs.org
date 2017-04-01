@@ -1,11 +1,6 @@
-## Time-stamp: <2013-10-18 16:45:36 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-simplephonelogs
-
-** Current status
-
-Done. If you find any errors do not hesitate to contact us.
 
 If you would like to use this module to track your office hours,
 please refer to the example in [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#tracking-office-hours][FAQs and Best Practices]].
@@ -22,6 +17,10 @@ losing my home WiFi (leaving home), and so forth.
 Every now and then, I copy the generated log file (example see below)
 to my computer and run this Memacs module. This way, I do get the
 events into my Agenda.
+
+** Options
+
+- ~-f~, ~--file~, path to phone log file
 
 ** Example Tasker Scripts
 

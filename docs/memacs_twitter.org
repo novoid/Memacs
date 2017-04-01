@@ -1,16 +1,6 @@
-## Time-stamp: [2013-09-04 Wed 18:35] ian
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-twitter
-
-
-** Current Status.
-Experimental. Please report any problems you find to ian@manor-farm.org
-
-** Obtaining a Twitter Key.
-Before obtaining a Twitter Key you will need to install [[https://github.com/ryanmcgrath/twython][Twython]]:
-
-: pip install twython
 
 *** First Step.
 Go over to [[https://dev.twitter.com/apps]] and register your

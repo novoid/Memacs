@@ -1,18 +1,16 @@
-## Time-stamp: <2012-03-10 18:34:10 armin>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-photos
-
-** Current status
-
-Done, if you find any errors do not hesitate to contact us.
-
-** Data Source
 
 Nowadays nearly all mobilephones and cameras add some additional information to Photos ([[http://en.wikipedia.org/wiki/Exif][EXIF]]).
 
 This memacs module will walk through a given folder looking for photos. If a photo is found,
 it will get a timestamp from the  exif information.
+
+** Options
+
+- ~-f~, ~--folder~, path to search for photos
+- ~-l~, ~--follow-links~, follow symlinks, default False
 
 ** Required Python Packages
 : PIL
