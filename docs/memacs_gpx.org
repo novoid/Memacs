@@ -1,0 +1,63 @@
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-gpx
+
+Parse GPX files + reverse geocoding. Make sure to read about the usage policy and limits of both, 
+[[https://developers.google.com/maps/documentation/geocoding/usage-limits?hl=de][Google]] and 
+[[https://operations.osmfoundation.org/policies/nominatim/][OSM]] or setup your own 
+[[https://github.com/openstreetmap/Nominatim][Nominatim]] server. 
+There is also a great app for android, called [[https://play.google.com/store/apps/details?id=com.mendhak.gpslogger&hl=de][GPSLogger]], 
+a battery efficient GPS logging application to log your position throughout the day.
+It is free software and open source (FOSS), thus available on [[https://github.com/mendhak/gpslogger][GitHub]] and 
+[[https://f-droid.org/repository/browse/?fdfilter=gps+logger&fdid=com.mendhak.gpslogger][F-Droid]] as well.
+
+** Options
+- ~-f~, ~--file~ path to gpx file or folder
+- ~-p~, ~--provider~ geocode provider, ~google~ (default) or ~osm~
+- ~-u~, ~--url~ url to nominatim server (osm only)
+- ~--output-format~ use ~--verbose~ flag to see available placeholder, default ~{address}~
+
+** Example
+#+BEGIN_EXAMPLE
+memacs_gpx.py -f memacs/tests/data/sample.gpx
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+* Memacs for GPX files          :Memacs:gps:
+** <2017-04-01 Sat 10:50> Eggenberger Allee 9, 8020 Graz, Austria	:network:
+   :PROPERTIES:
+   :LATITUDE:   47.0693
+   :LONGITUDE:  15.4076001
+   :ID:         c2dc4f2289d79cff4cf27faa95863f8cb5b8cb21
+   :END:
+
+** <2017-04-01 Sat 10:51> Alte Poststraße 149, 8020 Graz, Austria	:network:
+   :PROPERTIES:
+   :LATITUDE:   47.0690816
+   :LONGITUDE:  15.4099195
+   :ID:         17ad7a67128b74b85d04998bca02d11abe66dd1f
+   :END:
+#+END_EXAMPLE
+
+ -----
+
+#+BEGIN_EXAMPLE
+memacs_gpx.py -f memacs/tests/data/sample.gpx -p osm
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+* Memacs for GPX files          :Memacs:location:
+** <2017-04-01 Sat 10:50> FH Joanneum - Prüffeld, 150, Alte Poststraße, Gries, Graz, Steiermark, 8020, Österreich	:network:
+   :PROPERTIES:
+   :LATITUDE:   47.0693
+   :LONGITUDE:  15.4076001
+   :ID:         c2dc4f2289d79cff4cf27faa95863f8cb5b8cb21
+   :END:
+
+** <2017-04-01 Sat 10:51> FH Joanneum, 149, Alte Poststraße, Gries, Graz, Steiermark, 8020, Österreich	:network:
+   :PROPERTIES:
+   :LATITUDE:   47.0690816
+   :LONGITUDE:  15.4099195
+   :ID:         17ad7a67128b74b85d04998bca02d11abe66dd1f
+   :END:
+#+END_EXAMPLE
