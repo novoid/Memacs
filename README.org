@@ -1,5 +1,4 @@
-
-## Time-stamp: <2017-12-26 15:56:49 vk>
+## Time-stamp: <2017-12-26 16:02:56 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -95,15 +94,16 @@ This module is an example for developers: [[docs/memacs_csv.org]]
 
 Those modules are *not* adopted to the new unified framework yet:
 
-- *mails*:
-  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
-  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see [[emails/maildir/memacs_maildir.org]]
-
+- [[tmp/emails/maildir/memacs_maildir.org][maildir]]
+- [[tmp/emails/mbox/memacs_mbox.org][mbox]] (also useful for newsgroups)
+  - see also [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
 - *bank account*:
   - [[http://www.easybank.at][easybank.at]]: see [[tmp/bank_statements/easybank.at/memacs_easybank.org]]
 
 - *newsgroups*
   - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
+
+Following modules exist as a rough idea only and might get implemented some day (by you?):
 
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
