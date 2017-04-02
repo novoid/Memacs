@@ -1,13 +1,7 @@
 #  -*- mode: org -*-
-# This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
-#+TITLE: memacs-mumail
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-* Current status
-
-Experimental. Please report any problems you find opening a new issue
-or writing an email to [[mailto:memacs-mumail@m.stennes.org][memacs-mumail@m.stennes.org]]
-
-* Data Source
+* memacs-mumail
 
 This memacs module will parse your emails after they are indexed by
 [[http://www.djcbsoftware.nl/code/mu/][mu]].  Clickable links have just been tested with [[http://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] (an emacs-based
@@ -15,8 +9,14 @@ e-mail client based on mu) as frontend.
 
 Look [[https://gist.github.com/areina/3879626][here]] for how to set up mu4e with offlineimap.
 
-* Example Invocation
-** Basic Invocation
+** Options
+
+- ~-q~, ~--query~, mu search query
+- ~-m~, ~--me~, space separated list of mail addresses that belongs to you
+- ~-d~, ~--delegation~, adds NEXT or WAITING state to flagged messages
+
+** Example Invocation
+*** Basic Invocation
 
 : $ memacs_mumail.py -q "mu find maildir:'/YourMaildir'" -m "you@domain.org"
 
@@ -41,12 +41,12 @@ An entry with an email to you will look like this
 :   :ID:         591a0dcf4bf83c8b508324c7c954d2e7b1a0b822
 :   :END:
 
-** Advanced Invocation
+*** Advanced Invocation
 
 You can use the -q param with every input for mu find that is
 supported by mu. Check out [[http://www.djcbsoftware.nl/code/mu/cheatsheet.html][Mu Cheatsheet]] and [[http://manpages.ubuntu.com/manpages/lucid/man1/mu-find.1.html][ubuntu manuals mu]].
 
-*** Unread emails
+**** Unread emails
 
 For people using the agenda a lot, it could be nice to see new
 (unread) emails directly on the agenda. The following invocation will
@@ -57,7 +57,7 @@ list just all unread mails in your Maildir
 To see the emails on your agenda add the -o param and include the
 selected .org-file (not .org_archive) to your org-agenda-files.
 
-*** Flagged emails
+**** Flagged emails
 
 Do you know this: You check your mails on the road, but you do not
 have time to reply and when you are at home you forget it?
@@ -97,7 +97,7 @@ To get both unread and flagged emails use the following invocation
 
 : $ memacs_mumail.py -q "mu find maildir:'/YourMaildir' and flag:flagged or maildir:'/YourMaildir' and flag:unread " -m "you@domain.org"
 
-*** Using a catch-all domain
+**** Using a catch-all domain
 
 When you are using a catch-all domain, you can use the following
 invocation to check whether the email was sent from or to you.

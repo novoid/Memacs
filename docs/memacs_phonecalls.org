@@ -9,11 +9,11 @@ Done. If you find any errors do not hesitate to contact us.
 
 ** Data Source
 
-Any [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartphone logs your phone calls. Various software tools
+Any Android smartphone logs your phone calls. Various software tools
 let you backup those call logs to your computer.
 
 This module takes call logs from the backup app [[https://play.google.com/store/apps/details?id%3Dcom.riteshsahu.CallLogBackupRestore&hl%3Den][Call Logs Backup &
-Restore]] and puts it into your Agenda - right where it belongs.
+Restore]] and puts it into your Agenda - right where it belongs to.
 
 *** Example Phonecall XML Backup File
 

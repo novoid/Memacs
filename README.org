@@ -1,105 +1,99 @@
-## Time-stamp: <2015-03-29 13:20:39 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-*What were you doing* on February 14th of 2007? On *which tasks* were
+* Memacs
+#+BEGIN_QUOTE
+Visualize your life in [[http://orgmode.org/][Org mode]] 
+#+END_QUOTE
+
+What were you doing on February 14th of 2007? On which tasks were
 you working on that very day you met your girl friend? When was the
-*last appointments* with your dentist? *Who called* you on telephone
-during that meeting with your customer last month?
+last appointment with your dentist? Who called you on telephone
+during that meeting with your customer last month? Most people can not 
+answer such questions. With *Memacs* you can!
 
-Most people can not answer such questions. *With Memacs you can!*
+Memacs extracts metadata such as subjects, timestamps, contact information,
+etc. from many different existing data sources (like filenames, emails,
+photos, tweets, bookmarks, ...) on your computer and generates files which are
+readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with the help of 
+[[http://orgmode.org/][Org-mode]].
 
-Memacs extracts metadata (subjects, timestamps, contact information,
-...) from many different existing data sources (file names, emails,
-tweets, bookmarks, ...) on your computer and generates files which are
-readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]].
-
-Example:
-:    emails              -> memacs-maildir.org \ 
-:    SMS                 -> memacs-sms.org      |
-:    RSS-feeds           -> memacs_rss.py       |
-:    bank statements     -> memacs-easybank.py  |>  Memacs
-:    postings            -> memacs-slrn.org     |
-:    git repository logs -> memacs_git.py       |
-:    svn repository logs -> memacs_svn.py      /
-:    |_________________|   |_________________|     |______|
-:    your personal data      Memacs modules        Org-mode
+#+BEGIN_HTML
+<img src="tmp/example.png" alt="example">
+#+END_HTML
 
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
-are called «Memacs modules» or short «module».
+are called *Memacs modules* or short /module/.
 
-For usage, best practices, frequently asked questions and their answers
-please refer to the file [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]. 
+** Table of Contents
+- [[#installation][Installation]]
+- [[#getting-started][Getting started]]
+- [[#memacs-modules][Memacs modules]]
+- [[#example-story][Example story]]
+- [[#background][Background]]
+- [[#contribute][Contribute]]
+- [[#license][License]]
 
-If you want to use Memacs modules, please refer to the [[https://github.com/novoid/Memacs/blob/master/INSTALL.org][INSTALL.org]]
-file.
+** Installation
 
-For more information about the modules, visit [[https://github.com/novoid/Memacs/tree/master/docs][the docs folder]].
+- clone or download repository from github
+- make sure to use *python v2.7*
+- create a virtualenv or
+- export/set ~PYTHONPATH~ 
 
-- *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
-- *skills necessary*: creating/modifying shell script code; creating
-  scheduled tasks
-- *project hosted on* https://github.com/novoid/Memacs
+: PYTHONPATH=/path/to/memacs
 
-* Memacs Modules
+- install dependencies
 
-*Existing modules*:
+: pip install -r requirements.txt
 
-- *battery*: see docs/memacs_battery.org
-- *file name timestamps*: see docs/memacs_filenametimestamps.org
-- *emails*:
-  - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]]: see docs/memacs_imap.org
-  - [[http://www.djcbsoftware.nl/code/mu/][Mu]]: see docs/memacs_mumail.org
-- *RSS*: see docs/memacs_rss.org i.e. for twitter, github, …
-- *GPS*: 
-  - [[http://code.mendhak.com/gpslogger/][GPX]] files: see docs/memacs_gpx.org
-- *versioning systems*:
-  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see docs/memacs_git.org
-  - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see docs/svn/memacs_svn.org
-- *time tracker*:
-  - [[https://arbtt.nomeata.de][arbtt]]: see docs/memacs_arbtt.org
-- *messenger*:
-  - WhatsApp: see docs/memacs_whatsapp.org
-- *calendar*:
-  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see docs/memacs_calendar.org
-  - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see docs/memacs_csv.org
-- *SMS*: see docs/memacs_sms.org
-- *Phonecalls*: see docs/memacs_phonecalls.org
-- *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
-- *Music*: see docs/memacs_lastfm.org
-- *example*: see docs/memacs_csv.org
-  This module is just for developing purposes.
+** Getting started
+
+Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it contains many tips and tricks on how to meet your requirements and on how to choose a reasonable setup.
+
+- choose the modules you want to use and set them up one by one
+- each [[#memacs-modules][module]] shares global options in common but also comes with its very own set of custom arguments
+- read the files in the ~docs~ folder and start modules from the ~bin~ folder of Memacs
+- start the module of your choice with the argument ~--help~, e.g. ~bin/memacs_csv.py --help~
+- you probably want to *develop and test a module invocation* in the command line and 
+- when it works, set up a periodical invocation (cronjob)
+
+** Memacs modules
+
+- [[docs/memacs_arbtt.org][arbtt]]
+- [[docs/memacs_battery.org][battery]]
+- [[docs/memacs_csv.org][csv]]
+- *[[docs/memacs_filenametimestamps.org][filenametimestamps]]*
+- [[docs/memacs_git.org][git]]
+- [[docs/memacs_gpx.org][gpx]]
+- [[docs/memacs_ical.org][ical]]
+- [[docs/memacs_imap.org][imap]]
+- [[docs/memacs_lastfm.org][lastfm]]
+- [[docs/memacs_mumail.org][mu]]
+- [[docs/memacs_phonecalls.org][phonecalls]]
+- [[docs/memacs_photos.org][photos]]
+- [[docs/memacs_rss.org][rss]]
+- [[docs/memacs_simplephonelogs.org][simplephonelogs]]
+- [[docs/memacs_sms.org][sms]]
+- [[docs/memacs_svn.org][svn]]
+- [[docs/memacs_twitter.org][twitter]]
+- [[docs/memacs_whatsapp.org][whatsapp]]
 
 Those modules are *not* adopted to the new unified framework yet:
 
-- *mails*:
-  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see emails/mbox/works-for-me-hack/memacs_mbox.org
-  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs_maildir.org
+- [[tmp/emails/maildir/memacs_maildir.org][maildir]]
+- [[tmp/emails/mbox/memacs_mbox.org][mbox]] (also useful for newsgroups)
+  
+Following modules exist as a rough idea only and might get implemented some day (by you?):
 
-- *bank account*:
-  - [[http://www.easybank.at][easybank.at]]: see tmp/bank_statements/easybank.at/memacs_easybank.org
+- [[tmp/tagstore/memacs_tagstore.org][tagstore]]
+- [[tmp/jpilot/memacs_jpilot-todos.org][jpilot todos]]
+- [[tmp/jpilot/memacs_jpilot-datebook.org][jpilot datebook]]
+- [[tmp/calendars/memacs_googlecalendar.org][google calendar]]
 
-- *newsgroups*
-  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see emails/mbox/works-for-me-hack/memacs_mbox.org 
+** Example story
 
-Following modules exist as a rough idea only and might get implemented
-some day (by you?):
-
-- *[[http://tagstore.org][tagstore]]*: see tmp/tagstore/memacs_tagstore.org
-
-- *calendar*:
-  - [[http://www.jpilot.org/][JPilot]]-datebook: see calendar/memacs_jpilot-datebook.org
-
-- *tasks*:
-  - [[http://www.jpilot.org/][JPilot]]-todos: see tasklists/jpilot-todos/memacs_jpilot-todos.org
-
-- *blog_systems*:
-  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see blog_systems/serendipity/memacs_serendipity.org
-
-
-* Example Story
-
-Imagine you are already using Memacs.
+Imagine you're already using Memacs.
 
 When remembering that day, when you joined an interesting talk about
 «[[http://en.wikipedia.org/wiki/Getting_Things_Done][Getting Things Done]]» (GTD), you start up your GNU Emacs with your main
@@ -115,7 +109,7 @@ This image contains a slide you found interesting and which you
 photographed using your sleek smartphone. Who would remember having
 taken a picture during a talk?
 
-Ten minutes after the talk you wrote a short message on [[http://Titter.com][Twitter]] where
+Ten minutes after the talk you wrote a short message on [[http://twitter.com][Twitter]] where
 you mentioned useful URLs for your followers. This time those URLs are
 handy for yourself too! (Twitter-module)
 
@@ -140,7 +134,7 @@ Emails, files, bookmarks, and so forth are linked rather than copied.
 limitations of Microsoft based file systems]]; like «2011-02-14T14.35.42
 ideas.jpg»
 
-* Background
+** Background
 
 In 1945, [[http://en.wikipedia.org/wiki/Vannevar_Bush][Vannevar Bush]] wrote a famous article «[[http://en.wikipedia.org/wiki/As_We_May_Think][As We May Think]]» where
 he develops the idea of having a «memory extender» called *Memex*. The
@@ -185,16 +179,16 @@ Karl. It might give you ideas for your workflows as well.
 Karl also wrote [[http://arxiv.org/abs/1304.1332][a whitepaper on Memacs]] which describes Memacs from a
 scientists point of view.
 
-* Contribute! We are looking for your ideas:
+** Contribute
 
-If you want to contribute to this cool project, please fork and
-contribute or write an additional module!
-
-See docs/FAQs_and_Best_Practices.org for more developing information.
-
-We are sure that there are a *lot* of cool ideas for other modules out
-there! This is just the beginning!
+We are looking for your ideas! If you want to contribute to this project, please fork and
+contribute or write an additional module! We are sure that there are a lot of cool ideas for 
+other modules out there. This is just the beginning!
 
 Memacs is designed with respect to minimal effort for new modules.
 
 We are using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development (TDD)]].
+
+** License
+
+Memacs is licensed under the GPLv3 [[LICENSE.org][license]].

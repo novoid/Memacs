@@ -1,22 +1,30 @@
 # -*- coding: utf-8 mode: org -*-
-# Time-stamp: <2012-01-05 20:37:32 armin>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-* Data Source
+* memacs-ical
+
+** Options
+
+- ~-c~, ~--calendar-url~, url to calendar
+- ~-cf~, ~--calendar-file~, path to calendar
+- ~-x~, ~--exclude~, path to one or more folders separated with ~|~
+
+** Data Source
 [[http://en.wikipedia.org/wiki/ICalendar][ICalendar]] is a widely used format for defining calendars.
 A lot of Calendar-Services like i.e. Google give you a *private* url of your calendar, which you can easily use with this module.
 
-* Requirements
+** Requirements
 - icalendar Python package
   install it with
   : $ easy install icalendar
 
-* Example Invocation:
+** Example Invocation:
 
-** Calendar at a url
+*** Calendar at a url
 
 : /path/to/Memacs/calendars/memacs_calendar.py -c "http://example.com/foo.ics" -o "/home/user/orgmode/memacs/calendar.org_archive"
 
-** Calendar file
+*** Calendar file
 
 : /path/to/Memacs/calendars/memacs_calendar.py -cf "/home/user/calendars/private.ics" -o "/home/user/orgmode/memacs/calendar.org_archive"
 
