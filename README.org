@@ -1,5 +1,5 @@
 
-## Time-stamp: <2015-03-29 13:20:39 vk>
+## Time-stamp: <2017-12-26 15:56:49 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -15,7 +15,7 @@ tweets, bookmarks, ...) on your computer and generates files which are
 readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]].
 
 Example:
-:    emails              -> memacs-maildir.org \ 
+:    emails              -> memacs-maildir.org \
 :    SMS                 -> memacs-sms.org      |
 :    RSS-feeds           -> memacs_rss.py       |
 :    bank statements     -> memacs-easybank.py  |>  Memacs
@@ -27,49 +27,71 @@ Example:
 
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
-are called «Memacs modules» or short «module».
+are called *Memacs modules* or short /module/.
 
 For usage, best practices, frequently asked questions and their answers
-please refer to the file [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]. 
-
-If you want to use Memacs modules, please refer to the [[https://github.com/novoid/Memacs/blob/master/INSTALL.org][INSTALL.org]]
-file.
-
-For more information about the modules, visit [[https://github.com/novoid/Memacs/tree/master/docs][the docs folder]].
+please refer to the file [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]].
 
 - *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
 - *skills necessary*: creating/modifying shell script code; creating
   scheduled tasks
 - *project hosted on* https://github.com/novoid/Memacs
 
-* Memacs Modules
+** Table of Contents
+- [[#installation][Installation]]
+- [[#getting-started][Getting started]]
+- [[#memacs-modules][Memacs modules]]
+- [[#example-story][Example story]]
+- [[#background][Background]]
+- [[#contribute][Contribute]]
+- [[#license][License]]
 
-*Existing modules*:
+** Installation
 
-- *battery*: see [[docs/memacs_battery.org]]
-- *file name timestamps*: see [[docs/memacs_filenametimestamps.org]]
-- *emails*:
-  - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]]: see [[docs/memacs_imap.org]]
-  - [[http://www.djcbsoftware.nl/code/mu/][Mu]]: see [[docs/memacs_mumail.org]]
-- *RSS*: see [[docs/memacs_rss.org]] i.e. for twitter, github, …
-- *GPS*: 
-  - [[http://code.mendhak.com/gpslogger/][GPX]] files: see [[docs/memacs_gpx.org]]
-- *versioning systems*:
-  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see [[docs/memacs_git.org]]
-  - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see [[docs/svn/memacs_svn.org]]
-- *time tracker*:
-  - [[https://arbtt.nomeata.de][arbtt]]: see [[docs/memacs_arbtt.org]]
-- *messenger*:
-  - WhatsApp: see [[docs/memacs_whatsapp.org]]
-- *calendar*:
-  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see [[docs/memacs_ical.org]]
-  - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see [[docs/memacs_csv.org]]
-- *SMS*: see [[docs/memacs_sms.org]]
-- *Phonecalls*: see [[docs/memacs_phonecalls.org]]
-- *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see [[docs/memacs_photos.org]]
-- *Music*: see [[docs/memacs_lastfm.org]]
-- *example*: see [[docs/memacs_csv.org]]
-  This module is just for developing purposes.
+- clone or download repository from github
+- make sure to use *python v2.7*
+- create a virtualenv or
+- export/set ~PYTHONPATH~
+
+: PYTHONPATH=/path/to/memacs
+
+- install dependencies
+
+: pip install -r requirements.txt
+
+** Getting started
+
+Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it contains many tips and tricks on how to meet your requirements and on how to choose a reasonable setup.
+
+- choose the modules you want to use and set them up one by one
+- each [[#memacs-modules][module]] shares global options in common but also comes with its very own set of custom arguments
+- read the files in the ~docs~ folder and start modules from the ~bin~ folder of Memacs
+- start the module of your choice with the argument ~--help~, e.g. ~bin/memacs_csv.py --help~
+- you probably want to *develop and test a module invocation* in the command line and
+- when it works, set up a periodical invocation (cronjob)
+
+** Memacs modules
+
+- [[docs/memacs_arbtt.org][arbtt]]
+- [[docs/memacs_battery.org][battery]]
+- [[docs/memacs_csv.org][csv]]
+- [[docs/memacs_filenametimestamps.org][filenametimestamps]]
+- [[docs/memacs_git.org][git]]
+- [[docs/memacs_gpx.org][gpx]]
+- [[docs/memacs_ical.org][ical]]
+- [[docs/memacs_imap.org][imap]]
+- [[docs/memacs_lastfm.org][lastfm]]
+- [[docs/memacs_mumail.org][mu]]
+- [[docs/memacs_phonecalls.org][phonecalls]]
+- [[docs/memacs_photos.org][photos]]
+- [[docs/memacs_rss.org][rss]]
+- [[docs/memacs_simplephonelogs.org][simplephonelogs]]
+- [[docs/memacs_sms.org][sms]]
+- [[docs/memacs_svn.org][svn]]
+- [[docs/memacs_twitter.org][twitter]]
+- [[docs/memacs_whatsapp.org][whatsapp]]
+
+This module is an example for developers: [[docs/memacs_csv.org]]
 
 Those modules are *not* adopted to the new unified framework yet:
 
