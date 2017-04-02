@@ -49,12 +49,12 @@ are called *Memacs modules* or short /module/.
 
 ** Getting started
 
-Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it contains many tips and tricks on how to meet your requirements and on how to choose a reasonable setup
+Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it contains many tips and tricks on how to meet your requirements and on how to choose a reasonable setup.
 
 - choose the modules you want to use and set them up one by one
 - each [[#memacs-modules][module]] shares global options in common but also comes with its very own set of custom arguments
 - read the files in the ~docs~ folder and start modules from the ~bin~ folder of Memacs
-- start the module of your choice with the argument ~--help~, e.g. ~bin/memacs_csv --help~
+- start the module of your choice with the argument ~--help~, e.g. ~bin/memacs_csv.py --help~
 - you probably want to *develop and test a module invocation* in the command line and 
 - when it works, set up a periodical invocation (cronjob)
 
