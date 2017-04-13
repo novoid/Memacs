@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# Time-stamp: <2016-11-25 18:49:05 vk>
+# Time-stamp: <2017-04-13 22:19:39 vk>
 
 import datetime
 import logging
@@ -62,7 +62,8 @@ class SimplePhoneLogsMemacs(Memacs):
 
     def _generateOrgentry(self, e_time, e_name, e_batt, e_uptime,
                           e_last_opposite_occurrence, e_last_occurrence,
-                          prev_office_sum, prev_office_first_begin, office_lunchbreak):
+                          prev_office_sum, prev_office_first_begin, office_lunchbreak,
+                          battery_percentage_when_booting):
         """
         takes the data from the parameters and generates an Org-mode entry.
 
@@ -76,6 +77,7 @@ class SimplePhoneLogsMemacs(Memacs):
         @param prev_office_sum: holds the sum of all previous working duration today
         @param prev_office_first_begin: holds the first time-stamp of wifi-office for today
         @param office_lunchbreak: array of begin- and end-time-stamp of lunch-break (if any)
+        @param battery_percentage_when_booting: battery level of previous boot (only set if no charge event was in-between)
         """
 
         assert e_time.__class__ == datetime.datetime
@@ -84,13 +86,14 @@ class SimplePhoneLogsMemacs(Memacs):
         assert e_uptime.__class__ == unicode
         assert (e_last_opposite_occurrence.__class__ == datetime.datetime or not e_last_opposite_occurrence)
         assert (e_last_occurrence.__class__ == datetime.datetime or not e_last_occurrence)
+        assert (not battery_percentage_when_booting or battery_percentage_when_booting.__class__ == int)
 
         last_info = u''
         in_between_hms = u''
         in_between_s = u''
         ignore_occurrence = False
 
-        ## convert parameters to be writable:
+        # convert parameters to be writable:
         office_sum = prev_office_sum
         office_first_begin = prev_office_first_begin
 
@@ -109,11 +112,11 @@ class SimplePhoneLogsMemacs(Memacs):
             else:
                 last_info = u' (not ' + e_name.replace('wifi-', '') + u' for '
 
-            ## handle special case: office hours
+            # handle special case: office hours
             additional_paren_string = ""
             if e_name == 'wifi-office-end':
                 office_total = None
-                ## calculate office_sum and office_total
+                # calculate office_sum and office_total
                 if not office_sum:
                     office_sum = (e_time - e_last_opposite_occurrence).seconds
                     office_total = office_sum
@@ -127,7 +130,7 @@ class SimplePhoneLogsMemacs(Memacs):
                 assert(type(office_sum) == int)
                 assert(type(in_between_s) == int)
 
-                ## come up with the additional office-hours string:
+                # come up with the additional office-hours string:
                 additional_paren_string = u'; today ' + OrgFormat.get_hms_from_sec(office_sum) + \
                     '; today total ' + OrgFormat.get_hms_from_sec(office_total)
 
@@ -142,24 +145,22 @@ class SimplePhoneLogsMemacs(Memacs):
                 (e_time - e_last_occurrence).days * 3600 * 24
             in_between_hms = unicode(OrgFormat.get_hms_from_sec(in_between_s))
 
-
-        ## handle special case: office hours
+        # handle special case: office hours
         if e_name == 'wifi-office':
             if not office_sum or not office_first_begin:
-                ## new day
+                # new day
                 office_first_begin = e_time
             else:
-                ## check if we've found a lunch-break (first wifi-office between 11:30-13:00 where not office for > 17min)
+                # check if we've found a lunch-break (first wifi-office between 11:30-13:00 where not office for > 17min)
                 if e_time.time() > datetime.time(11, 30) and e_time.time() < datetime.time(13, 00) and e_last_opposite_occurrence:
                     if e_last_opposite_occurrence.date() == e_time.date() and in_between_s > (17 * 60) and in_between_s < (80 * 60):
-                        #import pdb; pdb.set_trace()
                         office_lunchbreak = [e_last_opposite_occurrence.time(), e_time.time()]
 
-        ## handle special case: boot without previous shutdown = crash
+        # handle special case: boot without previous shutdown = crash
         if (e_name == u'boot') and \
                 (e_last_occurrence and e_last_opposite_occurrence) and \
                 (e_last_occurrence > e_last_opposite_occurrence):
-            ## last boot is more recent than last shutdown -> crash has happened
+            # last boot is more recent than last shutdown -> crash has happened
             last_info = u' after crash'
             in_between_hms = u''
             in_between_s = u''
@@ -171,6 +172,7 @@ class SimplePhoneLogsMemacs(Memacs):
         properties.add("BATT-LEVEL", e_batt)
         properties.add("UPTIME", OrgFormat.get_hms_from_sec(int(e_uptime)))
         properties.add("UPTIME-S", e_uptime)
+
         if e_name == 'wifi-office-end' and office_lunchbreak:
             properties.add("OFFICE-SUMMARY",
                            e_last_opposite_occurrence.strftime('| %Y-%m-%d | %a ') +
@@ -183,6 +185,16 @@ class SimplePhoneLogsMemacs(Memacs):
                            e_last_opposite_occurrence.strftime('| %Y-%m-%d | %a ') +
                            prev_office_first_begin.strftime('| %H:%M | 11:30 | 12:00 ') +
                            e_time.strftime('| %H:%M | | |'))
+        elif e_name == 'shutdown':
+            if battery_percentage_when_booting:
+                batt_diff_from_boot_to_shutdown =  battery_percentage_when_booting - int(e_batt)
+                if batt_diff_from_boot_to_shutdown >= 20:
+                    # hypothetical run-time (in hours; derived from boot to shutdown) of the device for 100% battery capacity
+                    # Note: battery_percentage_when_booting is set to False when a "charge-start"-event is recognized between boot and shutdown
+                    # Note: only calculated when at least 20 percent difference of battery level between boot and shutdown
+                    runtime_extrapolation = 100 * int(e_uptime) / batt_diff_from_boot_to_shutdown / 3600
+                    properties.add("HOURS_RUNTIME_EXTRAPOLATION", runtime_extrapolation)
+
         self._writer.write_org_subitem(timestamp=e_time.strftime('<%Y-%m-%d %a %H:%M>'),
                                        output=e_name + last_info,
                                        properties=properties)
@@ -218,12 +230,12 @@ class SimplePhoneLogsMemacs(Memacs):
     def _parse_data(self, data):
         """parses the phone log data"""
 
-        last_occurrences = {}  ## holds the last occurrences of each event
-
-        office_day = None  ## holds the current day (in order to recognize day change)
-        office_first_begin = None  ## holds the time-stamp of the first appearance of wifi-office
-        office_sum = None  ## holds the sum of periods of all office-durations for this day
-        office_lunchbreak = [] ## array of begin and end time of lunch break
+        last_occurrences = {}      # holds the previous occurrences of each event
+        office_day = None          # holds the current day (in order to recognize day change)
+        office_first_begin = None  # holds the time-stamp of the first appearance of wifi-office
+        office_sum = None          # holds the sum of periods of all office-durations for this day
+        office_lunchbreak = []     # array of begin and end time of lunch break
+        battery_percentage_when_booting = False  # percentage of battery status of previous boot (only set if no charging event happened)
 
         for line in data.split('\n'):
 
@@ -240,21 +252,31 @@ class SimplePhoneLogsMemacs(Memacs):
                 logging.debug("line does not match! (skipping this line)")
                 continue
 
-            ## extracting the components to easy to use variables:
+            # extracting the components to easy to use variables:
             datestamp = components.groups()[self.RE_ID_DATESTAMP].strip()
             hours = int(components.groups()[self.RE_ID_HOURS].strip())
             minutes = int(components.groups()[self.RE_ID_MINUTES].strip())
             e_name = unicode(components.groups()[self.RE_ID_NAME].strip())
+            opposite_e_name = self._determine_opposite_eventname(e_name)
             e_batt = components.groups()[self.RE_ID_BATT].strip()
             e_uptime = components.groups()[self.RE_ID_UPTIME].strip()
 
-            ## generating a datestamp object from the time information:
+            # generating a datestamp object from the time information:
             e_time = datetime.datetime(int(datestamp.split('-')[0]),
                                        int(datestamp.split('-')[1]),
                                        int(datestamp.split('-')[2]),
                                        hours, minutes)
 
-            ## resetting office_day
+            if e_name == 'boot':
+                battery_percentage_when_booting = int(e_batt)
+            elif e_name == 'charging-start':
+                # set to False when a charging event is detected between boot and shutdown (which would render H_RUNTIME_EXTRAPOLATION useless)
+                battery_percentage_when_booting = False
+            elif e_name == 'shutdown' and opposite_e_name not in last_occurrences:
+                # set to False when there is no boot in-between two shutdown events
+                battery_percentage_when_booting = False
+
+            # resetting office_day
             if e_name == 'wifi-office':
                 if not office_day:
                     office_sum = None
@@ -265,11 +287,10 @@ class SimplePhoneLogsMemacs(Memacs):
                     office_day = datestamp
                     office_lunchbreak = []
 
-            opposite_e_name = self._determine_opposite_eventname(e_name)
             if opposite_e_name in last_occurrences:
                 e_last_opposite_occurrence = last_occurrences[opposite_e_name]
             else:
-                ## no previous occurrence of the opposite event type
+                # no previous occurrence of the opposite event type
                 e_last_opposite_occurrence = False
 
             if e_name in last_occurrences:
@@ -282,7 +303,8 @@ class SimplePhoneLogsMemacs(Memacs):
                                        e_uptime,
                                        e_last_opposite_occurrence,
                                        last_time,
-                                       office_sum, office_first_begin, office_lunchbreak)
+                                       office_sum, office_first_begin, office_lunchbreak,
+                                       battery_percentage_when_booting)
 
             ## update last_occurrences-dict
             if not ignore_occurrence:

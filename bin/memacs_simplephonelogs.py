@@ -1,11 +1,11 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-04 18:50:29 vk>
+# Time-stamp: <2017-04-13 22:23:42 vk>
 
 from memacs.simplephonelogs import SimplePhoneLogsMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2013-04-04"
+PROG_VERSION_NUMBER = u"0.2"
+PROG_VERSION_DATE = u"2017-04-13"
 PROG_SHORT_DESCRIPTION = u"Memacs for simple phone logs"
 PROG_TAG = u"phonelog"
 PROG_DESCRIPTION = u"""
@@ -23,7 +23,9 @@ sample log file: (DATE # TIME # WHAT # BATTERYSTATE # UPTIMESECONDS)
 2012-11-21 # 08.17 # wifi-home-end # 92 # 3378
 2012-11-21 # 13.06 # boot # 77 # 124
 2012-11-21 # 21.08 # wifi-home # 50 # 29033
-2012-11-22 # 00.12 # shutdown #  39 # 40089
+2012-11-21 # 21.15 # charging-start # 49 # 29253
+2012-11-21 # 21.45 # charging-end # 95 # 32758
+2012-11-22 # 00.12 # shutdown #  83 # 40089
 2012-11-29 # 08.47 # boot # 100 # 114
 2012-11-29 # 08.48 # wifi-home # 100 # 118
 2012-11-29 # 09.41 # wifi-home-end # 98 # 3317
