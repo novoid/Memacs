@@ -62,7 +62,7 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
 - *messenger*:
   - WhatsApp: see [[docs/memacs_whatsapp.org]]
 - *calendar*:
-  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see [[docs/memacs_calendar.org]]
+  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see [[docs/memacs_ical.org]]
   - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see [[docs/memacs_csv.org]]
 - *SMS*: see [[docs/memacs_sms.org]]
 - *Phonecalls*: see [[docs/memacs_phonecalls.org]]
