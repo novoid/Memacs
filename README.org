@@ -1,3 +1,4 @@
+
 ## Time-stamp: <2015-03-29 13:20:39 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -45,56 +46,56 @@ For more information about the modules, visit [[https://github.com/novoid/Memacs
 
 *Existing modules*:
 
-- *battery*: see docs/memacs_battery.org
-- *file name timestamps*: see docs/memacs_filenametimestamps.org
+- *battery*: see [[docs/memacs_battery.org]]
+- *file name timestamps*: see [[docs/memacs_filenametimestamps.org]]
 - *emails*:
-  - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]]: see docs/memacs_imap.org
-  - [[http://www.djcbsoftware.nl/code/mu/][Mu]]: see docs/memacs_mumail.org
-- *RSS*: see docs/memacs_rss.org i.e. for twitter, github, …
+  - [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]]: see [[docs/memacs_imap.org]]
+  - [[http://www.djcbsoftware.nl/code/mu/][Mu]]: see [[docs/memacs_mumail.org]]
+- *RSS*: see [[docs/memacs_rss.org]] i.e. for twitter, github, …
 - *GPS*: 
-  - [[http://code.mendhak.com/gpslogger/][GPX]] files: see docs/memacs_gpx.org
+  - [[http://code.mendhak.com/gpslogger/][GPX]] files: see [[docs/memacs_gpx.org]]
 - *versioning systems*:
-  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see docs/memacs_git.org
-  - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see docs/svn/memacs_svn.org
+  - [[http://en.wikipedia.org/wiki/Git_(software)][git]]: see [[docs/memacs_git.org]]
+  - [[http://en.wikipedia.org/wiki/Subversion][Subversion]]: see [[docs/svn/memacs_svn.org]]
 - *time tracker*:
-  - [[https://arbtt.nomeata.de][arbtt]]: see docs/memacs_arbtt.org
+  - [[https://arbtt.nomeata.de][arbtt]]: see [[docs/memacs_arbtt.org]]
 - *messenger*:
-  - WhatsApp: see docs/memacs_whatsapp.org
+  - WhatsApp: see [[docs/memacs_whatsapp.org]]
 - *calendar*:
-  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see docs/memacs_calendar.org
-  - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see docs/memacs_csv.org
-- *SMS*: see docs/memacs_sms.org
-- *Phonecalls*: see docs/memacs_phonecalls.org
-- *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see docs/memacs_photos.org
-- *Music*: see docs/memacs_lastfm.org
-- *example*: see docs/memacs_csv.org
+  - [[http://en.wikipedia.org/wiki/ICalendar][iCalendar]] (i.e. Google Calendar): see [[docs/memacs_calendar.org]]
+  - [[http://en.wikipedia.org/wiki/Comma_seperated_values][CSV]] Files: see [[docs/memacs_csv.org]]
+- *SMS*: see [[docs/memacs_sms.org]]
+- *Phonecalls*: see [[docs/memacs_phonecalls.org]]
+- *Photos* (date from [[http://en.wikipedia.org/wiki/Exif][EXIF]]): see [[docs/memacs_photos.org]]
+- *Music*: see [[docs/memacs_lastfm.org]]
+- *example*: see [[docs/memacs_csv.org]]
   This module is just for developing purposes.
 
 Those modules are *not* adopted to the new unified framework yet:
 
 - *mails*:
-  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see emails/mbox/works-for-me-hack/memacs_mbox.org
-  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see emails/maildir/memacs_maildir.org
+  - *[[http://en.wikipedia.org/wiki/Mbox][mbox]]-format*: see [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
+  - [[http://en.wikipedia.org/wiki/Maildir][Maildir]]: see [[emails/maildir/memacs_maildir.org]]
 
 - *bank account*:
-  - [[http://www.easybank.at][easybank.at]]: see tmp/bank_statements/easybank.at/memacs_easybank.org
+  - [[http://www.easybank.at][easybank.at]]: see [[tmp/bank_statements/easybank.at/memacs_easybank.org]]
 
 - *newsgroups*
-  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see emails/mbox/works-for-me-hack/memacs_mbox.org 
+  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
 
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
 
-- *[[http://tagstore.org][tagstore]]*: see tmp/tagstore/memacs_tagstore.org
+- *[[http://tagstore.org][tagstore]]*: see [[tmp/tagstore/memacs_tagstore.org]]
 
 - *calendar*:
-  - [[http://www.jpilot.org/][JPilot]]-datebook: see calendar/memacs_jpilot-datebook.org
+  - [[http://www.jpilot.org/][JPilot]]-datebook: see [[calendar/memacs_jpilot-datebook.org]]
 
 - *tasks*:
-  - [[http://www.jpilot.org/][JPilot]]-todos: see tasklists/jpilot-todos/memacs_jpilot-todos.org
+  - [[http://www.jpilot.org/][JPilot]]-todos: see [[tasklists/jpilot-todos/memacs_jpilot-todos.org]]
 
 - *blog_systems*:
-  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see blog_systems/serendipity/memacs_serendipity.org
+  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see [[blog_systems/serendipity/memacs_serendipity.org]]
 
 
 * Example Story
@@ -190,7 +191,7 @@ scientists point of view.
 If you want to contribute to this cool project, please fork and
 contribute or write an additional module!
 
-See docs/FAQs_and_Best_Practices.org for more developing information.
+See [[docs/FAQs_and_Best_Practices.org]] for more developing information.
 
 We are sure that there are a *lot* of cool ideas for other modules out
 there! This is just the beginning!
