@@ -86,7 +86,7 @@ Those modules are *not* adopted to the new unified framework yet:
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
 
-- *[[http://tagstore.org][tagstore]]*: see [[tmp/tagstore/memacs_tagstore.org]]
+- *[[http://tagstore.org][tagstore]]*: see [[tmp/tagstore/memacs-tagstore.org]]
 
 - *calendar*:
   - [[http://www.jpilot.org/][JPilot]]-datebook: see [[calendar/memacs_jpilot-datebook.org]]
