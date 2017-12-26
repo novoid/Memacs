@@ -1,13 +1,7 @@
-## Time-stamp: <2012-05-22 09:06:42 armin>
+## Time-stamp: <2017-12-26 16:25:09 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-svn
-
-** Current status
-
-Done, if you find any errors do not hesitate to contact us.
-
-** Data Source
 
 Version control systems are quite commonly used to manage all kind of
 data. [[http://en.wikipedia.org/wiki/Apache_Subversion][Subversion (SVN)]] is a modern system that is widely used for
@@ -16,6 +10,10 @@ revision control.
 This memacs module parses output of:
 : svn log --xml
 
+** Options
+
+- ~-f~, ~--file~, path to a file which contains output from following svn command: ~svn log --xml~
+- ~-g~, ~--grep-author~, if you wanna parse only messages from a specific person, format ~<author>~ of author to grep
 
 ** Example Invocation
 

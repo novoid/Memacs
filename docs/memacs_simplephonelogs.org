@@ -1,14 +1,14 @@
-## Time-stamp: <2013-10-18 16:45:36 vk>
+## Time-stamp: <2017-12-26 16:24:44 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-simplephonelogs
 
-** Current status
-
-Done. If you find any errors do not hesitate to contact us.
-
 If you would like to use this module to track your office hours,
 please refer to the example in [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#tracking-office-hours][FAQs and Best Practices]].
+
+** Options
+
+- ~-f~, ~--file~, path to phone log file
 
 ** Data Source
 
@@ -165,7 +165,7 @@ Minimal:
 : bin/memacs_simplephonelogs.py --file /path/to/phone-log/logs.csv > phonelog.org_archive
 
 Fancy:
-: PYTHONPATH="~/src/memacs/memacs:" bin/memacs_simplephonelogs.py --file /path/to/phone-log/logs.csv --output phonelog.org_archive --columns-header "%65ITEM(What) %10UPTIME(uptime) %10BATT-LEVEL(batt) %10IN-BETWEEN-S(in-between)" 
+: PYTHONPATH="~/src/memacs/memacs:" bin/memacs_simplephonelogs.py --file /path/to/phone-log/logs.csv --output phonelog.org_archive --columns-header "%65ITEM(What) %10UPTIME(uptime) %10BATT-LEVEL(batt) %10IN-BETWEEN-S(in-between)"
 
 ** Example Org-mode entries
 
@@ -178,24 +178,24 @@ This is the Org-mode result file of the example log file from above:
 : * Memacs for simple phone logs          :Memacs:phonelog:
 : ** <2013-04-06 Sat 15:55> boot
 :    :PROPERTIES:
-:    :IN-BETWEEN:   
+:    :IN-BETWEEN:
 :    :BATT-LEVEL:   84
 :    :UPTIME:       7:09:21
 :    :UPTIME-S:     25761
-:    :IN-BETWEEN-S: 
+:    :IN-BETWEEN-S:
 :    :ID:           c5b661d6a8f4d6764de222fe4c5d9b3809f407f2
 :    :END:
-: 
+:
 : ** <2013-04-06 Sat 22:10> wifi-home
 :    :PROPERTIES:
-:    :IN-BETWEEN:   
+:    :IN-BETWEEN:
 :    :BATT-LEVEL:   75
 :    :UPTIME:       13:24:01
 :    :UPTIME-S:     48241
-:    :IN-BETWEEN-S: 
+:    :IN-BETWEEN-S:
 :    :ID:           e43d41ec999efd0437df37471efb4b5aff774f9a
 :    :END:
-: 
+:
 : ** <2013-04-06 Sat 23:31> shutdown (on for 7:36:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   7:36:00
@@ -205,7 +205,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 27360
 :    :ID:           2cfab66399455cb6907d4e413a7b2c3a5cf4778f
 :    :END:
-: 
+:
 : ** <2013-04-07 Sun 09:50> boot (off for 10:19:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   10:19:00
@@ -215,7 +215,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 37140
 :    :ID:           ea0194482671b593413f7f8115ec516cc26b4b93
 :    :END:
-: 
+:
 : ** <2013-04-07 Sun 17:55> wifi-home-end (home for 19:45:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   19:45:00
@@ -225,7 +225,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 71100
 :    :ID:           c5b49df472feaf4d85c17b652862f354191080b1
 :    :END:
-: 
+:
 : ** <2013-04-07 Sun 17:59> wifi-home (not home for 0:04:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   0:04:00
@@ -235,7 +235,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 240
 :    :ID:           584f367cb14158f9be8ea2afd0e976990791d7c1
 :    :END:
-: 
+:
 : ** <2013-04-07 Sun 21:06> wifi-home (not home for 3:11:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   3:11:00
@@ -245,17 +245,17 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 11460
 :    :ID:           c6a8391e2b167b9de3c2799096ed84489114352f
 :    :END:
-: 
+:
 : ** <2013-04-07 Sun 21:06> boot after crash
 :    :PROPERTIES:
-:    :IN-BETWEEN:   
+:    :IN-BETWEEN:
 :    :BATT-LEVEL:   68
 :    :UPTIME:       0:01:44
 :    :UPTIME-S:     104
-:    :IN-BETWEEN-S: 
+:    :IN-BETWEEN-S:
 :    :ID:           f1dd366c9104bc1dca357b4e27690337bf7cc209
 :    :END:
-: 
+:
 : ** <2013-04-08 Mon 00:19> shutdown (on for 14:29:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   14:29:00
@@ -265,7 +265,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 52140
 :    :ID:           16bcadaebb4fe7a5c27f624b355462edd35f7769
 :    :END:
-: 
+:
 : ** <2013-04-08 Mon 10:10> boot (off for 9:51:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   9:51:00
@@ -275,7 +275,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 35460
 :    :ID:           8c21fc93ba5e2784d614cbdab1bbe07188f56c2e
 :    :END:
-: 
+:
 : ** <2013-04-08 Mon 10:10> wifi-home (not home for 16:15:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   16:15:00
@@ -285,7 +285,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 58500
 :    :ID:           99874ecc984ea8439c401d3edec2765e76a9b0b4
 :    :END:
-: 
+:
 : ** <2013-04-09 Tue 00:11> shutdown (on for 14:01:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   14:01:00
@@ -295,7 +295,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 50460
 :    :ID:           fbc7611c3b92207be81f763d4ac8cddded0dc24b
 :    :END:
-: 
+:
 : ** <2013-04-09 Tue 09:02> boot (off for 8:51:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   8:51:00
@@ -305,7 +305,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 31860
 :    :ID:           0b65fa0ea8ec0ea744d9c42acbffb1bd9bc4ccf2
 :    :END:
-: 
+:
 : ** <2013-04-09 Tue 09:02> wifi-home (not home for 1d 15:07:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   39:07:00
@@ -315,7 +315,7 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 140820
 :    :ID:           5dda4b8862028a6acf7d1b8e5f497c44765f5cd4
 :    :END:
-: 
+:
 : ** <2013-04-09 Tue 12:42> wifi-home-end (home for 3:40:00)
 :    :PROPERTIES:
 :    :IN-BETWEEN:   3:40:00
@@ -325,7 +325,5 @@ This is the Org-mode result file of the example log file from above:
 :    :IN-BETWEEN-S: 13200
 :    :ID:           cfc66c9b44599f09e5558364a5485d06cf5a7f5d
 :    :END:
-: 
+:
 : * successfully parsed 15 entries by bin/memacs_simplephonelogs.py at [2013-04-09 Tue 19:42:50] in ~0.002607s .
-
-

@@ -1,17 +1,19 @@
-## Time-stamp: <2011-12-30 14:33:51 armin>
+## Time-stamp: <2017-12-26 16:19:50 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-imap
 
-** Current status
+** Options
 
-Done, if you find any errors do not hesitate to contact us.
+- ~-l~, ~--list-folders~, show possible folders of connection
+- ~-f~, ~--folder-name~, name of the folder to get emails from, when you don't know name call ~--list-folders~
 
 ** Data Source
 
 [[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol][IMAP]] is a popular protocol for retrieving e-mail. Many email servers support this protocol.
 
 ** Example Config File
+
 - sample config path and filename
 : ~/.emacs.d/memacs/gmail.ini
 - Content:
@@ -36,13 +38,16 @@ You will see possible folders. Now we can set one Folder:
 : $ /path/to/Memacs/emails/memacs_imap.py -c "~/.config.d/memacs/gmail.ini" --folder-name "INBOX"
 
 Add param -o like in other memacs modules to specify output file.
-** Performance:
+
+** Performance
+
 The performance of an orgfile with too many entries is very bad.
 There is an argument to fetch only the last x messages:
 : --fetch-number <int>
 i.e:
 : --fetch-number 1000
 fetches the last 1000 mails
+
 ** Example Orgmode entries
 
 We will probably visualize an e-mail from Maildir like this:

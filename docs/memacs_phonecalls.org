@@ -1,4 +1,4 @@
-## Time-stamp: <2013-04-10 16:06:32 vk>
+## Time-stamp: <2017-12-26 16:21:59 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-phonecalls
@@ -13,7 +13,7 @@ Any [[http://en.wikipedia.org/wiki/Android_(operating_system)][Android]] smartph
 let you backup those call logs to your computer.
 
 This module takes call logs from the backup app [[https://play.google.com/store/apps/details?id%3Dcom.riteshsahu.CallLogBackupRestore&hl%3Den][Call Logs Backup &
-Restore]] and puts it into your Agenda - right where it belongs.
+Restore]] and puts it into your Agenda - right where it belongs to.
 
 *** Example Phonecall XML Backup File
 

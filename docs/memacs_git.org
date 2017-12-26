@@ -1,7 +1,13 @@
-## Time-stamp: <2011-12-27 18:11:19 armin>
+## Time-stamp: <2017-12-26 16:22:57 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
-* memacs_git
+* memacs-git
+
+** Options
+
+- ~-f~, ~--file~, path to a file which contains output from following git command: ~git rev-list --all --pretty=raw~
+- ~-g~, ~--grep-user~, if you wanna parse only commit from a specific person. format ~<Forename Lastname>~ of user to grep
+- ~-e~, ~--encoding~, default encoding utf-8, see http://docs.python.org/library/codecs.html#standard-encodings for possible encodings
 
 ** Data Source
 

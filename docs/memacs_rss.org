@@ -1,16 +1,15 @@
-## Time-stamp: <2012-10-13 12:12:05 armin>
+## Time-stamp: <2017-12-26 16:23:52 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-rss
 
-** Current status
-
-Done, if you find any errors do not hesitate to contact us.
-
-** Data Source
-
 [[http://en.wikipedia.org/wiki/Rss][RSS]] is a widely used standard to distribute updates and content over
 the internet.
+
+** Options
+
+- ~-u~, ~--url~, url to an rss file
+- ~-f~, ~--file~, path to an rss file
 
 ** Dependencies
 

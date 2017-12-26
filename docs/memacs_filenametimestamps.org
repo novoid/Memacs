@@ -1,18 +1,21 @@
-## Time-stamp: <2017-01-02 20:22:41 vk>
+## Time-stamp: <2017-12-26 16:17:15 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
 
-** Current status
+Parse file names with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time
+stamp like =2011-02-14T14.35.42_img_0815.jpg= or =2011-02-14 slide GTD
+tools.jpg= contains a direct reference to a certain day (or time).
 
-Done, if you find any errors do not hesitate to contact us.
+** Options
 
-** Data Source
-
-Files with an filename that consists of an [[http://www.cl.cam.ac.uk/~mgk25/iso-time.html][ISO 8601]] time stamp like
-=2011-02-14T14.35.42_img_0815.jpg= or =2011-02-14 slide GTD tools.jpg=
-contains a direct reference to a certain day (or time).
-
+- ~f~, ~--folder~, path to a folder to search for filenametimestamps, multiple folders can be specified: -f /path1 -f /path2
+- ~x~, ~--exclude~, path to excluding folder, for more excludes use this: -x /path/exclude -x /path/exclude
+- ~--filelist~, file containing a list of files to process. either use ~--folder~ or ~--filelist~ argument, not both
+- ~--ignore-non-existing-items~, ignores non-existing files or folders within filelist
+- ~-l~, ~--follow-links~, follow symlinks, default False
+- ~--skip-file-time-extraction~, skip extraction of the file time in files containing only the date in the filename
+- ~--force-file-date-extraction~, force extraction of the file date even if there is no ISO datestamp in the filename
 
 ** Example Invocation
 

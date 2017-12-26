@@ -1,4 +1,4 @@
-## Time-stamp: <2017-12-26 16:08:35 vk>
+## Time-stamp: <2017-12-26 16:25:54 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -221,4 +221,4 @@ We are using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and [[htt
 
 * License
 
-Memacs is licensed under the GPLv3 [[LICENSE.org][license]].
+Memacs is licensed under the GPLv3 [[license.txt][license]].

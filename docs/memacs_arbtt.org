@@ -12,9 +12,11 @@ arbtt is a cross-platform, completely automatic time tracker.
 Works for me on Archlinux and Xubuntu 16.04 with arbtt v0.9. Please report any problems you find opening a new issue
 or writing an email to [[mailto:mankoell@gmail.com][mankoell@gmail.com]].
 
+Using ~arbtt-stats~ to dump intervals of tags or categories.
+
 ** Installation
 
-Make sure you've [[https://arbtt.nomeata.de][arbtt]] installed and [[http://arbtt.nomeata.de/doc/users_guide/configuration.html][configured]] properly.
+Make sure you've at least [[https://arbtt.nomeata.de][arbtt]] v0.9 installed and [[http://arbtt.nomeata.de/doc/users_guide/configuration.html][configured]] properly.
 
 *** Archlinux
 
@@ -26,9 +28,12 @@ You need to use [[https://wiki.archlinux.org/index.php/haskell#cabal-install][ca
 
 ~sudo apt-get install arbtt~
 
-** Data Source
+** Options
 
-Using ~arbtt-stats~ to dump intervals of tags or categories.
+- ~--logfile~, use this file instead of ~$HOME/.arbtt/capture.log~
+- ~--categorizefile~, use this file instead of ~$HOME/.arbtt/categorize.cfg~
+- ~--also-inactive~, include inactive samples
+- ~--intervals~, list intervals of tag or category (the latter has to end with a colon)
 
 ** Example Invocation
 
