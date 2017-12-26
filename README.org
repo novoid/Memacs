@@ -1,4 +1,4 @@
-## Time-stamp: <2017-12-26 16:02:56 vk>
+## Time-stamp: <2017-12-26 16:08:35 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -27,9 +27,6 @@ Example:
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
 are called *Memacs modules* or short /module/.
-
-For usage, best practices, frequently asked questions and their answers
-please refer to the file [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]].
 
 - *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
 - *skills necessary*: creating/modifying shell script code; creating
@@ -60,7 +57,9 @@ please refer to the file [[https://github.com/novoid/Memacs/blob/master/docs/FAQ
 
 ** Getting started
 
-Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it contains many tips and tricks on how to meet your requirements and on how to choose a reasonable setup.
+Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it
+contains many tips and tricks on how to meet your requirements and on
+how to choose a reasonable setup.
 
 - choose the modules you want to use and set them up one by one
 - each [[#memacs-modules][module]] shares global options in common but also comes with its very own set of custom arguments
@@ -103,8 +102,6 @@ Those modules are *not* adopted to the new unified framework yet:
 - *newsgroups*
   - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
 
-Following modules exist as a rough idea only and might get implemented some day (by you?):
-
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
 
@@ -138,7 +135,7 @@ This image contains a slide you found interesting and which you
 photographed using your sleek smartphone. Who would remember having
 taken a picture during a talk?
 
-Ten minutes after the talk you wrote a short message on [[http://Titter.com][Twitter]] where
+Ten minutes after the talk you wrote a short message on [[http://Twitter.com][Twitter]] where
 you mentioned useful URLs for your followers. This time those URLs are
 handy for yourself too! (Twitter-module)
 
@@ -221,3 +218,7 @@ there! This is just the beginning!
 Memacs is designed with respect to minimal effort for new modules.
 
 We are using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development (TDD)]].
+
+* License
+
+Memacs is licensed under the GPLv3 [[LICENSE.org][license]].
