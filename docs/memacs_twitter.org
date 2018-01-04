@@ -25,7 +25,7 @@ and write to your Twitter account.
 
 You need to obtain an Authorization Url. Create and run the following program:
 
-#+begin_src python :shebang #!/usr/bin/python2 :tangle ./twitter_get_auth.py :exports none :noweb yes
+#+begin_src python :shebang #!/usr/bin/env python2 :tangle ./twitter_get_auth.py :exports none :noweb yes
 from twython import Twython
 APP_KEY = 'Your Consumer Key'
 APP_SECRET = 'Your Consumer Secret'
@@ -54,7 +54,7 @@ obtain your Final Tokens.
 Finally enter the data you got from running the program twitter_get_auth.py into the
 program below to get your final tokens.
 
-#+begin_src python :shebang #!/usr/bin/python2 :tangle ./twitter_get_final_tokens.py :exports none :noweb yes
+#+begin_src python :shebang #!/usr/bin/env python2 :tangle ./twitter_get_final_tokens.py :exports none :noweb yes
 from twython import Twython
 APP_KEY = 'Your Consumer Key'
 APP_SECRET = 'Your Consumer Secret'
