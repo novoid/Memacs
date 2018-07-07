@@ -1,7 +1,9 @@
-## Time-stamp: <2011-12-31 18:38:37 vk>
+## Time-stamp: <2018-07-07 10:15:01 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 #+TODO: TODO(t) NEXT(n) WISH(w) | DONE(d) CANCELED(c)
 #+TAGS: KarlVoit(k) DanielFussenegger(d) ArminWieser(a)
+
+*NOTE*: This file is highly outdated and might be removed.
 
 * TODO General [0/2]
 :PROPERTIES:
@@ -104,7 +106,7 @@ To decide (for each Module):
 - which format
 
 
-* TODO Modules [0/13]
+* TODO Modules [1/13]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 16:51>
 :ID: 2a38cc95-14e5-4fa3-a509-c77630d71c2d
@@ -151,7 +153,8 @@ Implementation issues:
 - probably best solution: find locate-database and parse directly
   instead of invoking "locate" and parse the output stream :-)
 
-** NEXT delicious-Module [0/0]
+** CANCELED delicious-Module [1/1]
+CLOSED: [2018-07-07 Sat 10:14]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:52>
 :ID: b5afbdc0-735d-4f19-9ad3-2b296c4496bd
@@ -176,7 +179,10 @@ Implementation issues:
 - delicious: export
   - HTML-Export entry «ADD_DATE="1253604732"»
 
-*** NEXT use [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or [[https://secure.delicious.com/settings/bookmarks/export][XML export]]
+2018-07-07: delicious is long dead
+
+*** CANCELED use [[http://www.delicious.com/help/api][delicious API]] and [[http://code.google.com/p/pydelicious/][pydelicious]] or [[https://secure.delicious.com/settings/bookmarks/export][XML export]]
+CLOSED: [2018-07-07 Sat 10:14]
 :PROPERTIES:
 :CREATED: <2011-07-23 Sat 17:46>
 :ID: 7832226d-8c6d-4b07-925d-3f8d42c6c197
