@@ -160,7 +160,7 @@ Implementation issues:
 see file:README.org::*delicious-Module
 
 #+begin_example
-: ** [[http://tagstore.org][tagstore]]           :Memacs:delicious:tools:research:
+: ** [[http://Karl-Voit.at/tagstore/][tagstore]]           :Memacs:delicious:tools:research:
 :   <2011-02-14 Mon 14:35>
 :   :PROPERTIES:
 :   :CREATED: <2011-02-14 Mon 14:35>

@@ -1,4 +1,4 @@
-## Time-stamp: <2017-12-26 16:25:54 vk>
+## Time-stamp: <2018-07-07 10:15:46 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 *What were you doing* on February 14th of 2007? On *which tasks* were
@@ -105,7 +105,7 @@ Those modules are *not* adopted to the new unified framework yet:
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
 
-- *[[http://tagstore.org][tagstore]]*: see [[tmp/tagstore/memacs-tagstore.org]]
+- *[[http://karl-voit.at/tagstore/][tagstore]]*: see [[tmp/tagstore/memacs-tagstore.org]]
 
 - *calendar*:
   - [[http://www.jpilot.org/][JPilot]]-datebook: see [[calendar/memacs_jpilot-datebook.org]]
@@ -192,7 +192,7 @@ too. For example you can choose to generate a condensed search result
 using a [[http://en.wikipedia.org/wiki/Boolean_algebra_(logic)][boolean combination]] of tags.
 
 Related to Memacs, the project founder developed a research software
-called *[[http://tagstore.org][tagstore]]*. This system allows users to store (local) files
+called *[[http://karl-voit.at/tagstore/][tagstore]]*. This system allows users to store (local) files
 using tags without a hierarchy of folders. As a natural extension,
 tagstore targets associative access for (local) files. You might want
 to check out tagstore too. Memacs and tagstore are a very useful
