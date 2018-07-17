@@ -93,8 +93,8 @@ class Csv(Memacs):
 
             # show time with the timestamp format, but only
             # if it contains at least hours and minutes
-            if not self._args.timestamp_format and \
-            (x in self._args.timestamp_format for x in ['%H', '%M']):
+            if not self._args.timestamp_format or \
+             (x in self._args.timestamp_format for x in ['%H', '%M']):
                 timestamp = OrgFormat.datetime(timestamp)
             else:
                 timestamp = OrgFormat.date(timestamp)
