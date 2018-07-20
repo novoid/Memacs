@@ -25,7 +25,7 @@ class Firefox(Memacs):
         Memacs._parser_add_arguments(self)
 
         self._parser.add_argument(
-            "-d", "--db", dest="historystore",
+            "-f", "--file", dest="historystore",
             action="store", type=file, required=True,
             help="""path to places.sqlite file. usually in
 /home/rgrau/.mozilla/firefox/__SOMETHING__.default/places.sqlite """)
@@ -69,7 +69,7 @@ class Firefox(Memacs):
         """
         conn = sqlite3.connect(os.path.abspath(self._args.historystore.name))
         query = conn.execute("""
-        select guid, url, title, visit_count,
+        select url, title, visit_count,
                -- datetime(last_visit_date/1000000, 'unixepoch')
                 last_visit_date
         from   moz_places
@@ -78,9 +78,8 @@ class Firefox(Memacs):
 
         for row in query:
             self._handle_url({
-                'guid'        : row[0],
-                'url'         : row[1],
-                'title'       : row[2],
-                'visit_count' : row[3],
-                'timestamp'   : row[4],
+                'url'         : row[0],
+                'title'       : row[1],
+                'visit_count' : row[2],
+                'timestamp'   : row[3],
             })

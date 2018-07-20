@@ -1,0 +1,31 @@
+## Time-stamp: <2018-07-21>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-firefox_history
+** Options
+
+   - ~-f~, ~--file~, path to a sqlite db file which contains the firefox history: ~~/.mozilla/firefox/123adsf1.default/places.sqlite~.
+   - ~--output-format~, format for the headers of the generated org. available tags are: ~guid, url, title, visit_count, timestamp~
+
+** Data Source
+
+The visited sites in Firefox are stored in a ~places.sqlite~ file that
+contains every url you visited along with the last visited date.
+
+We can use Memacs_firefox to generate a file with the datetimes of the urls:
+
+** Example Invocation
+*** Example with rev-list file:
+: python bin/memacs_firefox.py -f "/home/rgrau/.mozilla/firefox/3hlzuwen.default/places.sqlite" >~/org/mozhist.org_archive
+
+** Example Orgmode entries
+
+   With the default --output-format, a regular entry looks like this:
+
+: * Memacs for firefox url history           :Memacs:firefox:
+: ** <2018-07-20 Fri 23:51> [[https://github.com/kidd][kidd (Raimon Grau (rgrau))]]
+:   :PROPERTIES:
+:   :URL:         https://github.com/kidd
+:   :VISIT_COUNT: 1
+:   :ID:          68ff284b25379144784a214e7a0d19631c3d18f1
+:   :END:
