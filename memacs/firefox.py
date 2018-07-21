@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2017-02-07 19:25 manu>
+# Time-stamp: <2018-07-21 15:23:55 vk>
 
 import sqlite3
 import datetime
@@ -35,6 +35,10 @@ class Firefox(Memacs):
             action="store", default="[[{url}][{title}]]",
             help="format string to use for the headline")
 
+        self._parser.add_argument(
+            "--omit-drawer", dest="omit_drawer",
+            action="store_true", required=False,
+            help="""Use a minimal output format that omits the PROPERTIES drawer.""")
 
     def _parser_parse_args(self):
         """
@@ -47,11 +51,12 @@ class Firefox(Memacs):
     def _handle_url(self, params):
         timestamp = datetime.datetime.fromtimestamp(int(params['timestamp']/1000000))
 
-        properties = OrgProperties()
-        if (params['title'] == "") :
-            params['title'] = params['url']
-        properties.add('URL', params['url'])
-        properties.add('VISIT_COUNT', params['visit_count'])
+        if not self._args.omit_drawer:
+            properties = OrgProperties()
+            if (params['title'] == "") :
+                params['title'] = params['url']
+            properties.add('URL', params['url'])
+            properties.add('VISIT_COUNT', params['visit_count'])
 
         output = ""
         try:
@@ -59,9 +64,15 @@ class Firefox(Memacs):
         except Exception:
             pass
 
-        self._writer.write_org_subitem(
-            timestamp=OrgFormat.datetime(timestamp),
-            output=output, properties=properties)
+        if self._args.omit_drawer:
+            self._writer.write_org_subitem(
+                timestamp=OrgFormat.datetime(timestamp),
+                output=output, properties=None)
+        else:
+            self._writer.write_org_subitem(
+                timestamp=OrgFormat.datetime(timestamp),
+                output=output, properties=properties)
+
 
     def _main(self):
         """
