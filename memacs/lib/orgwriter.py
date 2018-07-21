@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-12-15 16:48:39 vk>
+# Time-stamp: <2018-07-21 15:39:47 vk>
 
 import codecs
 import sys
@@ -150,6 +150,8 @@ class OrgOutputWriter(object):
                             tags=[]):
         """
         internally called by write_org_subitem and __append_org_subitem
+
+        If properties is None, write only the header line
         """
         output_tags = ""
         if tags != []:
@@ -159,14 +161,15 @@ class OrgOutputWriter(object):
         timestamp = timestamp.strip()
 
         self.writeln(u"** " + timestamp + u" " + output + output_tags)
-        self.writeln(unicode(properties))
-        if self.__test:
-            self.write(properties.get_multiline_properties())
-        else:
-            self.writeln(properties.get_multiline_properties())
-        if note != "":
-            for n in note.splitlines():
-                self.writeln("   " + n)
+        if properties:
+            self.writeln(unicode(properties))
+            if self.__test:
+                self.write(properties.get_multiline_properties())
+            else:
+                self.writeln(properties.get_multiline_properties())
+            if note != "":
+                for n in note.splitlines():
+                    self.writeln("   " + n)
 
     def write_org_subitem(self,
                           timestamp,
@@ -195,7 +198,12 @@ class OrgOutputWriter(object):
         """
         assert (timestamp.__class__ == str or timestamp.__class__ == unicode)
         assert tags.__class__ == list or tags == None
-        assert properties.__class__ == OrgProperties
+        if self.__append:
+            ## for the append mode, the ID within properties is mandatory:
+            assert properties.__class__ == OrgProperties
+        else:
+            ## when properties is None, the whole drawer is omitted:
+            assert properties.__class__ == OrgProperties or not properties
         assert (output.__class__ == str or output.__class__ == unicode)
         assert (note.__class__ == str or note.__class__ == unicode)
 
