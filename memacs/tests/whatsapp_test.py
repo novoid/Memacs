@@ -26,7 +26,7 @@ class TestWhatsApp(unittest.TestCase):
         memacs = WhatsApp(argv=self.argv)
         data = memacs.test_get_entries()
 
-        self.assertEqual(data[0], '** <2016-10-15 Sat 20:18> Hello World!')
+        self.assertEqual(data[0], '** <2016-10-15 Sat 18:18> Hello World!')
         self.assertEqual(data[1], '   :PROPERTIES:')
         self.assertEqual(data[2], '   :TYPE:       INCOMING')
         self.assertEqual(data[3], '   :NUMBER:     00436604444333')
