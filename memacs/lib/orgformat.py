@@ -352,10 +352,11 @@ class OrgFormat(object):
         - [[mailto:bob.bobby@example.com][bob.bobby@excample.com]]
         """
         delimiter = contact_mail_string.find("<")
-
         if delimiter != -1:
             name = contact_mail_string[:delimiter].strip()
             mail = contact_mail_string[delimiter + 1:][:-1].strip()
+            if delimiter == 0:
+              return u"[[mailto:" + mail + u"][" + mail + u"]]"
             return u"[[mailto:" + mail + u"][" + name + u"]]"
 
         else:
