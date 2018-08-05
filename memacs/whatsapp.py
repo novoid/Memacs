@@ -41,6 +41,10 @@ class WhatsApp(Memacs):
             action="store_true", help="ignore sent messages")
 
         self._parser.add_argument(
+            "--ignore-groups", dest="ignore_groups",
+            action="store_true",help="ignore group messages")
+
+        self._parser.add_argument(
             "--output-format", dest="output_format",
             action="store", default="{verb} [[{handler}:{number}][{number}]]: {text}",
             help="format string to use for the headline")
@@ -73,6 +77,9 @@ class WhatsApp(Memacs):
             return True
 
         if msg['type'] is 'OUTGOING' and self._args.ignore_outgoing:
+            return True
+
+        if '-' in msg['number'] and self._args.ignore_groups:
             return True
 
     def _handle_message(self, msg):
