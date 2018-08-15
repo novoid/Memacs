@@ -75,9 +75,53 @@ The basic concept of using a Memacs module is following:
      - macOS: [[http://www.launchd.info/][launchd]]
 3. Think of another Memacs module you might want to try ;-)
 
-Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it
+Please make sure you also read the [[docs/FAQs_and_Best_Practices.org][FAQ's and best practices]], as it
 contains many tips and tricks on how to meet your requirements and on
 how to choose a reasonable setup.
+
+** Workflows
+
+Here are some workflows just to give you an initial impression how
+Memacs may give you much for digital fun.
+
+*** The Basics
+
+When one or more Memacs modules are set-up and data starts flowing in
+to your Memacs Org mode files, you have many options to use Memacs for
+your personal workflows.
+
+The most basic thing that changes with Memacs is that you might want
+to see Memacs-processed data in your agenda:
+
+Either you are generating (1) Org mode files that are within your
+[[https://orgmode.org/manual/Agenda-files.html][agenda files]] or you are generating (2) [[https://orgmode.org/manual/Archiving.html#Archiving][archive files]] whose more or
+less empty Org mode file stub is within your agenda files (as
+described in the [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#performance-and-scalability][FAQs]]).
+
+This way, the generated time-stamp information gets into your normal
+agenda (1) or in the [[https://orgmode.org/manual/Agenda-commands.html][extended in archives-mode]] (by pressing =v A= in
+your agenda) that also shows content of the archive files (2).
+
+*** Filename Time-Stamp and Friends
+
+A Memacs feature I personally use all the time provides a somewhat
+more complex workflow whose basic data is provided by the [[docs/memacs_filenametimestamps.org][filename
+time-stamp module]]. The module indexes all my files that contain
+ISO-datestamps or ISO-timestamps in their file names just like
+[[http://linux-sxs.org/utilities/updatedb.html][updatedb]] does for "locate".
+
+The fun starts, when this module is set-up and the file index is
+generated (nightly). With the elisp snippets mentioned in the module
+documentation, I am able to link to any of those files just by
+specifying their file name. This links never get broken since it does
+not matter in which folder files are located in any more.
+
+Please refer to [[https://github.com/novoid/dot-emacs/blob/master/config.org#handling-tsfile-links-memacs][my Emacs configuration]] and look out for all
+occurrences of =tsfile= (time-stamp file) which is my custom link for
+those files.
+
+I even extended this workflow such that my [[https://github.com/novoid/lazyblorg][blog system]] is able to [[https://github.com/novoid/lazyblorg/wiki/Images#embedding-tsfile-image-files][link
+to =tsfile:= images]] independent of their location. Awesome stuff.
 
 ** Memacs Modules
 
