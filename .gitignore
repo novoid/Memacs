@@ -3,3 +3,4 @@ dist/
 *error.org*
 *.org_archive
 tmp/**/*.xml
+update_pip.sh
