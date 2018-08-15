@@ -1,6 +1,3 @@
-## Time-stamp: <2018-07-21 09:54:06 vk>
-## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
-
 *What were you doing* on February 14th of 2007? On *which tasks* were
 you working on that very day you met your girl friend? When was the
 *last appointments* with your dentist? *Who called* you on telephone
@@ -56,20 +53,33 @@ are called *Memacs modules* or short /module/.
 
 : pip install -r requirements.txt
 
-** Getting started
+** Getting Started
+
+The basic concept of using a Memacs module is following:
+
+1. Choose a Memacs modules you want to use and set it up:
+   - Read the module descripion files in the ~docs~ folder.
+   - Each [[#memacs-modules][module]] shares global options but also comes with its very
+     own set of custom arguments.
+   - Manually start the module of your choice from the ~bin~ folder of
+     Memacs with the argument ~--help~, e.g. ~bin/memacs_csv.py
+     --help~ in your command line in order to get an overview of the
+     arguments of this module.
+   - You probably want to *develop and test a script (=.bat= or =.sh=)
+     for the module invocation* in the command line and ...
+2. When this script works as expected, set up a periodical invocation
+   so that your data gets converted to Org mode via Memacs regularily.
+   - This is usually done via operating system dependent methods:
+     - Windows: [[https://docs.microsoft.com/en-us/windows/desktop/taskschd/task-scheduler-start-page][Task Scheduler]]
+     - GNU/Linux: [[https://en.wikipedia.org/wiki/Cron][cron job]] or via [[https://wiki.archlinux.org/index.php/Systemd/Timers][systemd]]
+     - macOS: [[http://www.launchd.info/][launchd]]
+3. Think of another Memacs module you might want to try ;-)
 
 Please make sure you also read the [[FAQs_and_Best_Practices.org][FAQ's and best practices]], as it
 contains many tips and tricks on how to meet your requirements and on
 how to choose a reasonable setup.
 
-- choose the modules you want to use and set them up one by one
-- each [[#memacs-modules][module]] shares global options in common but also comes with its very own set of custom arguments
-- read the files in the ~docs~ folder and start modules from the ~bin~ folder of Memacs
-- start the module of your choice with the argument ~--help~, e.g. ~bin/memacs_csv.py --help~
-- you probably want to *develop and test a module invocation* in the command line and
-- when it works, set up a periodical invocation (cronjob)
-
-** Memacs modules
+** Memacs Modules
 
 - [[docs/memacs_arbtt.org][arbtt]]
 - [[docs/memacs_battery.org][battery]]
