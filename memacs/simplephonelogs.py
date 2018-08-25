@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# Time-stamp: <2017-04-13 22:19:39 vk>
+# Time-stamp: <2018-08-25 15:07:57 vk>
 
 import datetime
 import logging
@@ -167,6 +167,9 @@ class SimplePhoneLogsMemacs(Memacs):
             ignore_occurrence = True
 
         properties = OrgProperties()
+        if in_between_s == 0:  # omit in-between content of property when it is zero
+            in_between_s = u''
+            in_between_hms = u''
         properties.add("IN-BETWEEN", in_between_hms)
         properties.add("IN-BETWEEN-S", unicode(in_between_s))
         properties.add("BATT-LEVEL", e_batt)
