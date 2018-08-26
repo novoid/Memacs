@@ -16,13 +16,17 @@ class TestGPX(unittest.TestCase):
         argv = []
         argv.append('-f')
         argv.append(sample)
-        
+
         memacs = GPX(argv=argv)
         data = memacs.test_get_entries()
 
-        self.assertEqual(
-            data[0],
-            u"** <2017-04-01 Sat 10:50> Eggenberger Allee 9, 8020 Graz, Austria	:network:")
+        # both addresses are reasonable for the given coordinates and
+        # OSM seems to return the second one at 2018-08-25 while the
+        # first one was true when the original author developed this
+        # test:
+        self.assertTrue(
+            data[0] in [u'** <2017-04-01 Sat 10:50> Eggenberger Allee 9, 8020 Graz, Austria	:network:',
+                        u'** <2017-04-01 Sat 10:50> Alte Poststraße 150, 8020 Graz, Austria	:network:'])
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")
@@ -48,13 +52,17 @@ class TestGPX(unittest.TestCase):
         argv.append('-f')
         argv.append(sample)
         argv.append('-p osm')
-        
+
         memacs = GPX(argv=argv)
         data = memacs.test_get_entries()
 
-        self.assertEqual(
-            data[0],
-            u"** <2017-04-01 Sat 10:50> FH Joanneum - Prüffeld, 150, Alte Poststraße, Gries, Graz, Steiermark, 8020, Österreich	:network:")
+        # both addresses are reasonable for the given coordinates and
+        # OSM seems to return the second one at 2018-08-25 while the
+        # first one was true when the original author developed this
+        # test:
+        self.assertTrue(
+            data[0] in [u'** <2017-04-01 Sat 10:50> FH Joanneum - Prüffeld, 150, Alte Poststraße, Gries, Graz, Steiermark, 8020, Österreich	:network:',
+                        u'** <2017-04-01 Sat 10:50> FH Joanneum, 13, Eggenberger Allee, Eggenberg, Graz, Steiermark, 8020, Österreich	:network:'])
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")

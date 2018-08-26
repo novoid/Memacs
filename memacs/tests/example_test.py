@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2018-08-25 14:16:04 vk>
 
 import unittest
 from memacs.example import Foo
@@ -39,25 +39,25 @@ class TestFoo(unittest.TestCase):
             "** <1970-01-01 Thu 00:00> bar\t:tag1:tag2:")
         self.assertEqual(
             data[5],
-            "   bar notes")
-        self.assertEqual(
-            data[6],
-            "   foo notes")
-        self.assertEqual(
-            data[7],
             "   :PROPERTIES:")
         self.assertEqual(
-            data[8],
+            data[6],
             "   :DESCRIPTION:  foooo")
         self.assertEqual(
-            data[9],
+            data[7],
             "   :FOO-PROPERTY: asdf")
         self.assertEqual(
-            data[10],
+            data[8],
             "   :ID:           97521347348df02dab8bf86fbb6817c0af333a3f")
         self.assertEqual(
-            data[11],
+            data[9],
             "   :END:")
+        self.assertEqual(
+            data[10],
+            "   bar notes")
+        self.assertEqual(
+            data[11],
+            "   foo notes")
 
     def tearDown(self):
         pass

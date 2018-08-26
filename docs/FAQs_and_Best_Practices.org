@@ -1,5 +1,16 @@
-## Time-stamp: <2015-01-02 16:00:11 vk>
+## Time-stamp: <2018-08-15 14:09:01 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* User Base
+
+** Are there any relevant links to people using Memacs?
+:PROPERTIES:
+:CREATED:  [2018-08-15 Wed 13:50]
+:END:
+
+Starting with 2018-08-15, I try to collect relevant links that I stubled upon. Please send me suggestions as well.
+
+- [[https://www.reddit.com/r/emacs/comments/96kiqf/is_anyone_using_memacs/][2018-08-12: reddit-thread "Is anyone using Memacs?"]]
 
 * Best Practices
 
@@ -280,15 +291,15 @@ In this case, the lines have to look like this:
 
 : 2013-10-01 # 09.14 # wifi-office # 90 # 9742
 : 2013-10-01 # 19.00 # wifi-office-end # 66 # 44906
-: 
+:
 : 2013-10-02 # 08.57 # wifi-office # 98 # 4313
 : 2013-10-02 # 12.29 # wifi-office-end # 91 # 17066
 : 2013-10-02 # 16.02 # wifi-office # 91 # 29836
 : 2013-10-02 # 17.37 # wifi-office-end # 80 # 35537
-: 
+:
 : 2013-10-03 # 08.58 # wifi-office # 97 # 5300
 : 2013-10-03 # 18.41 # wifi-office-end # 69 # 11166
-: 
+:
 : 2013-10-04 # 09.02 # wifi-office # 97 # 5591
 : 2013-10-04 # 13.28 # wifi-office-end # 89 # 21512
 

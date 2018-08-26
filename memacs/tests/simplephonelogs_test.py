@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-09-16 19:13:46 vk>
+# Time-stamp: <2018-08-25 15:07:37 vk>
 
 import os
 import shutil
@@ -295,12 +295,13 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
 ** <2012-11-22 Thu 00:12> shutdown (on for 16:49:00)
    :PROPERTIES:
-   :IN-BETWEEN:   16:49:00
-   :BATT-LEVEL:   39
-   :UPTIME:       11:08:09
-   :UPTIME-S:     40089
-   :IN-BETWEEN-S: 60540
-   :ID:           050e9723a23cd063e869ae7464a2a6a9e878055a
+   :UPTIME:                      11:08:09
+   :IN-BETWEEN-S:                60540
+   :BATT-LEVEL:                  39
+   :UPTIME-S:                    40089
+   :IN-BETWEEN:                  16:49:00
+   :HOURS_RUNTIME_EXTRAPOLATION: 29
+   :ID:                          c6517ad43c7b092e63652c6710d3b40a24469e00
    :END:
 
 ** <2012-11-29 Thu 08:47> boot (off for 7d 8:35:00)
@@ -365,12 +366,13 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
 ** <2012-11-29 Thu 23:31> shutdown (on for 14:44:00)
    :PROPERTIES:
-   :IN-BETWEEN:   14:44:00
-   :BATT-LEVEL:   48
-   :UPTIME:       14:45:46
-   :UPTIME-S:     53146
-   :IN-BETWEEN-S: 53040
-   :ID:           1388ccd5e0c9a54e166b41be1431eae18b6c5031
+   :UPTIME:                      14:45:46
+   :IN-BETWEEN-S:                53040
+   :BATT-LEVEL:                  48
+   :UPTIME-S:                    53146
+   :IN-BETWEEN:                  14:44:00
+   :HOURS_RUNTIME_EXTRAPOLATION: 28
+   :ID:                          e33a8296c18383aa269512216bee7cb0709cf154
    :END:
 
 ** <2013-09-10 Tue 07:00> boot (off for 284d 7:29:00)
@@ -385,22 +387,23 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
 ** <2013-09-10 Tue 08:23> wifi-office
    :PROPERTIES:
-   :IN-BETWEEN:
+   :IN-BETWEEN:   6833:37:00
    :BATT-LEVEL:   95
    :UPTIME:       1:23:16
    :UPTIME-S:     4996
-   :IN-BETWEEN-S:
-   :ID:           721bed72de6ba9295e7e0c5ca26414b1cbc819b5
+   :IN-BETWEEN-S: 24601020
+   :ID:           3a911a82acc571da96a26e97e8efb90d92af7aa1
    :END:
 
 ** <2013-09-10 Tue 12:13> wifi-office-end (office for 3:50:00; today 3:50:00; today total 3:50:00)
    :PROPERTIES:
-   :IN-BETWEEN:   3:50:00
-   :BATT-LEVEL:   87
-   :UPTIME:       5:13:46
-   :UPTIME-S:     18826
-   :IN-BETWEEN-S: 13800
-   :ID:           c668c3a34c5b6e8260c8b512af4697079d48cdc0
+   :UPTIME:         5:13:46
+   :IN-BETWEEN-S:   13800
+   :BATT-LEVEL:     87
+   :UPTIME-S:       18826
+   :OFFICE-SUMMARY: | 2013-09-10 | Tue | 08:23 | 11:30 | 12:00 | 12:13 | | |
+   :IN-BETWEEN:     3:50:00
+   :ID:             6158ac648a4c61e5bcc3643c55617e0aab51ee5f
    :END:
 
 ** <2013-09-10 Tue 12:59> wifi-office (not office for 0:46:00)
@@ -415,22 +418,24 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
 ** <2013-09-10 Tue 17:46> wifi-office-end (office for 4:47:00; today 8:37:00; today total 9:23:00)
    :PROPERTIES:
-   :IN-BETWEEN:   4:47:00
-   :BATT-LEVEL:   73
-   :UPTIME:       10:47:06
-   :UPTIME-S:     38826
-   :IN-BETWEEN-S: 17220
-   :ID:           754e6caaa22dc067440d4e0336dc3fd9b58faf22
+   :UPTIME:         10:47:06
+   :IN-BETWEEN-S:   17220
+   :BATT-LEVEL:     73
+   :UPTIME-S:       38826
+   :OFFICE-SUMMARY: | 2013-09-10 | Tue | 08:23 | 12:13 | 12:59 | 17:46 | | |
+   :IN-BETWEEN:     4:47:00
+   :ID:             8f84a8afbde9c2d13f5c2c69fe968e075fe8deba
    :END:
 
 ** <2013-09-10 Tue 22:10> shutdown (on for 15:10:00)
    :PROPERTIES:
-   :IN-BETWEEN:   15:10:00
-   :BATT-LEVEL:   58
-   :UPTIME:       15:10:38
-   :UPTIME-S:     54638
-   :IN-BETWEEN-S: 54600
-   :ID:           e1fe490c7090ba02640e9f01bb6f29d7973fbb1d
+   :UPTIME:                      15:10:38
+   :IN-BETWEEN-S:                54600
+   :BATT-LEVEL:                  58
+   :UPTIME-S:                    54638
+   :IN-BETWEEN:                  15:10:00
+   :HOURS_RUNTIME_EXTRAPOLATION: 36
+   :ID:                          2685d2dd105f61ac6b7aa87d3a801ba09dfae246
    :END:
 
 ** <2013-09-11 Wed 12:15> boot (off for 14:05:00)
@@ -455,12 +460,13 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
 ** <2013-09-11 Wed 18:55> wifi-office-end (office for 5:36:00; today 5:36:00; today total 5:36:00)
    :PROPERTIES:
-   :IN-BETWEEN:   5:36:00
-   :BATT-LEVEL:   69
-   :UPTIME:       11:56:01
-   :UPTIME-S:     42961
-   :IN-BETWEEN-S: 20160
-   :ID:           d67377260ad01ee8794224392c858b171ddfbf11
+   :UPTIME:         11:56:01
+   :IN-BETWEEN-S:   20160
+   :BATT-LEVEL:     69
+   :UPTIME-S:       42961
+   :OFFICE-SUMMARY: | 2013-09-11 | Wed | 13:19 | 11:30 | 12:00 | 18:55 | | |
+   :IN-BETWEEN:     5:36:00
+   :ID:             fbd1832f936e5d9591817ecb855d3aac59bf2a4d
    :END:
 
 ** <2013-09-11 Wed 19:10> wifi-home (not home for 286d 2:06:00)
@@ -475,14 +481,14 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
 ** <2013-09-11 Wed 22:55> shutdown (on for 10:40:00)
    :PROPERTIES:
-   :IN-BETWEEN:   10:40:00
-   :BATT-LEVEL:   53
-   :UPTIME:       15:55:23
-   :UPTIME-S:     57323
-   :IN-BETWEEN-S: 38400
-   :ID:           740eab692eb65559a005511d8926546bd780d787
+   :UPTIME:                      15:55:23
+   :IN-BETWEEN-S:                38400
+   :BATT-LEVEL:                  53
+   :UPTIME-S:                    57323
+   :IN-BETWEEN:                  10:40:00
+   :HOURS_RUNTIME_EXTRAPOLATION: 46
+   :ID:                          48e6e7d7492c184785a84c9616a6985e7a7a6b8f
    :END:"""
-
 
 # Local Variables:
 # mode: flyspell
