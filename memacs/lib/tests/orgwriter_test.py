@@ -102,7 +102,7 @@ class TestOutputWriter(unittest.TestCase):
 
         # writing test output
         writer = OrgOutputWriter("short-des", "tag", test_filename)
-        writer.write(u"☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵\n")
+        writer.write("☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵\n")
         writer.close()
 
         # read and check the file_handler
@@ -110,7 +110,7 @@ class TestOutputWriter(unittest.TestCase):
         input_handler = file_handler.readlines()
         file_handler.close()
         self.assertEqual(input_handler[4],
-                         u"☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵\n",
+                         "☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰♱♲♳♴♵\n",
                          "utf-8 failure")
 
     def test_autotag(self):
@@ -142,7 +142,7 @@ class TestOutputWriter(unittest.TestCase):
         file_handler.close()
 
         self.assertEqual(input_handler[4],
-                         u"** <1970-01-01 Thu 00:00> Programming for my " + \
+                         "** <1970-01-01 Thu 00:00> Programming for my " + \
                          "bachelor thesis at University\t:programming:TUG:\n")
 
 

@@ -33,13 +33,13 @@ class PhoneLogsTestCase(unittest.TestCase):
 
         result_from_module = CommonReader.get_data_from_file(self.result_file)
 
-        result_from_module_without_header_and_last_line = u''
+        result_from_module_without_header_and_last_line = ''
 
         ## remove header and last line (which includes execution-specific timing)
         for line in result_from_module.split('\n'):
-            if line.startswith(u'* successfully parsed ') or \
-                    line.startswith(u'#') or \
-                    line.startswith(u'* '):
+            if line.startswith('* successfully parsed ') or \
+                    line.startswith('#') or \
+                    line.startswith('* '):
                 pass
             else:
                 line = line.rstrip()
@@ -70,7 +70,7 @@ class TestSimplePhoneLogsBasic(PhoneLogsTestCase):
 
         result = self.get_result_from_file()
 
-        self.assertEqual(result, u"""** <2013-04-05 Fri 13:39> boot
+        self.assertEqual(result, """** <2013-04-05 Fri 13:39> boot
    :PROPERTIES:
    :IN-BETWEEN:
    :BATT-LEVEL:   42
@@ -91,7 +91,7 @@ class TestSimplePhoneLogsBasic(PhoneLogsTestCase):
 
         result = self.get_result_from_file()
 
-        self.assertEqual(result, u"""** <1970-01-01 Thu 00:01> shutdown
+        self.assertEqual(result, """** <1970-01-01 Thu 00:01> shutdown
    :PROPERTIES:
    :IN-BETWEEN:
    :BATT-LEVEL:   1
@@ -125,7 +125,7 @@ class TestSimplePhoneLogsBasic(PhoneLogsTestCase):
 
         result = self.get_result_from_file()
 
-        self.assertEqual(result, u"""** <2013-04-05 Fri 13:25> shutdown
+        self.assertEqual(result, """** <2013-04-05 Fri 13:25> shutdown
    :PROPERTIES:
    :IN-BETWEEN:
    :BATT-LEVEL:   1
@@ -174,10 +174,10 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
     def test_determine_opposite_eventname(self):
 
-        self.assertEqual(self.logmodule._determine_opposite_eventname(u"boot"), u'shutdown')
-        self.assertEqual(self.logmodule._determine_opposite_eventname(u'shutdown'), u'boot')
-        self.assertEqual(self.logmodule._determine_opposite_eventname(u'foo'), u'foo-end')
-        self.assertEqual(self.logmodule._determine_opposite_eventname(u'foo-end'), u'foo')
+        self.assertEqual(self.logmodule._determine_opposite_eventname("boot"), 'shutdown')
+        self.assertEqual(self.logmodule._determine_opposite_eventname('shutdown'), 'boot')
+        self.assertEqual(self.logmodule._determine_opposite_eventname('foo'), 'foo-end')
+        self.assertEqual(self.logmodule._determine_opposite_eventname('foo-end'), 'foo')
 
 
     def test_parser(self):
@@ -193,7 +193,7 @@ class TestSimplePhoneLogsFull(PhoneLogsTestCase):
 
     maxDiff = None  ## show also large diff
 
-    reference_result = u"""** <2012-11-20 Tue 11:56> boot
+    reference_result = """** <2012-11-20 Tue 11:56> boot
    :PROPERTIES:
    :IN-BETWEEN:
    :BATT-LEVEL:   89

@@ -14,8 +14,8 @@ import pdb
 ## TODO:
 ## * fix parts marked with «FIXXME»
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-10-09"
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2011-10-09"
 INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
 
 ## better performance if ReEx is pre-compiled:
@@ -45,16 +45,16 @@ DATESTAMP_REGEX_YEARINDEX = 3
 ## search for: <numbers> <numbers> <nonnumbers>
 BANKCODE_NAME_REGEX = re.compile("(\d\d\d\d+) (\d\d\d\d+) (.*)")
 
-USAGE = u"\n\
-         " + sys.argv[0] + u"\n\
+USAGE = "\n\
+         " + sys.argv[0] + "\n\
 \n\
 This script parses bank statements «Umsatzliste» of easybank.at and generates \n\
 an Org-mode file whose entry lines show the transactions in Org-mode agenda.\n\
 \n\
-Usage:  " + sys.argv[0] + u" <options>\n\
+Usage:  " + sys.argv[0] + " <options>\n\
 \n\
 Example:\n\
-     " + sys.argv[0] + u" -f ~/bank/transactions.csv -o ~/org/bank.org_archive\n\
+     " + sys.argv[0] + " -f ~/bank/transactions.csv -o ~/org/bank.org_archive\n\
 \n\
 \n\
 :copyright: (c) 2011 by Karl Voit <tools@Karl-Voit.at>\n\
@@ -134,7 +134,7 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
     """handle known entries in the CSV file"""
 
     ## Auszahlung Maestro                           MC/000002270|BANKOMAT 29511 KARTE1 18.04.UM 11.34
-    if descriptionparts[0].startswith(u'Auszahlung Maestro  '):
+    if descriptionparts[0].startswith('Auszahlung Maestro  '):
         logging.debug("found special case \"Auszahlung Maestro\"")
         name = None
         if len(descriptionparts)>1:
@@ -143,7 +143,7 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
         else:
             logging.warning("could not find descriptionparts[1]; using " + \
                                 "\"Auszahlung Maestro\" instead")
-            shortdescription = u"Auszahlung Maestro"
+            shortdescription = "Auszahlung Maestro"
         logging.debug("shortdescr.=" + str(shortdescription))
             
 
@@ -153,7 +153,7 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
     ## Bezahlung Maestro      MC/000002272|BRAUN        0001  K1 19.04.UM 23.21|BRAUN DE PRAUN         \
     ## Bezahlung Maestro      MC/000002308|BILLA DANKT  6558  K1 11.06.UM 10.21|BILLA 6558             \
     ## Bezahlung Maestro      MC/000002337|AH10  K1 12.07.UM 11.46|Ecotec Computer Dat\\T imelkam       4850
-    elif descriptionparts[0].startswith(u'Bezahlung Maestro  ') and len(descriptionparts)>2:
+    elif descriptionparts[0].startswith('Bezahlung Maestro  ') and len(descriptionparts)>2:
         logging.debug("found special case \"Bezahlung Maestro\"")
         shortdescription = descriptionparts[2].strip()  ## the last part
         name = None
@@ -164,26 +164,26 @@ def extract_known_datasets(name, shortdescription, longdescription, descriptionp
         ##    logging.debug("sd[2]: [" + descriptionparts[2].strip() + "]")
         ##    re.sub(ur'OEBB (\d\d\d\d) FSA\\(.*)\s\s+(\\\d)?(\d\d+).*', ur'ÖBB Fahrschein \4 \2', descriptionparts[2].strip())
 
-    elif descriptionparts[0].startswith(u'easykreditkarte MasterCard '):
+    elif descriptionparts[0].startswith('easykreditkarte MasterCard '):
         logging.debug("found special case \"easykreditkarte\"")
         name = None
         shortdescription = "MasterCard Abrechnung"
 
-    elif len(descriptionparts)>1 and descriptionparts[0].startswith(u'Gutschrift Überweisung ') and \
-            descriptionparts[1].startswith(u'TECHNISCHE UNIVERSITAET GRAZ '):
+    elif len(descriptionparts)>1 and descriptionparts[0].startswith('Gutschrift Überweisung ') and \
+            descriptionparts[1].startswith('TECHNISCHE UNIVERSITAET GRAZ '):
         logging.debug("found special case \"Gutschrift Überweisung, TUG\"")
         name = "TU Graz"
         shortdescription = "Gehalt"
 
-    elif len(descriptionparts)>1 and descriptionparts[1] == u'Vergütung für Kontoführung':
+    elif len(descriptionparts)>1 and descriptionparts[1] == 'Vergütung für Kontoführung':
         logging.debug("found special case \"Vergütung für Kontoführung\"")
         name = "easybank"
-        shortdescription = u"Vergütung für Kontoführung"
+        shortdescription = "Vergütung für Kontoführung"
 
-    elif len(descriptionparts)>1 and descriptionparts[1] == u'Entgelt für Kontoführung':
+    elif len(descriptionparts)>1 and descriptionparts[1] == 'Entgelt für Kontoführung':
         logging.debug("found special case \"Entgelt für Kontoführung\"")
         name = "easybank"
-        shortdescription = u"Entgelt für Kontoführung"
+        shortdescription = "Entgelt für Kontoführung"
 
     if name:
         logging.debug("changed name to: " + name)
@@ -233,18 +233,18 @@ def generate_orgmodeentry(orgmodetimestamp, jumptarget, amount, currency, longde
     ## if name and shortdescription:
     ## ** $timestamp $amount $currency, [[contact:$name][name]], [[bank:$jumptarget][$(short)description]]
 
-    if currency == u"EUR":
-        currency = u"€"    # it's shorter :-)
+    if currency == "EUR":
+        currency = "€"    # it's shorter :-)
 
-    entry = u"** " + orgmodetimestamp + " " + amount + currency + ", "
+    entry = "** " + orgmodetimestamp + " " + amount + currency + ", "
 
     if name and len(name)>0:
-        entry += u"[[contact:" + name + "][" + name + "]], "
+        entry += "[[contact:" + name + "][" + name + "]], "
 
     if shortdescription:
-        entry += u"[[bank:" + jumptarget + "][" + shortdescription + "]]"
+        entry += "[[bank:" + jumptarget + "][" + shortdescription + "]]"
     else:
-        entry += u"[[bank:" + jumptarget + "][" + longdescription + "]]"
+        entry += "[[bank:" + jumptarget + "][" + longdescription + "]]"
 
     return entry
 
@@ -262,18 +262,18 @@ def parse_csvfile(filename, handler):
 
         row = line.split(";")
         logging.debug("--------------------------------------------------------")
-        logging.debug("processing row: " + unicode(str(row)) )
+        logging.debug("processing row: " + str(str(row)) )
 
         ## direct data:
         try:
-            longdescription = unicode(row[1])
-            amount = unicode(row[4])
-            currency = unicode(row[5]).strip()
-            jumptarget = unicode(row[2]) + ";" + unicode(row[3]) + ";" + unicode(row[4])
+            longdescription = str(row[1])
+            amount = str(row[4])
+            currency = str(row[5]).strip()
+            jumptarget = str(row[2]) + ";" + str(row[3]) + ";" + str(row[4])
         except UnicodeDecodeError as detail:
             logging.error("Encoding error: ")
-            print detail
-            logging.error("corresponding line is: [" + unicode(str(row)) + "]")
+            print(detail)
+            logging.error("corresponding line is: [" + str(str(row)) + "]")
             sys.exit(4)
 
         ## derived data:
@@ -290,7 +290,7 @@ def parse_csvfile(filename, handler):
         logging.debug("day of event: " + row[3] )
         logging.debug("amount: " + amount )
         #logging.debug("currency: " + currency )
-        day, month, year = extract_datestamp_from_eventday(unicode(row[3]))
+        day, month, year = extract_datestamp_from_eventday(str(row[3]))
         if timestampparts:
             month, day, hour, minute = extract_timestamp_from_timestampcomponents(timestampparts)
 
@@ -308,16 +308,16 @@ def write_output(handler, string):
     """write to stdout or to outfile"""
 
     if options.outputfile:
-        handler.write(unicode(string) + u"\n")
+        handler.write(str(string) + "\n")
     else:
-        print string
+        print(string)
 
 
 def main():
     """Main function"""
 
     if options.version:
-        print os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE
+        print(os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE)
         sys.exit(0)
 
     handle_logging()
@@ -326,13 +326,13 @@ def main():
         parser.error("Please provide an input file!")
 
     if not os.path.isfile(options.csvfilename):
-    	print USAGE
+    	print(USAGE)
     	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.csvfilename) + \
                           "\" is not an normal file!\n")
         sys.exit(2)
 
     if not options.overwrite and options.outputfile and os.path.isfile(options.outputfile):
-    	print USAGE
+    	print(USAGE)
     	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + \
                           "\" already exists!\n")
         sys.exit(3)
@@ -340,20 +340,20 @@ def main():
     if options.outputfile:
         handler = codecs.open(options.outputfile, 'w', "utf-8")
 
-    write_output(handler, u"## -*- coding: utf-8 -*-")
-    write_output(handler, u"## this file is generated by " + sys.argv[0] + \
+    write_output(handler, "## -*- coding: utf-8 -*-")
+    write_output(handler, "## this file is generated by " + sys.argv[0] + \
                      ". Any modifications will be overwritten upon next invocation!")
-    write_output(handler, u"##    parameter input filename:  " + options.csvfilename)
+    write_output(handler, "##    parameter input filename:  " + options.csvfilename)
     if options.outputfile:
-        write_output(handler, u"##    parameter output filename: " + options.outputfile)
+        write_output(handler, "##    parameter output filename: " + options.outputfile)
     else:
-        write_output(handler, u"##    parameter output filename: none, writing to stdout")
-    write_output(handler, u"##    invocation time:           " + INVOCATION_TIME)
-    write_output(handler, u"* bank transactions                          :Memacs:bank:")
+        write_output(handler, "##    parameter output filename: none, writing to stdout")
+    write_output(handler, "##    invocation time:           " + INVOCATION_TIME)
+    write_output(handler, "* bank transactions                          :Memacs:bank:")
 
     parse_csvfile(options.csvfilename, handler)
 
-    write_output(handler, u"* bank transcations above were successfully parsed by " + \
+    write_output(handler, "* bank transcations above were successfully parsed by " + \
                      sys.argv[0] + " at " + INVOCATION_TIME + ".\n\n")
 
     if options.outputfile:

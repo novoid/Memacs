@@ -5,9 +5,9 @@
 import os
 import logging
 import time
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
 import imghdr
 from PIL import Image
 from PIL.ExifTags import TAGS
@@ -24,16 +24,16 @@ def get_exif_datetime(filename):
         if hasattr(image, '_getexif'):
             exif_info = image._getexif()
             if exif_info != None:
-                for tag, value in exif_info.items():
+                for tag, value in list(exif_info.items()):
                     decoded_tag = TAGS.get(tag, tag)
                     exif_data_decoded[decoded_tag] = value
 
-        if "DateTime" in exif_data_decoded.keys():
+        if "DateTime" in list(exif_data_decoded.keys()):
             return exif_data_decoded["DateTime"]
-        if "DateTimeOriginal" in exif_data_decoded.keys():
+        if "DateTimeOriginal" in list(exif_data_decoded.keys()):
             return exif_data_decoded["DateTimeOriginal"]
 
-    except IOError, e:
+    except IOError as e:
         logging.warning("IOError at %s:", filename, e)
 
     return None
@@ -91,7 +91,7 @@ class PhotosMemacs(Memacs):
                     self._writer.write_org_subitem(timestamp=timestamp,
                                                    output=output,
                                                    properties=properties)
-                except ValueError, e:
+                except ValueError as e:
                     logging.warning("skipping: Could not parse " + \
                                     "timestamp for %s : %s", filename, e)
 

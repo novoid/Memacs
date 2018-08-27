@@ -9,10 +9,10 @@ import feedparser
 import calendar
 import time
 import re
-from lib.reader import CommonReader
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.reader import CommonReader
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class RssMemacs(Memacs):
@@ -95,8 +95,8 @@ class RssMemacs(Memacs):
         for i in  item:
             logging.debug(i)
             if i not in dont_parse:
-                if (type(i) == unicode or type(i) == str) and \
-                type(item[i]) == unicode and  item[i] != "":
+                if (type(i) == str or type(i) == str) and \
+                type(item[i]) == str and  item[i] != "":
                     if i == "id":
                         i = "guid"
                     properties.add(i, item[i])

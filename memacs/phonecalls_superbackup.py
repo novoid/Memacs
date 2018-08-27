@@ -8,10 +8,10 @@ import logging
 import xml.sax
 import time, datetime
 from xml.sax._exceptions import SAXParseException
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import CommonReader
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import CommonReader
+from .lib.orgproperty import OrgProperties
 #import pdb
 
 logging.basicConfig(filename='debug.log', level=logging.DEBUG)

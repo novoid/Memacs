@@ -4,11 +4,11 @@
 
 from memacs.filenametimestamps import FileNameTimeStamps
 
-PROG_VERSION_NUMBER = u"0.3"
-PROG_VERSION_DATE = u"2013-12-15"
-PROG_SHORT_DESCRIPTION = u"Memacs for file name time stamp"
-PROG_TAG = u"filedatestamps"
-PROG_DESCRIPTION = u"""This script parses a text file containing absolute paths
+PROG_VERSION_NUMBER = "0.3"
+PROG_VERSION_DATE = "2013-12-15"
+PROG_SHORT_DESCRIPTION = "Memacs for file name time stamp"
+PROG_TAG = "filedatestamps"
+PROG_DESCRIPTION = """This script parses a text file containing absolute paths
 to files with ISO datestamps and timestamps in their file names:
 
 Examples:  "2010-03-29T20.12 Divegraph.tiff"

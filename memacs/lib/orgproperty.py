@@ -32,8 +32,8 @@ class OrgProperties(object):
         @param tag: property tag
         @param value: property value
         """
-        tag = unicode(tag).strip().upper()
-        value = unicode(value).strip()
+        tag = str(tag).strip().upper()
+        value = str(value).strip()
 
         if tag == "ID":
             raise Exception("you should not specify an :ID: property " + \
@@ -48,7 +48,7 @@ class OrgProperties(object):
 
             value = " ".join(value_multiline)
 
-        self.__properties[tag] = unicode(value)
+        self.__properties[tag] = str(value)
 
     def set_id(self, value):
         """
@@ -64,12 +64,12 @@ class OrgProperties(object):
         try:
             del self.__properties[key]
             del self.__properties_multiline[key]
-        except Keyerror, e:
+        except Keyerror as e:
             pass
 
     def __get_property_max_tag_width(self):
         width = 10  # :PROPERTIES: has width 10
-        for key in self.__properties.keys():
+        for key in list(self.__properties.keys()):
             if width < len(key):
                 width = len(key)
         return width
@@ -94,7 +94,7 @@ class OrgProperties(object):
 
         ret = "   :PROPERTIES:\n"
 
-        for tag, value in self.__properties.iteritems():
+        for tag, value in self.__properties.items():
             ret += self.__format_tag(tag) + value + "\n"
 
         ret += self.__format_tag("ID") + self.get_id() + "\n"
@@ -108,8 +108,8 @@ class OrgProperties(object):
         """
         if self.__id != None:
             return self.__id
-        to_hash = "".join(map(unicode, self.__properties.values()))
-        to_hash += "".join(map(unicode, self.__properties.keys()))
+        to_hash = "".join(map(str, list(self.__properties.values())))
+        to_hash += "".join(map(str, list(self.__properties.keys())))
         to_hash += self.__data_for_hashing
         return hashlib.sha1(to_hash.encode('utf-8')).hexdigest()
 
@@ -138,7 +138,7 @@ class OrgProperties(object):
 
     def get_multiline_properties(self):
         ret = ""
-        for key in self.__properties_multiline.keys():
+        for key in list(self.__properties_multiline.keys()):
             ret += "\n   " + key + ":\n"
             ret += "\n".join(self.__properties_multiline[key])
             ret += "\n"

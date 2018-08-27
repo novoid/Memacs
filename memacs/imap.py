@@ -6,8 +6,8 @@ import sys
 import os
 import logging
 import imaplib
-from lib.memacs import Memacs
-from lib.mailparser import MailParser
+from .lib.memacs import Memacs
+from .lib.mailparser import MailParser
 
 
 class ImapMemacs(Memacs):
@@ -147,7 +147,7 @@ class ImapMemacs(Memacs):
                 logging.warning("Could not log in")
                 server.logout()
                 sys.exit(1)
-        except Exception, e:
+        except Exception as e:
             if "Invalid credentials" in e[0]:
                 logging.error("Invalid credentials cannot login")
                 server.logout()
@@ -168,7 +168,7 @@ class ImapMemacs(Memacs):
 
         try:
             server = imaplib.IMAP4_SSL(host, int(port))
-        except Exception, e:
+        except Exception as e:
             logging.warning("could not connect to server %s", host)
             sys.exit(1)
 

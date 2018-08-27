@@ -6,10 +6,10 @@ from memacs.lastfm import LastFM
 
 CONFIG_PARSER_NAME="memacs-lastfm"
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2017-02-24"
-PROG_SHORT_DESCRIPTION = u"Memacs for lastfm"
-PROG_TAG = u"lastfm"
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2017-02-24"
+PROG_SHORT_DESCRIPTION = "Memacs for lastfm"
+PROG_TAG = "lastfm"
 
 COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""

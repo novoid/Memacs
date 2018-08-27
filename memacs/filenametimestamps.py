@@ -3,10 +3,10 @@
 # Time-stamp: <2014-03-13 17:32:22 karl.voit>
 
 import os
-from lib.memacs import Memacs
-from lib.orgformat import OrgFormat
-from lib.orgformat import TimestampParseException
-from lib.orgproperty import OrgProperties
+from .lib.memacs import Memacs
+from .lib.orgformat import OrgFormat
+from .lib.orgformat import TimestampParseException
+from .lib.orgproperty import OrgProperties
 import re
 import logging
 import time
@@ -183,7 +183,7 @@ class FileNameTimeStamps(Memacs):
                 # an Exception TimestampParseException, which is thrown,
                 # wen strptime (parse from string to time tupel) fails
                 self.__parse_file(file, link)
-            except TimestampParseException, e:
+            except TimestampParseException as e:
                 logging.warning("False date(time) in file: %s", link)
 
     def _main(self):

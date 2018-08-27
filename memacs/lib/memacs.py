@@ -4,11 +4,11 @@
 
 import logging
 import traceback
-from argparser import MemacsArgumentParser
-from orgwriter import OrgOutputWriter
-from loggingsettings import handle_logging
+from .argparser import MemacsArgumentParser
+from .orgwriter import OrgOutputWriter
+from .loggingsettings import handle_logging
 import sys
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 
 class Memacs(object):
@@ -188,7 +188,7 @@ class Memacs(object):
             self._writer.close()
         except KeyboardInterrupt:
             logging.info("Received KeyboardInterrupt")
-        except SystemExit, e:
+        except SystemExit as e:
             # if we get an sys.exit() do exit!
             sys.exit(e)
         except:
@@ -238,7 +238,7 @@ class Memacs(object):
             for item in cfgp.items("autotag"):
                 tag = item[0]
                 values = item[1].split(",")
-                values = map(lambda x: x.strip(), values)
+                values = [x.strip() for x in values]
                 autotag_dict[tag] = values
 
         return autotag_dict

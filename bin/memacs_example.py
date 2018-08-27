@@ -4,11 +4,11 @@
 
 from memacs.example import Foo
 
-PROG_VERSION_NUMBER = u"0.0"
-PROG_VERSION_DATE = u"2011-12-18"
-PROG_SHORT_DESCRIPTION = u"Memacs for ... "
-PROG_TAG = u"mytag"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.0"
+PROG_VERSION_DATE = "2011-12-18"
+PROG_SHORT_DESCRIPTION = "Memacs for ... "
+PROG_TAG = "mytag"
+PROG_DESCRIPTION = """
 this class will do ....
 
 Then an Org-mode file is generated that contains ....

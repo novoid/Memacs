@@ -9,10 +9,10 @@ from dateutil import parser
 import os
 import sys
 from twython import Twython, TwythonError
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import UnicodeCsvReader
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import UnicodeCsvReader
+from .lib.orgproperty import OrgProperties
 
 class Twitter(Memacs):
     def _main(self):
@@ -51,7 +51,7 @@ class Twitter(Memacs):
                 output = tweet['text']
             except:
                logging.error(sys.exc_info()[0])
-               print "Error: ", sys.exc_info()[0]
+               print("Error: ", sys.exc_info()[0])
 
             data_for_hashing = output + timestamp + output
             properties = OrgProperties(data_for_hashing=data_for_hashing)
