@@ -61,9 +61,9 @@ class Battery(Memacs):
         output = self._args.output_format.format(battery=bat)
 
         properties = OrgProperties(data_for_hashing=timestamp)
-        properties.add("CYCLE_COUNT", bat.cycle_count)
-        properties.add("CAPACITY", '%s%%' % bat.capacity)
         properties.add("STATUS", bat.status.lower())
+        properties.add("CAPACITY", '%s%%' % bat.capacity)
+        properties.add("CYCLE_COUNT", bat.cycle_count)
 
         if consumption:
             properties.add("CONSUMPTION", '%.1f W' % consumption)
