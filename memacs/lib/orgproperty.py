@@ -81,7 +81,7 @@ class OrgProperties(object):
             whitespaces += " "
         return "   :" + tag + ": " + whitespaces
 
-    def __unicode__(self):
+    def __str__(self):
         """
         for representig properties in unicode with org formatting
         """
