@@ -383,8 +383,8 @@ class OrgFormat(object):
         assert sec.__class__ == int
 
         seconds = sec % 60
-        minutes = (sec / 60) % 60
-        hours = (sec / (60 * 60))
+        minutes = (sec // 60) % 60
+        hours = (sec // (60 * 60))
 
         return str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
@@ -402,15 +402,14 @@ class OrgFormat(object):
         assert sec.__class__ == int
 
         seconds = sec % 60
-        minutes = (sec / 60) % 60
-        hours = (sec / (60 * 60)) % 24
-        days = (sec / (60 * 60 * 24))
+        minutes = (sec // 60) % 60
+        hours = (sec // (60 * 60)) % 24
+        days = (sec // (60 * 60 * 24))
 
         if days > 0:
             daystring = str(days) + "d "
         else:
             daystring = ''
-
         return daystring + str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
     @staticmethod
