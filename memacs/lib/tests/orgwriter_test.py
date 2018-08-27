@@ -117,8 +117,8 @@ class TestOutputWriter(unittest.TestCase):
         test_filename = self.TMPFOLDER + "testautotag.org"
 
         autotag_dict = {}
-        autotag_dict["TUG"] = ["tugraz", "university"]
         autotag_dict["programming"] = ["programming", "python", "java"]
+        autotag_dict["TUG"] = ["tugraz", "university"]
 
         output = "Programming for my bachelor thesis at University"
 
