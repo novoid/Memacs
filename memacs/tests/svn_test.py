@@ -23,10 +23,10 @@ class TestSvnMemacs(unittest.TestCase):
 
         # omit the hours when comparing the results since this is depending on the locales:
         self.assertTrue(
-            data[0].startswith(u'** <2011-10-27 Thu ')
+            data[0].startswith('** <2011-10-27 Thu ')
             )
         self.assertTrue(
-            data[0].endswith(u':50> group-5 (r5): finished ?')
+            data[0].endswith(':50> group-5 (r5): finished ?')
             )
         self.assertEqual(
             data[1],
@@ -42,10 +42,10 @@ class TestSvnMemacs(unittest.TestCase):
              "   :END:")
         # omit the hours when comparing the results since this is depending on the locales:
         self.assertTrue(
-            data[5].startswith(u'** <2011-10-27 Thu ')
+            data[5].startswith('** <2011-10-27 Thu ')
             )
         self.assertTrue(
-            data[5].endswith(u':18> group-5 (r4): finished 5,')
+            data[5].endswith(':18> group-5 (r4): finished 5,')
             )
         self.assertEqual(
             data[6],
@@ -64,10 +64,10 @@ class TestSvnMemacs(unittest.TestCase):
              "   added package to assignment1.tex for landscaping (see 5.tex)")
         # omit the hours when comparing the results since this is depending on the locales:
         self.assertTrue(
-            data[11].startswith(u'** <2011-10-27 Thu ')
+            data[11].startswith('** <2011-10-27 Thu ')
             )
         self.assertTrue(
-            data[11].endswith(u':38> group-5 (r3): 5b.')
+            data[11].endswith(':38> group-5 (r3): 5b.')
             )
         self.assertEqual(
             data[12],
@@ -83,10 +83,10 @@ class TestSvnMemacs(unittest.TestCase):
              "   :END:")
         # omit the hours when comparing the results since this is depending on the locales:
         self.assertTrue(
-            data[16].startswith(u'** <2011-10-27 Thu ')
+            data[16].startswith('** <2011-10-27 Thu ')
             )
         self.assertTrue(
-            data[16].endswith(u':41> group-5 (r2): 5.tex')
+            data[16].endswith(':41> group-5 (r2): 5.tex')
             )
         self.assertEqual(
             data[17],
@@ -102,10 +102,10 @@ class TestSvnMemacs(unittest.TestCase):
              "   :END:")
         # omit the hours when comparing the results since this is depending on the locales:
         self.assertTrue(
-            data[21].startswith(u'** <2011-10-27 Thu ')
+            data[21].startswith('** <2011-10-27 Thu ')
             )
         self.assertTrue(
-            data[21].endswith(u':44> group-5 (r1): initial files')
+            data[21].endswith(':44> group-5 (r1): initial files')
             )
         self.assertEqual(
             data[22],

@@ -4,11 +4,11 @@
 
 from memacs.imap import ImapMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-30"
-PROG_SHORT_DESCRIPTION = u"Memacs for imap emails"
-PROG_TAG = u"emails:imap"
-PROG_DESCRIPTION = u"""The memacs module will connect to an IMAP Server,
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2011-12-30"
+PROG_SHORT_DESCRIPTION = "Memacs for imap emails"
+PROG_TAG = "emails:imap"
+PROG_DESCRIPTION = """The memacs module will connect to an IMAP Server,
 fetch all mails of given folder (-f or --folder-name <folder>),
 parses the mails and writes them to an orgfile.
 

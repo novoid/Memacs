@@ -34,7 +34,7 @@ class TestCommit(unittest.TestCase):
         p += "   :ID:         2bcf0df19183b508b7d52e38ee1d811aabd207f5\n"
         p += "   :END:"
 
-        self.assertEqual(unicode(properties), p)
+        self.assertEqual(str(properties), p)
 
 
 class TestGitMemacs(unittest.TestCase):

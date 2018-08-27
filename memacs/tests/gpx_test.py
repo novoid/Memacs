@@ -25,8 +25,8 @@ class TestGPX(unittest.TestCase):
         # first one was true when the original author developed this
         # test:
         self.assertTrue(
-            data[0] in [u'** <2017-04-01 Sat 10:50> Eggenberger Allee 9, 8020 Graz, Austria	:network:',
-                        u'** <2017-04-01 Sat 10:50> Alte Poststraße 150, 8020 Graz, Austria	:network:'])
+            data[0] in ['** <2017-04-01 Sat 10:50> Eggenberger Allee 9, 8020 Graz, Austria	:network:',
+                        '** <2017-04-01 Sat 10:50> Alte Poststraße 150, 8020 Graz, Austria	:network:'])
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")
@@ -61,8 +61,8 @@ class TestGPX(unittest.TestCase):
         # first one was true when the original author developed this
         # test:
         self.assertTrue(
-            data[0] in [u'** <2017-04-01 Sat 10:50> FH Joanneum - Prüffeld, 150, Alte Poststraße, Gries, Graz, Steiermark, 8020, Österreich	:network:',
-                        u'** <2017-04-01 Sat 10:50> FH Joanneum, 13, Eggenberger Allee, Eggenberg, Graz, Steiermark, 8020, Österreich	:network:'])
+            data[0] in ['** <2017-04-01 Sat 10:50> FH Joanneum - Prüffeld, 150, Alte Poststraße, Gries, Graz, Steiermark, 8020, Österreich	:network:',
+                        '** <2017-04-01 Sat 10:50> FH Joanneum, 13, Eggenberger Allee, Eggenberg, Graz, Steiermark, 8020, Österreich	:network:'])
         self.assertEqual(
             data[1],
             "   :PROPERTIES:")

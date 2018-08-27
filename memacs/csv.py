@@ -9,10 +9,10 @@ import sys
 import json
 import datetime
 
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import UnicodeDictReader
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import UnicodeDictReader
+from .lib.orgproperty import OrgProperties
 
 
 class Csv(Memacs):
@@ -99,11 +99,11 @@ class Csv(Memacs):
             else:
                 timestamp = OrgFormat.date(timestamp)
 
-        except ValueError, e:
+        except ValueError as e:
             logging.error("timestamp-format does not match: %s", e)
             sys.exit(1)
 
-        except IndexError, e:
+        except IndexError as e:
             logging.error("did you specify the right delimiter?", e)
             sys.exit(1)
 
@@ -138,11 +138,11 @@ class Csv(Memacs):
                     self._handle_row(row)
                     logging.debug(row)
 
-            except TypeError, e:
+            except TypeError as e:
                 logging.error("not enough fieldnames or wrong delimiter given")
                 logging.debug("Error: %s" % e)
                 sys.exit(1)
 
-            except UnicodeDecodeError, e:
+            except UnicodeDecodeError as e:
                 logging.error("could not decode file in utf-8, please specify input encoding")
                 sys.exit(1)

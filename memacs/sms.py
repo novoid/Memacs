@@ -9,13 +9,13 @@ import xml.sax
 import time
 import re          ## RegEx for detecting patterns
 import codecs      ## Unicode conversion
-import HTMLParser  ## un-escaping HTML entities like emojis
+import html.parser  ## un-escaping HTML entities like emojis
 import tempfile    ## create temporary files
 from xml.sax._exceptions import SAXParseException
-from lib.orgformat import OrgFormat
-from lib.orgproperty import OrgProperties
-from lib.memacs import Memacs
-from lib.reader import CommonReader
+from .lib.orgformat import OrgFormat
+from .lib.orgproperty import OrgProperties
+from .lib.memacs import Memacs
+from .lib.reader import CommonReader
 
 
 class SmsSaxHandler(xml.sax.handler.ContentHandler):
@@ -26,73 +26,73 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
 
     ## from https://github.com/wooorm/emoji-emotion/blob/master/Support.md
     EMOJIS = {
-        u'\ud83d\udc7f':'imp',
-        u'\ud83d\ude3e':'pouting_cat',
-        u'\ud83d\ude21':'rage',
-        u'\ud83d\ude20':'angry',
-        u'\ud83d\ude27':'anguished',
-        u'\ud83d\ude2d':'sob',
-        u'\ud83d\ude31':'scream',
-        u'\ud83d\ude40':'scream_cat',
-        u'\ud83d\ude08':'smiling_imp',
-        u'\ud83d\ude1f':'worried',
-        u'\ud83d\ude3f':'crying_cat_face',
-        u'\ud83d\ude15':'confused',
-        u'\ud83d\ude16':'confounded',
-        u'\ud83d\ude30':'cold_sweat',
-        u'\ud83d\ude22':'cry',
-        u'\ud83d\ude1e':'disappointed',
-        u'\ud83d\ude33':'flushed',
-        u'\ud83d\ude28':'fearful',
-        u'\ud83d\ude2c':'grimacing',
-        u'\ud83d\ude2e':'open_mouth',
-        u'\ud83d\ude23':'persevere',
-        u'\ud83d\ude2b':'tired_face',
-        u'\ud83d\ude12':'unamused',
-        u'\ud83d\ude29':'weary',
-        u'\ud83d\ude35':'dizzy_face',
-        u'\ud83d\ude25':'disappointed_relieved',
-        u'\ud83d\ude26':'frowning',
-        u'\ud83d\ude01':'grin',
-        u'\ud83d\ude2f':'hushed',
-        u'\ud83d\ude37':'mask',
-        u'\ud83d\ude14':'pensive',
-        u'\ud83d\ude13':'sweat',
-        u'\ud83d\ude1c':'stuck_out_tongue_winking_eye',
-        u'\ud83d\ude11':'expressionless',
-        u'\ud83d\ude36':'no_mouth',
-        u'\ud83d\ude10':'neutral_face',
-        u'\ud83d\ude34':'sleeping',
-        u'\ud83d\ude1d':'stuck_out_tongue_closed_eyes',
-        u'\ud83d\ude2a':'sleepy',
-        u'\ud83d\ude06':'laughing; satisfied',
-        u'\ud83d\ude0e':'sunglasses',
-        u'\ud83d\ude1b':'stuck_out_tongue',
-        u'\ud83d\ude32':'astonished',
-        u'\ud83d\ude0a':'blush',
-        u'\ud83d\ude00':'grinning',
-        u'\ud83d\ude3d':'kissing_cat',
-        u'\ud83d\ude19':'kissing_smiling_eyes',
-        u'\ud83d\ude17':'kissing',
-        u'\ud83d\ude1a':'kissing_closed_eyes',
-        u'\u263a\ufe0f':'relaxed',
-        u'\ud83d\ude0c':'relieved',
-        u'\ud83d\ude04':'smile',
-        u'\ud83d\ude3c':'smirk_cat',
-        u'\ud83d\ude38':'smile_cat',
-        u'\ud83d\ude03':'smiley',
-        u'\ud83d\ude3a':'smiley_cat',
-        u'\ud83d\ude05':'sweat_smile',
-        u'\ud83d\ude0f':'smirk',
-        u'\ud83d\ude3b':'heart_eyes_cat',
-        u'\ud83d\ude0d':'heart_eyes',
-        u'\ud83d\ude07':'innocent',
-        u'\ud83d\ude02':'joy',
-        u'\ud83d\ude39':'joy_cat',
-        u'\ud83d\ude18':'kissing_heart',
-        u'\ud83d\ude09':'wink',
-        u'\ud83d\ude0b':'yum',
-        u'\ud83d\ude24':'triumph'}
+        '\ud83d\udc7f':'imp',
+        '\ud83d\ude3e':'pouting_cat',
+        '\ud83d\ude21':'rage',
+        '\ud83d\ude20':'angry',
+        '\ud83d\ude27':'anguished',
+        '\ud83d\ude2d':'sob',
+        '\ud83d\ude31':'scream',
+        '\ud83d\ude40':'scream_cat',
+        '\ud83d\ude08':'smiling_imp',
+        '\ud83d\ude1f':'worried',
+        '\ud83d\ude3f':'crying_cat_face',
+        '\ud83d\ude15':'confused',
+        '\ud83d\ude16':'confounded',
+        '\ud83d\ude30':'cold_sweat',
+        '\ud83d\ude22':'cry',
+        '\ud83d\ude1e':'disappointed',
+        '\ud83d\ude33':'flushed',
+        '\ud83d\ude28':'fearful',
+        '\ud83d\ude2c':'grimacing',
+        '\ud83d\ude2e':'open_mouth',
+        '\ud83d\ude23':'persevere',
+        '\ud83d\ude2b':'tired_face',
+        '\ud83d\ude12':'unamused',
+        '\ud83d\ude29':'weary',
+        '\ud83d\ude35':'dizzy_face',
+        '\ud83d\ude25':'disappointed_relieved',
+        '\ud83d\ude26':'frowning',
+        '\ud83d\ude01':'grin',
+        '\ud83d\ude2f':'hushed',
+        '\ud83d\ude37':'mask',
+        '\ud83d\ude14':'pensive',
+        '\ud83d\ude13':'sweat',
+        '\ud83d\ude1c':'stuck_out_tongue_winking_eye',
+        '\ud83d\ude11':'expressionless',
+        '\ud83d\ude36':'no_mouth',
+        '\ud83d\ude10':'neutral_face',
+        '\ud83d\ude34':'sleeping',
+        '\ud83d\ude1d':'stuck_out_tongue_closed_eyes',
+        '\ud83d\ude2a':'sleepy',
+        '\ud83d\ude06':'laughing; satisfied',
+        '\ud83d\ude0e':'sunglasses',
+        '\ud83d\ude1b':'stuck_out_tongue',
+        '\ud83d\ude32':'astonished',
+        '\ud83d\ude0a':'blush',
+        '\ud83d\ude00':'grinning',
+        '\ud83d\ude3d':'kissing_cat',
+        '\ud83d\ude19':'kissing_smiling_eyes',
+        '\ud83d\ude17':'kissing',
+        '\ud83d\ude1a':'kissing_closed_eyes',
+        '\u263a\ufe0f':'relaxed',
+        '\ud83d\ude0c':'relieved',
+        '\ud83d\ude04':'smile',
+        '\ud83d\ude3c':'smirk_cat',
+        '\ud83d\ude38':'smile_cat',
+        '\ud83d\ude03':'smiley',
+        '\ud83d\ude3a':'smiley_cat',
+        '\ud83d\ude05':'sweat_smile',
+        '\ud83d\ude0f':'smirk',
+        '\ud83d\ude3b':'heart_eyes_cat',
+        '\ud83d\ude0d':'heart_eyes',
+        '\ud83d\ude07':'innocent',
+        '\ud83d\ude02':'joy',
+        '\ud83d\ude39':'joy_cat',
+        '\ud83d\ude18':'kissing_heart',
+        '\ud83d\ude09':'wink',
+        '\ud83d\ude0b':'yum',
+        '\ud83d\ude24':'triumph'}
 
     EMOJI_ENCLOSING_CHARACTER = "~" ## character which encloses emojis found ~wink~
 
@@ -115,13 +115,13 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
         at every <sms> tag write to orgfile
         """
         logging.debug("Handler @startElement name=%s,attrs=%s", name, attrs)
-        htmlparser = HTMLParser.HTMLParser()
+        htmlparser = html.parser.HTMLParser()
 
         if name == "sms":
             sms_subject = attrs['subject']
             sms_date = int(attrs['date']) / 1000     # unix epoch
             sms_body = attrs['body']
-            sms_address = attrs['address'].strip().replace('-',u'').replace('/',u'').replace(' ',u'').replace('+',u'00')
+            sms_address = attrs['address'].strip().replace('-','').replace('/','').replace(' ','').replace('+','00')
             sms_type_incoming = int(attrs['type']) == 1
             contact_name = False
             if 'contact_name' in attrs:
@@ -129,7 +129,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 contact_name = attrs['contact_name']
             else:
                 if self._numberdict:
-                    if sms_address in self._numberdict.keys():
+                    if sms_address in list(self._numberdict.keys()):
                         contact_name = self._numberdict[sms_address]
 
             skip = False
@@ -153,12 +153,12 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 output += name_string + ": "
 
                 ## reverse encoding hack from just before:
-                sms_body = htmlparser.unescape(sms_body.replace(u'EnCoDiNgHaCk42', u'&#'))
-                for emoji in self.EMOJIS.keys():
+                sms_body = htmlparser.unescape(sms_body.replace('EnCoDiNgHaCk42', '&#'))
+                for emoji in list(self.EMOJIS.keys()):
                     ## FIXXME: this is a horrible dumb brute-force algorithm.
                     ##         In case of bad performance, this can be optimized dramtically
                     sms_body = sms_body.replace(emoji, self.EMOJI_ENCLOSING_CHARACTER + \
-                                                self.EMOJIS[emoji] + self.EMOJI_ENCLOSING_CHARACTER).replace(u'\n', u'⏎')
+                                                self.EMOJIS[emoji] + self.EMOJI_ENCLOSING_CHARACTER).replace('\n', '⏎')
 
                 if sms_subject != "null":
                     # in case of MMS we have a subject
@@ -234,7 +234,7 @@ class SmsMemacs(Memacs):
         status = headersearch
 
         contacts = {}
-        current_name = u''
+        current_name = ''
 
         HEADER_REGEX = re.compile('^(\*+)\s+(.*?)(\s+(:\S+:)+)?$')
         PHONE = '\s+([\+\d\-/ ]{7,})$'
@@ -256,7 +256,7 @@ class SmsMemacs(Memacs):
                 continue
 
             if status == propertysearch:
-                if line == u':PROPERTIES:':
+                if line == ':PROPERTIES:':
                     status = inproperty
                 continue
 
@@ -264,9 +264,9 @@ class SmsMemacs(Memacs):
 
                 phone_components = re.match(PHONE_REGEX, line)
                 if phone_components:
-                    phonenumber = phone_components.group(2).strip().replace('-',u'').replace('/',u'').replace(' ',u'').replace('+',u'00')
+                    phonenumber = phone_components.group(2).strip().replace('-','').replace('/','').replace(' ','').replace('+','00')
                     contacts[phonenumber] = current_name
-                elif line == u':END:':
+                elif line == ':END:':
                     status = headersearch
 
                 continue
@@ -315,17 +315,17 @@ class SmsMemacs(Memacs):
                 try:
                     ## NOTE: this is a dirty hack to prevent te XML parser from complainaing about
                     ##       encoding issues of UTF-8 encoded emojis. Will be reverted when parsing sms_body
-                    outputhandle.write(line.replace(u'&#', u'EnCoDiNgHaCk42') + u'\n')
+                    outputhandle.write(line.replace('&#', 'EnCoDiNgHaCk42') + '\n')
                 except IOError as e:
-                    print "tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]"
-                    print "I/O error({0}): {1}".format(e.errno, e.strerror)
+                    print("tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]")
+                    print("I/O error({0}): {1}".format(e.errno, e.strerror))
                 except ValueError as e:
-                    print "tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]"
-                    print "Value error: {0}".format(e)
+                    print("tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]")
+                    print("Value error: {0}".format(e))
                     #print "line [%s]" % str(line)
                 except:
-                    print "tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]"
-                    print "Unexpected error:", sys.exc_info()[0]
+                    print("tempfile line " + str(line_number) +  " [" + str(temp_xml_file) + "]")
+                    print("Unexpected error:", sys.exc_info()[0])
                     raise
 
         data = CommonReader.get_data_from_file(temp_xml_file)

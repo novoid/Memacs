@@ -582,8 +582,8 @@ class TestCalendar(unittest.TestCase):
             data[187],
              "   :END:")
         self.assertEqual(
-            data[188:194], [u'** <2011-08-22 Mon>-<9999-12-31 Fri> No end time/date',
-                            u'   :PROPERTIES:',
-                            u'   :DESCRIPTION: No end time/date',
-                            u'   :ID:          62bf353bf19c0379faf4910741635dfd6a804b11',
-                            u'   :END:'])
+            data[188:194], ['** <2011-08-22 Mon>-<9999-12-31 Fri> No end time/date',
+                            '   :PROPERTIES:',
+                            '   :DESCRIPTION: No end time/date',
+                            '   :ID:          62bf353bf19c0379faf4910741635dfd6a804b11',
+                            '   :END:'])

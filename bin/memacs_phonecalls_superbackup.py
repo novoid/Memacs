@@ -4,11 +4,11 @@
 
 from memacs.phonecalls_superbackup import PhonecallsSuperBackupMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2012-03-08"
-PROG_SHORT_DESCRIPTION = u"Memacs for phonecalls"
-PROG_TAG = u"phonecalls"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2012-03-08"
+PROG_SHORT_DESCRIPTION = "Memacs for phonecalls"
+PROG_TAG = "phonecalls"
+PROG_DESCRIPTION = """
 This Memacs module will parse output of phonecalls xml backup files
 
 sample xml file:

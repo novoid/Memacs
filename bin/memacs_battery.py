@@ -4,10 +4,10 @@
 from memacs.battery import Battery
 
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2017-02-24"
-PROG_SHORT_DESCRIPTION = u"Memacs for battery"
-PROG_TAG = u"battery"
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2017-02-24"
+PROG_SHORT_DESCRIPTION = "Memacs for battery"
+PROG_TAG = "battery"
 
 COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""

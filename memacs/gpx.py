@@ -11,9 +11,9 @@ import gpxpy
 import gpxpy.gpx
 import geocoder
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class GPX(Memacs):
