@@ -71,7 +71,7 @@ class MailParser(object):
 
         # fill headers and properties
         for key, value in list(msg.items()):
-            value = value.replace("\r", "").decode('utf-8')
+            value = value.replace("\r", "")
             if key in use_headers:
                 headers[key] = value
                 if key not in not_properties:
@@ -99,7 +99,7 @@ class MailParser(object):
             else:
                 notes = payload
 
-        notes = notes.replace("\r", "").decode('utf-8')
+        notes = notes.replace("\r", "")
         output_from = MailParser.get_value_or_empty_str(headers, "From")
         if output_from != "":
             output_from = OrgFormat.contact_mail_mailto_link(output_from)
