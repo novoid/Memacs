@@ -134,11 +134,10 @@ class CalendarMemacs(Memacs):
         location = self.__vtext_to_unicode(component.get('location'))
         description = self.__vtext_to_unicode(component.get('description'))
         # format: 20091207T180000Z or 20100122
-        dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical())
-
+        dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical().decode('utf-8'))
         # format: 20091207T180000Z or 20100122
         if 'DTEND' in list(component.keys()):
-            dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical())
+            dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical().decode('utf-8'))
 
         # format: 20091207T180000Z
         # not used: Datestamp created
