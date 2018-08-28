@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-09-06 22:07:05 armin>
 import hashlib
-
+from collections import OrderedDict
 
 class OrgProperties(object):
     """
@@ -21,7 +21,7 @@ class OrgProperties(object):
         @param data_for_hashing: if no special properties are set,
         you can add here data only for hash generation
         """
-        self.__properties = {}
+        self.__properties = OrderedDict()
         self.__properties_multiline = {}
         self.__data_for_hashing = data_for_hashing
         self.__id = None
