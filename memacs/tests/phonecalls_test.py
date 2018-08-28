@@ -23,14 +23,13 @@ class TestPhonecallsMemacs(unittest.TestCase):
 
     def test_from_file(self):
         data = self.data
-
         for i in range(8):
             self._assertPhoneLog(i, data[i*7:(i+1)*7])
 
     def _assertPhoneLog(self, index, call_data):
         call = self._calls.findall('call')[index]
 
-        duration = call_data[2].split()[-1]
+        duration = call_data[3].split()[-1]
         number = call_data[4].split()[-1]
         start, _ = re.findall('<(.*?)>', call_data[0])
         date = time.gmtime(int(call.get('date'))/1000.)
