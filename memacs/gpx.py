@@ -76,11 +76,11 @@ class GPX(Memacs):
 
         else:
             self._parser.error("invalid provider given")
-            sys.exit(1)
+            raise ValueError('invalid provider given')
 
         if not geocode.ok:
             logging.error("geocoding failed or api limit exceeded")
-            sys.exit(1)
+            raise RuntimeError('geocoding failed or api limit exceeded')
         else:
             logging.debug(geocode.json)
             return geocode.json
