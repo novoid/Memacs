@@ -90,7 +90,7 @@ class GPX(Memacs):
 
         timestamp = OrgFormat.datetime(p.time)
         geocode = self.reverse_geocode(p.latitude, p.longitude)
-        output = self._args.output_format.decode('utf-8').format(**geocode)
+        output = self._args.output_format.format(**geocode)
 
         tags = []
 
