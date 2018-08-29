@@ -208,7 +208,7 @@ class PhonecallsMemacs(Memacs):
                                               self._args.ignore_outgoing,
                                               self._args.ignore_missed,
                                               self._args.ignore_cancelled,
-                                              self._args.minimum_duration,
+                                              self._args.minimum_duration or 0,
                                               ))
         except SAXParseException:
             logging.error("No correct XML given")
