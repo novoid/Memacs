@@ -105,7 +105,7 @@ class UTF8Recoder:
         return self
 
     def __next__(self):
-        return self.reader.next().encode("utf-8")
+        return next(self.reader)
 
 
 class UnicodeCsvReader:
@@ -117,12 +117,12 @@ class UnicodeCsvReader:
     """
 
     def __init__(self, f, delimiter=";", encoding="utf-8", **kwds):
-        f = UTF8Recoder(f, encoding)
+        # f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, delimiter=delimiter, **kwds)
 
     def __next__(self):
         row = next(self.reader)
-        return [str(s, "utf-8") for s in row]
+        return [str(s) for s in row]
 
     def __iter__(self):
         return self
@@ -142,7 +142,7 @@ class UnicodeDictReader:
 
     def __next__(self):
         row = next(self.reader)
-        return {k.lower(): str(v, "utf-8") for k, v in row.items()}
+        return {k.lower(): str(v) for k, v in row.items()}
 
     def __iter__(self):
         return self
