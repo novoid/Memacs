@@ -195,7 +195,7 @@ class SimplePhoneLogsMemacs(Memacs):
                     # hypothetical run-time (in hours; derived from boot to shutdown) of the device for 100% battery capacity
                     # Note: battery_percentage_when_booting is set to False when a "charge-start"-event is recognized between boot and shutdown
                     # Note: only calculated when at least 20 percent difference of battery level between boot and shutdown
-                    runtime_extrapolation = 100 * int(e_uptime) / batt_diff_from_boot_to_shutdown / 3600
+                    runtime_extrapolation = 100 * int(e_uptime) // batt_diff_from_boot_to_shutdown // 3600
                     properties.add("HOURS_RUNTIME_EXTRAPOLATION", runtime_extrapolation)
 
         self._writer.write_org_subitem(timestamp=e_time.strftime('<%Y-%m-%d %a %H:%M>'),
