@@ -31,6 +31,17 @@ are called *Memacs modules* or short /module/.
   scheduled tasks
 - *project hosted on* https://github.com/novoid/Memacs
 
+** Python 2 to 3 Migration
+
+This repository was migrated from Python2 to Python3 (by [[https://github.com/DerBeutlin][DerBeutlin]] -
+thanks!).
+
+If you need to get the latest version that ran with Python2, do visit
+[[https://github.com/novoid/Memacs/tree/5d4b3f0802f43490af0d28f1eaf5fb07976cb0b3][this version]]. For the future, Python3 is the only way to go.
+
+I'll write about migration impact (changing IDs, ...) when I have
+tested it myself.
+
 ** Table of Contents
 - [[#installation][Installation]]
 - [[#getting-started][Getting started]]
