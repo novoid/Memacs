@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:18:07 vk>
 
 from memacs.twitter import Twitter
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2013-09-01"
-PROG_SHORT_DESCRIPTION = u"Memacs for Twitter "
-PROG_TAG = u"mytag"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2013-09-01"
+PROG_SHORT_DESCRIPTION = "Memacs for Twitter "
+PROG_TAG = "mytag"
+PROG_DESCRIPTION = """
 This Memacs module will process your Twitter timeline ....
 
 

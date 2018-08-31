@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import time
@@ -8,9 +8,9 @@ import sys
 
 import pylast
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class LastFM(Memacs):
@@ -24,7 +24,7 @@ class LastFM(Memacs):
 
         self._parser.add_argument(
             '--output-format', dest='output_format',
-            action='store', default=u'{title}',
+            action='store', default='{title}',
             help='formt string to use for the output'
         )
 
@@ -82,6 +82,6 @@ class LastFM(Memacs):
 
             self._handle_recent_tracks(user.get_recent_tracks(limit=100))
 
-        except pylast.WSError, e:
+        except pylast.WSError as e:
             logging.error('an issue with the network web service occured: %s' % e)
             sys.exit(1)

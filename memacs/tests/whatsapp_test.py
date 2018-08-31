@@ -28,7 +28,7 @@ class TestWhatsApp(unittest.TestCase):
 
         self.assertEqual(data[0], '** <2016-10-15 Sat 18:18> Hello World!')
         self.assertEqual(data[1], '   :PROPERTIES:')
-        self.assertEqual(data[2], '   :TYPE:       INCOMING')
-        self.assertEqual(data[3], '   :NUMBER:     00436604444333')
-        self.assertEqual(data[4], '   :ID:         d8fa64a86286432a42a13f129cad0d7ebd56873e')
+        self.assertEqual(data[2], '   :NUMBER:     00436604444333')
+        self.assertEqual(data[3], '   :TYPE:       INCOMING')
+        self.assertEqual(data[4], '   :ID:         804c40b796f8d71f48c9cd0023d1059e56d54d61')
         self.assertEqual(data[5], '   :END:')

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2018-08-25 15:07:57 vk>
 
@@ -8,10 +8,10 @@ import os
 import re
 import time
 
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import CommonReader
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import CommonReader
+from .lib.orgproperty import OrgProperties
 
 
 class SimplePhoneLogsMemacs(Memacs):
@@ -81,16 +81,16 @@ class SimplePhoneLogsMemacs(Memacs):
         """
 
         assert e_time.__class__ == datetime.datetime
-        assert e_name.__class__ == unicode
-        assert e_batt.__class__ == unicode
-        assert e_uptime.__class__ == unicode
+        assert e_name.__class__ == str
+        assert e_batt.__class__ == str
+        assert e_uptime.__class__ == str
         assert (e_last_opposite_occurrence.__class__ == datetime.datetime or not e_last_opposite_occurrence)
         assert (e_last_occurrence.__class__ == datetime.datetime or not e_last_occurrence)
         assert (not battery_percentage_when_booting or battery_percentage_when_booting.__class__ == int)
 
-        last_info = u''
-        in_between_hms = u''
-        in_between_s = u''
+        last_info = ''
+        in_between_hms = ''
+        in_between_s = ''
         ignore_occurrence = False
 
         # convert parameters to be writable:
@@ -101,16 +101,16 @@ class SimplePhoneLogsMemacs(Memacs):
 
             in_between_s = (e_time - e_last_opposite_occurrence).seconds + \
                 (e_time - e_last_opposite_occurrence).days * 3600 * 24
-            in_between_hms = unicode(OrgFormat.get_hms_from_sec(in_between_s))
+            in_between_hms = str(OrgFormat.get_hms_from_sec(in_between_s))
 
-            if e_name == u'boot':
-                last_info = u' (off for '
-            elif e_name == u'shutdown':
-                last_info = u' (on for '
-            elif e_name.endswith(u'-end'):
-                last_info = u' (' + e_name[0:-4].replace('wifi-', '') + u' for '
+            if e_name == 'boot':
+                last_info = ' (off for '
+            elif e_name == 'shutdown':
+                last_info = ' (on for '
+            elif e_name.endswith('-end'):
+                last_info = ' (' + e_name[0:-4].replace('wifi-', '') + ' for '
             else:
-                last_info = u' (not ' + e_name.replace('wifi-', '') + u' for '
+                last_info = ' (not ' + e_name.replace('wifi-', '') + ' for '
 
             # handle special case: office hours
             additional_paren_string = ""
@@ -131,19 +131,19 @@ class SimplePhoneLogsMemacs(Memacs):
                 assert(type(in_between_s) == int)
 
                 # come up with the additional office-hours string:
-                additional_paren_string = u'; today ' + OrgFormat.get_hms_from_sec(office_sum) + \
+                additional_paren_string = '; today ' + OrgFormat.get_hms_from_sec(office_sum) + \
                     '; today total ' + OrgFormat.get_hms_from_sec(office_total)
 
             if additional_paren_string:
-                last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + additional_paren_string + u')'
+                last_info += str(OrgFormat.get_dhms_from_sec(in_between_s)) + additional_paren_string + ')'
             else:
-                last_info += unicode(OrgFormat.get_dhms_from_sec(in_between_s)) + u')'
+                last_info += str(OrgFormat.get_dhms_from_sec(in_between_s)) + ')'
 
         elif e_last_occurrence:
 
             in_between_s = (e_time - e_last_occurrence).seconds + \
                 (e_time - e_last_occurrence).days * 3600 * 24
-            in_between_hms = unicode(OrgFormat.get_hms_from_sec(in_between_s))
+            in_between_hms = str(OrgFormat.get_hms_from_sec(in_between_s))
 
         # handle special case: office hours
         if e_name == 'wifi-office':
@@ -157,21 +157,21 @@ class SimplePhoneLogsMemacs(Memacs):
                         office_lunchbreak = [e_last_opposite_occurrence.time(), e_time.time()]
 
         # handle special case: boot without previous shutdown = crash
-        if (e_name == u'boot') and \
+        if (e_name == 'boot') and \
                 (e_last_occurrence and e_last_opposite_occurrence) and \
                 (e_last_occurrence > e_last_opposite_occurrence):
             # last boot is more recent than last shutdown -> crash has happened
-            last_info = u' after crash'
-            in_between_hms = u''
-            in_between_s = u''
+            last_info = ' after crash'
+            in_between_hms = ''
+            in_between_s = ''
             ignore_occurrence = True
 
         properties = OrgProperties()
         if in_between_s == 0:  # omit in-between content of property when it is zero
-            in_between_s = u''
-            in_between_hms = u''
+            in_between_s = ''
+            in_between_hms = ''
         properties.add("IN-BETWEEN", in_between_hms)
-        properties.add("IN-BETWEEN-S", unicode(in_between_s))
+        properties.add("IN-BETWEEN-S", str(in_between_s))
         properties.add("BATT-LEVEL", e_batt)
         properties.add("UPTIME", OrgFormat.get_hms_from_sec(int(e_uptime)))
         properties.add("UPTIME-S", e_uptime)
@@ -195,19 +195,19 @@ class SimplePhoneLogsMemacs(Memacs):
                     # hypothetical run-time (in hours; derived from boot to shutdown) of the device for 100% battery capacity
                     # Note: battery_percentage_when_booting is set to False when a "charge-start"-event is recognized between boot and shutdown
                     # Note: only calculated when at least 20 percent difference of battery level between boot and shutdown
-                    runtime_extrapolation = 100 * int(e_uptime) / batt_diff_from_boot_to_shutdown / 3600
+                    runtime_extrapolation = 100 * int(e_uptime) // batt_diff_from_boot_to_shutdown // 3600
                     properties.add("HOURS_RUNTIME_EXTRAPOLATION", runtime_extrapolation)
 
         self._writer.write_org_subitem(timestamp=e_time.strftime('<%Y-%m-%d %a %H:%M>'),
                                        output=e_name + last_info,
                                        properties=properties)
 
-        return u'** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + u' ' + e_name + last_info + \
-            u'\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between_hms + \
-            u'\n:IN-BETWEEN-S: ' + unicode(in_between_s) + \
-            u'\n:BATT-LEVEL: ' + e_batt + \
-            u'\n:UPTIME: ' + unicode(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
-            u'\n:UPTIME-S: ' + unicode(e_uptime) + u'\n:END:\n', \
+        return '** ' + e_time.strftime('<%Y-%m-%d %a %H:%M>') + ' ' + e_name + last_info + \
+            '\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between_hms + \
+            '\n:IN-BETWEEN-S: ' + str(in_between_s) + \
+            '\n:BATT-LEVEL: ' + e_batt + \
+            '\n:UPTIME: ' + str(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
+            '\n:UPTIME-S: ' + str(e_uptime) + '\n:END:\n', \
             ignore_occurrence, office_sum, office_first_begin, office_lunchbreak
 
     def _determine_opposite_eventname(self, e_name):
@@ -219,16 +219,16 @@ class SimplePhoneLogsMemacs(Memacs):
         @param e_name: string of an event name/description
         """
 
-        assert (e_name.__class__ == unicode)
+        assert (e_name.__class__ == str)
 
-        if e_name == u'boot':
-            return u'shutdown'
-        elif e_name == u'shutdown':
-            return u'boot'
-        elif e_name.endswith(u'-end'):
+        if e_name == 'boot':
+            return 'shutdown'
+        elif e_name == 'shutdown':
+            return 'boot'
+        elif e_name.endswith('-end'):
             return e_name[0:-4]
         else:
-            return e_name + u'-end'
+            return e_name + '-end'
 
     def _parse_data(self, data):
         """parses the phone log data"""
@@ -259,7 +259,7 @@ class SimplePhoneLogsMemacs(Memacs):
             datestamp = components.groups()[self.RE_ID_DATESTAMP].strip()
             hours = int(components.groups()[self.RE_ID_HOURS].strip())
             minutes = int(components.groups()[self.RE_ID_MINUTES].strip())
-            e_name = unicode(components.groups()[self.RE_ID_NAME].strip())
+            e_name = str(components.groups()[self.RE_ID_NAME].strip())
             opposite_e_name = self._determine_opposite_eventname(e_name)
             e_batt = components.groups()[self.RE_ID_BATT].strip()
             e_uptime = components.groups()[self.RE_ID_UPTIME].strip()

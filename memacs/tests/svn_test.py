@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2018-08-26 21:40:32 vk>
 
 import unittest
 import os
@@ -21,9 +21,13 @@ class TestSvnMemacs(unittest.TestCase):
     def test_from_file(self):
         data = self.data
 
-        self.assertEqual(
-            data[0],
-             "** <2011-10-27 Thu 17:50> group-5 (r5): finished ?")
+        # omit the hours when comparing the results since this is depending on the locales:
+        self.assertTrue(
+            data[0].startswith('** <2011-10-27 Thu ')
+            )
+        self.assertTrue(
+            data[0].endswith(':50> group-5 (r5): finished ?')
+            )
         self.assertEqual(
             data[1],
              "   :PROPERTIES:")
@@ -36,27 +40,35 @@ class TestSvnMemacs(unittest.TestCase):
         self.assertEqual(
             data[4],
              "   :END:")
-        self.assertEqual(
-            data[5],
-             "** <2011-10-27 Thu 17:18> group-5 (r4): finished 5,")
+        # omit the hours when comparing the results since this is depending on the locales:
+        self.assertTrue(
+            data[5].startswith('** <2011-10-27 Thu ')
+            )
+        self.assertTrue(
+            data[5].endswith(':18> group-5 (r4): finished 5,')
+            )
         self.assertEqual(
             data[6],
-             "   added package to assignment1.tex for landscaping (see 5.tex)")
-        self.assertEqual(
-            data[7],
              "   :PROPERTIES:")
         self.assertEqual(
-            data[8],
+            data[7],
              "   :REVISION:   4")
         self.assertEqual(
-            data[9],
+            data[8],
              "   :ID:         629716ff44b206745fdc34c910fe8b0f3d877f85")
         self.assertEqual(
-            data[10],
+            data[9],
              "   :END:")
         self.assertEqual(
-            data[11],
-             "** <2011-10-27 Thu 15:38> group-5 (r3): 5b.")
+            data[10],
+             "   added package to assignment1.tex for landscaping (see 5.tex)")
+        # omit the hours when comparing the results since this is depending on the locales:
+        self.assertTrue(
+            data[11].startswith('** <2011-10-27 Thu ')
+            )
+        self.assertTrue(
+            data[11].endswith(':38> group-5 (r3): 5b.')
+            )
         self.assertEqual(
             data[12],
              "   :PROPERTIES:")
@@ -69,9 +81,13 @@ class TestSvnMemacs(unittest.TestCase):
         self.assertEqual(
             data[15],
              "   :END:")
-        self.assertEqual(
-            data[16],
-             "** <2011-10-27 Thu 14:41> group-5 (r2): 5.tex")
+        # omit the hours when comparing the results since this is depending on the locales:
+        self.assertTrue(
+            data[16].startswith('** <2011-10-27 Thu ')
+            )
+        self.assertTrue(
+            data[16].endswith(':41> group-5 (r2): 5.tex')
+            )
         self.assertEqual(
             data[17],
              "   :PROPERTIES:")
@@ -84,9 +100,13 @@ class TestSvnMemacs(unittest.TestCase):
         self.assertEqual(
             data[20],
              "   :END:")
-        self.assertEqual(
-            data[21],
-             "** <2011-10-27 Thu 08:44> group-5 (r1): initial files")
+        # omit the hours when comparing the results since this is depending on the locales:
+        self.assertTrue(
+            data[21].startswith('** <2011-10-27 Thu ')
+            )
+        self.assertTrue(
+            data[21].endswith(':44> group-5 (r1): initial files')
+            )
         self.assertEqual(
             data[22],
              "   :PROPERTIES:")

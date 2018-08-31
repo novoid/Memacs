@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:18:40 vk>
 
 from memacs.git import GitMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-20"
-PROG_SHORT_DESCRIPTION = u"Memacs for git files "
-PROG_TAG = u"git"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2011-12-20"
+PROG_SHORT_DESCRIPTION = "Memacs for git files "
+PROG_TAG = "git"
+PROG_DESCRIPTION = """
 This class will parse files from git rev-parse output
 
 use following command to generate input file

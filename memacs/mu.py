@@ -1,11 +1,11 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import subprocess
 from datetime import datetime
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 import re
 
 class MuMail(Memacs):
@@ -82,11 +82,11 @@ class MuMail(Memacs):
         if m:
             name = m.group(1).strip()
             mail = m.group(2).strip()
-            if name is not u"":
-                return (u"[[mailto:" + mail + u"][" + name + u"]]",name,mail)
+            if name is not "":
+                return ("[[mailto:" + mail + "][" + name + "]]",name,mail)
             else:
-                return (u"[[mailto:" + mail + u"][" + mail + u"]]",name,mail)
-        return (u"Unknown",u"Unknown",u"Unknown")
+                return ("[[mailto:" + mail + "][" + mail + "]]",name,mail)
+        return ("Unknown","Unknown","Unknown")
         
         
     def _main(self):

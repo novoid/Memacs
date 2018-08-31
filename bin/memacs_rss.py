@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:19:47 vk>
 
 from memacs.rss import RssMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-27"
-PROG_SHORT_DESCRIPTION = u"Memacs for rss feeds"
-PROG_TAG = u"rss"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2011-12-27"
+PROG_SHORT_DESCRIPTION = "Memacs for rss feeds"
+PROG_TAG = "rss"
+PROG_DESCRIPTION = """
 This Memacs module will parse rss files.
 
 rss can be read from file (-f FILE) or url (-u URL)

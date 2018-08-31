@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-05-02 20:36:03 vk>
 
@@ -8,10 +8,10 @@ import logging
 import xml.sax
 import time, datetime
 from xml.sax._exceptions import SAXParseException
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import CommonReader
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import CommonReader
+from .lib.orgproperty import OrgProperties
 #import pdb
 
 logging.basicConfig(filename='debug.log', level=logging.DEBUG)

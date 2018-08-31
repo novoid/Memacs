@@ -1,12 +1,12 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from memacs.whatsapp import WhatsApp
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2017-02-28"
-PROG_SHORT_DESCRIPTION = u"Memacs for whatsapp"
-PROG_TAG = u"whatsapp"
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2017-02-28"
+PROG_SHORT_DESCRIPTION = "Memacs for whatsapp"
+PROG_TAG = "whatsapp"
 
 COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""

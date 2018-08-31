@@ -8,12 +8,10 @@ import sys
 import os
 import re
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 class Firefox(Memacs):
     def _parser_add_arguments(self):
@@ -26,7 +24,7 @@ class Firefox(Memacs):
 
         self._parser.add_argument(
             "-f", "--file", dest="historystore",
-            action="store", type=file, required=True,
+            action="store", type=open , required=True,
             help="""path to places.sqlite file. usually in
 /home/rgrau/.mozilla/firefox/__SOMETHING__.default/places.sqlite """)
 

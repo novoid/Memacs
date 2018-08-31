@@ -13,9 +13,9 @@ import re
 
 import emoji
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class WhatsApp(Memacs):
@@ -29,7 +29,7 @@ class WhatsApp(Memacs):
 
         self._parser.add_argument(
             "-f", "--file", dest="msgstore",
-            action="store", type=file, required=True,
+            action="store", type=open, required=True,
             help="path to decrypted msgstore.db file")
 
         self._parser.add_argument(
@@ -103,7 +103,7 @@ class WhatsApp(Memacs):
         properties.add('NUMBER', msg['number'])
         properties.add('TYPE', msg['type'])
 
-        output = self._args.output_format.decode('utf-8').format(**msg)
+        output = self._args.output_format.format(**msg)
 
         if msg['text'] and not self._is_ignored(msg):
             self._writer.write_org_subitem(timestamp=OrgFormat.datetime(timestamp),

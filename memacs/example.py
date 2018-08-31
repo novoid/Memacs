@@ -1,12 +1,12 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-03-09 15:48:38 armin>
 
 import logging
 import time
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class Foo(Memacs):
@@ -105,7 +105,7 @@ class Foo(Memacs):
         p.add("DESCRIPTION", "foooo")
         p.add("foo-property", "asdf")
 
-        tags = [u"tag1", u"tag2"]
+        tags = ["tag1", "tag2"]
 
         self._writer.write_org_subitem(timestamp=timestamp,
                                        output="bar",

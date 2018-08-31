@@ -31,7 +31,7 @@ class MemacsArgumentParser(ArgumentParser):
         copyright_authors = copyright_authors.splitlines()
         for i in range(len(copyright_authors)):
             copyright_authors[i] = "            " + copyright_authors[i]
-        copyright_authors = "\n".join(map(unicode, copyright_authors))
+        copyright_authors = "\n".join(map(str, copyright_authors))
 
         epilog = ":copyright: (c) " + copyright_year + " by \n" + \
         copyright_authors + \

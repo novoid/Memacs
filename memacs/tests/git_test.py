@@ -34,7 +34,7 @@ class TestCommit(unittest.TestCase):
         p += "   :ID:         2bcf0df19183b508b7d52e38ee1d811aabd207f5\n"
         p += "   :END:"
 
-        self.assertEqual(unicode(properties), p)
+        self.assertEqual(str(properties), p)
 
 
 class TestGitMemacs(unittest.TestCase):
@@ -65,18 +65,19 @@ class TestGitMemacs(unittest.TestCase):
              "   :TREE:       0c785721ff806d2570cb7d785adf294b0406609b")
         self.assertEqual(
             data[4],
+             "   :PARENT:     62f20271b87e8574370f1ded29938dad0313a399")
+        self.assertEqual(
+            data[5],
+             "   :AUTHOR:     Karl Voit <git@example." + \
+             "com> 1321699855 +0100")
+
+        self.assertEqual(
+            data[6],
              "   :COMMITTER:  Karl Voit <git@example.com> 1321699855" + \
              " +0100")
         self.assertEqual(
-            data[5],
-             "   :PARENT:     62f20271b87e8574370f1ded29938dad0313a399")
-        self.assertEqual(
-            data[6],
-             "   :AUTHOR:     Karl Voit <git@example." + \
-             "com> 1321699855 +0100")
-        self.assertEqual(
             data[7],
-             "   :ID:         11a9098b0a6cc0c979a7fce96b8e83baf5502bf8")
+             "   :ID:         e77d956db6f5720f6b30e2d7fd608807c7a75f9f")
         self.assertEqual(
             data[8],
              "   :END:")
@@ -95,18 +96,18 @@ class TestGitMemacs(unittest.TestCase):
              "   :TREE:       906b8b7e4bfd08850aef8c15b0fc4d5f6e9cc9a7")
         self.assertEqual(
             data[13],
-             "   :COMMITTER:  Karl Voit <git@example.c" + \
-             "om> 1321699830 +0100")
-        self.assertEqual(
-            data[14],
              "   :PARENT:     638e81c55daf0a69c78cc3af23a9e451ccea44ab")
         self.assertEqual(
-            data[15],
+            data[14],
              "   :AUTHOR:     Karl Voit <git@example.com> 132" + \
              "1699830 +0100")
         self.assertEqual(
+            data[15],
+             "   :COMMITTER:  Karl Voit <git@example.c" + \
+             "om> 1321699830 +0100")
+        self.assertEqual(
             data[16],
-             "   :ID:         dce2f11c7c495885f65b650b29a09cb88cb52acf")
+             "   :ID:         d5f45fc44e23a7f042d56e09ccfe7772614afe97")
         self.assertEqual(
             data[17],
              "   :END:")
@@ -119,27 +120,27 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[20],
-             "   :COMMITTER:     Armin Wieser <armin.wieser@" + \
-             "example.com> 1320270366 +0100")
+             "   :COMMIT:        9b4523b2c4542349e8b4ca3ca595701a50b3c315")
         self.assertEqual(
             data[21],
-             "   :PARENT:        7ddaa9839611662c5c0dbf2bb2740e362ae4d566")
+             "   :TREE:          2d440e6b42b917e9a69d5283b9d1ed4a77797ee9")
         self.assertEqual(
             data[22],
+             "   :PARENT:        7ddaa9839611662c5c0dbf2bb2740e362ae4d566")
+        self.assertEqual(
+            data[23],
              "   :AUTHOR:        Armin Wieser <armin.wieser@ex" + \
              "ample.com> 1320270366 +0100")
         self.assertEqual(
-            data[23],
-             "   :TREE:          2d440e6b42b917e9a69d5283b9d1ed4a77797ee9")
-        self.assertEqual(
             data[24],
-             "   :SIGNED-OFF-BY: Armin Wieser <armin.wieser@example.com>")
+             "   :COMMITTER:     Armin Wieser <armin.wieser@" + \
+             "example.com> 1320270366 +0100")
         self.assertEqual(
             data[25],
-             "   :COMMIT:        9b4523b2c4542349e8b4ca3ca595701a50b3c315")
+             "   :SIGNED-OFF-BY: Armin Wieser <armin.wieser@example.com>")
         self.assertEqual(
             data[26],
-             "   :ID:            82c0a5afd67557b85870efdd5da6411b5014e26c")
+             "   :ID:            8c806b9e28cacb7bb540fc921a0bda15b34289ee")
         self.assertEqual(
             data[27],
              "   :END:")
@@ -152,27 +153,27 @@ class TestGitMemacs(unittest.TestCase):
              "   :PROPERTIES:")
         self.assertEqual(
             data[30],
-             "   :COMMITTER:     Armin Wieser <armin.wieser@e" + \
-             "xample.com> 1320260312 +0100")
+             "   :COMMIT:        7ddaa9839611662c5c0dbf2bb2740e362ae4d566")
         self.assertEqual(
             data[31],
-             "   :PARENT:        f845d8c1f1a4194e3b27b5bf39bac1b30bd095f6")
+             "   :TREE:          663a7c370b985f3b7e9794dec07f28d4e6ff3936")
         self.assertEqual(
             data[32],
+             "   :PARENT:        f845d8c1f1a4194e3b27b5bf39bac1b30bd095f6")
+        self.assertEqual(
+            data[33],
              "   :AUTHOR:        Armin Wieser <armin.wieser@" + \
              "example.com> 1320260312 +0100")
         self.assertEqual(
-            data[33],
-             "   :TREE:          663a7c370b985f3b7e9794dec07f28d4e6ff3936")
-        self.assertEqual(
             data[34],
-             "   :SIGNED-OFF-BY: Armin Wieser <armin.wieser@example.com>")
+             "   :COMMITTER:     Armin Wieser <armin.wieser@e" + \
+             "xample.com> 1320260312 +0100")
         self.assertEqual(
             data[35],
-             "   :COMMIT:        7ddaa9839611662c5c0dbf2bb2740e362ae4d566")
+             "   :SIGNED-OFF-BY: Armin Wieser <armin.wieser@example.com>")
         self.assertEqual(
             data[36],
-             "   :ID:            0594d8f7184c60e3e364ec34e64aa42e9837919c")
+             "   :ID:            50d3dd0e8c02857c5ceff3c04bff732a2ad67d04")
         self.assertEqual(
             data[37],
              "   :END:")

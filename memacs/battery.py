@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import argparse
@@ -8,9 +8,9 @@ import sys
 
 import batinfo
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 ROOT = '/sys/class/power_supply'
 
@@ -84,6 +84,6 @@ class Battery(Memacs):
                 if self._args.name in bat.name:
                     self._handle_battery(bat)
 
-        except OSError, e:
+        except OSError as e:
             logging.error("no battery present")
             sys.exit(1)

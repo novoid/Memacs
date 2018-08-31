@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-04-16 18:24:28 armin>
 
@@ -7,9 +7,9 @@ import os
 import logging
 import time
 import codecs
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class Commit(object):
@@ -147,7 +147,7 @@ class GitMemacs(Memacs):
     def get_line_from_stream(self, input_stream):
         try:
             return input_stream.readline()
-        except UnicodeError, e:
+        except UnicodeError as e:
             logging.error("Can't decode to encoding %s, " + \
                           "use argument -e or --encoding see help",
                           self._args.encoding)

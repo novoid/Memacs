@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2017-04-13 22:23:42 vk>
 
 from memacs.simplephonelogs import SimplePhoneLogsMemacs
 
-PROG_VERSION_NUMBER = u"0.2"
-PROG_VERSION_DATE = u"2017-04-13"
-PROG_SHORT_DESCRIPTION = u"Memacs for simple phone logs"
-PROG_TAG = u"phonelog"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.2"
+PROG_VERSION_DATE = "2017-04-13"
+PROG_SHORT_DESCRIPTION = "Memacs for simple phone logs"
+PROG_TAG = "phonelog"
+PROG_DESCRIPTION = """
 This Memacs module will parse simple log files which were written
 for example by Tasker.
 

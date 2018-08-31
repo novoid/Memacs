@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -139,7 +139,7 @@ def get_timestamp_from_components(components):
         string =  "<" + components.group(yearid) + "-" + monthsdict[ components.group(monthid) ] + \
            "-" + components.group(dayid).strip().zfill(2) + " " + components.group(daystrid) + \
            " " + components.group(hourid) + ":" + components.group(minuteid) + ">"
-    except IndexError, e:
+    except IndexError as e:
         logging.error("Sorry, there were some problems parsing the timestamp of the current from line.")
         string = "ERROR"
 
@@ -232,8 +232,8 @@ def parse_mbox(filename, outputfile):
                 if options.newsgroup:
                     outputfile.write('\n')  ## FIXXME: Sorry for this but there seems to be different behaviour when doing newsgroups
             else:
-                print generate_output_line(last_orgmodetimestamp, last_from, last_email, \
-                                                       filename, last_message_id, last_subject).strip()
+                print(generate_output_line(last_orgmodetimestamp, last_from, last_email, \
+                                                       filename, last_message_id, last_subject).strip())
             is_header = False
 
         if line == "":
@@ -260,7 +260,7 @@ def main():
     """Main function"""
 
     if options.version:
-        print os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE
+        print(os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE)
         sys.exit(0)
 
     handle_logging()
@@ -269,13 +269,13 @@ def main():
         parser.error("Please provide an input file!")
 
     if not os.path.isfile(options.mboxname):
-    	print USAGE
+    	print(USAGE)
     	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.mboxname) + \
                           "\" is not an normal file!\n")
         sys.exit(2)
 
     if not options.overwrite and options.outputfile and os.path.isfile(options.outputfile):
-    	print USAGE
+    	print(USAGE)
     	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + \
                           "\" already exists!\n")
         sys.exit(3)
@@ -293,7 +293,7 @@ def main():
         output.write(string + "\n")
     else:
         output = None
-        print string
+        print(string)
 
     parse_mbox(options.mboxname, output)
 
@@ -303,7 +303,7 @@ def main():
         output.write(string + "\n")
         output.close()
     else:
-        print string
+        print(string)
 
 
 if __name__ == "__main__":

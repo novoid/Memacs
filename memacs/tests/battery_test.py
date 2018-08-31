@@ -20,8 +20,8 @@ class TestCsv(unittest.TestCase):
         data = memacs.test_get_entries()
 
         self.assertEqual(data[1], "   :PROPERTIES:")
-        self.assertEqual(data[2], "   :STATUS:      discharging")
+        self.assertEqual(data[2], "   :CYCLE_COUNT: 866")
         self.assertEqual(data[3], "   :CAPACITY:    97%")
-        self.assertEqual(data[4], "   :CYCLE_COUNT: 866")
+        self.assertEqual(data[4], "   :STATUS:      discharging")
         self.assertEqual(data[5], "   :CONSUMPTION: 11.9 W")
         self.assertEqual(data[7], "   :END:")

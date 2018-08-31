@@ -5,9 +5,9 @@ import codecs
 import logging
 import sys
 import csv
-from urllib2 import urlopen
-from urllib2 import HTTPError
-from urllib2 import URLError
+from urllib.request import urlopen
+from urllib.error import HTTPError
+from urllib.error import URLError
 
 
 class CommonReader:
@@ -30,7 +30,7 @@ class CommonReader:
             data = input_file.read()
             input_file.close()
             return data
-        except IOError, e:
+        except IOError as e:
             logging.error("Error at opening file: %s:%s", path, e)
             sys.exit(1)
 
@@ -43,7 +43,7 @@ class CommonReader:
         """
         try:
             return codecs.open(path, encoding='utf-8')
-        except IOError, e:
+        except IOError as e:
             logging.error("Error at opening file: %s:%s", path, e)
             sys.exit(1)
         return None
@@ -59,16 +59,16 @@ class CommonReader:
         try:
             req = urlopen(url, None, 10)
             return req.read()
-        except HTTPError, e:
+        except HTTPError as e:
             logging.error("HTTPError: %s", e)
             sys.exit(1)
-        except URLError, e:
+        except URLError as e:
             logging.error("URLError: %s", e)
             sys.exit(1)
-        except ValueError, e:
+        except ValueError as e:
             logging.error("ValueError: %s", e)
             sys.exit(1)
-        except Exception, e:
+        except Exception as e:
             logging.error("Exception: %s", e)
             sys.exit(1)
 
@@ -104,8 +104,8 @@ class UTF8Recoder:
     def __iter__(self):
         return self
 
-    def next(self):
-        return self.reader.next().encode("utf-8")
+    def __next__(self):
+        return next(self.reader)
 
 
 class UnicodeCsvReader:
@@ -117,12 +117,12 @@ class UnicodeCsvReader:
     """
 
     def __init__(self, f, delimiter=";", encoding="utf-8", **kwds):
-        f = UTF8Recoder(f, encoding)
+        # f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, delimiter=delimiter, **kwds)
 
-    def next(self):
-        row = self.reader.next()
-        return [unicode(s, "utf-8") for s in row]
+    def __next__(self):
+        row = next(self.reader)
+        return [str(s) for s in row]
 
     def __iter__(self):
         return self
@@ -140,9 +140,9 @@ class UnicodeDictReader:
         f = UTF8Recoder(f, encoding)
         self.reader = csv.DictReader(f, delimiter=delimiter, fieldnames=fieldnames, **kwds)
 
-    def next(self):
-        row = self.reader.next()
-        return {k.lower(): unicode(v, "utf-8") for k, v in row.iteritems()}
+    def __next__(self):
+        row = next(self.reader)
+        return {k.lower(): str(v) for k, v in row.items()}
 
     def __iter__(self):
         return self

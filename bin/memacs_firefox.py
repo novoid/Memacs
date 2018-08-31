@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:18:07 vk>
 
 from memacs.firefox import Firefox
 
-PROG_VERSION_NUMBER = u"0.0"
-PROG_VERSION_DATE = u"2018-07-14"
-PROG_SHORT_DESCRIPTION = u"Memacs for firefox url history "
-PROG_TAG = u"firefox"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.0"
+PROG_VERSION_DATE = "2018-07-14"
+PROG_SHORT_DESCRIPTION = "Memacs for firefox url history "
+PROG_TAG = "firefox"
+PROG_DESCRIPTION = """
 This class will parse firefox history file (places.sqlite) and
 produce an org file with all your visited sites
 """

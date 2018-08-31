@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:18:15 vk>
 
 from memacs.csv import Csv
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2012-02-24"
-PROG_SHORT_DESCRIPTION = u"Memacs for csv files"
-PROG_TAG = u"csv"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2012-02-24"
+PROG_SHORT_DESCRIPTION = "Memacs for csv files"
+PROG_TAG = "csv"
+PROG_DESCRIPTION = """
 This Memacs module will parse csv files
 
 """

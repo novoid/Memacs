@@ -1,12 +1,12 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from memacs.gpx import GPX
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2017-03-02"
-PROG_SHORT_DESCRIPTION = u"Memacs for GPX files"
-PROG_TAG = u"gps"
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2017-03-02"
+PROG_SHORT_DESCRIPTION = "Memacs for GPX files"
+PROG_TAG = "gps"
 
 COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""

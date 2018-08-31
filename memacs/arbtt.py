@@ -11,9 +11,9 @@ import time
 import sys
 import io
 
-from lib.reader import UnicodeCsvReader
-from lib.orgproperty import OrgProperties
-from lib.memacs import Memacs
+from .lib.reader import UnicodeCsvReader
+from .lib.orgproperty import OrgProperties
+from .lib.memacs import Memacs
 
 ARBTT_STATS = 'arbtt-stats'
 ARBTT_FORMAT = '%m/%d/%y %H:%M:%S'
@@ -179,7 +179,7 @@ class Arbtt(Memacs):
 
         if not self._args.csv:
             stats = subprocess.check_output(command)
-            f = io.StringIO(unicode(stats))
+            f = io.StringIO(str(stats))
         else:
             # skip dump of stats data
             f = open(self._args.csv)

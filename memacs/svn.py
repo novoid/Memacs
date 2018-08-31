@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
@@ -7,10 +7,10 @@ import os
 import logging
 import xml.sax
 from xml.sax._exceptions import SAXParseException
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import CommonReader
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import CommonReader
 
 
 class SvnSaxHandler(xml.sax.handler.ContentHandler):

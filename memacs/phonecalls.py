@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-05-02 20:36:03 vk>
 
@@ -8,10 +8,10 @@ import logging
 import xml.sax
 import time, datetime
 from xml.sax._exceptions import SAXParseException
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
-from lib.reader import CommonReader
-from lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
+from .lib.reader import CommonReader
+from .lib.orgproperty import OrgProperties
 #import pdb
 
 class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
@@ -208,7 +208,7 @@ class PhonecallsMemacs(Memacs):
                                               self._args.ignore_outgoing,
                                               self._args.ignore_missed,
                                               self._args.ignore_cancelled,
-                                              self._args.minimum_duration,
+                                              self._args.minimum_duration or 0,
                                               ))
         except SAXParseException:
             logging.error("No correct XML given")

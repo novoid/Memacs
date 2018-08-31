@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2016-01-23 18:09:38 vk>
 
@@ -6,16 +6,16 @@ import sys
 import os
 import logging
 import time
-from lib.memacs import Memacs
-from lib.orgformat import OrgFormat
-from lib.orgproperty import OrgProperties
-from lib.reader import CommonReader
+from .lib.memacs import Memacs
+from .lib.orgformat import OrgFormat
+from .lib.orgproperty import OrgProperties
+from .lib.reader import CommonReader
 
 try:
     from icalendar import Calendar
-except ImportError, e:
-    print "please install python package \"icalendar\""
-    print e
+except ImportError as e:
+    print("please install python package \"icalendar\"")
+    print(e)
     sys.exit(3)
 
 
@@ -88,7 +88,7 @@ class CalendarMemacs(Memacs):
                 None: otherwise
         """
         if vtext:
-            return unicode(vtext)
+            return str(vtext)
         else:
             return nonetype
 
@@ -134,11 +134,10 @@ class CalendarMemacs(Memacs):
         location = self.__vtext_to_unicode(component.get('location'))
         description = self.__vtext_to_unicode(component.get('description'))
         # format: 20091207T180000Z or 20100122
-        dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical())
-
+        dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical().decode('utf-8'))
         # format: 20091207T180000Z or 20100122
-        if 'DTEND' in component.keys():
-            dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical())
+        if 'DTEND' in list(component.keys()):
+            dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical().decode('utf-8'))
 
         # format: 20091207T180000Z
         # not used: Datestamp created
@@ -149,10 +148,10 @@ class CalendarMemacs(Memacs):
         # component.get('rrule')
 
         ## notice: end date/time is optional; no end date results in end date 9999-12-31
-        if 'DTEND' in component.keys():
+        if 'DTEND' in list(component.keys()):
             orgdate = self.__get_datetime_range(dtstart, dtend)
         else:
-            orgdate = self.__get_datetime(dtstart) + u"-<9999-12-31 Fri>"
+            orgdate = self.__get_datetime(dtstart) + "-<9999-12-31 Fri>"
 
         logging.debug(orgdate + " " + summary)
 

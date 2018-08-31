@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:20:01 vk>
 
 from memacs.svn import SvnMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-27"
-PROG_SHORT_DESCRIPTION = u"Memacs for svn"
-PROG_TAG = u"svn"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2011-12-27"
+PROG_SHORT_DESCRIPTION = "Memacs for svn"
+PROG_TAG = "svn"
+PROG_DESCRIPTION = """
 This Memacs module will parse output of svn log --xml
 
 sample xml:

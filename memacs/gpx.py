@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import logging
@@ -11,9 +11,9 @@ import gpxpy
 import gpxpy.gpx
 import geocoder
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from .lib.orgproperty import OrgProperties
+from .lib.orgformat import OrgFormat
+from .lib.memacs import Memacs
 
 
 class GPX(Memacs):
@@ -76,11 +76,11 @@ class GPX(Memacs):
 
         else:
             self._parser.error("invalid provider given")
-            sys.exit(1)
+            raise ValueError('invalid provider given')
 
         if not geocode.ok:
             logging.error("geocoding failed or api limit exceeded")
-            sys.exit(1)
+            raise RuntimeError('geocoding failed or api limit exceeded')
         else:
             logging.debug(geocode.json)
             return geocode.json
@@ -90,7 +90,7 @@ class GPX(Memacs):
 
         timestamp = OrgFormat.datetime(p.time)
         geocode = self.reverse_geocode(p.latitude, p.longitude)
-        output = self._args.output_format.decode('utf-8').format(**geocode)
+        output = self._args.output_format.format(**geocode)
 
         tags = []
 

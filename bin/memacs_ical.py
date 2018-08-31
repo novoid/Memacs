@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-04-04 16:18:50 vk>
 
 from memacs.ical import CalendarMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2011-12-28"
-PROG_SHORT_DESCRIPTION = u"Memacs for ical Calendars"
-PROG_TAG = u"calendar"
-PROG_DESCRIPTION = u"""This script parses a *.ics file and generates
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2011-12-28"
+PROG_SHORT_DESCRIPTION = "Memacs for ical Calendars"
+PROG_TAG = "calendar"
+PROG_DESCRIPTION = """This script parses a *.ics file and generates
 Entries for VEVENTS
 * other's like VALARM are not implemented by now
 """

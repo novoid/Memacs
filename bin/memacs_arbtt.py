@@ -4,11 +4,11 @@
 
 from memacs.arbtt import Arbtt
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2017-02-07"
-PROG_SHORT_DESCRIPTION = u"Memacs for arbtt"
-PROG_TAG = u"arbtt"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2017-02-07"
+PROG_SHORT_DESCRIPTION = "Memacs for arbtt"
+PROG_TAG = "arbtt"
+PROG_DESCRIPTION = """
 This Memacs module will parse arbtt stats ....
 
 """

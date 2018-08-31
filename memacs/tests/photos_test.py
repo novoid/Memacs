@@ -26,6 +26,6 @@ class TestPhotoMemacs(unittest.TestCase):
         self.assertEqual(data[1], "   :PROPERTIES:")
         self.assertEqual(
             data[2],
-            u"   :ID:         c2833ac1c683dea5b600ac4f303a572d2148e1e7"
+            "   :ID:         c2833ac1c683dea5b600ac4f303a572d2148e1e7"
         )
         self.assertEqual(data[3], "   :END:")

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -95,7 +95,7 @@ def check_if_days_in_timestamps_are_same(filename, basename, filenamedatestampco
     filetimestamp = get_timestamp_from_file(filename)[0:3]
     logging.debug( "filetimestamp " + str( filetimestamp ))
 
-    filenamedatestampcomponentslist = map(lambda x: int(x), filenamedatestampcomponents.groups())  ## converts strings to integers
+    filenamedatestampcomponentslist = [int(x) for x in filenamedatestampcomponents.groups()]  ## converts strings to integers
     filenamedatestampcomponentslist = list( filenamedatestampcomponentslist )  ## converts tuple to list
 
     logging.debug( "filenamedatestampcomponentslist " + str( filenamedatestampcomponentslist ))
@@ -197,7 +197,7 @@ def main():
     """Main function"""
 
     if options.version:
-        print os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE
+        print(os.path.basename(sys.argv[0]) + " version "+PROG_VERSION_NUMBER+" from "+PROG_VERSION_DATE)
         sys.exit(0)
 
     handle_logging()
@@ -209,12 +209,12 @@ def main():
         parser.error("Please provide an output file!")
 
     if not os.path.isfile(options.filelistname):
-    	print USAGE
+    	print(USAGE)
     	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.filelistname) + "\" is not an normal file!\n")
         sys.exit(2)
 
     if not options.overwrite and os.path.isfile(options.outputfile):
-    	print USAGE
+    	print(USAGE)
     	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + "\" already exists!\n")
         sys.exit(3)
 

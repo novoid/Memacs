@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2013-09-12 09:11 igb>
 
 from memacs.sms_superbackup import SmsSuperBackupMemacs
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2012-03-07"
-PROG_SHORT_DESCRIPTION = u"Memacs for sms"
-PROG_TAG = u"sms"
-PROG_DESCRIPTION = u"""
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2012-03-07"
+PROG_SHORT_DESCRIPTION = "Memacs for sms"
+PROG_TAG = "sms"
+PROG_DESCRIPTION = """
 This Memacs module will parse output of sms xml backup files
 
 > A sample xml file you find in the documentation file memacs_sms.org.

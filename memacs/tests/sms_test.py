@@ -40,4 +40,4 @@ class TestSmsMemacs(unittest.TestCase):
         self.assertIn(name, sms_data[0])
         self.assertIn(to_from, sms_data[0])
         self.assertEqual(time.strftime('%Y-%m-%d %a %H:%M', date), timestamp)
-        self.assertEqual(number, sms.get('address').replace('+',u'00'))
+        self.assertEqual(number, sms.get('address').replace('+','00'))

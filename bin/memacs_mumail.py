@@ -1,14 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2015-04-30 17:12:02 vs>
 
 from memacs.mu import MuMail
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2015-03-08"
-PROG_SHORT_DESCRIPTION = u"Memacs for Mu Mails"
-PROG_TAG = u"emails:mumail"
-PROG_DESCRIPTION = u"""This memacs module will connect mu mail database,
+PROG_VERSION_NUMBER = "0.1"
+PROG_VERSION_DATE = "2015-03-08"
+PROG_SHORT_DESCRIPTION = "Memacs for Mu Mails"
+PROG_TAG = "emails:mumail"
+PROG_DESCRIPTION = """This memacs module will connect mu mail database,
 fetch all mails and writes them to an orgfile.
 """
 CONFIG_PARSER_NAME = ""
