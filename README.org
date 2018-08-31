@@ -54,7 +54,7 @@ tested it myself.
 ** Installation
 
 - clone or download repository from github
-- make sure to use *python v2.7*
+- make sure to use *python v3*
 - create a virtualenv or
 - export/set ~PYTHONPATH~
 
