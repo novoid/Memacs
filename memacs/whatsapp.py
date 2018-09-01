@@ -79,7 +79,8 @@ class WhatsApp(Memacs):
         if msg['type'] is 'OUTGOING' and self._args.ignore_outgoing:
             return True
 
-        if '-' in msg['number'] and self._args.ignore_groups:
+        group_message_regex = r'-[0-9]{10}'
+        if self._args.ignore_groups and re.findall(group_message_regex, msg['number']):
             return True
 
     def _handle_message(self, msg):
