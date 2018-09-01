@@ -6,7 +6,6 @@ import sys
 import os
 import logging
 import time
-import codecs
 from .lib.orgproperty import OrgProperties
 from .lib.orgformat import OrgFormat
 from .lib.memacs import Memacs
@@ -163,11 +162,10 @@ class GitMemacs(Memacs):
         if self._args.gitrevfile:
             logging.debug("using as %s input_stream",
                           self._args.gitrevfile)
-            input_stream = codecs.open(self._args.gitrevfile,
-                                       encoding=self._args.encoding)
+            input_stream = open(self._args.gitrevfile)
         else:
             logging.debug("using sys.stdin as input_stream")
-            input_stream = codecs.getreader(self._args.encoding)(sys.stdin)
+            input_stream = sys.stdin 
 
         # now go through the file
         # Logic (see example commit below)
