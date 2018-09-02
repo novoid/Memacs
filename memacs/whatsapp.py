@@ -16,9 +16,11 @@ import emoji
 from .lib.orgproperty import OrgProperties
 from .lib.orgformat import OrgFormat
 from .lib.memacs import Memacs
-
+from .lib.contactparser import parse_org_contact_file
 
 class WhatsApp(Memacs):
+
+
     def _parser_add_arguments(self):
         """
         overwritten method of class Memacs
@@ -46,7 +48,7 @@ class WhatsApp(Memacs):
 
         self._parser.add_argument(
             "--output-format", dest="output_format",
-            action="store", default="{verb} [[{handler}:{number}][{number}]]: {text}",
+            action="store", default="{verb} [[{handler}:{name}][{name}]]: {text}",
             help="format string to use for the headline")
 
         self._parser.add_argument(
@@ -62,6 +64,13 @@ class WhatsApp(Memacs):
             "--skip-emoji", dest="skip_emoji",
             action="store_true", help="skip all emoji")
 
+        self._parser.add_argument(
+            "--orgcontactsfile", dest="orgcontactsfile",
+            action="store", required=False,
+            help="path to Org-contacts file for phone number lookup. Phone numbers have to match.")
+
+
+
     def _parser_parse_args(self):
         """
         overwritten method of class Memacs
@@ -69,6 +78,13 @@ class WhatsApp(Memacs):
         all additional arguments are parsed in here
         """
         Memacs._parser_parse_args(self)
+        if self._args.orgcontactsfile:
+            if not (os.path.exists(self._args.orgcontactsfile) or \
+                    os.access(self._args.orgcontactsfile, os.R_OK)):
+                self._parser.error("Org-contacts file not found or not readable")
+            self._numberdict = parse_org_contact_file(self._args.orgcontactsfile)
+        else:
+            self._numberdict = {}
 
     def _is_ignored(self, msg):
         """check for ignored message type"""
@@ -87,6 +103,7 @@ class WhatsApp(Memacs):
         """parse a single message row"""
 
         msg['number'] = '00' + msg['number'].split('@')[0]
+        msg['name'] = self._numberdict.get(msg['number'],msg['number'])
         msg['verb'] = 'to' if msg['type'] else 'from'
         msg['type'] = 'OUTGOING' if msg['type'] else 'INCOMING'
         msg['handler'] = self._args.handler
