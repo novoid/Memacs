@@ -118,7 +118,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
         htmlparser = html.parser.HTMLParser()
 
         if name == "sms":
-            sms_subject = attrs['subject']
+            sms_subject = attrs.get('subject','')
             sms_date = int(attrs['date']) / 1000     # unix epoch
             sms_body = attrs['body']
             sms_address = attrs['address'].strip().replace('-','').replace('/','').replace(' ','').replace('+','00')
