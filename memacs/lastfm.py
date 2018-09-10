@@ -73,10 +73,10 @@ class LastFM(Memacs):
         try:
 
             if 'lastfm' in self._get_config_option('network'):
-                network = pylast.get_lastfm_network(**options)
+                network = pylast.LastFMNetwork(**options)
 
             if 'librefm' in self._get_config_option('network'):
-                network = pylast.get_librefm_network(**options)
+                network = pylast.LibreFMNetwork(**options)
 
             user = network.get_user(options['username'])
 
