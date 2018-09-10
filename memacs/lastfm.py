@@ -37,7 +37,7 @@ class LastFM(Memacs):
         Memacs._parser_parse_args(self)
 
         if self._args.output_format:
-            self._args.output_format = self._args.output_format.decode('utf-8')
+            self._args.output_format = self._args.output_format
 
     def _handle_recent_tracks(self, tracks):
         """parse recent tracks"""

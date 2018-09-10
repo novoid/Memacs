@@ -140,7 +140,7 @@ class Memacs(object):
         if self.__config_parser:
             ret = self.__config_parser.get(self.__use_config_parser_name,
                                            option)
-            return ret.decode("utf-8")
+            return ret
         else:
             raise Exception("no config parser specified, cannot get option")
 
