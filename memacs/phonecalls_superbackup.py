@@ -233,7 +233,7 @@ class PhonecallsSuperBackupMemacs(Memacs):
                                               self._args.ignore_voicemail,
                                               self._args.ignore_rejected,
                                               self._args.ignore_refused,
-                                              self._args.minimum_duration,
+                                              self._args.minimum_duration or 0,
                                               ))
         except SAXParseException:
             logging.error("No correct XML given")
