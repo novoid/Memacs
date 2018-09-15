@@ -13,17 +13,17 @@ PROG_VERSION_DATE = "2011-10-10"
 INVOCATION_TIME = time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
 MATCHING_LEVEL = {'day': 1, 'minutes': 2, 'seconds': 3, 'notmatching': 4}
 
-## better performance if pre-compiled:
+# better performance if pre-compiled:
 TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d).([012345]\d)(.([012345]\d))?")
 DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
 
-## RegEx matches more exactly:
-##         reason: avoid 2011-01-00 (day is zero) or month is >12, ...
-##         problem: mathing groups will change as well!
-##   also fix in: vktimestamp2filedate
-## dd = 01..31: ( ([12]\d) | (01|02|03|04|05|05|06|07|08|09|30|31) )
-## mm = 01..12: ( ([0]\d) | (10|11|12) )
-## hh = 00..23: ( ([01]\d) | (20|21|22|23) )
+# RegEx matches more exactly:
+#         reason: avoid 2011-01-00 (day is zero) or month is >12, ...
+#         problem: mathing groups will change as well!
+#   also fix in: vktimestamp2filedate
+# dd = 01..31: ( ([12]\d) | (01|02|03|04|05|05|06|07|08|09|30|31) )
+# mm = 01..12: ( ([0]\d) | (10|11|12) )
+# hh = 00..23: ( ([01]\d) | (20|21|22|23) )
 
 USAGE = "\n\
          "+sys.argv[0]+"\n\
@@ -72,6 +72,7 @@ parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
 (options, args) = parser.parse_args()
 # if we found a timestamp too, take hours,minutes and optionally seconds from this timestamp
 
+
 def handle_logging():
     """Log handling and configuration"""
 
@@ -85,21 +86,20 @@ def handle_logging():
 
 def get_timestamp_from_file(filename):
     """returns mtime of file"""
-    return time.localtime( os.path.getmtime(filename) )
-
+    return time.localtime(os.path.getmtime(filename))
 
 
 def check_if_days_in_timestamps_are_same(filename, basename, filenamedatestampcomponents):
     """handles timestamp differences for timestamps containing only day information (and not times)"""
 
     filetimestamp = get_timestamp_from_file(filename)[0:3]
-    logging.debug( "filetimestamp " + str( filetimestamp ))
+    logging.debug("filetimestamp " + str(filetimestamp))
 
-    filenamedatestampcomponentslist = [int(x) for x in filenamedatestampcomponents.groups()]  ## converts strings to integers
-    filenamedatestampcomponentslist = list( filenamedatestampcomponentslist )  ## converts tuple to list
+    filenamedatestampcomponentslist = [int(x) for x in filenamedatestampcomponents.groups()]  # converts strings to integers
+    filenamedatestampcomponentslist = list(filenamedatestampcomponentslist)  # converts tuple to list
 
-    logging.debug( "filenamedatestampcomponentslist " + str( filenamedatestampcomponentslist ))
-        #logging.debug( "filenamedatestampcomponentslist[0] " + str( filenamedatestampcomponentslist[0] ))
+    logging.debug("filenamedatestampcomponentslist " + str(filenamedatestampcomponentslist))
+    # logging.debug( "filenamedatestampcomponentslist[0] " + str( filenamedatestampcomponentslist[0] ))
 
     if filenamedatestampcomponentslist[0] == filetimestamp[0] and \
             filenamedatestampcomponentslist[1] == filetimestamp[1] and \
@@ -107,7 +107,7 @@ def check_if_days_in_timestamps_are_same(filename, basename, filenamedatestampco
         logging.debug("matches only date YYYY-MM-DD")
         return True
     else:
-        logging.debug( "filetimestamp and filename differs: " + filename)
+        logging.debug("filetimestamp and filename differs: " + filename)
         return False
 
 
@@ -116,13 +116,13 @@ def check_if_days_in_timestamps_are_same(filename, basename, filenamedatestampco
 def generate_orgmode_file_timestamp(filename):
     """generates string for a file containing ISO timestamp in Org-mode"""
 
-    ## Org-mode timestamp: <2011-07-16 Sat 9:00>
-    ## also working in Org-mode agenda: <2011-07-16 9:00>
+    # Org-mode timestamp: <2011-07-16 Sat 9:00>
+    # also working in Org-mode agenda: <2011-07-16 9:00>
 
     basename = os.path.basename(filename)
     timestampcomponents = TIMESTAMP_REGEX.match(basename)
-    ## "2010-06-12T13.08.42_test..." -> ('2010', '06', '12', '13', '08', '.42', '42')
-    ## filenametimestampcomponents.group(1) -> '2010'
+    # "2010-06-12T13.08.42_test..." -> ('2010', '06', '12', '13', '08', '.42', '42')
+    # filenametimestampcomponents.group(1) -> '2010'
 
     datestampcomponents = DATESTAMP_REGEX.match(basename)
 
@@ -140,8 +140,8 @@ def generate_orgmode_file_timestamp(filename):
         if check_if_days_in_timestamps_are_same(filename, basename, datestampcomponents):
             logging.debug("day of timestamps is different, have to assume time")
 
-            assumedtime = ""  ## no special time assumed; file gets shown as time-independent
-            #assumedtime = " 12:00" ## files with no special time gets shown at noon
+            assumedtime = ""  # no special time assumed; file gets shown as time-independent
+            # assumedtime = " 12:00" ## files with no special time gets shown at noon
 
             datestamp = "<" + str(datestampcomponents.group(1)) + "-" + str(datestampcomponents.group(2)) + \
                 "-" + str(datestampcomponents.group(3)) + assumedtime + ">"
@@ -168,29 +168,26 @@ def generate_orgmode_file_timestamp(filename):
         return False
 
 
-
-
 def handle_filelist_line(line, output):
     """handles one line of the list of files to check"""
 
     filename = line.strip()
     basename = os.path.basename(line).strip()
-    logging.debug( "--------------------------------------------")
-    logging.debug("processing line \""+ filename + "\" with basename \""+ basename + "\"")
+    logging.debug("--------------------------------------------")
+    logging.debug("processing line \"" + filename + "\" with basename \"" + basename + "\"")
 
     if filename == "":
-        logging.debug( "ignoring empty line")
+        logging.debug("ignoring empty line")
 
     elif not os.path.isfile(filename):
-        logging.warn( "ignoring \""+ filename + "\" because it is no file")
+        logging.warn("ignoring \"" + filename + "\" because it is no file")
 
     elif TIMESTAMP_REGEX.match(basename) or DATESTAMP_REGEX.match(basename):
 
-        output.write( generate_orgmode_file_timestamp(filename) )
+        output.write(generate_orgmode_file_timestamp(filename))
 
     else:
-    	logging.warn( "ignoring \""+ filename + "\" because its file name does not match ISO date YYYY-MM-DDThh.mm(.ss)")
-
+        logging.warn("ignoring \"" + filename + "\" because its file name does not match ISO date YYYY-MM-DDThh.mm(.ss)")
 
 
 def main():
@@ -209,13 +206,13 @@ def main():
         parser.error("Please provide an output file!")
 
     if not os.path.isfile(options.filelistname):
-    	print(USAGE)
-    	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.filelistname) + "\" is not an normal file!\n")
+        print(USAGE)
+        logging.error("\n\nThe argument interpreted as an input file \"" + str(options.filelistname) + "\" is not an normal file!\n")
         sys.exit(2)
 
     if not options.overwrite and os.path.isfile(options.outputfile):
-    	print(USAGE)
-    	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + "\" already exists!\n")
+        print(USAGE)
+        logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + "\" already exists!\n")
         sys.exit(3)
 
     output = open(options.outputfile, 'w')
@@ -237,6 +234,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logging.info("Received KeyboardInterrupt")
 
-## END OF FILE #################################################################
-
-#end
+# END OF FILE #################################################################
+# end
