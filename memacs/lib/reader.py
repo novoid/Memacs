@@ -5,6 +5,7 @@ import codecs
 import logging
 import sys
 import csv
+from collections import OrderedDict
 from urllib.request import urlopen
 from urllib.error import HTTPError
 from urllib.error import URLError
@@ -142,7 +143,7 @@ class UnicodeDictReader:
 
     def __next__(self):
         row = next(self.reader)
-        return {k.lower(): str(v) for k, v in row.items()}
+        return OrderedDict((k.lower(), row[k]) for k in self.reader.fieldnames)
 
     def __iter__(self):
         return self
