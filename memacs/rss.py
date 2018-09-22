@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2018-09-22 14:07:08 vk>
 
 import sys
 import os
@@ -61,7 +61,7 @@ class RssMemacs(Memacs):
                   variables for orgwriter.append_org_subitem
         """
         try:
-            #logging.debug(item)
+            # logging.debug(item)
             properties = OrgProperties()
             guid = item['id']
             if not guid:
@@ -72,7 +72,7 @@ class RssMemacs(Memacs):
 
             # if we found a url in title
             # then append the url in front of subject
-            if re.search("http[s]?://", item['title']) != None:
+            if re.search("http[s]?://", item['title']) is not None:
                 output = short_link + ": " + item['title']
             else:
                 output = OrgFormat.link(unformatted_link, item['title'])
@@ -80,6 +80,12 @@ class RssMemacs(Memacs):
             note = item['description']
 
             # converting updated_parsed UTC --> LOCALTIME
+            # Karl 2018-09-22 this might be changed due to:
+            # DeprecationWarning: To avoid breaking existing software
+            # while fixing issue 310, a temporary mapping has been
+            # created from `updated_parsed` to `published_parsed` if
+            # `updated_parsed` doesn't exist. This fallback will be
+            # removed in a future version of feedparser.
             timestamp = OrgFormat.datetime(
                 time.localtime(calendar.timegm(item['updated_parsed'])))
 
@@ -90,13 +96,19 @@ class RssMemacs(Memacs):
             sys.exit(1)
 
         tags = []
+        # Karl 2018-09-22 this might be changed due to:
+        # DeprecationWarning: To avoid breaking existing software
+        # while fixing issue 310, a temporary mapping has been created
+        # from `updated_parsed` to `published_parsed` if
+        # `updated_parsed` doesn't exist. This fallback will be
+        # removed in a future version of feedparser.
         dont_parse = ['title', 'description', 'updated', 'summary',
-                          'updated_parsed', 'link', 'links']
-        for i in  item:
+                      'updated_parsed', 'link', 'links']
+        for i in item:
             logging.debug(i)
             if i not in dont_parse:
                 if (type(i) == str or type(i) == str) and \
-                type(item[i]) == str and  item[i] != "":
+                   type(item[i]) == str and item[i] != "":
                     if i == "id":
                         i = "guid"
                     properties.add(i, item[i])
