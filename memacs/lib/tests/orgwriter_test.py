@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 22:59:38 armin>
+# Time-stamp: <2018-09-22 13:32:36 vk>
 
 import codecs
-import os
 import shutil
 import time
 import tempfile
