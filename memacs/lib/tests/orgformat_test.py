@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-08 16:38:19 vk>
+# Time-stamp: <2018-09-22 13:02:39 vk>
 
 import unittest
 import time
+import datetime
 import os
 from memacs.lib.orgformat import OrgFormat
 
@@ -28,23 +29,37 @@ class TestOrgFormat(unittest.TestCase):
         """
         test Org date
         """
-        # testing tuples
+        # testing time.struct_time
         t = time.strptime("2011-11-02T20:38", "%Y-%m-%dT%H:%M")
-        date = OrgFormat.date(t)
-        datetime = OrgFormat.date(t, show_time=True)
-        self.assertEqual("<2011-11-02 Wed>", date, "date error")
-        self.assertEqual("<2011-11-02 Wed 20:38>", datetime, "datetime error")
+        mydate = OrgFormat.date(t)
+        mydatetime = OrgFormat.date(t, show_time=True)
+        self.assertEqual("<2011-11-02 Wed>", mydate, "date error")
+        self.assertEqual("<2011-11-02 Wed 20:38>", mydatetime, "datetime error")
+
+        # testing datetime.datetime
+        t = datetime.datetime(2018, 9, 22, hour=12, minute=55, second=59)
+        mydate = OrgFormat.date(t)
+        mydatetime = OrgFormat.date(t, show_time=True)
+        self.assertEqual("<2018-09-22 Sat>", mydate, "date error")
+        self.assertEqual("<2018-09-22 Sat 12:55>", mydatetime, "datetime error")
 
     def test_inactive_date(self):
         """
         test Org inactive_date
         """
-        # testing tuples
+        # testing time.struct_time
         t = time.strptime("2011-11-02T20:38", "%Y-%m-%dT%H:%M")
-        date = OrgFormat.inactive_date(t)
-        datetime = OrgFormat.inactive_datetime(t)
-        self.assertEqual("[2011-11-02 Wed]", date, "date error")
-        self.assertEqual("[2011-11-02 Wed 20:38]", datetime, "datetime error")
+        mydate = OrgFormat.inactive_date(t)
+        mydatetime = OrgFormat.inactive_datetime(t)
+        self.assertEqual("[2011-11-02 Wed]", mydate, "mydate error")
+        self.assertEqual("[2011-11-02 Wed 20:38]", mydatetime, "mydatetime error")
+
+        # testing datetime.datetime
+        t = datetime.datetime(2018, 9, 22, hour=12, minute=55, second=59)
+        mydate = OrgFormat.inactive_date(t)
+        mydatetime = OrgFormat.inactive_date(t, show_time=True)
+        self.assertEqual("[2018-09-22 Sat]", mydate, "date error")
+        self.assertEqual("[2018-09-22 Sat 12:55]", mydatetime, "datetime error")
 
     def test_strings(self):
         # testing strings

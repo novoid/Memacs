@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-03-13 17:13:23 karl.voit>
+# Time-stamp: <2018-09-22 13:01:29 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -124,10 +124,10 @@ class OrgFormat(object):
         local_structtime = False
 
         if tuple_date.__class__ == time.struct_time:
-            ## fix day of week in struct_time
+            # fix day of week in struct_time
             local_structtime = OrgFormat.fix_struct_time_wday(tuple_date)
         else:
-            ## convert datetime to struc_time
+            # convert datetime to struc_time
             local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
@@ -141,16 +141,23 @@ class OrgFormat(object):
         returns a date string in org format
         i.e.: * [YYYY-MM-DD Sun]
               * [YYYY-MM-DD Sun HH:MM]
-        @param tuple_date: has to be a time.struct_time
+        @param tuple_date: has to be a time.struct_time or datetime
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert tuple_date.__class__ == time.struct_time
+        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
+
+        if tuple_date.__class__ == time.struct_time:
+            # fix day of week in struct_time
+            local_structtime = OrgFormat.fix_struct_time_wday(tuple_date)
+        else:
+            # convert datetime to struc_time
+            local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
-            return time.strftime("[%Y-%m-%d %a %H:%M]", OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime("[%Y-%m-%d %a %H:%M]", OrgFormat.fix_struct_time_wday(local_structtime))
         else:
-            return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(local_structtime))
 
     @staticmethod
     def datetime(tuple_datetime):
