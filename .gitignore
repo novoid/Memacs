@@ -4,3 +4,7 @@ dist/
 *.org_archive
 tmp/**/*.xml
 update_pip.sh
+.cache/
+.pytest_cache/
+build/
+memacs.egg-info/
