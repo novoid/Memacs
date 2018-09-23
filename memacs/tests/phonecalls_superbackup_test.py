@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-08-25 14:16:04 vk>
 
 import unittest
 import os
