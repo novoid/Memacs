@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alllogs count="2">
+	<log number="+49123456789" time="17.09.2018 21:58:22" date="1537214302606" type="1" name="TestPerson1" new="1" dur="264" />
+	<log number="+4912345678910" time="17.09.2018 19:24:42" date="1537205082190" type="1" name="TestPerson2" new="1" dur="73" />
+	</alllogs>
