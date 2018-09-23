@@ -8,3 +8,4 @@ update_pip.sh
 .pytest_cache/
 build/
 memacs.egg-info/
+.tox/
