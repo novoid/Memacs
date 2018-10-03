@@ -141,6 +141,7 @@ to =tsfile:= images]] independent of their location. Awesome stuff.
 - [[docs/memacs_csv.org][csv]]
 - [[docs/memacs_filenametimestamps.org][filenametimestamps]]
 - [[file:docs/memacs_firefox_history.org][firefox_history]]
+- [[file:docs/memacs_chrome_history.org][chrome_history]]
 - [[docs/memacs_git.org][git]]
 - [[docs/memacs_gpx.org][gpx]]
 - [[docs/memacs_ical.org][ical]]
