@@ -1,0 +1,31 @@
+## Time-stamp: <2018-10-03 Wed>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs-chrome_history
+** Options
+
+   - ~-f~, ~--file~, path to a sqlite db file which contains the Google Chrome history: ~~/.config/google-chrome/Default/History~.
+   - ~--output-format~, format for the headers of the generated org. available tags are: ~url, title, visit_count, timestamp~
+
+** Data Source
+
+The visited sites in Google Chrome are stored in a ~History~ file that
+contains every url you visited along with the last visited date.
+
+We can use Memacs_chrome to generate a file with the datetimes of the urls:
+
+** Example Invocation
+*** Example with rev-list file:
+: python bin/memacs_chrome.py -f "/home/bala/.config/google-chrome/Default/History" >~/org/chromehist.org_archive
+
+** Example Orgmode entries
+
+   With the default --output-format, a regular entry looks like this:
+
+: * Memacs for chrome url history           :Memacs:chrome:
+: ** <2018-10-03 Wed 10:15:51> [[https://github.com/balaramadurai][Balaramadurai (Dr. Bala Ramadurai)]]
+:   :PROPERTIES:
+:   :URL:         https://github.com/balaramadurai
+:   :VISIT_COUNT: 1
+:   :ID:          72cdb9f8afd0bb8a815723c47a336f1f300a9228
+:   :END:
