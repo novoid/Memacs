@@ -12,9 +12,6 @@ from .lib.orgproperty import OrgProperties
 from .lib.orgformat import OrgFormat
 from .lib.memacs import Memacs
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
 class Chrome(Memacs):
     def _parser_add_arguments(self):
         """
@@ -86,11 +83,11 @@ class Chrome(Memacs):
         """
         conn = sqlite3.connect(os.path.abspath(self._args.historystore.name))
         query = conn.execute("""
-        select urls.url, urls.title, urls.visit_count,
-                visits.visit_time
-        from   urls, visits
-        where  urls.id = visits.id
-        order by urls.last_visit_time """)
+        select url, title, visit_count,
+                last_visit_time
+        from   urls
+        where  last_visit_time IS NOT NULL
+        order by last_visit_time """)
 
         for row in query:
             self._handle_url({
