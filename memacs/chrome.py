@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #!/usr/bin/env python3
-=======
-#!/usr/bin/env python
->>>>>>> 45d099bc18142e0e4aeb4a44ec621638482f9149
 # -*- coding: utf-8 -*-
 # Time-stamp: <2018-10-03 10:01:23 br>
 
@@ -12,18 +8,12 @@ import sys
 import os
 import re
 
-<<<<<<< HEAD
 from .lib.orgproperty import OrgProperties
 from .lib.orgformat import OrgFormat
 from .lib.memacs import Memacs
-=======
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
 
 reload(sys)
 sys.setdefaultencoding('utf8')
->>>>>>> 45d099bc18142e0e4aeb4a44ec621638482f9149
 
 class Chrome(Memacs):
     def _parser_add_arguments(self):
@@ -36,11 +26,7 @@ class Chrome(Memacs):
 
         self._parser.add_argument(
             "-f", "--file", dest="historystore",
-<<<<<<< HEAD
             action="store", type=open, required=True,
-=======
-            action="store", type=file, required=True,
->>>>>>> 45d099bc18142e0e4aeb4a44ec621638482f9149
             help="""path to Google Chrome History sqlite file. usually in
 /home/bala/.config/google-chrome/Default/History """)
 
@@ -70,10 +56,6 @@ class Chrome(Memacs):
             timestamp = datetime.datetime.fromtimestamp(int(url_time))
         else:
             timestamp = datetime.datetime(1970, 1, 1)
-<<<<<<< HEAD
-=======
-
->>>>>>> 45d099bc18142e0e4aeb4a44ec621638482f9149
             
         if not self._args.omit_drawer:
             properties = OrgProperties()
