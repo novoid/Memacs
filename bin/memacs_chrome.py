@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 # Time-stamp: <2013-04-04 16:18:07 vk>
+=======
+# Time-stamp: <2013-10-03 15:18:07 br>
+>>>>>>> 45d099bc18142e0e4aeb4a44ec621638482f9149
 
 from memacs.chrome import Chrome
 
