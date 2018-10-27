@@ -59,6 +59,25 @@ class Kodi(Csv):
             'minimal duration in seconds of a pause to be logged as a pause instead of being ignored',
             type=int,
         )
+        self._parser.add_argument(
+            '--start-actions',
+            dest='start_actions',
+            required=False,
+            action='store',
+            default='started,resumed',
+            help=
+            'comma seperated action commands when track is started (default started,resumed)'
+        )
+
+        self._parser.add_argument(
+            '--stop-actions',
+            dest='stop_actions',
+            required=False,
+            action='store',
+            default='stopped,paused',
+            help=
+            'comma seperated action commands when track is stopped/paused (default stopped,paused)'
+        )
 
     def _parser_parse_args(self):
         """
@@ -67,6 +86,13 @@ class Kodi(Csv):
         all additional arguments are parsed in here
         """
         super()._parser_parse_args()
+
+        self._args.stop_actions = [
+            name.strip() for name in self._args.stop_actions.split(',')
+        ]
+        self._args.start_actions = [
+            name.strip() for name in self._args.start_actions.split(',')
+        ]
 
         if self._args.identification_fields:
             self._args.identification_fields = [
@@ -125,19 +151,17 @@ class Kodi(Csv):
 
     def read_log(self, reader):
         """goes through rows and searches for start/stop actions"""
-        start_actions = ['started', 'resumed']
-        stop_actions = ['paused', 'stopped']
         start_time, stop_time = None, None
         for prev_row, row, next_row in previous_current_next(reader):
             timestamp = self.read_timestamp(row)
             action = row[self._args.action_field]
-            if action in start_actions:
+            if action in self._args.start_actions:
                 if not start_time:
                     start_time = timestamp
                 elif prev_row and not self.track_is_paused(prev_row, row):
                     self.write_one_track(prev_row, start_time, timestamp)
                     start_time = timestamp
-            elif action in stop_actions and start_time:
+            elif action in self._args.stop_actions and start_time:
                 if not self.track_is_paused(row, next_row):
                     stop_time = timestamp
                 else:
