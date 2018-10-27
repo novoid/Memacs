@@ -37,7 +37,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
 #+BEGIN_SRC org
 * Memacs for Kodi           :Memacs:kodi:
 ** <2018-10-01 Mon 21:58>--<2018-10-01 Mon 21:59> Clueso-So sehr dabei
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      So sehr dabei
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
@@ -45,7 +45,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
   :END:
 
 ** <2018-10-01 Mon 22:03>--<2018-10-01 Mon 22:08> Clueso-Chicago
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      Chicago
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
@@ -53,7 +53,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
   :END:
 
 ** <2018-10-01 Mon 22:08>--<2018-10-01 Mon 22:15> Clueso-So sehr dabei
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      So sehr dabei
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
@@ -61,7 +61,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
   :END:
 
 ** <2018-10-01 Mon 22:16>--<2018-10-01 Mon 22:26> Clueso-So sehr dabei
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      So sehr dabei
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
@@ -83,7 +83,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
 #+BEGIN_SRC org
 * Memacs for Kodi           :Memacs:kodi:
 ** <2018-10-01 Mon 21:58>--<2018-10-01 Mon 21:59> Clueso-So sehr dabei
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      So sehr dabei
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
@@ -91,7 +91,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
   :END:
 
 ** <2018-10-01 Mon 22:03>--<2018-10-01 Mon 22:08> Clueso-Chicago
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      Chicago
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
@@ -99,7 +99,7 @@ bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
   :END:
 
 ** <2018-10-01 Mon 22:08>--<2018-10-01 Mon 22:26> Clueso-So sehr dabei
-   :PROPERTIES:
+  :PROPERTIES:
   :TITLE:      So sehr dabei
   :ALBUM:      Barfuss
   :ARTIST:     Clueso
