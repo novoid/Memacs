@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: python; -*-
 # Time-stamp: <2019-01-13 19:01:01 vk>
 
-## This file is originally from Memacs
-## https://github.com/novoid/Memacs
-## and was written mainly by https://github.com/awieser
-## see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
-## for unit tests, see: https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
+# This file is originally from Memacs
+# https://github.com/novoid/Memacs
+# and was written mainly by https://github.com/awieser
+# see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
+# for unit tests, see: https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
 
 import time
 import datetime
@@ -88,9 +88,9 @@ class OrgFormat(object):
                                  datetimestamp.weekday(),
                                  0, 0])
 
-    ## timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
-    ## OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
-    ## OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
+    # timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
+    # OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
+    # OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
 
     @staticmethod
     def link(link, description=None, replacespaces=True):
@@ -119,7 +119,8 @@ class OrgFormat(object):
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
+        assert (tuple_date.__class__ ==
+                time.struct_time or tuple_date.__class__ == datetime.datetime)
 
         local_structtime = False
 
@@ -145,7 +146,8 @@ class OrgFormat(object):
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
+        assert (tuple_date.__class__ ==
+                time.struct_time or tuple_date.__class__ == datetime.datetime)
 
         if tuple_date.__class__ == time.struct_time:
             # fix day of week in struct_time
@@ -360,7 +362,7 @@ class OrgFormat(object):
             name = contact_mail_string[:delimiter].strip()
             mail = contact_mail_string[delimiter + 1:][:-1].strip()
             if delimiter == 0:
-              return "[[mailto:" + mail + "][" + mail + "]]"
+                return "[[mailto:" + mail + "][" + mail + "]]"
             return "[[mailto:" + mail + "][" + name + "]]"
 
         else:
@@ -434,8 +436,8 @@ class OrgFormat(object):
                 "string could not be parsed as time-stamp of format \"<YYYY-MM-DD Sun HH:MM>\": \"%s\"",
                 orgtime)
 
-        ## components: <1980-12-31 Wed 23:59>
-        ## components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
+        # components: <1980-12-31 Wed 23:59>
+        # components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
 
         year = int(components.group(2))
         month = int(components.group(3))
@@ -461,9 +463,10 @@ class OrgFormat(object):
         assert deltahours.__class__ in (int, float)
         assert orgtime.__class__ == str
 
-        ## first time-stamp: range_components.groups(0)[0]
-        ## second time-stamp: range_components.groups(0)[10]
-        range_components = re.match(OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
+        # first time-stamp: range_components.groups(0)[0]
+        # second time-stamp: range_components.groups(0)[10]
+        range_components = re.match(
+            OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
 
         if range_components:
             return OrgFormat.datetime(
