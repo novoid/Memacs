@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-09-22 13:02:39 vk>
+# Time-stamp: <2019-01-13 19:30:48 vk>
 
 import unittest
 import time
@@ -83,6 +83,10 @@ class TestOrgFormat(unittest.TestCase):
             "<2011-11-30 Wed 21:06>",
             OrgFormat.strdatetimeiso8601("2011-11-30T21.06.02"),
         )
+        self.assertEqual(
+            "<1899-12-30 Sat 21:06>",
+            OrgFormat.strdatetimeiso8601("1899-12-30T21.06.02"),
+        )
 
     def test_iso8601_datetimetupel(self):
         self.assertEqual(
@@ -159,6 +163,11 @@ class TestOrgFormat(unittest.TestCase):
         self.assertEqual(
             OrgFormat.date(OrgFormat.datetupelutctimestamp("20111219"), False),
             "<2011-12-19 Mon>"
+        )
+
+        self.assertEqual(
+            OrgFormat.date(OrgFormat.datetupelutctimestamp("18991230"), False),
+            "<1899-12-30 Sat>"
         )
 
     def test_contact_mail_mailto_link(self):

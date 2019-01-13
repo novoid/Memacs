@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-19 15:13:31 aw>
+# Time-stamp: <2019-01-13 19:37:56 vk>
 
 import os
 import shutil
@@ -26,6 +26,23 @@ class TestFileNameTimeStamps(unittest.TestCase):
 
         entry = "** <2011-12-19 Mon 23:59> [[" + tmpfile + \
             "][2011-12-19T23.59.12_test1.txt]]"
+
+        argv = "-s -f " + self._tmp_dir
+        memacs = FileNameTimeStamps(argv=argv.split())
+        data = memacs.test_get_entries()
+
+        self.assertEqual(data[0], entry)
+        self.assertEqual(data[1], "   :PROPERTIES:")
+        self.assertEqual(data[3], "   :END:")
+
+    def test_functional_with_unusual_year(self):
+        # touch file
+        tmpfile = os.path.join(self._tmp_dir, '1899-12-30T00.00.00_P1000286.jpg')
+        with open(tmpfile, 'w'):
+            pass
+
+        entry = "** <1899-12-30 Sat 00:00> [[" + tmpfile + \
+            "][1899-12-30T00.00.00_P1000286.jpg]]"
 
         argv = "-s -f " + self._tmp_dir
         memacs = FileNameTimeStamps(argv=argv.split())
