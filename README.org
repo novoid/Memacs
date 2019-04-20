@@ -273,6 +273,11 @@ Karl. It might give you ideas for your workflows as well.
 Karl also wrote [[http://arxiv.org/abs/1304.1332][a whitepaper on Memacs]] which describes Memacs from a
 scientists point of view.
 
+* Similar Projects
+
+- In https://github.com/novoid/Memacs/issues/88, Alex links to a
+  browser extension from [[https://worldbrain.io/][WorldBrain]] called [[https://github.com/WorldBrain/Memex][Memex]].
+
 * Contribute! We are looking for your ideas:
 
 If you want to contribute to this cool project, please fork and
