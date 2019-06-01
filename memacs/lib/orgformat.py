@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-01-13 19:01:01 vk>
+# Time-stamp: <2019-06-01 10:30:57 vk>
 
 # This file is originally from Memacs
 # https://github.com/novoid/Memacs
