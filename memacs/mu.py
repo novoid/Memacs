@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
+import locale
 from datetime import datetime
 from .lib.orgproperty import OrgProperties
 from .lib.orgformat import OrgFormat
 from .lib.memacs import Memacs
 import re
+
+# Sets this script's locale to be the same as system locale
+locale.setlocale(locale.LC_TIME, '')
 
 class MuMail(Memacs):
         
@@ -66,7 +70,7 @@ class MuMail(Memacs):
         converts xml timestamp into org readable timestamp
         Do  6 Nov 21:22:17 2014
         """
-        time = time.strip().encode('utf-8')
+        time = time.strip()
 
         mail_date = datetime.strptime(time,"%c")
         if onlyDate is False:
