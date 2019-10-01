@@ -6,10 +6,10 @@ import sys
 import os
 import logging
 import time
-from .lib.memacs import Memacs
-from .lib.orgformat import OrgFormat
-from .lib.orgproperty import OrgProperties
-from .lib.reader import CommonReader
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.reader import CommonReader
 
 try:
     from icalendar import Calendar

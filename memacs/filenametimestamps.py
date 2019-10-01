@@ -3,10 +3,10 @@
 # Time-stamp: <2014-03-13 17:32:22 karl.voit>
 
 import os
-from .lib.memacs import Memacs
-from .lib.orgformat import OrgFormat
-from .lib.orgformat import TimestampParseException
-from .lib.orgproperty import OrgProperties
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.orgformat import TimestampParseException
+from memacs.lib.orgproperty import OrgProperties
 import re
 import logging
 import time

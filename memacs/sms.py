@@ -12,11 +12,11 @@ import codecs      ## Unicode conversion
 import html.parser  ## un-escaping HTML entities like emojis
 import tempfile    ## create temporary files
 from xml.sax._exceptions import SAXParseException
-from .lib.orgformat import OrgFormat
-from .lib.orgproperty import OrgProperties
-from .lib.memacs import Memacs
-from .lib.reader import CommonReader
-from .lib.contactparser import parse_org_contact_file
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.memacs import Memacs
+from memacs.lib.reader import CommonReader
+from memacs.lib.contactparser import parse_org_contact_file
 
 
 class SmsSaxHandler(xml.sax.handler.ContentHandler):

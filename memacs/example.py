@@ -4,9 +4,9 @@
 
 import logging
 import time
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 
 class Foo(Memacs):

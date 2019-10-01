@@ -8,12 +8,12 @@ import sys
 import os
 import re
 
-from lib.orgproperty import OrgProperties
-from lib.orgformat import OrgFormat
-from lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+# reload(sys)
+# sys.setdefaultencoding('utf8')
 
 class Chrome(Memacs):
     def _parser_add_arguments(self):
