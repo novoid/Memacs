@@ -12,8 +12,6 @@ from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.orgformat import OrgFormat
 from memacs.lib.memacs import Memacs
 
-# reload(sys)
-# sys.setdefaultencoding('utf8')
 
 class Chrome(Memacs):
     def _parser_add_arguments(self):
@@ -26,7 +24,7 @@ class Chrome(Memacs):
 
         self._parser.add_argument(
             "-f", "--file", dest="historystore",
-            action="store", type=file, required=True,
+            action="store", type=open, required=True,
             help="""path to Google Chrome History sqlite file. usually in
 /home/bala/.config/google-chrome/Default/History """)
 
