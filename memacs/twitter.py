@@ -9,10 +9,10 @@ from dateutil import parser
 import os
 import sys
 from twython import Twython, TwythonError
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.reader import UnicodeCsvReader
-from .lib.orgproperty import OrgProperties
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.reader import UnicodeCsvReader
+from memacs.lib.orgproperty import OrgProperties
 
 class Twitter(Memacs):
     def _main(self):

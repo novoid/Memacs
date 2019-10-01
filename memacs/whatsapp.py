@@ -13,10 +13,10 @@ import re
 
 import emoji
 
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.contactparser import parse_org_contact_file
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.contactparser import parse_org_contact_file
 
 class WhatsApp(Memacs):
 

@@ -6,8 +6,8 @@ import sys
 import os
 import logging
 import imaplib
-from .lib.memacs import Memacs
-from .lib.mailparser import MailParser
+from memacs.lib.memacs import Memacs
+from memacs.lib.mailparser import MailParser
 
 
 class ImapMemacs(Memacs):
