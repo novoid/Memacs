@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-01-13 19:37:56 vk>
+# Time-stamp: <2019-10-03 00:33:36 vk>
 
 import os
 import shutil
@@ -18,35 +18,45 @@ class TestFileNameTimeStamps(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self._tmp_dir)
 
-    def test_functional(self):
-        # touch file
-        tmpfile = os.path.join(self._tmp_dir, '2011-12-19T23.59.12_test1.txt')
+    def touch_file(self, basename):
+        """
+        Creates a test file and returns the Org mode link to it
+        """
+        tmpfile = os.path.join(self._tmp_dir, basename)
         with open(tmpfile, 'w'):
             pass
+        return '[[file:' + tmpfile + '][' + basename + ']]'
 
-        entry = "** <2011-12-19 Mon 23:59> [[" + tmpfile + \
-            "][2011-12-19T23.59.12_test1.txt]]"
-
-        argv = "-s -f " + self._tmp_dir
+    def call_basic(self):
+        """
+        Invokes the filenametimestamp module with basic parameters
+        """
+        argv = "--suppress-messages --folder " + self._tmp_dir
         memacs = FileNameTimeStamps(argv=argv.split())
-        data = memacs.test_get_entries()
+        return memacs.test_get_entries()
+
+    def test_functional(self):
+        link = self.touch_file('2011-12-19T23.59.12_test1.txt')
+        entry = "** <2011-12-19 Mon 23:59> " + link
+        data = self.call_basic()
 
         self.assertEqual(data[0], entry)
         self.assertEqual(data[1], "   :PROPERTIES:")
         self.assertEqual(data[3], "   :END:")
 
     def test_functional_with_unusual_year(self):
-        # touch file
-        tmpfile = os.path.join(self._tmp_dir, '1899-12-30T00.00.00_P1000286.jpg')
-        with open(tmpfile, 'w'):
-            pass
+        link = self.touch_file('1971-12-30T00.01.01_P1000286.jpg')
+        entry = "** <1971-12-30 Thu 00:01> " + link
+        data = self.call_basic()
 
-        entry = "** <1899-12-30 Sat 00:00> [[" + tmpfile + \
-            "][1899-12-30T00.00.00_P1000286.jpg]]"
+        self.assertEqual(data[0], entry)
+        self.assertEqual(data[1], "   :PROPERTIES:")
+        self.assertEqual(data[3], "   :END:")
 
-        argv = "-s -f " + self._tmp_dir
-        memacs = FileNameTimeStamps(argv=argv.split())
-        data = memacs.test_get_entries()
+    def test_year_out_of_range(self):
+        link = self.touch_file('1899-12-30T00.00.00_P1000286.jpg')
+        entry = "** " + link
+        data = self.call_basic()
 
         self.assertEqual(data[0], entry)
         self.assertEqual(data[1], "   :PROPERTIES:")
