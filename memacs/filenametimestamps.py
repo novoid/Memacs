@@ -58,11 +58,9 @@ class FileNameTimeStamps(Memacs):
         self._parser.add_argument("--force-file-date-extraction",
                                   dest="force_filedate_extraction",
                                   action="store_true",
-                                  help="force extraction of the file date (and time) " +
-                                  "when there is no ISO datestamp in the filename. " +
-                                  "However, if there is an ISO datestamp, the mtime " +
-                                  "is only used for time extraction, when the ISO days " +
-                                  "are matching.")
+                                  help="force extraction of the file date" +
+                                  " even if there is no ISO datestamp in " +
+                                  "the filename")
 
         self._parser.add_argument("--omit-drawers",
                                   dest="omit_drawers", action="store_true",

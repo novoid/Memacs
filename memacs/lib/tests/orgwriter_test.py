@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-02 21:39:50 vk>
+# Time-stamp: <2019-10-02 21:51:07 vk>
 
 import codecs
 import shutil
@@ -43,6 +43,10 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_org_subitem(timestamp=timestamp,
                                  output="sub",
                                  tags=["foo", "bar"],
+                                 properties=properties)
+        writer.write_org_subitem(timestamp=False,
+                                 output="no timestamp",
+                                 tags=["bar", "baz"],
                                  properties=properties)
         writer.close()
 
@@ -94,6 +98,21 @@ class TestOutputWriter(unittest.TestCase):
             "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
         self.assertEqual(
             data[17],
+            "   :END:\n")
+        self.assertEqual(
+            data[18],
+            "\n")
+        self.assertEqual(
+            data[19],
+            "** no timestamp\t:bar:baz:\n")
+        self.assertEqual(
+            data[20],
+            "   :PROPERTIES:\n")
+        self.assertEqual(
+            data[21],
+            "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
+        self.assertEqual(
+            data[22],
             "   :END:\n")
 
     def test_utf8(self):

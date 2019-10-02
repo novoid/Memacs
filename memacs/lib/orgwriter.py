@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-07-21 15:39:47 vk>
+# Time-stamp: <2019-10-02 21:49:09 vk>
 
 import codecs
 import sys
@@ -158,9 +158,11 @@ class OrgOutputWriter(object):
             output_tags = "\t:" + ":".join(map(str, tags)) + ":"
 
         output = output.lstrip()
-        timestamp = timestamp.strip()
-
-        self.writeln("** " + timestamp + " " + output + output_tags)
+        if timestamp:
+            timestamp = timestamp.strip()
+            self.writeln("** " + timestamp + " " + output + output_tags)
+        else:
+            self.writeln("** " + output + output_tags)
         if properties:
             self.writeln(str(properties))
             if self.__test:
@@ -190,13 +192,13 @@ class OrgOutputWriter(object):
         then a desicion regarding the :ID: is made if the item has to be
         written to file
 
-        @param timestamp: str/unicode
+        @param timestamp: str/unicode or False (for no time-stamp)
         @param output: st tar/unicode
         @param note: str/unicode
         @param tags: list of tags
         @param properties: OrgProperties object
         """
-        assert (timestamp.__class__ == str or timestamp.__class__ == str)
+        assert (not timestamp or timestamp.__class__ == str or timestamp.__class__ == str)
         assert tags.__class__ == list or tags == None
         if self.__append:
             ## for the append mode, the ID within properties is mandatory:
@@ -221,14 +223,14 @@ class OrgOutputWriter(object):
             self.__get_autotags(tags, output)
 
         ## fix time-stamps (if user wants to)
-        if self.__timestamp_delta:
+        if timestamp and self.__timestamp_delta:
             timestamp = OrgFormat.apply_timedelta_to_Orgmode_timestamp(
                 timestamp, float(self.__timestamp_delta)
             )
 
         ## a bit of a hack to get inactive time-stamps:
         ## FIXXME: use OrgFormat method to generate inactive time-stamps in the first place and remove asserts
-        if self.__inactive_timestamps:
+        if timestamp and self.__inactive_timestamps:
             assert(timestamp[0] == '<')  ## at least try to find cases where this replace method fails
             assert(timestamp[-1] == '>')  ## at least try to find cases where this replace method fails
             timestamp = '[' + timestamp[1:-1] + ']'
