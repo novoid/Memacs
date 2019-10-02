@@ -58,11 +58,9 @@ class FileNameTimeStamps(Memacs):
         self._parser.add_argument("--force-file-date-extraction",
                                   dest="force_filedate_extraction",
                                   action="store_true",
-                                  help="force extraction of the file date (and time) " +
-                                  "when there is no ISO datestamp in the filename. " +
-                                  "However, if there is an ISO datestamp, the mtime " +
-                                  "is only used for time extraction, when the ISO days " +
-                                  "are matching.")
+                                  help="force extraction of the file date" +
+                                  " even if there is no ISO datestamp in " +
+                                  "the filename")
 
         self._parser.add_argument("--omit-drawers",
                                   dest="omit_drawers", action="store_true",
@@ -115,7 +113,7 @@ class FileNameTimeStamps(Memacs):
                 for file in files:
                     self.__handle_file(file, rootdir)
 
-    def __parse_file(self, file, link):
+    def __parse_filename_iso_timestamp(self, file, link):
         """
         Parses the date+time and writes entry to outputfile
 
@@ -180,20 +178,24 @@ class FileNameTimeStamps(Memacs):
             file_datetime = time.localtime(os.path.getmtime(link))
 
             if self._args.skip_filetime_extraction:
+                logging.debug('force_filedate_extraction and skip_filetime_extraction: using date')
                 orgdate = OrgFormat.date(file_datetime)
             else:
+                logging.debug('force_filedate_extraction and not skip_filetime_extraction: using datetime')
                 orgdate = OrgFormat.datetime(file_datetime)
 
             self.__write_file(file, link, orgdate)
 
         elif DATESTAMP_REGEX.match(file):
+            logging.debug('DATESTAMP_REGEX matches; trying __parse_filename_iso_timestamp() ...')
             try:
                 # we put this in a try block because:
                 # if a timestamp is false i.e. 2011-14-19 or false time
                 # we can handle those not easy with REGEX, therefore we have
                 # an Exception TimestampParseException, which is thrown,
-                # wen strptime (parse from string to time tupel) fails
-                self.__parse_file(file, link)
+                # when strptime (parse from string to time tupel) fails
+                orgdate = self.__parse_filename_iso_timestamp(file, link)
+                self.__write_file(file, link, orgdate)
             except TimestampParseException:
                 logging.debug('__parse_filename_iso_timestamp() caused an TimestampParseException')
                 logging.warning("False date(time) in file: %s", link)
