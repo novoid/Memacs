@@ -9,3 +9,4 @@ update_pip.sh
 build/
 memacs.egg-info/
 .tox/
+venv
