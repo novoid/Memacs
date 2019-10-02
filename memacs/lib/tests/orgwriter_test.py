@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-09-22 13:42:19 vk>
+# Time-stamp: <2019-10-02 21:39:50 vk>
 
 import codecs
 import shutil
@@ -20,7 +20,7 @@ class TestOutputWriter(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.TMPFOLDER)
 
-    def test_ouput_to_file(self):
+    def test_output_to_file(self):
         """
         Simple Test
         """
