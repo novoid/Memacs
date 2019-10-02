@@ -58,16 +58,25 @@ class FileNameTimeStamps(Memacs):
         self._parser.add_argument("--force-file-date-extraction",
                                   dest="force_filedate_extraction",
                                   action="store_true",
-                                  help="force extraction of the file date" +
-                                  " even if there is no ISO datestamp in " +
-                                  "the filename")
+                                  help="force extraction of the file date (and time) " +
+                                  "when there is no ISO datestamp in the filename. " +
+                                  "However, if there is an ISO datestamp, the mtime " +
+                                  "is only used for time extraction, when the ISO days " +
+                                  "are matching.")
 
+        self._parser.add_argument("--omit-drawers",
+                                  dest="omit_drawers", action="store_true",
+                                  help="do not generate drawers that contain " +
+                                  "ID properties. Can't be used with \"--append\".")
 
     def _parser_parse_args(self):
         Memacs._parser_parse_args(self)
 
         if self._args.filenametimestamps_folder and self._args.filelist:
             self._parser.error("You gave both \"--filelist\" and \"--folder\" argument. Please use either or.\n")
+
+        if self._args.omit_drawers and self._args.append:
+            self._parser.error("You gave both \"--append\" and \"--omit-drawers\" argument. Please use either or.\n")
 
         if not self._args.filelist and not self._args.filenametimestamps_folder:
             self._parser.error("no filenametimestamps_folder specified")
@@ -140,16 +149,18 @@ class FileNameTimeStamps(Memacs):
                 else:
                     logging.debug("item [%s] not found and thus could not determine mtime" % link)
 
-        self.__write_file(file, link, orgdate)
+        return orgdate
 
     def __write_file(self, file, link, timestamp):
         """
         write entry to org file (omit replacement of spaces in file names)
         """
-        output = OrgFormat.link(link=link, description=file, replacespaces=False)
-        # we need optional data for hashing due it can be, that more
-        # than one file have the same timestamp
-        properties = OrgProperties(data_for_hashing=output)
+        output = OrgFormat.link(link="file:" + link, description=file, replacespaces=False)
+        properties = None
+        if not self._args.omit_drawers:
+            # we need optional data for hashing due it can be, that more
+            # than one file have the same timestamp
+            properties = OrgProperties(data_for_hashing=output)
         self._writer.write_org_subitem(timestamp=timestamp,
                                        output=output,
                                        properties=properties)
