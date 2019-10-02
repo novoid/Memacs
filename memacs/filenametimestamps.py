@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-02 18:59:27 vk>
+# Time-stamp: <2019-10-03 00:18:35 vk>
 
 import os
 from memacs.lib.memacs import Memacs
 from memacs.lib.orgformat import OrgFormat
-from memacs.lib.orgformat import TimestampParseException
 from memacs.lib.orgproperty import OrgProperties
 import re
 import logging
@@ -13,9 +12,8 @@ import time
 import sys
 import codecs
 
-DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)")
-TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d)" +
-                             "[.]([012345]\d)([.]([012345]\d))?")
+DATESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)(-([0123]\d))?")
+TIMESTAMP_REGEX = re.compile("([12]\d{3})-([01]\d)-([0123]\d)T([012]\d)[.]([012345]\d)([.]([012345]\d))?")
 
 
 class FileNameTimeStamps(Memacs):
@@ -51,16 +49,23 @@ class FileNameTimeStamps(Memacs):
         self._parser.add_argument("--skip-file-time-extraction",
                                   dest="skip_filetime_extraction",
                                   action="store_true",
-                                  help="skip extraction of the file time " +
-                                  "in files containing only the date in " +
-                                  "the filename")
+                                  help="by default, if there is an ISO datestamp without time, the mtime " +
+                                  "is used for time extraction, when the ISO days " +
+                                  "are matching. If you set this option, this extraction of the file time " +
+                                  "is omitted.")
 
         self._parser.add_argument("--force-file-date-extraction",
                                   dest="force_filedate_extraction",
+                                  action="store_true", help="force extraction of the file date and time" +
+                                  "even when there is an ISO datestamp in the filename.")
+
+        self._parser.add_argument("--skip-files-with-no-or-wrong-timestamp",
+                                  dest="skip_notimestamp_files",
                                   action="store_true",
-                                  help="force extraction of the file date" +
-                                  " even if there is no ISO datestamp in " +
-                                  "the filename")
+                                  help="by default, files with a missing or a wrong time-stamp " +
+                                  "(2019-12-33) will be linked without Org mode time-stamp. " +
+                                  "If you set this option, these files will not be part of the " +
+                                  "output at all.")
 
         self._parser.add_argument("--omit-drawers",
                                   dest="omit_drawers", action="store_true",
@@ -113,42 +118,6 @@ class FileNameTimeStamps(Memacs):
                 for file in files:
                     self.__handle_file(file, rootdir)
 
-    def __parse_filename_iso_timestamp(self, file, link):
-        """
-        Parses the date+time and writes entry to outputfile
-
-        @param file: filename
-        @param link: path
-        """
-        if TIMESTAMP_REGEX.match(file):
-            # if we found a timestamp too,take hours,min
-            # and optionally seconds from this timestamp
-            timestamp = TIMESTAMP_REGEX.match(file).group()
-            orgdate = OrgFormat.strdatetimeiso8601(timestamp)
-            logging.debug("found timestamp: " + orgdate)
-        else:
-            datestamp = DATESTAMP_REGEX.match(file).group()
-            orgdate = OrgFormat.strdate(datestamp)
-            orgdate_time_tupel = OrgFormat.datetupeliso8601(datestamp)
-
-            if not self._args.skip_filetime_extraction:
-
-                if os.path.exists(link):
-                    file_datetime = time.localtime(os.path.getmtime(link))
-                    # check if the file - time information matches year,month,day,
-                    # then update time
-                    if file_datetime.tm_year == orgdate_time_tupel.tm_year and \
-                       file_datetime.tm_mon == orgdate_time_tupel.tm_mon and \
-                       file_datetime.tm_mday == orgdate_time_tupel.tm_mday:
-
-                        logging.debug("found a time in file.setting %s-->%s",
-                                      orgdate, OrgFormat.date(file_datetime, True))
-                        orgdate = OrgFormat.date(file_datetime, True)
-                else:
-                    logging.debug("item [%s] not found and thus could not determine mtime" % link)
-
-        return orgdate
-
     def __write_file(self, file, link, timestamp):
         """
         write entry to org file (omit replacement of spaces in file names)
@@ -163,6 +132,82 @@ class FileNameTimeStamps(Memacs):
                                        output=output,
                                        properties=properties)
 
+    def __check_timestamp_correctness(self, match):
+        """
+        Checks a date- or timestamp if its components are a valid date or time.
+        """
+        # I'll allow, e.g., 2019-00-00 here on purpose
+
+        def check_day(year, month, day):
+            if year < 1900 or \
+               year > 2100 or \
+               month < 0 or \
+               month > 12 or \
+               day < 0 or \
+               day > 31:
+                logging.debug('__check_timestamp_correctness(' + str(match.groups()) + ') D NEGATIVE')
+                return False
+            else:
+                return True
+
+        if len(match.groups()) == 4:
+            # it's a datestamp, not a time-stamp
+            # special case: no day is accepted as well (2019-12)
+            # example: 2019-10 -> ('2019', '10', None, None)
+            year = int(match.group(1))
+            month = int(match.group(2))
+            day = 1
+            return check_day(year, month, day)
+
+        if len(match.groups()) == 3:
+            # it's a datestamp, not a time-stamp
+            year = int(match.group(1))
+            month = int(match.group(2))
+            day = int(match.group(3))
+            return check_day(year, month, day)
+
+        elif len(match.groups()) == 5:
+            year = int(match.group(1))
+            month = int(match.group(2))
+            day = int(match.group(3))
+            hour = int(match.group(4))
+            minute = int(match.group(5))
+            if not check_day(year, month, day):
+                return False
+            else:
+                if hour < 0 or \
+                   hour > 23 or \
+                   minute < 0 or \
+                   minute > 59:
+                    logging.debug('__check_timestamp_correctness(' + str(match.groups()) + ') 5 NEGATIVE')
+                    return False
+                else:
+                    return True
+
+        elif len(match.groups()) == 7:
+            year = int(match.group(1))
+            month = int(match.group(2))
+            day = int(match.group(3))
+            hour = int(match.group(4))
+            minute = int(match.group(5))
+            second = int(match.group(7))
+            if not check_day(year, month, day):
+                return False
+            else:
+                if hour < 0 or \
+                   hour > 23 or \
+                   minute < 0 or \
+                   minute > 59 or \
+                   second < 0 or \
+                   second > 59:
+                    logging.debug('__check_timestamp_correctness(' + str(match.groups()) + ') 7 NEGATIVE')
+                    return False
+                else:
+                    return True
+        else:
+            logging.error('__check_timestamp_correctness(' + str(match.groups()) + '): INTERNAL ERROR, this should never be reached. Maybe RegEx is not correct?')
+            return False
+
     def __handle_file(self, file, rootdir):
         """
         handles a file (except ending with a tilde)
@@ -172,33 +217,90 @@ class FileNameTimeStamps(Memacs):
             return
 
         link = os.path.join(rootdir, file)
-        logging.debug(link)
+        logging.debug('__handle_file: ' + '#' * 50)
+        logging.debug('__handle_file: ' + link)
+
+        orgdate = False
 
         if self._args.force_filedate_extraction:
+            # in this case, skip any clever
+            # extraction mechanism to extract
+            # date/time from file name and use
+            # the mtime instead:
+            logging.debug('__handle_file: force_filedate_extraction: using datetime from mtime of file')
             file_datetime = time.localtime(os.path.getmtime(link))
-
-            if self._args.skip_filetime_extraction:
-                logging.debug('force_filedate_extraction and skip_filetime_extraction: using date')
-                orgdate = OrgFormat.date(file_datetime)
-            else:
-                logging.debug('force_filedate_extraction and not skip_filetime_extraction: using datetime')
-                orgdate = OrgFormat.datetime(file_datetime)
-
+            orgdate = OrgFormat.datetime(file_datetime)
             self.__write_file(file, link, orgdate)
+            return
 
-        elif DATESTAMP_REGEX.match(file):
-            logging.debug('DATESTAMP_REGEX matches; trying __parse_filename_iso_timestamp() ...')
-            try:
-                # we put this in a try block because:
-                # if a timestamp is false i.e. 2011-14-19 or false time
-                # we can handle those not easy with REGEX, therefore we have
-                # an Exception TimestampParseException, which is thrown,
-                # when strptime (parse from string to time tupel) fails
-                orgdate = self.__parse_filename_iso_timestamp(file, link)
-                self.__write_file(file, link, orgdate)
-            except TimestampParseException:
-                logging.debug('__parse_filename_iso_timestamp() caused an TimestampParseException')
-                logging.warning("False date(time) in file: %s", link)
+        # very basic checks for correctness are part of these RegEx (and do not have to be checked below)
+        filename_datestamp_match = DATESTAMP_REGEX.match(file)
+        filename_timestamp_match = TIMESTAMP_REGEX.match(file)
+
+        if filename_timestamp_match:
+            if not self.__check_timestamp_correctness(filename_timestamp_match):
+                logging.warn('File "' + file + '" has an invalid timestamp and will be handeld as with a missing time-stamp.')
+                orgdate = False
+            else:
+                logging.debug('__handle_file: found correct timestamp')
+                orgdate = OrgFormat.strdatetimeiso8601(file[:16])  # ignoring seconds in Org mode time-stamp in any case
+
+        elif filename_datestamp_match:
+            if not self.__check_timestamp_correctness(filename_datestamp_match):
+                logging.warn('File "' + file + '" has an invalid datestamp. File will be handeld as with a missing time-stamp.')
+                orgdate = False
+            else:
+                logging.debug('__handle_file: found correct datestamp')
+                if not filename_datestamp_match.group(3):
+                    # special case: 2019-12 -> will be turned into 2019-12-01
+                    orgdate = OrgFormat.strdate(file[:7] + '-01', False)
+                else:
+                    orgdate = OrgFormat.strdate(file[:10], False)
+
+                if not self._args.skip_filetime_extraction:
+                    # we've got only a day but we're able to determine
+                    # time from file mtime, if same as ISO day in file
+                    # name:
+                    logging.debug('__handle_file: try to get file time from mtime if days match between mtime and filename ISO ...')
+                    file_datetime = time.localtime(os.path.getmtime(link))
+                    if self.__check_if_days_in_timestamps_are_same(file_datetime, filename_datestamp_match.groups()):
+                        orgdate = OrgFormat.datetime(file_datetime)
+                    else:
+                        logging.debug('__handle_file: day of mtime and filename ISO differs, using filename ISO')
+
+        else:
+            logging.debug('__handle_file: no date- nor timestamp')
+            orgdate = False
+
+        if not orgdate and self._args.skip_notimestamp_files:
+            logging.debug('__handle_file: file had no or wrong time-stamp and you decided to skip them.')
+            return
+
+        self.__write_file(file, link, orgdate)
+        logging.debug('__handle_file: using orgdate: ' + str(orgdate))
+        return
+
+    def __check_if_days_in_timestamps_are_same(self, file_datetime, filename_datestamp):
+        """handles timestamp differences for timestamps containing only day information (and not times)"""
+
+        file_year = file_datetime.tm_year
+        file_month = file_datetime.tm_mon
+        file_day = file_datetime.tm_mday
+
+        filename_year = int(filename_datestamp[0])
+        filename_month = int(filename_datestamp[1])
+        if not filename_datestamp[3]:
+            # special case: day is not set as in "2019-12"
+            return False
+        filename_day = int(filename_datestamp[3])
+
+        if file_year != filename_year or \
+           file_month != filename_month or \
+           file_day != filename_day:
+            return False
+
+        logging.debug('__check_if_days_in_timestamps_are_same: days match!')
+        return True
 
     def _main(self):
 
