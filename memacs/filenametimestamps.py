@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-03 10:58:21 vk>
+# Time-stamp: <2019-10-03 13:34:20 vk>
 
 import os
 from memacs.lib.memacs import Memacs
-from memacs.lib.orgformat import OrgFormat
+from memacs.lib.orgformat import OrgFormat, TimestampParseException
 from memacs.lib.orgproperty import OrgProperties
 import re
 import logging
@@ -232,7 +232,13 @@ class FileNameTimeStamps(Memacs):
                 orgdate = False
             else:
                 logging.debug('__handle_file: found correct timestamp')
-                orgdate = OrgFormat.strdatetimeiso8601(file[:16])  # ignoring seconds in Org mode time-stamp in any case
+                try:
+                    orgdate = OrgFormat.strdatetimeiso8601(file[:16])  # ignoring seconds in Org mode time-stamp in any case
+                except TimestampParseException:
+                    # an incorrect time-stamp like 2019-10-00T23.59
+                    # results in an exception here. Do not use it for
+                    # the Org mode time-stamp.
+                    orgdate = False
 
         elif filename_datestamp_match:
             if not self.__check_timestamp_correctness(filename_datestamp_match):
