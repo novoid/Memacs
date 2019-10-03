@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-03 00:18:35 vk>
+# Time-stamp: <2019-10-03 10:58:21 vk>
 
 import os
 from memacs.lib.memacs import Memacs
@@ -166,12 +166,21 @@ class FileNameTimeStamps(Memacs):
             day = int(match.group(3))
             return check_day(year, month, day)
 
-        elif len(match.groups()) == 5:
+        elif len(match.groups()) == 5 or len(match.groups()) == 7:
             year = int(match.group(1))
             month = int(match.group(2))
             day = int(match.group(3))
             hour = int(match.group(4))
             minute = int(match.group(5))
+
+            if match.group(7):
+                # for time-stamps with seconds
+                second = int(match.group(7))
+                if second < 0 or \
+                   second > 59:
+                    logging.debug('__check_timestamp_correctness(' + str(match.groups()) + ') seconds NEGATIVE')
+                    return False
+
             if not check_day(year, month, day):
                 return False
             else:
@@ -184,26 +193,6 @@ class FileNameTimeStamps(Memacs):
                 else:
                     return True
 
-        elif len(match.groups()) == 7:
-            year = int(match.group(1))
-            month = int(match.group(2))
-            day = int(match.group(3))
-            hour = int(match.group(4))
-            minute = int(match.group(5))
-            second = int(match.group(7))
-            if not check_day(year, month, day):
-                return False
-            else:
-                if hour < 0 or \
-                   hour > 23 or \
-                   minute < 0 or \
-                   minute > 59 or \
-                   second < 0 or \
-                   second > 59:
-                    logging.debug('__check_timestamp_correctness(' + str(match.groups()) + ') 7 NEGATIVE')
-                    return False
-                else:
-                    return True
         else:
             logging.error('__check_timestamp_correctness(' + str(match.groups()) + '): INTERNAL ERROR, this should never be reached. Maybe RegEx is not correct?')
             return False
