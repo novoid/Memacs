@@ -277,6 +277,8 @@ scientists point of view.
 
 - In https://github.com/novoid/Memacs/issues/88, Alex links to a
   browser extension from [[https://worldbrain.io/][WorldBrain]] called [[https://github.com/WorldBrain/Memex][Memex]].
+- https://github.com/karlicoss/orger has similar goals: converting
+  data into Org mode
 
 * Contribute! We are looking for your ideas:
 
