@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-01-13 19:30:48 vk>
+# Time-stamp: <2019-10-06 18:44:47 vk>
 
 import unittest
 import time
@@ -65,6 +65,12 @@ class TestOrgFormat(unittest.TestCase):
         # testing strings
         self.assertEqual("<2011-11-03 Thu>",
                          OrgFormat.strdate("2011-11-3"),
+                         "date string error")
+        self.assertEqual("<2011-11-03 Thu>",
+                         OrgFormat.strdate("2011-11-3"),
+                         "date string error", inactive=False)
+        self.assertEqual("[2011-11-03 Thu]",
+                         OrgFormat.strdate("2011-11-3", inactive=True),
                          "date string error")
         self.assertEqual("<2011-11-03 Thu 11:52>",
                          OrgFormat.strdatetime("2011-11-3 11:52"),

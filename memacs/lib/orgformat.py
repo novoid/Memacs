@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-06-01 10:30:57 vk>
+# Time-stamp: <2019-10-06 11:27:36 vk>
 
 # This file is originally from Memacs
 # https://github.com/novoid/Memacs
@@ -111,13 +111,14 @@ class OrgFormat(object):
             return "[[" + link + "]]"
 
     @staticmethod
-    def date(tuple_date, show_time=False):
+    def date(tuple_date, show_time=False, inactive=False):
         """
         returns a date string in org format
-        i.e.: * <YYYY-MM-DD Sun>
-              * <YYYY-MM-DD Sun HH:MM>
+        i.e.: * <YYYY-MM-DD Sun>        (for active date-stamps)
+              * <YYYY-MM-DD Sun HH:MM>  (for active time-stamps)
         @param tuple_date: has to be of type time.struct_time or datetime
         @param show_time: optional show time also
+        @param inactive: (boolean) True: use inactive time-stamp; else use active
         """
         # <YYYY-MM-DD hh:mm>
         assert (tuple_date.__class__ ==
@@ -133,9 +134,15 @@ class OrgFormat(object):
             local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
-            return time.strftime("<%Y-%m-%d %a %H:%M>", local_structtime)
+            if inactive:
+                return time.strftime("[%Y-%m-%d %a %H:%M]", local_structtime)
+            else:
+                return time.strftime("<%Y-%m-%d %a %H:%M>", local_structtime)
         else:
-            return time.strftime("<%Y-%m-%d %a>", local_structtime)
+            if inactive:
+                return time.strftime("[%Y-%m-%d %a]", local_structtime)
+            else:
+                return time.strftime("<%Y-%m-%d %a>", local_structtime)
 
     @staticmethod
     def inactive_date(tuple_date, show_time=False):
@@ -165,12 +172,13 @@ class OrgFormat(object):
             return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(local_structtime))
 
     @staticmethod
-    def datetime(tuple_datetime):
+    def datetime(tuple_datetime, inactive=False):
         """
         returns a date+time string in org format
         wrapper for OrgFormat.date(show_time=True)
 
         @param tuple_datetime has to be a time.struct_time
+        @param inactive: (boolean) True: use inactive time-stamp; else use active
         """
         return OrgFormat.date(tuple_datetime, show_time=True)
 
@@ -245,19 +253,23 @@ class OrgFormat(object):
             return OrgFormat.date(tuple_date, show_time=False)
 
     @staticmethod
-    def strdatetime(datetime_string):
+    def strdatetime(datetime_string, inactive=False):
         """
         returns a date string in org format
         i.e.: * <YYYY-MM-DD Sun HH:MM>
         @param date-string: has to be a str in
                            following format: YYYY-MM-DD HH:MM
+        @param inactive: (boolean) True: use inactive time-stamp; else use active
         """
         assert datetime_string.__class__ == str
         try:
             tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
         except ValueError as e:
             raise TimestampParseException(e)
-        return OrgFormat.date(tuple_date, show_time=True)
+        if inactive:
+            return OrgFormat.inactive_date(tuple_date, show_time=True)
+        else:
+            return OrgFormat.date(tuple_date, show_time=True)
 
     @staticmethod
     def strdatetimeiso8601(datetime_string):
