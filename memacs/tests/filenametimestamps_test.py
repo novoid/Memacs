@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-03 14:08:12 vk>
+# Time-stamp: <2019-10-06 18:52:24 vk>
 
 import os
 import shutil
@@ -47,8 +47,11 @@ class TestFileNameTimeStamps(unittest.TestCase):
         memacs = FileNameTimeStamps(argv=argv.split())
         return memacs.test_get_entries()
 
-    def test_good_case(self):
+    def test_good_case1(self):
         self.assertEqual('** <2019-10-03 Thu 09:55> ' + self.touch_file('2019-10-03T09.55.00 foo.txt'), self.call_omit_drawers()[0])
+
+    def test_good_case2(self):
+        self.assertEqual('** <2019-05-28 Tue>--<2019-07-24 Wed> ' + self.touch_file('2019-05-28--2019-07-24 Test -- scan notes.pdf'), self.call_omit_drawers()[0])
 
     def test_good_timestamp_with_no_second(self):
         self.assertEqual('** <2019-10-03 Thu 09:55> ' + self.touch_file('2019-10-03T09.55 foo.txt'), self.call_omit_drawers()[0])
@@ -60,7 +63,7 @@ class TestFileNameTimeStamps(unittest.TestCase):
         # FIXXME: caveat: this adds some tiny dependency: if the
         # minute changes between the file creation and the check, this
         # test fails
-        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a %H:%M> ')
+        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a %H:%M> ')  # FIXXME: dependency on current locale: works only with English weekdays
         today_day = datetime.datetime.now().strftime('%Y-%m-%d')
         self.assertEqual('** ' + today_weekday + self.touch_file(today_day + ' foo.txt'), self.call_omit_drawers()[0])
 
@@ -84,8 +87,7 @@ class TestFileNameTimeStamps(unittest.TestCase):
         self.assertEqual('** <2019-10-01 Tue> ' + self.touch_file('2019-10-01T09.60.01 foo.txt'), self.call_omit_drawers()[0])
 
     def test_wrong_timestamp_in_hour(self):
-        # FIXXME: this might be changed to "an erroneous hour results in a correct date-stamp only"
-        self.assertEqual('** ' + self.touch_file('2019-10-01T24.59.01 foo.txt'), self.call_omit_drawers()[0])
+        self.assertEqual('** <2019-10-01 Tue> ' + self.touch_file('2019-10-01T24.59.01 foo.txt'), self.call_omit_drawers()[0])
 
     def test_wrong_timestamp_in_day1(self):
         self.assertEqual('** ' + self.touch_file('2019-10-00T23.59.59 foo.txt'), self.call_omit_drawers()[0])
@@ -101,13 +103,35 @@ class TestFileNameTimeStamps(unittest.TestCase):
 
     #######################################################################
 
+#    def test_duration_case_dashdash(self):
+#        self.assertEqual('** <2019-10-03 Thu 09:55>--<2019-10-05 Sat 17:59> ' + self.touch_file('2019-10-03T09.55.00--2019-10-05T17.59.59 foo.txt'), self.call_omit_drawers()[0])
+#
+#    def test_duration_case_dash(self):
+#        self.assertEqual('** <2019-10-03 Thu 09:55>--<2019-10-05 Sat 17:59> ' + self.touch_file('2019-10-03T09.55.00-2019-10-05T17.59.59 foo.txt'), self.call_omit_drawers()[0])
+#
+#    def test_duration_timestamp_with_no_second_dashdash(self):
+#        self.assertEqual('** <2019-10-03 Thu 09:55>--<2019-10-05 Sat 17:59> ' + self.touch_file('2019-10-03T09.55--2019-10-05T17.59 foo.txt'), self.call_omit_drawers()[0])
+#
+#    def test_duration_timestamp_with_no_second_dash(self):
+#        self.assertEqual('** <2019-10-03 Thu 09:55>--<2019-10-05 Sat 17:59> ' + self.touch_file('2019-10-03T09.55-2019-10-05T17.59 foo.txt'), self.call_omit_drawers()[0])
+#
+#    def test_duration_datestamp_dashdash(self):
+#        self.assertEqual('** <2019-10-02 Wed>--<2019-10-05 Sat> ' + self.touch_file('2019-10-02--2019-10-05 foo.txt'), self.call_omit_drawers()[0])
+#
+#    def test_duration_datestamp_dash(self):
+#        self.assertEqual('** <2019-10-02 Wed>--<2019-10-05 Sat> ' + self.touch_file('2019-10-02-2019-10-05 foo.txt'), self.call_omit_drawers()[0])
+
+    # FIXXME: tests with mixed time- and day-stamps + different order
+
+    #######################################################################
+
     def call_force_file_date_extraction(self):
         argv = "--force-file-date-extraction --suppress-messages --omit-drawers --folder " + self._tmp_dir
         memacs = FileNameTimeStamps(argv=argv.split())
         return memacs.test_get_entries()
 
     def test_force_file_date_extraction(self):
-        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a %H:%M> ')
+        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a %H:%M> ')  # FIXXME: dependency on current locale: works only with English weekdays
         self.assertEqual('** ' + today_weekday + self.touch_file('2019-10-01T23.59.59 foo.txt'), self.call_force_file_date_extraction()[0])
 
     #######################################################################
@@ -118,7 +142,7 @@ class TestFileNameTimeStamps(unittest.TestCase):
         return memacs.test_get_entries()
 
     def test_skip_file_time_extraction(self):
-        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a> ')
+        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a> ')  # FIXXME: dependency on current locale: works only with English weekdays
         today_day = datetime.datetime.now().strftime('%Y-%m-%d')
         self.assertEqual('** ' + today_weekday + self.touch_file(today_day + ' foo.txt'), self.call_skip_file_time_extraction()[0])
 
@@ -142,7 +166,7 @@ class TestFileNameTimeStamps(unittest.TestCase):
         # FIXXME: caveat: this adds some tiny dependency: if the
         # minute changes between the file creation and the check, this
         # test fails
-        today_weekday = datetime.datetime.now().strftime('[%Y-%m-%d %a %H:%M] ')
+        today_weekday = datetime.datetime.now().strftime('[%Y-%m-%d %a %H:%M] ')  # FIXXME: dependency on current locale: works only with English weekdays
         today_day = datetime.datetime.now().strftime('%Y-%m-%d')
         self.assertEqual('** ' + today_weekday + self.touch_file(today_day + ' foo.txt'), self.call_inactive_time_stamps()[0])
 
@@ -154,6 +178,39 @@ class TestFileNameTimeStamps(unittest.TestCase):
 
     def test_inactive_time_stamps_good_case_without_datestamp(self):
         self.assertEqual('** ' + self.touch_file('foo.txt'), self.call_inactive_time_stamps()[0])
+
+    #######################################################################
+
+    def call_active_time_stamps(self):
+        argv = "--suppress-messages --omit-drawers --folder " + self._tmp_dir
+        memacs = FileNameTimeStamps(argv=argv.split())
+        return memacs.test_get_entries()
+
+    def test_active_time_stamps_good_case(self):
+        self.assertEqual('** <2019-10-03 Thu 09:55> ' + self.touch_file('2019-10-03T09.55.00 foo.txt'), self.call_active_time_stamps()[0])
+
+    def test_active_time_stamps_good_timestamp_with_no_second(self):
+        self.assertEqual('** <2019-10-03 Thu 09:55> ' + self.touch_file('2019-10-03T09.55 foo.txt'), self.call_active_time_stamps()[0])
+
+    def test_active_time_stamps_good_datestamp(self):
+        self.assertEqual('** <2019-10-02 Wed> ' + self.touch_file('2019-10-02 foo.txt'), self.call_active_time_stamps()[0])
+
+    def test_active_time_stamps_good_datestamp_with_determining_time_from_file(self):
+        # FIXXME: caveat: this adds some tiny dependency: if the
+        # minute changes between the file creation and the check, this
+        # test fails
+        today_weekday = datetime.datetime.now().strftime('<%Y-%m-%d %a %H:%M> ')  # FIXXME: dependency on current locale: works only with English weekdays
+        today_day = datetime.datetime.now().strftime('%Y-%m-%d')
+        self.assertEqual('** ' + today_weekday + self.touch_file(today_day + ' foo.txt'), self.call_active_time_stamps()[0])
+
+    def test_active_time_stamps_good_datestamp_without_day(self):
+        self.assertEqual('** <2019-10-01 Tue> ' + self.touch_file('2019-10 foo.txt'), self.call_active_time_stamps()[0])
+
+    def test_active_time_stamps_good_case_with_seconds(self):
+        self.assertEqual('** <2019-10-03 Thu 09:55> ' + self.touch_file('2019-10-03T09.55.00 foo.txt'), self.call_active_time_stamps()[0])
+
+    def test_active_time_stamps_good_case_without_datestamp(self):
+        self.assertEqual('** ' + self.touch_file('foo.txt'), self.call_active_time_stamps()[0])
 
     #######################################################################
 
@@ -212,3 +269,44 @@ class TestFileNameTimeStamps(unittest.TestCase):
         self.assertEqual(data[1], "   :PROPERTIES:")
         self.assertEqual(data[2].strip()[:4], ":ID:")
         self.assertEqual(data[3], "   :END:")
+
+    #######################################################################
+
+    # Testing private methods is considered a bad thing to do:
+    # https://stackoverflow.com/questions/105007/should-i-test-private-methods-or-only-public-ones/47401015#47401015
+    # Here, I deliberately decide to test private methods as well
+    # since their failure would be complicated to test from the
+    # public methods alone.
+    # Still, their semantic is that way that they are not part of
+    # the public method API of the class.
+
+    def test__check_datestamp_correctness(self):
+        argv = "--suppress-messages --omit-drawers --folder " + self._tmp_dir
+        memacs = FileNameTimeStamps(argv=argv.split())
+        self.assertTrue(memacs._FileNameTimeStamps__check_datestamp_correctness('2019-12-31'))
+        self.assertTrue(memacs._FileNameTimeStamps__check_datestamp_correctness('2000-01-01'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('1999-00-01'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('1999-01-00'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('1999-13-00'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('1999-12-32'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('abc'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness(''))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('1'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('1-2-3'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_datestamp_correctness('2000-2-3'))
+
+    def test__check_timestamp_correctness(self):
+        argv = "--suppress-messages --omit-drawers --folder " + self._tmp_dir
+        memacs = FileNameTimeStamps(argv=argv.split())
+        self.assertTrue(memacs._FileNameTimeStamps__check_timestamp_correctness('00:00'))
+        self.assertTrue(memacs._FileNameTimeStamps__check_timestamp_correctness('23:59'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('1:2'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('12:2'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('1:23'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness(''))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('abcde'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('ab:cd'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('24:00'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('23:61'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('12.34'))
+        self.assertFalse(memacs._FileNameTimeStamps__check_timestamp_correctness('a'))
