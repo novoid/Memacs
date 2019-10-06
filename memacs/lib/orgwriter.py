@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-02 21:49:09 vk>
+# Time-stamp: <2019-10-06 12:49:34 vk>
 
 import codecs
 import sys
@@ -230,9 +230,10 @@ class OrgOutputWriter(object):
 
         ## a bit of a hack to get inactive time-stamps:
         ## FIXXME: use OrgFormat method to generate inactive time-stamps in the first place and remove asserts
-        if timestamp and self.__inactive_timestamps:
-            assert(timestamp[0] == '<')  ## at least try to find cases where this replace method fails
-            assert(timestamp[-1] == '>')  ## at least try to find cases where this replace method fails
+        if timestamp and self.__inactive_timestamps and timestamp[0] == '<' and timestamp[-1] == '>':
+            # FIXXME: very stupid overwriting of active time-stamp
+            # with inactive one when inactive option is used and
+            # somehow an active time-stamp is delivered somehow:
             timestamp = '[' + timestamp[1:-1] + ']'
 
         if self.__append:
