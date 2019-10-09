@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-06 18:52:24 vk>
+# Time-stamp: <2019-10-09 15:12:44 vk>
 
 import os
 import shutil
@@ -94,6 +94,9 @@ class TestFileNameTimeStamps(unittest.TestCase):
 
     def test_wrong_timestamp_in_day2(self):
         self.assertEqual('** ' + self.touch_file('2019-10-32T23.59.59 foo.txt'), self.call_omit_drawers()[0])
+
+    def test_wrong_timestamp_in_day3(self):
+        self.assertEqual('** ' + self.touch_file('2019-04-31T23.59.59 foo.txt'), self.call_omit_drawers()[0])
 
     def test_wrong_timestamp_in_month1(self):
         self.assertEqual('** ' + self.touch_file('2019-00-30T23.59.59 foo.txt'), self.call_omit_drawers()[0])

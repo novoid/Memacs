@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-06 18:56:19 vk>
+# Time-stamp: <2019-10-09 15:18:42 vk>
 
 import os
 from memacs.lib.memacs import Memacs
@@ -322,63 +322,65 @@ class FileNameTimeStamps(Memacs):
             # OrgFormat.strdatetime('YYYY-MM-DD HH:MM', inactive=False) -> <YYYY-MM-DD Sun HH:MM>
 
             assert(has_1ymd)
-            if has_1ymdhm:
-                if self.__check_datestamp_correctness(day1):
-                    if self.__check_timestamp_correctness(time1):
-                        try:
+            try:
+                if has_1ymdhm:
+                    if self.__check_datestamp_correctness(day1):
+                        if self.__check_timestamp_correctness(time1):
                             orgdate = OrgFormat.strdatetime(day1 + ' ' + time1, inactive=self._args.inactive_timestamps)
-                        except TimestampParseException:
-                            logging.error('__handle_file: INTERNAL ERROR: strdatetime("' + str(day1) + ' ' +
-                                          str(time1) +
-                                          '", inactive=self._args.inactive_timestamps) failed with TimestampParseException')
-                    else:
-                        logging.warn('File "' + file + '" has an invalid timestamp (' + str(time1) + '). Skipping this faulty time-stamp.')
-                        orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
-                else:
-                    logging.warn('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
-                    # omit optional second day if first has an issue:
-                    has_2ymd = False
-                    has_2ymdhm = False
-            elif has_1ymd:  # missing time-stamp for day1
-                if self.__check_datestamp_correctness(day1):
-                    if not self._args.skip_filetime_extraction:
-                        # we've got only a day but we're able to determine
-                        # time from file mtime, if same as ISO day in file
-                        # name:
-                        logging.debug('__handle_file: try to get file time from mtime if days match between mtime and filename ISO ...')
-                        file_datetime = time.localtime(os.path.getmtime(link))
-                        if self.__check_if_days_in_timestamps_are_same(file_datetime, day1):
-                            orgdate = OrgFormat.datetime(file_datetime, inactive=self._args.inactive_timestamps)
                         else:
-                            logging.debug('__handle_file: day of mtime and filename ISO differs, using filename ISO day')
+                            logging.warn('File "' + file + '" has an invalid timestamp (' + str(time1) + '). Skipping this faulty time-stamp.')
                             orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
                     else:
-                        # we've got only a day and determining mtime
-                        # is not planned, so use the day as date-stamp
-                        orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
+                        logging.warn('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
+                        # omit optional second day if first has an issue:
+                        has_2ymd = False
+                        has_2ymdhm = False
+                elif has_1ymd:  # missing time-stamp for day1
+                    if self.__check_datestamp_correctness(day1):
+                        if not self._args.skip_filetime_extraction:
+                            # we've got only a day but we're able to determine
+                            # time from file mtime, if same as ISO day in file
+                            # name:
+                            logging.debug('__handle_file: try to get file time from mtime if days match between mtime and filename ISO ...')
+                            file_datetime = time.localtime(os.path.getmtime(link))
+                            if self.__check_if_days_in_timestamps_are_same(file_datetime, day1):
+                                orgdate = OrgFormat.datetime(file_datetime, inactive=self._args.inactive_timestamps)
+                            else:
+                                logging.debug('__handle_file: day of mtime and filename ISO differs, using filename ISO day')
+                                orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
+                        else:
+                            # we've got only a day and determining mtime
+                            # is not planned, so use the day as date-stamp
+                            orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
                 else:
                     logging.warn('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
                     # omit optional second day if first has an issue:
                     has_2ymd = False
                     has_2ymdhm = False
 
-            # there is a time range:
-            if has_2ymdhm:
-                assert(day2)
-                if self.__check_datestamp_correctness(day2):
-                    if self.__check_timestamp_correctness(time2):
-                        orgdate += '--' + OrgFormat.strdatetime(day2 + ' ' + time2, inactive=self._args.inactive_timestamps)
+                # there is a time range:
+                if has_2ymdhm:
+                    assert(day2)
+                    if self.__check_datestamp_correctness(day2):
+                        if self.__check_timestamp_correctness(time2):
+                            orgdate += '--' + OrgFormat.strdatetime(day2 + ' ' + time2, inactive=self._args.inactive_timestamps)
+                        else:
+                            logging.warn('File "' + file + '" has an invalid timestamp (' + str(time2) + '). Skipping this faulty time-stamp.')
+                            orgdate += '--' + OrgFormat.strdate(day2, inactive=self._args.inactive_timestamps)
                     else:
-                        logging.warn('File "' + file + '" has an invalid timestamp (' + str(time2) + '). Skipping this faulty time-stamp.')
+                        logging.warn('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
+                elif has_2ymd:
+                    assert(day2)
+                    if self.__check_datestamp_correctness(day2):
                         orgdate += '--' + OrgFormat.strdate(day2, inactive=self._args.inactive_timestamps)
-                else:
-                    logging.warn('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
-            elif has_2ymd:
-                assert(day2)
-                if self.__check_datestamp_correctness(day2):
-                    orgdate += '--' + OrgFormat.strdate(day2, inactive=self._args.inactive_timestamps)
-                else:
-                    logging.warn('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
+                    else:
+                        logging.warn('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
+            except TimestampParseException:
+                logging.error('File "' + str(file) + '" has in invalid date- or timestamp. OrgFormat of one of day1: "' +
+                              str(day1) + '" time1: "' + str(time1) + '" day2: "' +
+                              str(day2) + '" time2: "' + str(time2) + '" ' +
+                              'failed with TimestampParseException. Skipping this faulty date.')
+                orgdate = False
 
         else:
             logging.debug('__handle_file: no date- nor timestamp')
