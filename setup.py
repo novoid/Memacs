@@ -20,7 +20,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name="memacs",
-    version="2019.10.02.1",
+    version="2019.10.09.1",
     description="Visualize your (digital) life in Emacs Org mode by converting data to Org mode format",
     author="Karl Voit",
     author_email="tools@Karl-Voit.at",
