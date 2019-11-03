@@ -5,7 +5,7 @@
 import logging
 import time
 from memacs.lib.orgproperty import OrgProperties
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.memacs import Memacs
 
 

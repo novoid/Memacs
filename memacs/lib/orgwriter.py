@@ -9,7 +9,7 @@ import re
 import logging
 from .orgproperty import OrgProperties
 from .reader import CommonReader
-from .orgformat import OrgFormat
+from orgformat import OrgFormat
 
 
 class OrgOutputWriter(object):

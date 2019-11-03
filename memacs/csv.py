@@ -9,7 +9,7 @@ import sys
 import json
 import datetime
 
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.memacs import Memacs
 from memacs.lib.reader import UnicodeDictReader
 from memacs.lib.orgproperty import OrgProperties

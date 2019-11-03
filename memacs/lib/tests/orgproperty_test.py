@@ -3,7 +3,7 @@
 
 import unittest
 import time
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.orgproperty import OrgProperties
 
 

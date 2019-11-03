@@ -7,7 +7,7 @@ import os
 import logging
 import time
 from memacs.lib.memacs import Memacs
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.reader import CommonReader
 

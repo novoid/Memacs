@@ -7,7 +7,7 @@ from email import message_from_string
 from email.utils import parsedate
 from email.header import decode_header
 from .orgproperty import OrgProperties
-from .orgformat import OrgFormat
+from orgformat import OrgFormat
 
 
 class MailParser(object):

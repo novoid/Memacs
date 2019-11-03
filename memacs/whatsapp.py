@@ -14,7 +14,7 @@ import re
 import emoji
 
 from memacs.lib.orgproperty import OrgProperties
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.memacs import Memacs
 from memacs.lib.contactparser import parse_org_contact_file
 

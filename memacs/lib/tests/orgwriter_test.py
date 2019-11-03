@@ -8,7 +8,7 @@ import time
 import tempfile
 import unittest
 
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.orgwriter import OrgOutputWriter
 from memacs.lib.orgproperty import OrgProperties
 

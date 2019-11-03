@@ -4,7 +4,7 @@
 
 import os
 from memacs.lib.memacs import Memacs
-from memacs.lib.orgformat import OrgFormat, TimestampParseException
+from orgformat import OrgFormat, TimestampParseException
 from memacs.lib.orgproperty import OrgProperties
 import re
 import logging
