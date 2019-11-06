@@ -8,7 +8,7 @@ Most people can not answer such questions. *With Memacs you can!*
 Memacs extracts metadata (subjects, timestamps, contact information,
 ...) from many different existing data sources (file names, emails,
 tweets, bookmarks, ...) on your computer and generates files which are
-readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]].
+readable by [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org mode]].
 
 Example:
 :    emails              -> memacs-maildir.py  \
@@ -20,13 +20,13 @@ Example:
 :    git repository logs -> memacs_git.py       |
 :    svn repository logs -> memacs_svn.py      /
 :    |_________________|   |_________________|     |______|
-:    your personal data      Memacs modules        Org-mode
+:    your personal data      Memacs modules        Org mode
 
 Memacs - as the central component of the system - is a hub for all the
 connectors that add data from individual data sources. Those connectors
 are called *Memacs modules* or short /module/.
 
-- *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org-mode]]
+- *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org mode]]
 - *skills necessary*: creating/modifying shell script code; creating
   scheduled tasks
 - *project hosted on* https://github.com/novoid/Memacs
@@ -191,7 +191,7 @@ Imagine you are already using Memacs.
 
 When remembering that day, when you joined an interesting talk about
 «[[http://en.wikipedia.org/wiki/Getting_Things_Done][Getting Things Done]]» (GTD), you start up your GNU Emacs with your main
-Org-mode file. There you go to the Agenda-view and select this
+Org mode file. There you go to the Agenda-view and select this
 specific day a couple of months ago.
 
 There it is, from 2pm to 3pm you scheduled this talk in your calendar.
@@ -220,7 +220,7 @@ related to great ideas you got from the GTD talk. (delicious-module)
 
 This small story shows only a few use cases where different modules
 combine given data sources and their information to provide an overall
-view related to an event. Since Org-mode has got links, no actual data
+view related to an event. Since Org mode has got links, no actual data
 has to be duplicated (except the meta data extracted by Memacs).
 Emails, files, bookmarks, and so forth are linked rather than copied.
 
@@ -250,7 +250,7 @@ The Memacs project tries to implement the ideas of Vannevar Bush's
 vision with open source and open standards. Hence, it's name «Memacs»
 is the obvious combination of «[[http://www.gnu.org/software/emacs/][GNU Emacs]]» and «Memex».
 
-Memacs uses GNU Emacs Org-mode to visualize and access information
+Memacs uses GNU Emacs Org mode to visualize and access information
 extracted by Memacs modules: using tags, time stamps, full text
 search, and so forth GNU Emacs is able to derive different
 views. The most important view probably is the [[http://orgmode.org/org.html#Agenda-Views][Agenda-view]] where you
