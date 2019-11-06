@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-09 15:18:42 vk>
+# Time-stamp: <2019-11-06 15:48:47 vk>
 
 import os
 from memacs.lib.memacs import Memacs
@@ -301,7 +301,7 @@ class FileNameTimeStamps(Memacs):
             # the mtime instead:
             logging.debug('__handle_file: force_filedate_extraction: using datetime from mtime of file')
             file_datetime = time.localtime(os.path.getmtime(link))
-            orgdate = OrgFormat.datetime(file_datetime)
+            orgdate = OrgFormat.date(file_datetime, show_time=True)
             self.__write_file(file, link, orgdate)
             return
 
@@ -319,14 +319,14 @@ class FileNameTimeStamps(Memacs):
             # Note: following things are available for formatting:
             # self._args.inactive_timestamps -> Bool
             # OrgFormat.strdate('YYYY-MM-DD', inactive=False) -> <YYYY-MM-DD Sun>
-            # OrgFormat.strdatetime('YYYY-MM-DD HH:MM', inactive=False) -> <YYYY-MM-DD Sun HH:MM>
+            # OrgFormat.strdate('YYYY-MM-DD HH:MM', inactive=False, show_time=True) -> <YYYY-MM-DD Sun HH:MM>
 
             assert(has_1ymd)
             try:
                 if has_1ymdhm:
                     if self.__check_datestamp_correctness(day1):
                         if self.__check_timestamp_correctness(time1):
-                            orgdate = OrgFormat.strdatetime(day1 + ' ' + time1, inactive=self._args.inactive_timestamps)
+                            orgdate = OrgFormat.strdate(day1 + ' ' + time1, inactive=self._args.inactive_timestamps, show_time=True)
                         else:
                             logging.warn('File "' + file + '" has an invalid timestamp (' + str(time1) + '). Skipping this faulty time-stamp.')
                             orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
@@ -344,7 +344,7 @@ class FileNameTimeStamps(Memacs):
                             logging.debug('__handle_file: try to get file time from mtime if days match between mtime and filename ISO ...')
                             file_datetime = time.localtime(os.path.getmtime(link))
                             if self.__check_if_days_in_timestamps_are_same(file_datetime, day1):
-                                orgdate = OrgFormat.datetime(file_datetime, inactive=self._args.inactive_timestamps)
+                                orgdate = OrgFormat.date(file_datetime, inactive=self._args.inactive_timestamps, show_time=True)
                             else:
                                 logging.debug('__handle_file: day of mtime and filename ISO differs, using filename ISO day')
                                 orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
@@ -363,7 +363,7 @@ class FileNameTimeStamps(Memacs):
                     assert(day2)
                     if self.__check_datestamp_correctness(day2):
                         if self.__check_timestamp_correctness(time2):
-                            orgdate += '--' + OrgFormat.strdatetime(day2 + ' ' + time2, inactive=self._args.inactive_timestamps)
+                            orgdate += '--' + OrgFormat.strdate(day2 + ' ' + time2, inactive=self._args.inactive_timestamps, show_time=True)
                         else:
                             logging.warn('File "' + file + '" has an invalid timestamp (' + str(time2) + '). Skipping this faulty time-stamp.')
                             orgdate += '--' + OrgFormat.strdate(day2, inactive=self._args.inactive_timestamps)

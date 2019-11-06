@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2016-01-23 18:09:38 vk>
+# Time-stamp: <2019-11-05 16:01:05 vk>
 
 import sys
 import os
@@ -96,28 +96,28 @@ class CalendarMemacs(Memacs):
         """
         @return string: Datetime - in Org Format
         """
-        mydate_tupel = OrgFormat.datetupelutctimestamp(mydate)
+        mydate_tuple = OrgFormat.parse_basic_iso_datetime(mydate)
 
-        return OrgFormat.date(mydate_tupel)
+        return OrgFormat.date(mydate_tuple)
 
     def __get_datetime_range(self, dtstart, dtend):
         """
         @return string: Datetime - Range in Org Format
         """
-        begin_tupel = OrgFormat.datetupelutctimestamp(dtstart)
-        end_tupel = OrgFormat.datetupelutctimestamp(dtend)
+        begin_tuple = OrgFormat.parse_basic_iso_datetime(dtstart)
+        end_tuple = OrgFormat.parse_basic_iso_datetime(dtend)
 
         # handle "all-day" - events
-        if begin_tupel.tm_sec == 0 and \
-                begin_tupel.tm_min == 0 and \
-                begin_tupel.tm_hour == 0 and \
-                end_tupel.tm_sec == 0 and \
-                end_tupel.tm_min == 0 and \
-                end_tupel.tm_hour == 0:
+        if begin_tuple.tm_sec == 0 and \
+                begin_tuple.tm_min == 0 and \
+                begin_tuple.tm_hour == 0 and \
+                end_tuple.tm_sec == 0 and \
+                end_tuple.tm_min == 0 and \
+                end_tuple.tm_hour == 0:
             # we have to subtract 1 day to get the correct dates
-            end_tupel = time.localtime(time.mktime(end_tupel) - 24 * 60 * 60)
+            end_tuple = time.localtime(time.mktime(end_tuple) - 24 * 60 * 60)
 
-        return OrgFormat.utcrange(begin_tupel, end_tupel)
+        return OrgFormat.daterange_autodetect_time(begin_tuple, end_tuple)
 
     def __handle_vevent(self, component):
         """

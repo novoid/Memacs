@@ -1,4 +1,4 @@
-orgformat>=2019.11.3.2
+orgformat>=2019.11.6.1
 batinfo
 emoji
 feedparser

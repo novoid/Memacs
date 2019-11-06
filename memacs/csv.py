@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-30 03:38:09 armin>
+# Time-stamp: <2019-11-06 15:22:17 vk>
 
 import argparse
 import logging
@@ -95,7 +95,7 @@ class Csv(Memacs):
             # if it contains at least hours and minutes
             if not self._args.timestamp_format or \
              any(x in self._args.timestamp_format for x in ['%H', '%M']):
-                timestamp = OrgFormat.datetime(timestamp)
+                timestamp = OrgFormat.date(timestamp, show_time=True)
             else:
                 timestamp = OrgFormat.date(timestamp)
 

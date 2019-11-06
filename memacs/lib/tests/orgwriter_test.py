@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-02 21:51:07 vk>
+# Time-stamp: <2019-11-06 15:25:23 vk>
 
 import codecs
 import shutil
@@ -36,7 +36,7 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_commentln("abc")
         writer.write_org_item("begin")
 
-        timestamp = OrgFormat.datetime(time.gmtime(0))
+        timestamp = OrgFormat.date(time.gmtime(0), show_time=True)
         writer.write_org_subitem(timestamp=timestamp,
                                  output="sub",
                                  properties=properties)
@@ -145,7 +145,7 @@ class TestOutputWriter(unittest.TestCase):
                                  tag="tag",
                                  file_name=test_filename,
                                  autotag_dict=autotag_dict)
-        timestamp = OrgFormat.datetime(time.gmtime(0))
+        timestamp = OrgFormat.date(time.gmtime(0), show_time=True)
 
         properties = OrgProperties("data_for_hashing")
 

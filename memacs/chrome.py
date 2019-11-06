@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-10-03 10:01:23 br>
+# Time-stamp: <2019-11-06 15:21:42 vk>
 
 import sqlite3
 import datetime
@@ -55,7 +55,7 @@ class Chrome(Memacs):
         else:
             timestamp = datetime.datetime(1970, 1, 1)
 
-            
+
         if not self._args.omit_drawer:
             properties = OrgProperties()
             if (params['title'] == "") :
@@ -71,11 +71,11 @@ class Chrome(Memacs):
 
         if self._args.omit_drawer:
             self._writer.write_org_subitem(
-                timestamp=OrgFormat.datetime(timestamp),
+                timestamp=OrgFormat.date(timestamp, show_time=True),
                 output=output, properties=None)
         else:
             self._writer.write_org_subitem(
-                timestamp=OrgFormat.datetime(timestamp),
+                timestamp=OrgFormat.date(timestamp, show_time=True),
                 output=output, properties=properties)
 
 

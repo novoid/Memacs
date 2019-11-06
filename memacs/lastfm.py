@@ -54,7 +54,7 @@ class LastFM(Memacs):
             properties.add('ARTIST', t.track.artist)
             properties.add('ALBUM', t.album)
 
-            self._writer.write_org_subitem(timestamp=OrgFormat.datetime(timestamp),
+            self._writer.write_org_subitem(timestamp=OrgFormat.date(timestamp, show_time=True),
                                            output=output,
                                            properties=properties)
 

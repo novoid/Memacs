@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-09-14 14:49:06 vk>
+# Time-stamp: <2019-11-06 15:28:28 vk>
 
 import logging
 import time
@@ -45,7 +45,7 @@ class Twitter(Memacs):
             # strptime doesn't support timezone info, so we are using dateutils.
             date_object = parser.parse(tweet['created_at'])
 
-            timestamp = OrgFormat.datetime(date_object)
+            timestamp = OrgFormat.date(date_object, show_time=True)
             try:
                 # Data is already Unicode, so don't try to re-encode it.
                 output = tweet['text']

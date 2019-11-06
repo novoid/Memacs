@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-02 20:36:03 vk>
+# Time-stamp: <2019-11-06 15:26:05 vk>
 
 import sys
 import os
@@ -118,13 +118,13 @@ class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):
             if call_duration < self._minimum_duration:
                 skip = True
 
-            timestamp = OrgFormat.datetime(time.gmtime(call_date))
+            timestamp = OrgFormat.date(time.gmtime(call_date), show_time=True)
 
             end_datetimestamp = datetime.datetime.utcfromtimestamp(call_date + call_duration)
-            logging.debug("timestamp[%s] duration[%s] end[%s]" % 
+            logging.debug("timestamp[%s] duration[%s] end[%s]" %
                           (str(timestamp), str(call_duration), str(end_datetimestamp)))
 
-            end_timestamp_string = OrgFormat.datetime(end_datetimestamp)
+            end_timestamp_string = OrgFormat.date(end_datetimestamp, show_time=True)
             logging.debug("end_time [%s]" % end_timestamp_string)
 
             data_for_hashing = output + timestamp

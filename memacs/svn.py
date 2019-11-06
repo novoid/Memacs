@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-10-28 15:13:31 aw>
+# Time-stamp: <2019-11-06 15:28:04 vk>
 
 import sys
 import os
@@ -75,8 +75,8 @@ class SvnSaxHandler(xml.sax.handler.ContentHandler):
         output = "%s (r%d): %s" % (self.__author, self.__rev, subject)
 
         properties = OrgProperties(data_for_hashing=self.__author + subject)
-        timestamp = OrgFormat.datetime(
-            OrgFormat.datetupelutctimestamp(self.__date))
+        timestamp = OrgFormat.date(
+            OrgFormat.parse_basic_iso_datetime(self.__date), show_time=True)
         properties.add("REVISION", self.__rev)
 
         if self.__grepauthor == None or \

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2015-01-30 18:30:03 vk>
+# Time-stamp: <2019-11-06 15:27:28 vk>
 
 import sys
 import os
@@ -169,7 +169,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                     output += sms_body
                     notes = ""
 
-                timestamp = OrgFormat.datetime(time.gmtime(sms_date))
+                timestamp = OrgFormat.date(time.gmtime(sms_date), show_time=True)
                 data_for_hashing = output + timestamp + notes
                 properties = OrgProperties(data_for_hashing=data_for_hashing)
 

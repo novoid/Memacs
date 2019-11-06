@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-09-22 14:07:08 vk>
+# Time-stamp: <2019-11-06 15:27:12 vk>
 
 import sys
 import os
@@ -86,8 +86,8 @@ class RssMemacs(Memacs):
             # created from `updated_parsed` to `published_parsed` if
             # `updated_parsed` doesn't exist. This fallback will be
             # removed in a future version of feedparser.
-            timestamp = OrgFormat.datetime(
-                time.localtime(calendar.timegm(item['updated_parsed'])))
+            timestamp = OrgFormat.date(
+                time.localtime(calendar.timegm(item['updated_parsed'])), show_time=True)
 
             properties.add("guid", guid)
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-10-09 15:20:58 vk>
+# Time-stamp: <2019-11-06 15:32:26 vk>
 
 import codecs
 import sys
@@ -119,7 +119,7 @@ class OrgOutputWriter(object):
                      str(self.__entries_count) + \
                      " entries by " + \
                      sys.argv[0] + " at " + \
-                     OrgFormat.inactive_datetime(time.localtime()) + \
+                     OrgFormat.date(time.localtime(), show_time=True, inactive=True) + \
                      " in ~" + self.__time.strip() + ".")
 
     def write_comment(self, output):
@@ -224,7 +224,7 @@ class OrgOutputWriter(object):
 
         ## fix time-stamps (if user wants to)
         if timestamp and self.__timestamp_delta:
-            timestamp = OrgFormat.apply_timedelta_to_Orgmode_timestamp(
+            timestamp = OrgFormat.apply_timedelta_to_org_timestamp(
                 timestamp, float(self.__timestamp_delta)
             )
 
