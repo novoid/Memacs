@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:21:42 vk>
 
@@ -11,7 +11,6 @@ import re
 from memacs.lib.orgproperty import OrgProperties
 from orgformat import OrgFormat
 from memacs.lib.memacs import Memacs
-
 
 class Chrome(Memacs):
     def _parser_add_arguments(self):
@@ -55,7 +54,6 @@ class Chrome(Memacs):
         else:
             timestamp = datetime.datetime(1970, 1, 1)
 
-
         if not self._args.omit_drawer:
             properties = OrgProperties()
             if (params['title'] == "") :
@@ -85,11 +83,11 @@ class Chrome(Memacs):
         """
         conn = sqlite3.connect(os.path.abspath(self._args.historystore.name))
         query = conn.execute("""
-        select urls.url, urls.title, urls.visit_count,
-                visits.visit_time
-        from   urls, visits
-        where  urls.id = visits.id
-        order by urls.last_visit_time """)
+        select url, title, visit_count,
+                last_visit_time
+        from   urls
+        where  last_visit_time IS NOT NULL
+        order by last_visit_time """)
 
         for row in query:
             self._handle_url({
