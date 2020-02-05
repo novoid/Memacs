@@ -11,9 +11,9 @@ import gpxpy
 import gpxpy.gpx
 import geocoder
 
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 
 class GPX(Memacs):
@@ -88,7 +88,7 @@ class GPX(Memacs):
     def write_point(self, p):
         """write a point (including geocoding)"""
 
-        timestamp = OrgFormat.datetime(p.time)
+        timestamp = OrgFormat.date(p.time, show_time=True)
         geocode = self.reverse_geocode(p.latitude, p.longitude)
         output = self._args.output_format.format(**geocode)
 

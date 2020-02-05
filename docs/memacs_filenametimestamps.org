@@ -1,4 +1,4 @@
-## Time-stamp: <2017-12-26 16:17:15 vk>
+## Time-stamp: <2019-10-03 12:34:37 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-filenametimestamps
@@ -7,30 +7,132 @@ Parse file names with an filename that consists of an [[http://www.cl.cam.ac.uk/
 stamp like =2011-02-14T14.35.42_img_0815.jpg= or =2011-02-14 slide GTD
 tools.jpg= contains a direct reference to a certain day (or time).
 
-** Options
+** Synopsis
 
-- ~f~, ~--folder~, path to a folder to search for filenametimestamps, multiple folders can be specified: -f /path1 -f /path2
-- ~x~, ~--exclude~, path to excluding folder, for more excludes use this: -x /path/exclude -x /path/exclude
-- ~--filelist~, file containing a list of files to process. either use ~--folder~ or ~--filelist~ argument, not both
-- ~--ignore-non-existing-items~, ignores non-existing files or folders within filelist
-- ~-l~, ~--follow-links~, follow symlinks, default False
-- ~--skip-file-time-extraction~, skip extraction of the file time in files containing only the date in the filename
-- ~--force-file-date-extraction~, force extraction of the file date even if there is no ISO datestamp in the filename
+# #+BEGIN_SRC sh :results output
+# PYTHONPATH=$HOME/src/memacs $HOME/src/memacs/bin/memacs_filenametimestamps.py --help
+# #+END_SRC
 
-** Example Invocation
+#+begin_example
+usage: memacs_filenametimestamps.py [-h] [--version] [-v] [-s] [-o FILE] [-a]
+                                    [-t TAG] [--autotagfile FILE]
+                                    [--number-entries NUMBER_ENTRIES]
+                                    [--columns-header STRING]
+                                    [--custom-header STRING]
+                                    [--add-to-time-stamps STRING]
+                                    [--inactive-time-stamps]
+                                    [-f FILENAMETIMESTAMPS_FOLDER]
+                                    [-x EXCLUDE_FOLDER] [--filelist FILELIST]
+                                    [--ignore-non-existing-items] [-l]
+                                    [--skip-file-time-extraction]
+                                    [--force-file-date-extraction]
+                                    [--skip-files-with-no-or-wrong-timestamp]
+                                    [--omit-drawers]
 
-: /home/user/Memacs/bin/memacs_filenametimestamps.py -f "/home/user/Documents" -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+This script parses a text file containing absolute paths
+to files with ISO datestamps and timestamps in their file names:
 
-** Example Orgmode entries
+Examples:  "2010-03-29T20.12 Divegraph.tiff"
+           "2010-12-31T23.59_Cookie_recipies.pdf"
+           "2011-08-29T08.23.59_test.pdf"
 
-The resulting =filenametimestamps.org_archive= file looks like following:
+Emacs tmp-files like file~ are automatically ignored
+
+Then an Org-mode file is generated that contains links to the files.
+
+At files, containing only the date information i.e. "2013-03-08_foo.txt", the
+time will be extracted from the filesystem, when both dates are matching. To
+Turn off this feature see argument "--skip-file-time-extraction"
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  -v, --verbose         enable verbose mode
+  -s, --suppress-messages
+                        do not show any log message - helpful when -o not set
+  -o FILE, --output FILE
+                        Org-mode file that will be generated (see above). If
+                        no output file is given, result gets printed to stdout
+  -a, --append          when set and outputfile exists, then only new entries
+                        are appendend. criterion: :ID: property
+  -t TAG, --tag TAG     overriding tag: :Memacs:<tag>: (on top entry)
+  --autotagfile FILE    file containing autotag information, see doc file
+                        FAQs_and_Best_Practices.org
+  --number-entries NUMBER_ENTRIES
+                        how many entries should be written?
+  --columns-header STRING
+                        if you want to add an #+COLUMNS header, please specify
+                        its content as STRING
+  --custom-header STRING
+                        if you want to add an arbitrary header line, please
+                        specify its content as STRING
+  --add-to-time-stamps STRING
+                        if data is off by, e.g., two hours, you can specify
+                        "+2" or "-2" here to correct it with plus/minus two
+                        hours
+  --inactive-time-stamps
+                        inactive time-stamps are written to the output file
+                        instead of active time-stamps. Helps to move modules
+                        with many entries to the inactive layer of the agenda.
+  -f FILENAMETIMESTAMPS_FOLDER, --folder FILENAMETIMESTAMPS_FOLDER
+                        path to a folder to search for filenametimestamps,
+                        multiple folders can be specified: -f /path1 -f /path2
+  -x EXCLUDE_FOLDER, --exclude EXCLUDE_FOLDER
+                        path to excluding folder, for more excludes use this:
+                        -x /path/exclude -x /path/exclude
+  --filelist FILELIST   file containing a list of files to process. either use
+                        "--folder" or the "--filelist" argument, not both.
+  --ignore-non-existing-items
+                        ignores non-existing files or folders within filelist
+  -l, --follow-links    follow symbolics links, default False
+  --skip-file-time-extraction
+                        by default, if there is an ISO datestamp without time,
+                        the mtime is used for time extraction, when the ISO
+                        days are matching. If you set this option, this
+                        extraction of the file time is omitted.
+  --force-file-date-extraction
+                        force extraction of the file date and timeeven when
+                        there is an ISO datestamp in the filename.
+  --skip-files-with-no-or-wrong-timestamp
+                        by default, files with a missing or a wrong time-stamp
+                        (2019-12-33) will be linked without Org mode time-
+                        stamp. If you set this option, these files will not be
+                        part of the output at all.
+  --omit-drawers        do not generate drawers that contain ID properties.
+                        Can't be used with "--append".
+
+:copyright: (c) 2011 and higher by
+            Karl Voit <tools@Karl-Voit.at>,
+            Armin Wieser <armin.wieser@gmail.com>
+:license: GPL v2 or any later version
+:bugreports: https://github.com/novoid/Memacs
+:version: 1.0 from 2019-10-03
+#+end_example
+
+** Minimal Example Invocation
+
+The minimum required parameters are shown below:
+
+: /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:    --folder "/home/user/Documents" \
+:    -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+
+This invocation goes through the sub-hierarchy of
+"/home/user/Documents/", extracts all of the file names and generates
+an Org mode document containing links between basenames of the files
+to the absolute paths of the corresponding files.
+
+** Example Org mode entries
+
+The resulting =filenametimestamps.org_archive= file looks like the
+following:
 
 : * Memacs for file name time stamp                      :Memacs:filedatestamps:
-: ** <2010-03-12 Fri> [[/home/armin/Documents/scan/Graz/Strom%20-%20Gas/2010-03-12.pdf][2010-03-12.pdf]]
+: ** <2010-03-12 Fri> [[/home/user/Documents/2010-03-12 my letter.pdf][2010-03-12 my letter.pdf]]
 :    :PROPERTIES:
 :    :ID:         5b6e980e83fe22e1d149b837b1bcb2560aadace3
 :    :END:
-: ** <2010-03-12 Fri> [[/home/armin/misc/2010-03-10T09.55 Foobar.pdf][2010-03-10T09.55 Foobar.pdf]]
+: ** <2010-03-12 Fri> [[/home/user/Documents/misc/2010-03-10T09.55 Foobar.pdf][2010-03-10T09.55 Foobar.pdf]]
 :    :PROPERTIES:
 :    :ID:         3456e980e83fe22e1d149b837b1bcb2560aadbcc
 :    :END:
@@ -40,17 +142,20 @@ generated. For each file containing an ISO time-stamp, a heading is
 created. It consists of the heading including the absolute path to the
 file and an unique ID property.
 
+For more examples, take a look at the section "Bonus: Elaborated
+Example List" below.
+
 ** Background
 
-This module is probably the most valuable Memacs module of all. You
-can refer to any (time-stamped) file within your Org-mode. You don't
-have to care, which folder you put the file in! Files can be moved
-from one location to another. As long as both locations are indexed by
-this Memacs module, links to files don't get broken.
+This module is probably the most versatile Memacs module. You can
+refer to any (time-stamped) file within your Org mode. *You don't have
+to care, which folder you put the file in*. Files can be moved from
+one location to another. As long as both locations are indexed by this
+Memacs module on a regular basis, links to files don't get broken.
 
 This is a normal hard-coded link to a file with an absolute path:
 
-: [[/home/armin/misc/2010-03-10 Foo bar baz.pdf]]
+: [[/home/user/misc/2010-03-10 Foo bar baz.pdf]]
 
 Using this Memacs module, the link looks different:
 
@@ -68,18 +173,30 @@ before your eyes.
 
 Nifty, isn't it?
 
+Summary: This Memacs module generates an Org mode file which links the
+[[https://en.wikipedia.org/wiki/Basename][basename]] of a file to its full path. Assuming that the indexed files
+appear only once in your file system, this allows for linking files
+using their basename. Those links look like
+: [[tsfile:2010-03-10 Foo bar baz.pdf]]
+and they link a basename to its occurrence within the index file
+=filenametimestamps.org_archive=.
+
+In order to make this work, you have to set up these =tsfile:= links
+once in your Emacs configuration.
+
 ** Emacs Configuration
 
-To access those links, it is necessary to add a custom link like this
-to your Org-mode configuration:
+To access those =tsfile:= links, it is necessary to add a [[https://orgmode.org/manual/Link-abbreviations.html][custom link]]
+like this to your Org-mode configuration:
 
 : (setq org-link-abbrev-alist
 :       '(
-: 	("tsfile" . "~/path/to/memacs/files.org_archive::/\*.*%s/")
+: 	("tsfile" . "/home/user/memacs//home/user/orgmode/memacs/filenametimestamps.org_archive::/\*.*%s/")
 : 	))
 
 As you can see, I am using =tsfile= which is short for «a time-stamp
-file». Choose your own link name.
+file». Choose your own link name and change each occurrence
+accordingly.
 
 For quickly entering a link, you may like following [[http://emacswiki.org/emacs/Yasnippet][yasnippet]]:
 
@@ -89,10 +206,13 @@ For quickly entering a link, you may like following [[http://emacswiki.org/emacs
 :  (let ((field (nth 0 (yas--snippet-fields (first (yas--snippets-at-point))))))
 :    (concat (buffer-substring (yas--field-start field) (yas--field-end field)))))}]] $0
 
+Alternatively to =org-link-abbrev-alist=, you can [[https://orgmode.org/manual/Adding-Hyperlink-Types.html][look into
+=org-link-set-parameters=]] as [[https://github.com/novoid/dot-emacs/blob/master/config.org][the author is using it]].
+
 ** Bonus: Fast Opening of Memacs Indexed Files
 
 If you are indexing many files containing an ISO datestamp, you end up
-with a very large Org-mode file that holds many links.
+with a very large Org mode file that holds many links.
 
 This can slow down the access method mentioned in the previous section.
 
@@ -137,3 +257,247 @@ It explains following code:
  :follow (lambda (path) (my-handle-tsfile-link path))
  :help-echo "Opens the linked file with your default application")
 #+END_SRC
+
+** Bonus: Elaborated Example List
+
+This list of examples explains most command line parameters of this
+module.
+
+*** Normal Cases
+
+file =/path/2019-10-03T09.55.12 foo.txt= results in:
+
+: ** <2019-10-03 Thu 09:55> [[file:/path/2019-10-03T09.55.12 foo.txt][2019-10-03T09.55.12 foo.txt]]
+
+A normal ISO timestamp with date and time including seconds.
+
+---------
+
+file =/path/2019-10-03T09.55 foo.txt= results in:
+
+: ** <2019-10-03 Thu 09:55> [[file:/path/2019-10-03T09.55 foo.txt][2019-10-03T09.55 foo.txt]]
+
+This is similar to the previous file but lacks the seconds within its
+time-stamp.
+
+---------
+
+file =/path/2019-10-03 foo.txt= results in:
+
+: ** <2019-10-03 Thu> [[file:/path/2019-10-03 foo.txt][2019-10-03 foo.txt]]
+
+When the whole time-part is missing, the date-stamp part is used to
+link to the day instead of a time.
+
+---------
+
+file =/path/foo.txt= results in:
+
+: ** [[file:/path/foo.txt][foo.txt]]
+
+If you don't want these entries, choose the
+=--skip-files-with-no-or-wrong-timestamp= option.
+
+*** Drawers
+
+The examples above refer only to the heading itself. The optional
+drawer is discussed in this section.
+
+Following call ...
+
+: /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:    --folder "/home/user/Documents" \
+:    -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+
+... ends up with files like this:
+
+: ## -*- coding: utf-8 mode: org -*-
+: ## this file is generated by /home/vk/src/memacs/bin/memacs_filenametimestamps.py. Any modification will be overwritten upon next invocation!
+: ## To add this file to your org-agenda files open the stub file  (file.org) not this file(file.org_archive) with emacs and do following: M-x org-agenda-file-to-front
+: * Memacs for file name time stamp          :Memacs:filedatestamps:
+: ** <2019-10-03 Thu 09:55> [[file:/path/2019-10-03T09.55.12 foo.txt][2019-10-03T09.55.12 foo.txt]]
+:   :PROPERTIES:
+:   :ID:         ea9d4e49104ba07b06271daff2b90bbff0479b38
+:   :END:
+: [...]
+: ** <2019-12-31 Tue> [[file:/home/user/2019-12-31 a mountain.jpg][2019-12-31 a mountain.jpg]]
+:    :PROPERTIES:
+:    :ID:         cce4cc1b30d3a3973f46a086ba25b8a01dbca9ea
+:    :END:
+: * successfully parsed 15 entries by /home/vk/src/memacs/bin/memacs_filenametimestamps.py at [2019-10-03 Thu 00:18] in ~0.009874s .
+
+The drawers contain unique hashes for the files. They are mandatory
+for the parameter =--append= in order to compare existing entries with
+the new entries to append.
+
+If you do re-generate the index without appending, you don't need
+these IDs. In order to save time and disk space, you may choose to add
+the parameter =--omit-drawers=.
+
+: /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:    --omit-drawers \
+:    --folder "/home/user/Documents" \
+:    -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+
+This would then result in following example with missing drawers:
+
+: ## -*- coding: utf-8 mode: org -*-
+: ## this file is generated by /home/vk/src/memacs/bin/memacs_filenametimestamps.py. Any modification will be overwritten upon next invocation!
+: ## To add this file to your org-agenda files open the stub file  (file.org) not this file(file.org_archive) with emacs and do following: M-x org-agenda-file-to-front
+: * Memacs for file name time stamp          :Memacs:filedatestamps:
+: ** <2019-10-03 Thu 09:55> [[file:/path/2019-10-03T09.55.12 foo.txt][2019-10-03T09.55.12 foo.txt]]
+: [...]
+: ** <2019-12-31 Tue> [[file:/home/user/2019-12-31 a mountain.jpg][2019-12-31 a mountain.jpg]]
+: * successfully parsed 15 entries by /home/vk/src/memacs/bin/memacs_filenametimestamps.py at [2019-10-03 Thu 00:18] in ~0.009874s .
+
+*** Header
+
+Applying the parameters =--columns-header STRING= as well as
+=--custom-header= changes the result like this:
+
+: /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:    --columns-header "%30ID" \
+:    --custom-header "This is my precious memacs index of my files." \
+:    --omit-drawers \
+:    --folder "/home/user/Documents" \
+:    -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+
+: ## -*- coding: utf-8 mode: org -*-
+: ## this file is generated by /home/vk/src/memacs/bin/memacs_filenametimestamps.py. Any modification will be overwritten upon next invocation!
+: ## To add this file to your org-agenda files open the stub file  (file.org) not this file(file.org_archive) with emacs and do following: M-x org-agenda-file-to-front
+: #+COLUMNS: %30ID
+: This is my precious memacs index of my files.
+: * Memacs for file name time stamp          :Memacs:filedatestamps:
+: [...]
+
+If you need overwrite the default tag =filedatestamps=, you can do so
+using the =--tag= parameter:
+
+: /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:    --tag "files:memacs" \
+:    --omit-drawers \
+:    --folder "/home/user/Documents" \
+:    -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+
+: ## -*- coding: utf-8 mode: org -*-
+: ## this file is generated by /home/vk/src/memacs/bin/memacs_filenametimestamps.py. Any modification will be overwritten upon next invocation!
+: ## To add this file to your org-agenda files open the stub file  (file.org) not this file(file.org_archive) with emacs and do following: M-x org-agenda-file-to-front
+: * Memacs for file name time stamp          :Memacs:files:memacs:
+: ** <2019-10-03 Thu 09:55> [[file:/path/2019-10-03T09.55.12 foo.txt][2019-10-03T09.55.12 foo.txt]]
+: [...]
+
+With the usual [[https://orgmode.org/manual/Tag-inheritance.html][tag inheritance]], any entry gets assigned to these tags.
+
+*** Org Mode Time-Stamps
+
+If you - for some reason - need to shift the time-stamps of the Org
+mode part, you may use the =--add-to-time-stamps= parameter. If you
+would like to switch to inactive time-stamps as well, you may use
+=--inactive-time-stamps=.
+
+: /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:    --add-to-time-stamps "+2" \
+:    --inactive-time-stamps \
+:    --omit-drawers \
+:    --folder "/home/user/Documents" \
+:    -o "/home/user/orgmode/memacs/filenametimestamps.org_archive"
+
+: ## -*- coding: utf-8 mode: org -*-
+: ## this file is generated by /home/vk/src/memacs/bin/memacs_filenametimestamps.py. Any modification will be overwritten upon next invocation!
+: ## To add this file to your org-agenda files open the stub file  (file.org) not this file(file.org_archive) with emacs and do following: M-x org-agenda-file-to-front
+: * Memacs for file name time stamp          :Memacs:filedatestamps:
+: ** [2019-10-03 Thu 11:55] [[file:/path/2019-10-03T09.55.12 foo.txt][2019-10-03T09.55.12 foo.txt]]
+: [...]
+: ** [2019-12-31 Tue] [[file:/home/user/2019-12-31 a mountain.jpg][2019-12-31 a mountain.jpg]]
+: * successfully parsed 15 entries by /home/vk/src/memacs/bin/memacs_filenametimestamps.py at [2019-10-03 Thu 00:18] in ~0.009874s .
+
+*** Use Pre-Generated File List Instead of Scanning Folders
+
+If you need to pre-process the list of files to be indexed for some
+reason, you may want to use a different approach. Instead of letting
+this module scanning your file system, you might choose to use =find=
+or a similar tool.
+
+The author is using following approach:
+
+: find /home/user -name '[12][0-9][0-9][0-9]-[01][0-9]-[0123][0-9]*' -type f | \
+:    egrep -v '(tagtrees|filetags_tagfilter|/restricted/|testdata)' > /tmp/memacs-files-tmp && \
+:    /home/user/Memacs/bin/memacs_filenametimestamps.py \
+:         --filelist /tmp/memacs-files-tmp \
+:         --omit-drawers \
+:         --skip-files-with-no-or-wrong-timestamp \
+:         -o /home/user/org/memacs/files.org_archive
+
+This allows for a more fine-grained pre-processing. In this example,
+all paths and files with certain strings are ignored (=egrep -v=) in
+the output.
+
+*** Where This Module Becomes Clever
+
+This module has some built-in hidden gems for some situations.
+
+-------------------
+
+file =/path/2019-10-03 foo.txt= may result in:
+
+: ** <2019-10-03 Thu 09:55> [[file:/path/2019-10-03 foo.txt][2019-10-03 foo.txt]]
+
+By default, this module adds the modification time as time-stamp if
+and only if the ISO datestamp within the file name reflects the day
+from the modification time. So if you save a file on the same day that
+is shown in its ISO datestamp, this module assumes that it's good to
+give you more details on the time.
+
+If you do not like this behavior, you can disable this mechanism by
+choosing the parameter =--skip-file-time-extraction=.
+
+Another example where a time-stamp appears in the Org mode time-stamp
+when the file name doesn't contain this time-stamp is, when you choose
+the option =--force-file-date-extraction=. In /any/ case, this module
+then overrides any existing or non existing date- or time-stamp within
+the file name and uses the modification time of the file in order to
+generate the Org mode time-stamp.
+
+If you don't want to have files in your index who do not feature a
+date- or time-stamp in their file name, you may want to choose the
+option =--skip-files-with-no-or-wrong-timestamp=.
+
+-----------
+
+file =/path/2019-10-03 foo.txt= may result in:
+
+: ** <2019-11-15 Thu 12:31> [[file:/path/2019-10-03 foo.txt][2019-10-03 foo.txt]]
+
+You might already have guessed: if you are using
+=--force-file-date-extraction= and the modification time differs from
+the file name ISO date-stamp, this might result in completely
+different Org mode time-stamps.
+
+----------
+
+file =/path/2019-10-32 foo.txt= may result in:
+
+: ** [[file:/path/2019-10-32 foo.txt][2019-10-32 foo.txt]]
+
+As the day "32" does not exist in any month, there is no Org mode
+time-stamp at all. You can skip those files when using the
+=--skip-files-with-no-or-wrong-timestamp= option.
+
+If a date-stamp is OK but the time-stamp has, e.g., =23.59.63=, it is
+handled similar.
+
+---------
+
+file =/path/2019-10 foo.txt= results in:
+
+: ** [[file:/path/2019-10-01 foo.txt][2019-10-01 foo.txt]]
+
+If your file name date-stamp is missing the day of the month, this
+module assumes the first day of this month in order to generate a
+proper Org mode date-stamp.
+
+** Bonus: External Tools Using This Memacs Index: lazyblorg (Blogging)
+
+The blogging framework [[https://github.com/novoid/lazyblorg/][lazyblorg]] is using the index file resulting
+from this Memacs module for [[https://github.com/novoid/lazyblorg/wiki/Images#embedding-tsfile-image-files][linking to image files]] without worrying
+about their location.

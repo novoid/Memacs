@@ -8,9 +8,9 @@ import sys
 
 import pylast
 
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 
 class LastFM(Memacs):
@@ -54,7 +54,7 @@ class LastFM(Memacs):
             properties.add('ARTIST', t.track.artist)
             properties.add('ALBUM', t.album)
 
-            self._writer.write_org_subitem(timestamp=OrgFormat.datetime(timestamp),
+            self._writer.write_org_subitem(timestamp=OrgFormat.date(timestamp, show_time=True),
                                            output=output,
                                            properties=properties)
 

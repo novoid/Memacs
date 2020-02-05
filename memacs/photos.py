@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-05-03 17:49:30 vk>
+# Time-stamp: <2019-11-06 15:26:47 vk>
 
 import os
 import logging
 import time
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 import imghdr
 from PIL import Image
 from PIL.ExifTags import TAGS
@@ -84,7 +84,7 @@ class PhotosMemacs(Memacs):
             else:
                 try:
                     datetime = time.strptime(datetime, "%Y:%m:%d %H:%M:%S")
-                    timestamp = OrgFormat.datetime(datetime)
+                    timestamp = OrgFormat.date(datetime, show_time=True)
                     output = OrgFormat.link(filename, photo_file)
                     properties = OrgProperties(photo_file + timestamp)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-09-22 13:42:19 vk>
+# Time-stamp: <2019-11-06 15:25:23 vk>
 
 import codecs
 import shutil
@@ -8,7 +8,7 @@ import time
 import tempfile
 import unittest
 
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.orgwriter import OrgOutputWriter
 from memacs.lib.orgproperty import OrgProperties
 
@@ -20,7 +20,7 @@ class TestOutputWriter(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.TMPFOLDER)
 
-    def test_ouput_to_file(self):
+    def test_output_to_file(self):
         """
         Simple Test
         """
@@ -36,13 +36,17 @@ class TestOutputWriter(unittest.TestCase):
         writer.write_commentln("abc")
         writer.write_org_item("begin")
 
-        timestamp = OrgFormat.datetime(time.gmtime(0))
+        timestamp = OrgFormat.date(time.gmtime(0), show_time=True)
         writer.write_org_subitem(timestamp=timestamp,
                                  output="sub",
                                  properties=properties)
         writer.write_org_subitem(timestamp=timestamp,
                                  output="sub",
                                  tags=["foo", "bar"],
+                                 properties=properties)
+        writer.write_org_subitem(timestamp=False,
+                                 output="no timestamp",
+                                 tags=["bar", "baz"],
                                  properties=properties)
         writer.close()
 
@@ -95,6 +99,21 @@ class TestOutputWriter(unittest.TestCase):
         self.assertEqual(
             data[17],
             "   :END:\n")
+        self.assertEqual(
+            data[18],
+            "\n")
+        self.assertEqual(
+            data[19],
+            "** no timestamp\t:bar:baz:\n")
+        self.assertEqual(
+            data[20],
+            "   :PROPERTIES:\n")
+        self.assertEqual(
+            data[21],
+            "   :ID:         9cc53a63e13e18437401513316185f6f3b7ed703\n")
+        self.assertEqual(
+            data[22],
+            "   :END:\n")
 
     def test_utf8(self):
         test_filename = self.TMPFOLDER + "testutf8.org"
@@ -126,7 +145,7 @@ class TestOutputWriter(unittest.TestCase):
                                  tag="tag",
                                  file_name=test_filename,
                                  autotag_dict=autotag_dict)
-        timestamp = OrgFormat.datetime(time.gmtime(0))
+        timestamp = OrgFormat.date(time.gmtime(0), show_time=True)
 
         properties = OrgProperties("data_for_hashing")
 

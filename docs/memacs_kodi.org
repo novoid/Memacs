@@ -1,0 +1,110 @@
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs_csv
+
+** Data Source
+Log-Files of Media played by [[https://kodi.tv/][Kodi Mediacenter]] exported e.g. by the Kodi Addon [[https://github.com/DerBeutlin/KodiPlayEventLogger][KodiPlayEventLogger]].
+The Files are csv files which log each start/pause/stop of media played
+
+** Options
+
+Since this module subclasses the Memacs CSV module many of the parameters are the same:
+- ~-f, --file~ input csv file (required)
+- ~-d, --delimiter~ defaults to semicolon
+- ~-e, --encoding~ see [[http://docs.python.org/library/codecs.html#standard-encodings][encodings]], defaults to ~utf-8~
+- ~-n, --fieldnames~ header fieldnames of the columns (add a comma at the end, if data rows end with delimiter)
+- ~-p, --properties~ fields to use for properties (optional)
+- ~--timestamp-field~ field name of the timestamp (required)
+- ~--timestamp-format~ format of the timestamp, see [[http://docs.python.org/library/time.html#time.strftime][strftime]] for possible formats, defaults to unix timestamp
+- ~--output-format~ format string for the output, see [[https://pyformat.info/][format]] and use the fieldnames as named placeholders (required)
+- ~--skip-header~ skip first line, only necessary if you want to overwrite existing header fieldnames (optional)
+
+The following parameters are added through the Kodi module
+- ~--action-field~ field name of the action label (started/stopped/paused) (required)
+- ~--identification-fields~ fields to uniquely identify track e.g. 'title,artist' (required)
+- ~--minimal-pause-duration~ pauses in the same media which are shorter than this threshold are ignored (optional)
+
+** Example
+
+#+BEGIN_EXAMPLE
+bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
+                   --fieldnames timestamp,action,position,length,path,album,artist,title,\
+                   --timestamp-field timestamp --properties title,album,artist \
+                   --output-format {artist}-{title} --action-field action \
+                   --identification-fields title,album,artist, \
+#+END_EXAMPLE
+
+#+BEGIN_SRC org
+* Memacs for Kodi           :Memacs:kodi:
+** <2018-10-01 Mon 21:58>--<2018-10-01 Mon 21:59> Clueso-So sehr dabei
+  :PROPERTIES:
+  :TITLE:      So sehr dabei
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         1831baa1c211e878d0ce1e643b7185059b16caf5
+  :END:
+
+** <2018-10-01 Mon 22:03>--<2018-10-01 Mon 22:08> Clueso-Chicago
+  :PROPERTIES:
+  :TITLE:      Chicago
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         a792da84d9840f013e098cf4c99e3d6312d1975d
+  :END:
+
+** <2018-10-01 Mon 22:08>--<2018-10-01 Mon 22:15> Clueso-So sehr dabei
+  :PROPERTIES:
+  :TITLE:      So sehr dabei
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         f544004d78f6b03226f50b439449605218d8167d
+  :END:
+
+** <2018-10-01 Mon 22:16>--<2018-10-01 Mon 22:26> Clueso-So sehr dabei
+  :PROPERTIES:
+  :TITLE:      So sehr dabei
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         d344cca12917de1166b517657f4a7d176767ce53
+  :END:
+
+* successfully parsed 4 entries by ./bin/memacs_kodi.py at [2018-10-27 Sat 16:07] in ~0.001384s .
+#+END_SRC
+ -----
+
+#+BEGIN_EXAMPLE
+bin/memacs_kodi.py -f memacs/tests/data/kodi_audio.log \
+                   --fieldnames timestamp,action,position,length,path,album,artist,title,\
+                   --timestamp-field timestamp --properties title,album,artist \
+                   --output-format {artist}-{title} --action-field action \
+                   --identification-fields title,album,artist, \
+                   --minimal-pause-duration 120
+#+END_EXAMPLE
+#+BEGIN_SRC org
+* Memacs for Kodi           :Memacs:kodi:
+** <2018-10-01 Mon 21:58>--<2018-10-01 Mon 21:59> Clueso-So sehr dabei
+  :PROPERTIES:
+  :TITLE:      So sehr dabei
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         1831baa1c211e878d0ce1e643b7185059b16caf5
+  :END:
+
+** <2018-10-01 Mon 22:03>--<2018-10-01 Mon 22:08> Clueso-Chicago
+  :PROPERTIES:
+  :TITLE:      Chicago
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         a792da84d9840f013e098cf4c99e3d6312d1975d
+  :END:
+
+** <2018-10-01 Mon 22:08>--<2018-10-01 Mon 22:26> Clueso-So sehr dabei
+  :PROPERTIES:
+  :TITLE:      So sehr dabei
+  :ALBUM:      Barfuss
+  :ARTIST:     Clueso
+  :ID:         d344cca12917de1166b517657f4a7d176767ce53
+  :END:
+
+* successfully parsed 3 entries by ./bin/memacs_kodi.py at [2018-10-27 Sat 16:10] in ~0.001130s .
+#+END_SRC

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2017-02-07 19:25 manu>
+# Time-stamp: <2019-11-06 15:29:12 vk>
 
 import sqlite3
 import logging
@@ -13,10 +13,10 @@ import re
 
 import emoji
 
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.contactparser import parse_org_contact_file
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.contactparser import parse_org_contact_file
 
 class WhatsApp(Memacs):
 
@@ -124,7 +124,7 @@ class WhatsApp(Memacs):
         output = self._args.output_format.format(**msg)
 
         if msg['text'] and not self._is_ignored(msg):
-            self._writer.write_org_subitem(timestamp=OrgFormat.datetime(timestamp),
+            self._writer.write_org_subitem(timestamp=OrgFormat.date(timestamp, show_time=True),
                                            output=output, properties=properties)
 
     def _main(self):

@@ -8,9 +8,9 @@ import sys
 
 import batinfo
 
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 ROOT = '/sys/class/power_supply'
 
@@ -57,7 +57,7 @@ class Battery(Memacs):
         consumption = float(bat.current_now / 1000000.0 *
                             bat.voltage_now / 1000000.0)
 
-        timestamp = OrgFormat.datetime(datetime.datetime.now())
+        timestamp = OrgFormat.date(datetime.datetime.now(), show_time=True)
         output = self._args.output_format.format(battery=bat)
 
         properties = OrgProperties(data_for_hashing=timestamp)

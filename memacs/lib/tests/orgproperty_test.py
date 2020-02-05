@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2011-12-20 15:13:31 awieser>
+# Time-stamp: <2019-11-06 15:24:56 vk>
 
 import unittest
 import time
-from memacs.lib.orgformat import OrgFormat
+from orgformat import OrgFormat
 from memacs.lib.orgproperty import OrgProperties
 
 
@@ -20,7 +20,7 @@ class TestOrgProperties(unittest.TestCase):
     def test_properties_with_own_created(self):
         p = OrgProperties()
         p.add("CREATED",
-              OrgFormat.datetime(time.gmtime(0)))
+              OrgFormat.date(time.gmtime(0), show_time=True))
         properties = str(p).splitlines()
 
         self.assertEqual(properties[0], "   :PROPERTIES:")

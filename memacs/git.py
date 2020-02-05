@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-04-16 18:24:28 armin>
+# Time-stamp: <2019-11-06 15:23:39 vk>
 
 import sys
 import os
 import logging
 import time
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 
 class Commit(object):
@@ -37,8 +37,8 @@ class Commit(object):
         date_info = line[-16:]  # 1234567890 +0000
         seconds_since_epoch = float(date_info[:10])
         #timezone_info = date_info[11:]
-        self.__timestamp = OrgFormat.datetime(
-                            time.localtime(seconds_since_epoch))
+        self.__timestamp = OrgFormat.date(
+                            time.localtime(seconds_since_epoch), show_time=True)
         self.__author = line[7:line.find("<")].strip()
 
     def add_header(self, line):
@@ -93,7 +93,7 @@ class Commit(object):
 
     def get_output(self):
         """
-        @return tupel: output,properties,body for Orgwriter.write_sub_item()
+        @return tuple: output,properties,body for Orgwriter.write_sub_item()
         """
         output = self.__author + ": " + self.__subject
         return output, self.__properties, self.__body, self.__author, \
@@ -165,7 +165,7 @@ class GitMemacs(Memacs):
             input_stream = open(self._args.gitrevfile)
         else:
             logging.debug("using sys.stdin as input_stream")
-            input_stream = sys.stdin 
+            input_stream = sys.stdin
 
         # now go through the file
         # Logic (see example commit below)

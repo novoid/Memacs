@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-28 20:12:09 armin>
+# Time-stamp: <2019-11-06 15:24:33 vk>
 
 import time
 import logging
@@ -7,7 +7,7 @@ from email import message_from_string
 from email.utils import parsedate
 from email.header import decode_header
 from .orgproperty import OrgProperties
-from .orgformat import OrgFormat
+from orgformat import OrgFormat
 
 
 class MailParser(object):
@@ -102,15 +102,15 @@ class MailParser(object):
         notes = notes.replace("\r", "")
         output_from = MailParser.get_value_or_empty_str(headers, "From")
         if output_from != "":
-            output_from = OrgFormat.contact_mail_mailto_link(output_from)
+            output_from = OrgFormat.mailto_link(output_from)
         subject = MailParser.get_value_or_empty_str(headers, "Subject", True)
 
         dt = MailParser.get_value_or_empty_str(headers, "Date", False)
         timestamp = ""
         if dt != "":
             try:
-                time_tupel = time.localtime(time.mktime(parsedate(dt)))
-                timestamp = OrgFormat.datetime(time_tupel)
+                time_tuple = time.localtime(time.mktime(parsedate(dt)))
+                timestamp = OrgFormat.date(time_tuple, show_time=True)
             except TypeError:
                 logging.error("could not parse dateime from msg %s", dt)
 

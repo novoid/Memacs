@@ -27,7 +27,7 @@ For more options see help page (<memacs_sms.py -h>)
 ** Example Orgmode entries
 
 : * Memacs for photos(exif)          :Memacs:photos:
-: ** <2007-09-26 Wed 03:11:09> [[/home/user/Pictures/foobar.jpg][foobar.jpg]
+: ** <2007-09-26 Wed 03:11:09> [[/home/user/Pictures/foobar.jpg][foobar.jpg]]
 :    :PROPERTIES:
 :    :ID:         1f02963b171fbf72ff154f1cd725acc532331c0a
 :    :END:

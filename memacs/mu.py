@@ -2,14 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
+import locale
 from datetime import datetime
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 import re
 
+# Sets this script's locale to be the same as system locale
+locale.setlocale(locale.LC_TIME, '')
+
 class MuMail(Memacs):
-        
+
     def _parser_add_arguments(self):
         """
         overwritten method of class Memacs
@@ -27,7 +31,7 @@ class MuMail(Memacs):
            "-m", "--me",
            dest="sender",
            help="space seperated list of mail addresses that belongs to you")
-        
+
         self._parser.add_argument(
             "-d", "--delegation",
             dest="todo",
@@ -66,11 +70,11 @@ class MuMail(Memacs):
         converts xml timestamp into org readable timestamp
         Do  6 Nov 21:22:17 2014
         """
-        time = time.strip().encode('utf-8')
+        time = time.strip()
 
         mail_date = datetime.strptime(time,"%c")
         if onlyDate is False:
-            return OrgFormat.datetime(mail_date)
+            return OrgFormat.date(mail_date, show_time=True)
         return OrgFormat.date(mail_date)
 
     def __create_mail_link(self, sender):
@@ -87,8 +91,8 @@ class MuMail(Memacs):
             else:
                 return ("[[mailto:" + mail + "][" + mail + "]]",name,mail)
         return ("Unknown","Unknown","Unknown")
-        
-        
+
+
     def _main(self):
         """
         get's automatically called from Memacs class

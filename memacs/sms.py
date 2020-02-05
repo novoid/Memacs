@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2015-01-30 18:30:03 vk>
+# Time-stamp: <2019-11-06 15:27:28 vk>
 
 import sys
 import os
@@ -12,11 +12,11 @@ import codecs      ## Unicode conversion
 import html.parser  ## un-escaping HTML entities like emojis
 import tempfile    ## create temporary files
 from xml.sax._exceptions import SAXParseException
-from .lib.orgformat import OrgFormat
-from .lib.orgproperty import OrgProperties
-from .lib.memacs import Memacs
-from .lib.reader import CommonReader
-from .lib.contactparser import parse_org_contact_file
+from orgformat import OrgFormat
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.memacs import Memacs
+from memacs.lib.reader import CommonReader
+from memacs.lib.contactparser import parse_org_contact_file
 
 
 class SmsSaxHandler(xml.sax.handler.ContentHandler):
@@ -169,7 +169,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                     output += sms_body
                     notes = ""
 
-                timestamp = OrgFormat.datetime(time.gmtime(sms_date))
+                timestamp = OrgFormat.date(time.gmtime(sms_date), show_time=True)
                 data_for_hashing = output + timestamp + notes
                 properties = OrgProperties(data_for_hashing=data_for_hashing)
 

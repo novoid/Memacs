@@ -8,10 +8,10 @@ import os
 import re
 import time
 
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.reader import CommonReader
-from .lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.reader import CommonReader
+from memacs.lib.orgproperty import OrgProperties
 
 
 class SimplePhoneLogsMemacs(Memacs):
@@ -101,7 +101,7 @@ class SimplePhoneLogsMemacs(Memacs):
 
             in_between_s = (e_time - e_last_opposite_occurrence).seconds + \
                 (e_time - e_last_opposite_occurrence).days * 3600 * 24
-            in_between_hms = str(OrgFormat.get_hms_from_sec(in_between_s))
+            in_between_hms = str(OrgFormat.hms_from_sec(in_between_s))
 
             if e_name == 'boot':
                 last_info = ' (off for '
@@ -131,19 +131,19 @@ class SimplePhoneLogsMemacs(Memacs):
                 assert(type(in_between_s) == int)
 
                 # come up with the additional office-hours string:
-                additional_paren_string = '; today ' + OrgFormat.get_hms_from_sec(office_sum) + \
-                    '; today total ' + OrgFormat.get_hms_from_sec(office_total)
+                additional_paren_string = '; today ' + OrgFormat.hms_from_sec(office_sum) + \
+                    '; today total ' + OrgFormat.hms_from_sec(office_total)
 
             if additional_paren_string:
-                last_info += str(OrgFormat.get_dhms_from_sec(in_between_s)) + additional_paren_string + ')'
+                last_info += str(OrgFormat.dhms_from_sec(in_between_s)) + additional_paren_string + ')'
             else:
-                last_info += str(OrgFormat.get_dhms_from_sec(in_between_s)) + ')'
+                last_info += str(OrgFormat.dhms_from_sec(in_between_s)) + ')'
 
         elif e_last_occurrence:
 
             in_between_s = (e_time - e_last_occurrence).seconds + \
                 (e_time - e_last_occurrence).days * 3600 * 24
-            in_between_hms = str(OrgFormat.get_hms_from_sec(in_between_s))
+            in_between_hms = str(OrgFormat.hms_from_sec(in_between_s))
 
         # handle special case: office hours
         if e_name == 'wifi-office':
@@ -173,7 +173,7 @@ class SimplePhoneLogsMemacs(Memacs):
         properties.add("IN-BETWEEN", in_between_hms)
         properties.add("IN-BETWEEN-S", str(in_between_s))
         properties.add("BATT-LEVEL", e_batt)
-        properties.add("UPTIME", OrgFormat.get_hms_from_sec(int(e_uptime)))
+        properties.add("UPTIME", OrgFormat.hms_from_sec(int(e_uptime)))
         properties.add("UPTIME-S", e_uptime)
 
         if e_name == 'wifi-office-end' and office_lunchbreak:
@@ -206,7 +206,7 @@ class SimplePhoneLogsMemacs(Memacs):
             '\n:PROPERTIES:\n:IN-BETWEEN: ' + in_between_hms + \
             '\n:IN-BETWEEN-S: ' + str(in_between_s) + \
             '\n:BATT-LEVEL: ' + e_batt + \
-            '\n:UPTIME: ' + str(OrgFormat.get_hms_from_sec(int(e_uptime))) + \
+            '\n:UPTIME: ' + str(OrgFormat.hms_from_sec(int(e_uptime))) + \
             '\n:UPTIME-S: ' + str(e_uptime) + '\n:END:\n', \
             ignore_occurrence, office_sum, office_first_begin, office_lunchbreak
 

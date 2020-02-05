@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2018-07-21 15:23:55 vk>
+# Time-stamp: <2019-11-06 15:23:20 vk>
 
 import sqlite3
 import datetime
@@ -8,9 +8,9 @@ import sys
 import os
 import re
 
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 
 class Firefox(Memacs):
@@ -64,11 +64,11 @@ class Firefox(Memacs):
 
         if self._args.omit_drawer:
             self._writer.write_org_subitem(
-                timestamp=OrgFormat.datetime(timestamp),
+                timestamp=OrgFormat.date(timestamp, show_time=True),
                 output=output, properties=None)
         else:
             self._writer.write_org_subitem(
-                timestamp=OrgFormat.datetime(timestamp),
+                timestamp=OrgFormat.date(timestamp, show_time=True),
                 output=output, properties=properties)
 
 

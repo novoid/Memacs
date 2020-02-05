@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-31 11:11:39 karl.voit>
+# Time-stamp: <2019-10-03 11:44:44 vk>
 
 from memacs.filenametimestamps import FileNameTimeStamps
 
-PROG_VERSION_NUMBER = "0.3"
-PROG_VERSION_DATE = "2013-12-15"
+PROG_VERSION_NUMBER = "1.0"
+PROG_VERSION_DATE = "2019-10-03"
 PROG_SHORT_DESCRIPTION = "Memacs for file name time stamp"
 PROG_TAG = "filedatestamps"
 PROG_DESCRIPTION = """This script parses a text file containing absolute paths
@@ -23,7 +23,7 @@ At files, containing only the date information i.e. "2013-03-08_foo.txt", the
 time will be extracted from the filesystem, when both dates are matching. To
 Turn off this feature see argument "--skip-file-time-extraction"
 """
-COPYRIGHT_YEAR = "2011-2014"
+COPYRIGHT_YEAR = "2011 and higher"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2012-03-09 15:48:38 armin>
+# Time-stamp: <2019-11-06 15:22:08 vk>
 
 import logging
 import time
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
 
 
 class Foo(Memacs):
@@ -70,7 +70,7 @@ class Foo(Memacs):
         # on an fatal error:
         # use logging.error() and sys.exit(1)
 
-        timestamp = OrgFormat.datetime(time.gmtime(0))
+        timestamp = OrgFormat.date(time.gmtime(0), show_time=True)
         # note: timestamp has to be a struct_time object
 
         # Orgproperties
