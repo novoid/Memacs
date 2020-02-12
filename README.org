@@ -156,6 +156,7 @@ to =tsfile:= images]] independent of their location. Awesome stuff.
 - [[docs/memacs_svn.org][svn]]
 - [[docs/memacs_twitter.org][twitter]]
 - [[docs/memacs_whatsapp.org][whatsapp]]
+- [[docs/memacs_kodi.org][KODI logs]]
 
 This module is an example for developers: [[docs/memacs_csv.org]]
 
