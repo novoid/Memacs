@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-06-13 21:52:51 vk>
+# Time-stamp: <2020-03-24 21:54:58 vk>
 
 import os
 import sys
@@ -326,15 +326,15 @@ def main():
         parser.error("Please provide an input file!")
 
     if not os.path.isfile(options.csvfilename):
-    	print(USAGE)
-    	logging.error("\n\nThe argument interpreted as an input file \"" + str(options.csvfilename) + \
-                          "\" is not an normal file!\n")
+        print(USAGE)
+        logging.error("\n\nThe argument interpreted as an input file \"" + str(options.csvfilename) + \
+                      "\" is not an normal file!\n")
         sys.exit(2)
 
     if not options.overwrite and options.outputfile and os.path.isfile(options.outputfile):
-    	print(USAGE)
-    	logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + \
-                          "\" already exists!\n")
+        print(USAGE)
+        logging.error("\n\nThe argument interpreted as output file \"" + str(options.outputfile) + \
+                      "\" already exists!\n")
         sys.exit(3)
 
     if options.outputfile:
