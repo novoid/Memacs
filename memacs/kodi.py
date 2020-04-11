@@ -7,10 +7,10 @@ import logging
 import time
 import csv
 import datetime
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.reader import UnicodeDictReader
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.reader import UnicodeDictReader
 from .csv import Csv
 
 from itertools import tee, islice, chain
