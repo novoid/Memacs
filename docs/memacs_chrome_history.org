@@ -16,7 +16,7 @@ We can use Memacs_chrome to generate a file with the datetimes of the urls:
 
 ** Example Invocation
 *** Example with rev-list file:
-: python bin/memacs_chrome.py -f "/home/bala/.config/google-chrome/Default/History" >~/org/chromehist.org_archive
+: python bin/memacs_chrome.py -f "/home/bala/.config/google-chrome/Default/History" -o /org/chromehist.org_archive
 
 ** Example Orgmode entries
 
