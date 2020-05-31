@@ -7,10 +7,10 @@ import logging
 import time
 import csv
 import datetime
-from .lib.orgproperty import OrgProperties
-from .lib.orgformat import OrgFormat
-from .lib.memacs import Memacs
-from .lib.reader import UnicodeDictReader
+from memacs.lib.orgproperty import OrgProperties
+from orgformat import OrgFormat
+from memacs.lib.memacs import Memacs
+from memacs.lib.reader import UnicodeDictReader
 from .csv import Csv
 
 from itertools import tee, islice, chain
@@ -113,11 +113,9 @@ class Kodi(Csv):
     def format_timestamp(self, timestamp):
         # show time with the timestamp format, but only
         # if it contains at least hours and minutes
-        if not self._args.timestamp_format or \
-            any(x in self._args.timestamp_format for x in ['%H', '%M']):
-            timestamp = OrgFormat.datetime(timestamp)
-        else:
-            timestamp = OrgFormat.date(timestamp)
+        show_time =  not self._args.timestamp_format or \
+            any(x in self._args.timestamp_format for x in ['%H', '%M'])
+        timestamp = OrgFormat.date(timestamp,show_time=show_time)
         return timestamp
 
     def read_properties(self, row):
