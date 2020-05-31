@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-11-06 15:48:47 vk>
+# Time-stamp: <2020-05-31 19:15:55 vk>
 
 import os
 from memacs.lib.memacs import Memacs
@@ -159,6 +159,10 @@ class FileNameTimeStamps(Memacs):
             logging.debug('__check_datestamp_correctness(' + str(datestamp) + ') NEGATIVE')
             return False
         else:
+            try:
+                orgdate = OrgFormat.strdate(datestamp)
+            except ValueError:
+                return False
             return True
 
     def __check_timestamp_correctness(self, timestamp):
@@ -335,6 +339,7 @@ class FileNameTimeStamps(Memacs):
                         # omit optional second day if first has an issue:
                         has_2ymd = False
                         has_2ymdhm = False
+                        orgdate = False
                 elif has_1ymd:  # missing time-stamp for day1
                     if self.__check_datestamp_correctness(day1):
                         if not self._args.skip_filetime_extraction:
@@ -352,6 +357,9 @@ class FileNameTimeStamps(Memacs):
                             # we've got only a day and determining mtime
                             # is not planned, so use the day as date-stamp
                             orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
+                    else:
+                        logging.warning('File "' + file + '" has an invalid datestamp (' + str(day1) + ').')
+                        orgdate = False
                 else:
                     logging.warning('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
                     # omit optional second day if first has an issue:
