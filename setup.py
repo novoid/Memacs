@@ -28,6 +28,8 @@ setup(
     download_url="https://github.com/novoid/memacs/zipball/master",
     keywords=["quantified self", "emacs", "org-mode", "org mode"],
     packages=find_packages(), # Required
+    scripts = [
+        "bin/memacs_arbtt.py","bin/memacs_battery.py","bin/memacs_chrome.py","bin/memacs_csv.py","bin/memacs_example.py","bin/memacs_filenametimestamps.py","bin/memacs_firefox.py","bin/memacs_git.py","bin/memacs_gpx.py","bin/memacs_ical.py","bin/memacs_imap.py","bin/memacs_kodi.py","bin/memacs_lastfm.py","bin/memacs_mumail.py","bin/memacs_phonecalls.py","bin/memacs_phonecalls_superbackup.py","bin/memacs_photos.py","bin/memacs_rss.py","bin/memacs_simplephonelogs.py","bin/memacs_sms.py","bin/memacs_sms_superbackup.py","bin/memacs_svn.py","bin/memacs_twitter.py","bin/memacs_whatsapp.py"],
     #package_data={},
     #install_requires=[FIXXME],  # 2019-10-02 Karl: unsure, if it is feasible to add all requirements since there are lots of independent modules ...
     classifiers=[
