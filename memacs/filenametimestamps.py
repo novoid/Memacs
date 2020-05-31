@@ -328,10 +328,10 @@ class FileNameTimeStamps(Memacs):
                         if self.__check_timestamp_correctness(time1):
                             orgdate = OrgFormat.strdate(day1 + ' ' + time1, inactive=self._args.inactive_timestamps, show_time=True)
                         else:
-                            logging.warn('File "' + file + '" has an invalid timestamp (' + str(time1) + '). Skipping this faulty time-stamp.')
+                            logging.warning('File "' + file + '" has an invalid timestamp (' + str(time1) + '). Skipping this faulty time-stamp.')
                             orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
                     else:
-                        logging.warn('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
+                        logging.warning('File "' + file + '" has an invalid datestamp (' + str(day1) + ').')
                         # omit optional second day if first has an issue:
                         has_2ymd = False
                         has_2ymdhm = False
@@ -353,7 +353,7 @@ class FileNameTimeStamps(Memacs):
                             # is not planned, so use the day as date-stamp
                             orgdate = OrgFormat.strdate(day1, inactive=self._args.inactive_timestamps)
                 else:
-                    logging.warn('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
+                    logging.warning('File "' + file + '" has an invalid datestamp (' + str(day1) + '). Skipping this faulty date.')
                     # omit optional second day if first has an issue:
                     has_2ymd = False
                     has_2ymdhm = False
@@ -365,16 +365,16 @@ class FileNameTimeStamps(Memacs):
                         if self.__check_timestamp_correctness(time2):
                             orgdate += '--' + OrgFormat.strdate(day2 + ' ' + time2, inactive=self._args.inactive_timestamps, show_time=True)
                         else:
-                            logging.warn('File "' + file + '" has an invalid timestamp (' + str(time2) + '). Skipping this faulty time-stamp.')
+                            logging.warning('File "' + file + '" has an invalid timestamp (' + str(time2) + '). Skipping this faulty time-stamp.')
                             orgdate += '--' + OrgFormat.strdate(day2, inactive=self._args.inactive_timestamps)
                     else:
-                        logging.warn('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
+                        logging.warning('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
                 elif has_2ymd:
                     assert(day2)
                     if self.__check_datestamp_correctness(day2):
                         orgdate += '--' + OrgFormat.strdate(day2, inactive=self._args.inactive_timestamps)
                     else:
-                        logging.warn('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
+                        logging.warning('File "' + file + '" has an invalid datestamp (' + str(day2) + '). Skipping this faulty date.')
             except TimestampParseException:
                 logging.error('File "' + str(file) + '" has in invalid date- or timestamp. OrgFormat of one of day1: "' +
                               str(day1) + '" time1: "' + str(time1) + '" day2: "' +
