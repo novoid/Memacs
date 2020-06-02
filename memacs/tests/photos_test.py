@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2014-05-03 17:46:44 vk>
 
-import unittest
 import os
+import unittest
+
 from memacs.photos import PhotosMemacs
 
 

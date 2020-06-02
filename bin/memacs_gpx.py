@@ -12,7 +12,8 @@ COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""
 
 
-if __name__ == "__main__":
+def main():
+    global memacs
     memacs = GPX(prog_version=PROG_VERSION_NUMBER,
                  prog_version_date=PROG_VERSION_DATE,
                  prog_short_description=PROG_SHORT_DESCRIPTION,
@@ -20,3 +21,7 @@ if __name__ == "__main__":
                  copyright_year=COPYRIGHT_YEAR,
                  copyright_authors=COPYRIGHT_AUTHORS)
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

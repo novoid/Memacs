@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:24:33 vk>
 
-import time
 import logging
+import time
 from email import message_from_string
-from email.utils import parsedate
 from email.header import decode_header
-from .orgproperty import OrgProperties
+from email.utils import parsedate
+
 from orgformat import OrgFormat
+
+from .orgproperty import OrgProperties
 
 
 class MailParser(object):

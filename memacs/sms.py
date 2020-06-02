@@ -2,21 +2,22 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:27:28 vk>
 
-import sys
-import os
-import logging
-import xml.sax
-import time
-import re          ## RegEx for detecting patterns
-import codecs      ## Unicode conversion
+import codecs  ## Unicode conversion
 import html.parser  ## un-escaping HTML entities like emojis
-import tempfile    ## create temporary files
-from xml.sax._exceptions import SAXParseException
+import logging
+import os
+import sys
+import tempfile  ## create temporary files
+import time
+import xml.sax
+
 from orgformat import OrgFormat
-from memacs.lib.orgproperty import OrgProperties
-from memacs.lib.memacs import Memacs
-from memacs.lib.reader import CommonReader
+from xml.sax._exceptions import SAXParseException
+
 from memacs.lib.contactparser import parse_org_contact_file
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.reader import CommonReader
 
 
 class SmsSaxHandler(xml.sax.handler.ContentHandler):

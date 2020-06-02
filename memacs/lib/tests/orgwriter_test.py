@@ -4,13 +4,14 @@
 
 import codecs
 import shutil
-import time
 import tempfile
+import time
 import unittest
 
 from orgformat import OrgFormat
-from memacs.lib.orgwriter import OrgOutputWriter
+
 from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.orgwriter import OrgOutputWriter
 
 
 class TestOutputWriter(unittest.TestCase):

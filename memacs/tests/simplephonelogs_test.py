@@ -7,8 +7,9 @@ import shutil
 import tempfile
 import unittest
 
-from memacs.simplephonelogs import SimplePhoneLogsMemacs
 from memacs.lib.reader import CommonReader
+from memacs.simplephonelogs import SimplePhoneLogsMemacs
+
 
 ## FIXXME: (Note) These test are *not* exhaustive unit tests. They only
 ##         show the usage of the methods. Please add "mean" test cases and

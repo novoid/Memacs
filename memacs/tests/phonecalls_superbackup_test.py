@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import unittest
 import os
+import unittest
+
 from memacs.phonecalls_superbackup import PhonecallsSuperBackupMemacs
 
 

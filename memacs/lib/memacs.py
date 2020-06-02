@@ -3,12 +3,13 @@
 # Time-stamp: <2014-01-28 16:19:18 vk>
 
 import logging
-import traceback
-from .argparser import MemacsArgumentParser
-from .orgwriter import OrgOutputWriter
-from .loggingsettings import handle_logging
 import sys
+import traceback
 from configparser import ConfigParser
+
+from .argparser import MemacsArgumentParser
+from .loggingsettings import handle_logging
+from .orgwriter import OrgOutputWriter
 
 
 class Memacs(object):

@@ -7,10 +7,10 @@ import logging
 import sys
 
 import batinfo
-
-from memacs.lib.orgproperty import OrgProperties
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 ROOT = '/sys/class/power_supply'
 

@@ -2,6 +2,7 @@
 # Time-stamp: <2018-08-25 14:16:04 vk>
 
 import unittest
+
 from memacs.example import Foo
 
 

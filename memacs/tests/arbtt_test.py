@@ -2,8 +2,8 @@
 # Time-stamp: <2011-10-28 15:13:31>
 
 import os
-import time
 import unittest
+
 from memacs.arbtt import Arbtt
 
 

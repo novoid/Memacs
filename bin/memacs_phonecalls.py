@@ -30,7 +30,9 @@ COPYRIGHT_YEAR = "2011-2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
-if __name__ == "__main__":
+
+def main():
+    global memacs
     memacs = PhonecallsMemacs(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -39,5 +41,9 @@ if __name__ == "__main__":
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
         copyright_authors=COPYRIGHT_AUTHORS
-        )
+    )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

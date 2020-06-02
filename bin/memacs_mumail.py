@@ -16,8 +16,9 @@ COPYRIGHT_YEAR = "2011-2015"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Stephanus Volke <post@stephanus-volke.de>"""
 
-if __name__ == "__main__":
-    
+
+def main():
+    global memacs
     memacs = MuMail(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -27,5 +28,9 @@ if __name__ == "__main__":
         copyright_year=COPYRIGHT_YEAR,
         copyright_authors=COPYRIGHT_AUTHORS,
         use_config_parser_name=CONFIG_PARSER_NAME
-        )
+    )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2012-09-06 19:54:04 armin>
 
-import sys
-import os
-import logging
 import imaplib
-from memacs.lib.memacs import Memacs
+import logging
+import sys
+
 from memacs.lib.mailparser import MailParser
+from memacs.lib.memacs import Memacs
 
 
 class ImapMemacs(Memacs):

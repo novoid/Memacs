@@ -2,14 +2,16 @@
 # Time-stamp: <2019-11-06 15:32:26 vk>
 
 import codecs
-import sys
-import time
+import logging
 import os
 import re
-import logging
+import sys
+import time
+
+from orgformat import OrgFormat
+
 from .orgproperty import OrgProperties
 from .reader import CommonReader
-from orgformat import OrgFormat
 
 
 class OrgOutputWriter(object):

@@ -3,16 +3,15 @@
 # Time-stamp: <2019-11-06 15:28:28 vk>
 
 import logging
-import time
-from datetime import datetime
-from dateutil import parser
-import os
 import sys
-from twython import Twython, TwythonError
+
+from dateutil import parser
 from orgformat import OrgFormat
+from twython import Twython, TwythonError
+
 from memacs.lib.memacs import Memacs
-from memacs.lib.reader import UnicodeCsvReader
 from memacs.lib.orgproperty import OrgProperties
+
 
 class Twitter(Memacs):
     def _main(self):

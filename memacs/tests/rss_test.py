@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2018-08-25 14:44:23 vk>
 
-import unittest
 import os
+import unittest
+
 from memacs.rss import RssMemacs
 
 

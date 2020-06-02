@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:24:56 vk>
 
-import unittest
 import time
+import unittest
+
 from orgformat import OrgFormat
+
 from memacs.lib.orgproperty import OrgProperties
 
 

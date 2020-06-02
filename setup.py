@@ -1,37 +1,27 @@
-# from distutils.core import setup
-
-# Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-# To use a consistent encoding
-# from codecs import open
-from os import path
 
-# workaround from https://github.com/pypa/setuptools/issues/308 to avoid "normalizing" version "2018.01.09" to "2018.1.9":
-# import pkg_resources
-# pkg_resources.extern.packaging.version.Version = pkg_resources.SetuptoolsLegacyVersion
-# 2019-10-02: this is causing "AttributeError: module 'pkg_resources' has no attribute 'SetuptoolsLegacyVersion'"
-#             -> this trick is no longer working
-
-here = path.abspath(path.dirname(__file__))
-
-# Get the long description from the README file
-#with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-#    long_description = f.read()
+# building extra requirements with "all" option to install everything at once
+extras_require = {
+    "gps": ["gpxpy", "geocoder"],
+    "rss": ["feedparser"],
+    "ical": ["icalendar"],
+    "lastfm": ["pylast"],
+    "battery": ["batinfo"],
+    "twitter": ["python-dateutil", "twython"],
+}
+extras_require["all"] = {r for v in extras_require.values() for r in v}
 
 setup(
     name="memacs",
     version="2019.11.06.1",
-    description="Visualize your (digital) life in Emacs Org mode by converting data to Org mode format",
+    description="Visualize your (digital) life in Emacs Org mode "
+                "by converting data to Org mode format",
     author="Karl Voit",
     author_email="tools@Karl-Voit.at",
     url="https://github.com/novoid/memacs",
     download_url="https://github.com/novoid/memacs/zipball/master",
     keywords=["quantified self", "emacs", "org-mode", "org mode"],
-    packages=find_packages(), # Required
-    scripts = [
-        "bin/memacs_arbtt.py","bin/memacs_battery.py","bin/memacs_chrome.py","bin/memacs_csv.py","bin/memacs_example.py","bin/memacs_filenametimestamps.py","bin/memacs_firefox.py","bin/memacs_git.py","bin/memacs_gpx.py","bin/memacs_ical.py","bin/memacs_imap.py","bin/memacs_kodi.py","bin/memacs_lastfm.py","bin/memacs_mumail.py","bin/memacs_phonecalls.py","bin/memacs_phonecalls_superbackup.py","bin/memacs_photos.py","bin/memacs_rss.py","bin/memacs_simplephonelogs.py","bin/memacs_sms.py","bin/memacs_sms_superbackup.py","bin/memacs_svn.py","bin/memacs_twitter.py","bin/memacs_whatsapp.py"],
-    #package_data={},
-    #install_requires=[FIXXME],  # 2019-10-02 Karl: unsure, if it is feasible to add all requirements since there are lots of independent modules ...
+    packages=find_packages(),  # Required
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "Development Status :: 5 - Production/Stable",
@@ -39,13 +29,38 @@ setup(
         "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
+    ],
+    # package_data={},
+    install_requires=["orgformat", "emoji"],
+    extras_require=extras_require,
+    entry_points={
+        'console_scripts': [
+            "memacs_arbtt=bin.memacs_arbtt:main",
+            "memacs_battery=bin.memacs_battery:main [battery]",
+            "memacs_chrome=bin.memacs_chrome:main",
+            "memacs_csv=bin.memacs_csv:main",
+            "memacs_example=bin.memacs_example:main",
+            "memacs_filenametimestamps=bin.memacs_filenametimestamps:main",
+            "memacs_firefox=bin.memacs_firefox:main",
+            "memacs_git=bin.memacs_git:main",
+            "memacs_gpx=bin.memacs_gpx:main [gps]",
+            "memacs_ical=bin.memacs_ical:main [ical]",
+            "memacs_imap=bin.memacs_imap:main",
+            "memacs_kodi=bin.memacs_kodi:main",
+            "memacs_lastfm=bin.memacs_lastfm:main [lastfm]",
+            "memacs_mumail=bin.memacs_mumail:main",
+            "memacs_phonecalls=bin.memacs_phonecalls:main",
+            "memacs_phonecalls_superbackup=bin.memacs_phonecalls_superbackup:main",
+            "memacs_photos=bin.memacs_photos:main",
+            "memacs_rss=bin.memacs_rss:main [rss]",
+            "memacs_simplephonelogs=bin.memacs_simplephonelogs:main",
+            "memacs_sms=bin.memacs_sms:main",
+            "memacs_sms_superbackup=bin.memacs_sms_superbackup:main",
+            "memacs_svn=bin.memacs_svn:main",
+            "memacs_twitter=bin.memacs_twitter:main [twitter]",
+            "memacs_whatsapp=bin.memacs_whatsapp:main",
         ],
-    #entry_points={  # Optional   # 2019-10-02 Karl: unsure, if it is feasible to add all entry_points since there are lots of independent modules ...
-    #    'console_scripts': [
-    #       FIXXME
-    #    ],
-    #},
-#    long_description=long_description, # Optional
+     },
     long_description="""This Python framework converts data from various sources to Org mode format
 which may then included in Org mode agenda (calendar). This way, you get a 360-degree-view of your
 digital life.

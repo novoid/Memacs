@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:26:47 vk>
 
-import os
-import logging
-import time
-from orgformat import OrgFormat
-from memacs.lib.memacs import Memacs
-from memacs.lib.orgproperty import OrgProperties
 import imghdr
+import logging
+import os
+import time
+
 from PIL import Image
 from PIL.ExifTags import TAGS
+from orgformat import OrgFormat
+
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 
 def get_exif_datetime(filename):

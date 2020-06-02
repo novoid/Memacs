@@ -2,14 +2,16 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:28:04 vk>
 
-import sys
-import os
 import logging
+import os
+import sys
 import xml.sax
-from xml.sax._exceptions import SAXParseException
-from memacs.lib.orgproperty import OrgProperties
+
 from orgformat import OrgFormat
+from xml.sax._exceptions import SAXParseException
+
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.reader import CommonReader
 
 

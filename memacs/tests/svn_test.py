@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2018-08-26 21:40:32 vk>
 
-import unittest
 import os
+import unittest
+
 from memacs.svn import SvnMemacs
 
 

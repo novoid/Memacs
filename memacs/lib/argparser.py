@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2014-01-28 16:17:20 vk>
 
-from argparse import ArgumentParser
-from argparse import RawDescriptionHelpFormatter
 import os
 import re
+from argparse import ArgumentParser
+from argparse import RawDescriptionHelpFormatter
+
 
 class MemacsArgumentParser(ArgumentParser):
     """

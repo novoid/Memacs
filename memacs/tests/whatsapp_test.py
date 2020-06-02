@@ -2,7 +2,6 @@
 # Time-stamp: <2018-09-22 13:57:41 vk>
 
 import os
-import time
 import unittest
 
 from memacs.whatsapp import WhatsApp

@@ -39,7 +39,9 @@ Then an Org-mode file is generated accordingly.
 COPYRIGHT_YEAR = "2013"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>"""
 
-if __name__ == "__main__":
+
+def main():
+    global memacs
     memacs = SimplePhoneLogsMemacs(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -48,5 +50,9 @@ if __name__ == "__main__":
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
         copyright_authors=COPYRIGHT_AUTHORS
-        )
+    )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

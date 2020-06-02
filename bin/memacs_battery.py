@@ -12,7 +12,8 @@ PROG_TAG = "battery"
 COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""
 
-if __name__ == "__main__":
+
+def main():
     memacs = Battery(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -22,3 +23,7 @@ if __name__ == "__main__":
         copyright_authors=COPYRIGHT_AUTHORS
     )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

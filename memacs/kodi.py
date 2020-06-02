@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
-import argparse
+import datetime
 import json
 import logging
+import sys
 import time
-import csv
-import datetime
-from memacs.lib.orgproperty import OrgProperties
+from itertools import tee, islice, chain
+
 from orgformat import OrgFormat
-from memacs.lib.memacs import Memacs
+
+from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.reader import UnicodeDictReader
 from .csv import Csv
-
-from itertools import tee, islice, chain
 
 
 # stolen from https://stackoverflow.com/questions/1011938/python-previous-and-next-values-inside-a-loop/1012089#1012089
