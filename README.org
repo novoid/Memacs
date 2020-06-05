@@ -34,7 +34,9 @@ are called *Memacs modules* or short /module/.
 ** Table of Contents
 - [[#installation][Installation]]
 - [[#getting-started][Getting started]]
+- [[#workflows][Workflows]]
 - [[#memacs-modules][Memacs modules]]
+- [[#changelog][Changelog]]
 - [[#example-story][Example story]]
 - [[#background][Background]]
 - [[#contribute][Contribute]]
