@@ -13,7 +13,7 @@ extras_require["all"] = {r for v in extras_require.values() for r in v}
 
 setup(
     name="memacs",
-    version="2019.11.06.1",
+    version="2020.06.05.1",
     description="Visualize your (digital) life in Emacs Org mode "
                 "by converting data to Org mode format",
     author="Karl Voit",

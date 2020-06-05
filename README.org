@@ -31,17 +31,6 @@ are called *Memacs modules* or short /module/.
   scheduled tasks
 - *project hosted on* https://github.com/novoid/Memacs
 
-** Python 2 to 3 Migration
-
-This repository was migrated from Python2 to Python3 (by [[https://github.com/DerBeutlin][DerBeutlin]] -
-thanks!).
-
-If you need to get the latest version that ran with Python2, do visit
-[[https://github.com/novoid/Memacs/tree/5d4b3f0802f43490af0d28f1eaf5fb07976cb0b3][this version]]. For the future, Python3 is the only way to go.
-
-I'll write about migration impact (changing IDs, ...) when I have
-tested it myself.
-
 ** Table of Contents
 - [[#installation][Installation]]
 - [[#getting-started][Getting started]]
@@ -53,8 +42,26 @@ tested it myself.
 
 ** Installation
 
+*** Install using Pip
+
+The easiest way of installing Memacs is by using `pip`:
+
+: pip install memacs[all]
+
+This gets you the whole set of modules with all dependencies on your system.
+
+If you would like to define the dependencies more fine-grained, you
+can use one or more of the extras: =gps=, =rss=, =ical=, =lastfm=,
+=battery=, or =twitter= like the following example:
+
+: pip install memacs[gps,rss]
+
+*** Manual Setup from Git
+
+In case you prefer to set the environment "the old way", you can do it manually:
+
 - clone or download repository from github
-- make sure to use *python v3*
+- make sure to use *Python version 3*
 - create a virtualenv or
 - export/set ~PYTHONPATH~
 
