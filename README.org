@@ -192,6 +192,25 @@ some day (by you?):
 - *blog_systems*:
   - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see [[blog_systems/serendipity/memacs_serendipity.org]]
 
+** Changelog
+
+- Version 2020.06.05.1
+  - Features
+    - New module: [[https://github.com/novoid/Memacs/blob/master/docs/memacs_kodi.org][memacs_kodi]]
+    - Andrea Ghensi [[https://github.com/novoid/Memacs/pull/100][provided an improved pip setup method]]
+  - Bugfixes
+    - fix chrome.py output to include url and title for org headings
+    - many improvements for the Chrome module
+    - filenametimestamps: fixed check_datestamp_correctness ([[https://github.com/novoid/Memacs/issues/97][#97]])
+
+- Version 2019.11.06.1
+  - Features
+    - [[https://github.com/novoid/orgformat][orgformat is now an external library]]
+  - Bugfixes
+    - Fix problems when locale is not en_US
+
+- Versions prior to 2019-10-09.1 are not documented using this
+  changelog. Please read the git commit messages.
 
 * Example Story
 
