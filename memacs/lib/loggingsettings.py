@@ -2,8 +2,8 @@
 # Time-stamp: <2012-05-30 18:19:27 armin>
 
 import logging
-import sys
 import os
+import sys
 
 
 def handle_logging(args,

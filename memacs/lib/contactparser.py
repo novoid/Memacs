@@ -1,5 +1,6 @@
-import re
 import logging
+import re
+
 
 def parse_org_contact_file(orgfile):
     """

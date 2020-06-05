@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2016-01-23 18:07:46 vk>
 
-import unittest
 import os
+import unittest
+
 from memacs.ical import CalendarMemacs
 
 

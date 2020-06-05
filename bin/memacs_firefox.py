@@ -19,7 +19,8 @@ COPYRIGHT_YEAR = "2018"
 COPYRIGHT_AUTHORS = """Raimon Grau <raimonster@gmail.com>"""
 
 
-if __name__ == "__main__":
+def main():
+    global memacs
     memacs = Firefox(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -28,6 +29,10 @@ if __name__ == "__main__":
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
         copyright_authors=COPYRIGHT_AUTHORS
-#       use_config_parser_name=CONFIG_PARSER_NAME
-        )
+        # use_config_parser_name=CONFIG_PARSER_NAME
+    )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

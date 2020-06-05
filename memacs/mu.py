@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import subprocess
 import locale
-from datetime import datetime
-from memacs.lib.orgproperty import OrgProperties
-from orgformat import OrgFormat
-from memacs.lib.memacs import Memacs
 import re
+import subprocess
+from datetime import datetime
+
+from orgformat import OrgFormat
+
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 # Sets this script's locale to be the same as system locale
 locale.setlocale(locale.LC_TIME, '')

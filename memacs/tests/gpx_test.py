@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import unittest
 import os
+import unittest
 
 from memacs.gpx import GPX
 

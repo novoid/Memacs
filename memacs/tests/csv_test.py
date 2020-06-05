@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
-import unittest
 import os
+import unittest
+
 from memacs.csv import Csv
+
 
 class TestCsv(unittest.TestCase):
 

@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2020-05-31 19:15:55 vk>
 
-import os
-from memacs.lib.memacs import Memacs
-from orgformat import OrgFormat, TimestampParseException
-from memacs.lib.orgproperty import OrgProperties
-import re
-import logging
-import time
-import sys
 import codecs
+import logging
+import os
+import re
+import sys
+import time
+
+from orgformat import OrgFormat, TimestampParseException
+
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 # Note: here, the day of the month is optional to allow "2019-10
 # foo.txt" as valid ISO datestamp which will be changed to

@@ -2,16 +2,21 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:26:05 vk>
 
-import sys
-import os
+import datetime
 import logging
+import os
+import sys
+import time
 import xml.sax
-import time, datetime
-from xml.sax._exceptions import SAXParseException
+
 from orgformat import OrgFormat
+from xml.sax._exceptions import SAXParseException
+
 from memacs.lib.memacs import Memacs
-from memacs.lib.reader import CommonReader
 from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.reader import CommonReader
+
+
 #import pdb
 
 class PhonecallsSaxHandler(xml.sax.handler.ContentHandler):

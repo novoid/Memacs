@@ -2,18 +2,18 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2017-02-07 19:25 manu>
 
-import subprocess
-import distutils.spawn
-import os.path
-import logging
 import calendar
-import time
-import sys
+import distutils.spawn
 import io
+import logging
+import os.path
+import subprocess
+import sys
+import time
 
-from memacs.lib.reader import UnicodeCsvReader
-from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.reader import UnicodeCsvReader
 
 ARBTT_STATS = 'arbtt-stats'
 ARBTT_FORMAT = '%m/%d/%y %H:%M:%S'

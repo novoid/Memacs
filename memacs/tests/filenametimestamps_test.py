@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-10-09 15:12:44 vk>
 
+import datetime
 import os
 import shutil
 import tempfile
 import unittest
-import datetime
 
 from memacs.filenametimestamps import FileNameTimeStamps
 

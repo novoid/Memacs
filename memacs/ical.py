@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-05 16:01:05 vk>
 
-import sys
-import os
 import logging
+import os
+import sys
 import time
-from memacs.lib.memacs import Memacs
+
 from orgformat import OrgFormat
+
+from memacs.lib.memacs import Memacs
 from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.reader import CommonReader
 

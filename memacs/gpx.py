@@ -2,18 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import time
-import json
-import sys
 import os
+import time
 
-import gpxpy
-import gpxpy.gpx
 import geocoder
-
-from memacs.lib.orgproperty import OrgProperties
+import gpxpy
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 
 class GPX(Memacs):

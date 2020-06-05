@@ -14,7 +14,9 @@ PROG_TAG = "lastfm"
 COPYRIGHT_YEAR = "2017"
 COPYRIGHT_AUTHORS = """Manuel Koell <mankoell@gmail.com>"""
 
-if __name__ == "__main__":
+
+def main():
+    global memacs
     memacs = LastFM(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -25,3 +27,7 @@ if __name__ == "__main__":
         use_config_parser_name=CONFIG_PARSER_NAME
     )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

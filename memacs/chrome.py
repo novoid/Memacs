@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:21:42 vk>
 
-import sqlite3
 import datetime
-import sys
 import os
-import re
+import sqlite3
 
-from memacs.lib.orgproperty import OrgProperties
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+
 
 class Chrome(Memacs):
     def _parser_add_arguments(self):

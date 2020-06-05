@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import time
 import datetime
 import logging
 import sys
 
 import pylast
-
-from memacs.lib.orgproperty import OrgProperties
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 
 class LastFM(Memacs):

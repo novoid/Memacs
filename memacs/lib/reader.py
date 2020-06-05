@@ -2,13 +2,13 @@
 # Time-stamp: <2012-05-24 19:08:10 armin>
 
 import codecs
+import csv
 import logging
 import sys
-import csv
 from collections import OrderedDict
-from urllib.request import urlopen
 from urllib.error import HTTPError
 from urllib.error import URLError
+from urllib.request import urlopen
 
 
 class CommonReader:

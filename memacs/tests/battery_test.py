@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import unittest
 import os
+import unittest
 
 from memacs.battery import Battery
 

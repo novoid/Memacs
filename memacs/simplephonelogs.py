@@ -9,9 +9,10 @@ import re
 import time
 
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
-from memacs.lib.reader import CommonReader
 from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.reader import CommonReader
 
 
 class SimplePhoneLogsMemacs(Memacs):

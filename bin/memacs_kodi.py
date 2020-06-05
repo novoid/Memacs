@@ -15,7 +15,8 @@ COPYRIGHT_YEAR = "2018"
 COPYRIGHT_AUTHORS = """Max Beutelspacher <max.beutelspacher@mailbox.org>"""
 
 
-if __name__ == "__main__":
+def main():
+    global memacs
     memacs = Kodi(
         prog_version=PROG_VERSION_NUMBER,
         prog_version_date=PROG_VERSION_DATE,
@@ -24,6 +25,10 @@ if __name__ == "__main__":
         prog_tag=PROG_TAG,
         copyright_year=COPYRIGHT_YEAR,
         copyright_authors=COPYRIGHT_AUTHORS
-#       use_config_parser_name=CONFIG_PARSER_NAME
-        )
+        #       use_config_parser_name=CONFIG_PARSER_NAME
+    )
     memacs.handle_main()
+
+
+if __name__ == "__main__":
+    main()

@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:23:39 vk>
 
-import sys
-import os
 import logging
+import os
+import sys
 import time
-from memacs.lib.orgproperty import OrgProperties
+
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
 
 
 class Commit(object):

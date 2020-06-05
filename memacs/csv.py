@@ -3,16 +3,17 @@
 # Time-stamp: <2019-11-06 15:22:17 vk>
 
 import argparse
-import logging
-import time
-import sys
-import json
 import datetime
+import json
+import logging
+import sys
+import time
 
 from orgformat import OrgFormat
+
 from memacs.lib.memacs import Memacs
-from memacs.lib.reader import UnicodeDictReader
 from memacs.lib.orgproperty import OrgProperties
+from memacs.lib.reader import UnicodeDictReader
 
 
 class Csv(Memacs):

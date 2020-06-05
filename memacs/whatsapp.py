@@ -2,21 +2,20 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:29:12 vk>
 
-import sqlite3
-import logging
 import datetime
 import json
-import time
-import sys
+import logging
 import os
 import re
+import sqlite3
 
 import emoji
-
-from memacs.lib.orgproperty import OrgProperties
 from orgformat import OrgFormat
-from memacs.lib.memacs import Memacs
+
 from memacs.lib.contactparser import parse_org_contact_file
+from memacs.lib.memacs import Memacs
+from memacs.lib.orgproperty import OrgProperties
+
 
 class WhatsApp(Memacs):
 

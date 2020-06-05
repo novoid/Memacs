@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2011-10-28 15:13:31 aw>
 
-import unittest
 import os
-from memacs.git import GitMemacs
+import unittest
+
 from memacs.git import Commit
+from memacs.git import GitMemacs
 
 
 class TestCommit(unittest.TestCase):

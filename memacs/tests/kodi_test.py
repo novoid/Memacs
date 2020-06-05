@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import unittest
-from memacs.kodi import Kodi
 import os
+import unittest
+
+from memacs.kodi import Kodi
 
 
 class TestKodi(unittest.TestCase):
