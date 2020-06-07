@@ -55,7 +55,8 @@ class Firefox(Memacs):
             properties.add('URL', params['url'])
             properties.add('VISIT_COUNT', params['visit_count'])
 
-        output = ""
+        output = OrgFormat.link(params['url'], params['title'])
+
         try:
             output = self._args.output_format.decode('utf-8').format(**params)
         except Exception:
