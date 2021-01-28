@@ -155,7 +155,7 @@ class SmsSaxHandler(xml.sax.handler.ContentHandler):
                 output += name_string + ": "
 
                 ## reverse encoding hack from just before:
-                sms_body = htmlparser.unescape(sms_body.replace('EnCoDiNgHaCk42', '&#'))
+                sms_body = html.unescape(sms_body.replace('EnCoDiNgHaCk42', '&#'))
                 for emoji in list(self.EMOJIS.keys()):
                     ## FIXXME: this is a horrible dumb brute-force algorithm.
                     ##         In case of bad performance, this can be optimized dramtically
