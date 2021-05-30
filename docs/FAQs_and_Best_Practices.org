@@ -122,7 +122,7 @@ Memacs usually generates [[http://orgmode.org/org.html#Archiving][Org-mode archi
 Thus in day to day use Memacs entries are not processed by Org Agenda
 commands, so do not slow down your Agenda.
 
-Only when you choose to view the archive files ([[http://orgmode.org/org.html#Agenda-commands]["v A" in
+Only when you choose to view the archive files ([[http://orgmode.org/org.html#Agenda-Commands]["v A" in
 Agenda-view]]) will you get the Memacs data displayed in your Orgmode Agenda.
 
 So your daily work will not be slowed down, but you have the
@@ -140,7 +140,7 @@ opportunity to get the verbose information on demand.
    other archive file) in your Agenda, invoke «v A» when you are in
    your normal Agenda view.
 
-See:  [[http://orgmode.org/org.html#Agenda-commands]["v A" in Agenda-view]]
+See:  [[http://orgmode.org/org.html#Agenda-Commands]["v A" in Agenda-view]]
 
 *** Performance of the Agenda
 
