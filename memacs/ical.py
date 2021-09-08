@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-05 16:01:05 vk>
 
+import datetime
 import logging
 import os
+import pytz
 import sys
 import time
 
@@ -53,15 +55,18 @@ class CalendarMemacs(Memacs):
         """
         handles a VCALENDAR Component
 
-        sets timezone to calendar's timezone
+        Sets fallback timezone for parsing of "floating events"
+        (events which don't specify a timezone), if a `X-WR-TIMEZONE`
+        line is provided in the calendar.
 
         @param component: icalendar component
+
         """
         # Set timezone
         timezone = component.get('x-wr-timezone')
-        logging.debug("Setting timezone to: " + timezone)
-        os.environ['TZ'] = timezone
-        time.tzset()
+
+        if timezone:
+            self.fallback_tz = pytz.timezone(timezone)
 
     def __handle_rrule(self, component):
         """
@@ -94,32 +99,62 @@ class CalendarMemacs(Memacs):
         else:
             return nonetype
 
-    def __get_datetime(self, mydate):
+    def __parse_ical_dt(self, component):
         """
-        @return string: Datetime - in Org Format
+        Parse an iCalendar DATE or DATE-TIME component.
+
+        @return datetime.date (possibly datetime.datetime)
+        @param component: the iCalendar component to parse
         """
-        mydate_tuple = OrgFormat.parse_basic_iso_datetime(mydate)
 
-        return OrgFormat.date(mydate_tuple)
+        # Lean on `icalendar` to handle timezones, especially around
+        # `VTIMEZONE` specifications, which can be complex.
+        if isinstance(component.dt, datetime.date) and not isinstance(component.dt, datetime.datetime):
+            # DATE
+            return component.dt
+        elif isinstance(component.dt, datetime.datetime) and component.dt.tzinfo is not None:
+            # DATE-TIME w/ TZ - could be UTC, VTIMEZONE, or inline IANA-style
+            return component.dt.astimezone()
+        elif self.fallback_tz:
+            # Floating DATE-TIME w/ fallback TZ
+            dt_str = component.to_ical().decode('utf-8')
 
-    def __get_datetime_range(self, dtstart, dtend):
+            if len(dt_str) == 15: # YYYYMMDDTHHMMSS
+                return self.fallback_tz.localize(datetime.datetime.strptime(dt_str, '%Y%m%dT%H%M%S')).astimezone()
+            else:
+                raise ValueError("Invalid date format: " + dt_str)
+        else:
+            # Floating DATE-TIME
+            return component.dt
+
+    def __get_org_datetime_range(self, dtstart, dtend):
         """
-        @return string: Datetime - Range in Org Format
+        @return tuple of strings: range in Org format, range for hashing
         """
-        begin_tuple = OrgFormat.parse_basic_iso_datetime(dtstart)
-        end_tuple = OrgFormat.parse_basic_iso_datetime(dtend)
+        assert isinstance(dtstart, datetime.date)
+        assert isinstance(dtend,   datetime.date)
 
-        # handle "all-day" - events
-        if begin_tuple.tm_sec == 0 and \
-                begin_tuple.tm_min == 0 and \
-                begin_tuple.tm_hour == 0 and \
-                end_tuple.tm_sec == 0 and \
-                end_tuple.tm_min == 0 and \
-                end_tuple.tm_hour == 0:
-            # we have to subtract 1 day to get the correct dates
-            end_tuple = time.localtime(time.mktime(end_tuple) - 24 * 60 * 60)
+        dates_only = not isinstance(dtend, datetime.datetime)
 
-        return OrgFormat.daterange_autodetect_time(begin_tuple, end_tuple)
+        # Per the author of RFC5545, a one-day event should have the
+        # same start and end date, but the general practice in the
+        # wild (including Google Calendar) is to have a one-day event
+        # end the following day.
+        if dates_only:
+            dtend -= datetime.timedelta(days=1)
+
+        dtstart = dtstart.timetuple()
+        dtend   = dtend.timetuple()
+
+        # Naive (non-collapsed) range is used for hashing purposes to
+        # maintain compatibility with hashes generated before
+        # collapsing of matching start / end dates was implemented.
+        naive_range = OrgFormat.daterange_autodetect_time(dtstart, dtend)
+
+        if dates_only and dtstart == dtend:
+            return OrgFormat.date(dtstart), naive_range
+        else:
+            return naive_range, naive_range
 
     def __handle_vevent(self, component):
         """
@@ -129,36 +164,36 @@ class CalendarMemacs(Memacs):
 
         @param component: icalendar component
         """
-
         logging.debug(component)
         summary = self.__vtext_to_unicode(component.get('summary'),
                                           nonetype="")
         location = self.__vtext_to_unicode(component.get('location'))
         description = self.__vtext_to_unicode(component.get('description'))
-        # format: 20091207T180000Z or 20100122
-        dtstart = self.__vtext_to_unicode(component.get('DTSTART').to_ical().decode('utf-8'))
-        # format: 20091207T180000Z or 20100122
-        if 'DTEND' in list(component.keys()):
-            dtend = self.__vtext_to_unicode(component.get('DTEND').to_ical().decode('utf-8'))
+
+        dtstart = self.__parse_ical_dt(component.get('DTSTART'))
+
+        ## notice: end date/time is optional; no end date results in end date 9999-12-31
+        if component.has_key('DTEND'):
+            dtend = self.__parse_ical_dt(component.get('DTEND'))
+            orgdate, hashdate = self.__get_org_datetime_range(dtstart, dtend)
+        else:
+            have_time = isinstance(dtstart, datetime.datetime)
+            orgdate = OrgFormat.date(dtstart.timetuple(), show_time=have_time) + "--<9999-12-31 Fri>"
+            # Best effort attempt to match old hashing format
+            hashdate = OrgFormat.date(dtstart.timetuple(), show_time=False) + "-<9999-12-31 Fri>"
+
+        logging.debug(orgdate + " " + summary)
 
         # format: 20091207T180000Z
         # not used: Datestamp created
-        #dtstamp = self.__vtext_to_unicode(component.get('dtstamp'))
+        # dtstamp = self.__vtext_to_unicode(component.get('dtstamp'))
 
         # handle repeating events
         # not implemented due to org-mode datestime-range cannot be repeated
         # component.get('rrule')
 
-        ## notice: end date/time is optional; no end date results in end date 9999-12-31
-        if 'DTEND' in list(component.keys()):
-            orgdate = self.__get_datetime_range(dtstart, dtend)
-        else:
-            orgdate = self.__get_datetime(dtstart) + "-<9999-12-31 Fri>"
-
-        logging.debug(orgdate + " " + summary)
-
         # we need to set data_for_hashing=summary to really get a other sha1
-        data_for_hashing = orgdate + summary
+        data_for_hashing = hashdate + summary
 
         org_properties = OrgProperties(data_for_hashing=data_for_hashing)
 
@@ -178,6 +213,8 @@ class CalendarMemacs(Memacs):
             encoding=None)
         elif self._args.calendar_url:
             data = CommonReader.get_data_from_url(self._args.calendar_url)
+
+        self.fallback_tz = None
 
         # read and go through calendar
         cal = Calendar.from_ical(data)

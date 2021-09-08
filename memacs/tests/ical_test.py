@@ -2,6 +2,9 @@
 # Time-stamp: <2016-01-23 18:07:46 vk>
 
 import os
+import re
+import tempfile
+import time
 import unittest
 
 from memacs.ical import CalendarMemacs
@@ -20,7 +23,7 @@ class TestCalendar(unittest.TestCase):
 
         self.assertEqual(
             data[0],
-             "** <2012-05-28 Mon>--<2012-05-28 Mon> Whit Monday")
+             "** <2012-05-28 Mon> Whit Monday")
         self.assertEqual(
             data[1],
              "   :PROPERTIES:")
@@ -32,7 +35,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[4],
-             "** <2011-02-14 Mon>--<2011-02-14 Mon> Valentine's day")
+             "** <2011-02-14 Mon> Valentine's day")
         self.assertEqual(
             data[5],
              "   :PROPERTIES:")
@@ -44,7 +47,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[8],
-             "** <2010-02-14 Sun>--<2010-02-14 Sun> Valentine's day")
+             "** <2010-02-14 Sun> Valentine's day")
         self.assertEqual(
             data[9],
              "   :PROPERTIES:")
@@ -56,7 +59,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[12],
-             "** <2012-02-14 Tue>--<2012-02-14 Tue> Valentine's day")
+             "** <2012-02-14 Tue> Valentine's day")
         self.assertEqual(
             data[13],
              "   :PROPERTIES:")
@@ -68,7 +71,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[16],
-             "** <2012-12-26 Wed>--<2012-12-26 Wed> St. Stephan's Day")
+             "** <2012-12-26 Wed> St. Stephan's Day")
         self.assertEqual(
             data[17],
              "   :PROPERTIES:")
@@ -80,7 +83,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[20],
-             "** <2010-12-26 Sun>--<2010-12-26 Sun> St. Stephan's Day")
+             "** <2010-12-26 Sun> St. Stephan's Day")
         self.assertEqual(
             data[21],
              "   :PROPERTIES:")
@@ -92,7 +95,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[24],
-             "** <2011-12-26 Mon>--<2011-12-26 Mon> St. Stephan's Day")
+             "** <2011-12-26 Mon> St. Stephan's Day")
         self.assertEqual(
             data[25],
              "   :PROPERTIES:")
@@ -104,7 +107,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[28],
-             "** <2011-12-06 Tue>--<2011-12-06 Tue> St. Nicholas")
+             "** <2011-12-06 Tue> St. Nicholas")
         self.assertEqual(
             data[29],
              "   :PROPERTIES:")
@@ -116,7 +119,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[32],
-             "** <2010-12-06 Mon>--<2010-12-06 Mon> St. Nicholas")
+             "** <2010-12-06 Mon> St. Nicholas")
         self.assertEqual(
             data[33],
              "   :PROPERTIES:")
@@ -128,7 +131,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[36],
-             "** <2012-12-06 Thu>--<2012-12-06 Thu> St. Nicholas")
+             "** <2012-12-06 Thu> St. Nicholas")
         self.assertEqual(
             data[37],
              "   :PROPERTIES:")
@@ -140,7 +143,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[40],
-             "** <2011-12-31 Sat>--<2011-12-31 Sat> New Year's Eve")
+             "** <2011-12-31 Sat> New Year's Eve")
         self.assertEqual(
             data[41],
              "   :PROPERTIES:")
@@ -152,7 +155,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[44],
-             "** <2010-12-31 Fri>--<2010-12-31 Fri> New Year's Eve")
+             "** <2010-12-31 Fri> New Year's Eve")
         self.assertEqual(
             data[45],
              "   :PROPERTIES:")
@@ -164,7 +167,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[48],
-             "** <2012-01-01 Sun>--<2012-01-01 Sun> New Year")
+             "** <2012-01-01 Sun> New Year")
         self.assertEqual(
             data[49],
              "   :PROPERTIES:")
@@ -176,7 +179,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[52],
-             "** <2010-01-01 Fri>--<2010-01-01 Fri> New Year")
+             "** <2010-01-01 Fri> New Year")
         self.assertEqual(
             data[53],
              "   :PROPERTIES:")
@@ -188,7 +191,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[56],
-             "** <2011-01-01 Sat>--<2011-01-01 Sat> New Year")
+             "** <2011-01-01 Sat> New Year")
         self.assertEqual(
             data[57],
              "   :PROPERTIES:")
@@ -200,7 +203,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[60],
-             "** <2010-10-26 Tue>--<2010-10-26 Tue> National Holiday")
+             "** <2010-10-26 Tue> National Holiday")
         self.assertEqual(
             data[61],
              "   :PROPERTIES:")
@@ -212,7 +215,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[64],
-             "** <2012-10-26 Fri>--<2012-10-26 Fri> National Holiday")
+             "** <2012-10-26 Fri> National Holiday")
         self.assertEqual(
             data[65],
              "   :PROPERTIES:")
@@ -224,7 +227,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[68],
-             "** <2011-10-26 Wed>--<2011-10-26 Wed> National Holiday")
+             "** <2011-10-26 Wed> National Holiday")
         self.assertEqual(
             data[69],
              "   :PROPERTIES:")
@@ -236,7 +239,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[72],
-             "** <2011-05-01 Sun>--<2011-05-01 Sun> Labour Day")
+             "** <2011-05-01 Sun> Labour Day")
         self.assertEqual(
             data[73],
              "   :PROPERTIES:")
@@ -248,7 +251,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[76],
-             "** <2010-05-01 Sat>--<2010-05-01 Sat> Labour Day")
+             "** <2010-05-01 Sat> Labour Day")
         self.assertEqual(
             data[77],
              "   :PROPERTIES:")
@@ -260,7 +263,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[80],
-             "** <2012-05-01 Tue>--<2012-05-01 Tue> Labour Day")
+             "** <2012-05-01 Tue> Labour Day")
         self.assertEqual(
             data[81],
              "   :PROPERTIES:")
@@ -272,7 +275,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[84],
-             "** <2012-12-08 Sat>--<2012-12-08 Sat> Immaculate Conception")
+             "** <2012-12-08 Sat> Immaculate Conception")
         self.assertEqual(
             data[85],
              "   :PROPERTIES:")
@@ -284,7 +287,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[88],
-             "** <2010-12-08 Wed>--<2010-12-08 Wed> Immaculate Conception")
+             "** <2010-12-08 Wed> Immaculate Conception")
         self.assertEqual(
             data[89],
              "   :PROPERTIES:")
@@ -296,7 +299,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[92],
-             "** <2011-12-08 Thu>--<2011-12-08 Thu> Immaculate Conception")
+             "** <2011-12-08 Thu> Immaculate Conception")
         self.assertEqual(
             data[93],
              "   :PROPERTIES:")
@@ -308,7 +311,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[96],
-             "** <2012-04-06 Fri>--<2012-04-06 Fri> Good Friday")
+             "** <2012-04-06 Fri> Good Friday")
         self.assertEqual(
             data[97],
              "   :PROPERTIES:")
@@ -320,7 +323,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[100],
-             "** <2010-01-06 Wed>--<2010-01-06 Wed> Epiphany")
+             "** <2010-01-06 Wed> Epiphany")
         self.assertEqual(
             data[101],
              "   :PROPERTIES:")
@@ -332,7 +335,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[104],
-             "** <2012-01-06 Fri>--<2012-01-06 Fri> Epiphany")
+             "** <2012-01-06 Fri> Epiphany")
         self.assertEqual(
             data[105],
              "   :PROPERTIES:")
@@ -344,7 +347,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[108],
-             "** <2011-01-06 Thu>--<2011-01-06 Thu> Epiphany")
+             "** <2011-01-06 Thu> Epiphany")
         self.assertEqual(
             data[109],
              "   :PROPERTIES:")
@@ -356,7 +359,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[112],
-             "** <2012-04-09 Mon>--<2012-04-09 Mon> Easter Monday")
+             "** <2012-04-09 Mon> Easter Monday")
         self.assertEqual(
             data[113],
              "   :PROPERTIES:")
@@ -368,7 +371,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[116],
-             "** <2012-04-08 Sun>--<2012-04-08 Sun> Easter")
+             "** <2012-04-08 Sun> Easter")
         self.assertEqual(
             data[117],
              "   :PROPERTIES:")
@@ -380,7 +383,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[120],
-             "** <2012-06-07 Thu>--<2012-06-07 Thu> Corpus Christi")
+             "** <2012-06-07 Thu> Corpus Christi")
         self.assertEqual(
             data[121],
              "   :PROPERTIES:")
@@ -392,7 +395,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[124],
-             "** <2011-12-24 Sat>--<2011-12-24 Sat> Christmas Eve")
+             "** <2011-12-24 Sat> Christmas Eve")
         self.assertEqual(
             data[125],
              "   :PROPERTIES:")
@@ -404,7 +407,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[128],
-             "** <2010-12-24 Fri>--<2010-12-24 Fri> Christmas Eve")
+             "** <2010-12-24 Fri> Christmas Eve")
         self.assertEqual(
             data[129],
              "   :PROPERTIES:")
@@ -416,7 +419,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[132],
-             "** <2012-12-24 Mon>--<2012-12-24 Mon> Christmas Eve")
+             "** <2012-12-24 Mon> Christmas Eve")
         self.assertEqual(
             data[133],
              "   :PROPERTIES:")
@@ -428,7 +431,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[136],
-             "** <2010-12-25 Sat>--<2010-12-25 Sat> Christmas")
+             "** <2010-12-25 Sat> Christmas")
         self.assertEqual(
             data[137],
              "   :PROPERTIES:")
@@ -440,7 +443,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[140],
-             "** <2011-12-25 Sun>--<2011-12-25 Sun> Christmas")
+             "** <2011-12-25 Sun> Christmas")
         self.assertEqual(
             data[141],
              "   :PROPERTIES:")
@@ -452,7 +455,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[144],
-             "** <2012-12-25 Tue>--<2012-12-25 Tue> Christmas")
+             "** <2012-12-25 Tue> Christmas")
         self.assertEqual(
             data[145],
              "   :PROPERTIES:")
@@ -464,7 +467,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[148],
-             "** <2010-08-15 Sun>--<2010-08-15 Sun> Assumption")
+             "** <2010-08-15 Sun> Assumption")
         self.assertEqual(
             data[149],
              "   :PROPERTIES:")
@@ -476,7 +479,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[152],
-             "** <2012-08-15 Wed>--<2012-08-15 Wed> Assumption")
+             "** <2012-08-15 Wed> Assumption")
         self.assertEqual(
             data[153],
              "   :PROPERTIES:")
@@ -488,7 +491,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[156],
-             "** <2011-08-15 Mon>--<2011-08-15 Mon> Assumption")
+             "** <2011-08-15 Mon> Assumption")
         self.assertEqual(
             data[157],
              "   :PROPERTIES:")
@@ -500,7 +503,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[160],
-             "** <2012-05-17 Thu>--<2012-05-17 Thu> Ascension Day")
+             "** <2012-05-17 Thu> Ascension Day")
         self.assertEqual(
             data[161],
              "   :PROPERTIES:")
@@ -512,7 +515,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[164],
-             "** <2011-11-02 Wed>--<2011-11-02 Wed> All Souls' Day")
+             "** <2011-11-02 Wed> All Souls' Day")
         self.assertEqual(
             data[165],
              "   :PROPERTIES:")
@@ -524,7 +527,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[168],
-             "** <2010-11-02 Tue>--<2010-11-02 Tue> All Souls' Day")
+             "** <2010-11-02 Tue> All Souls' Day")
         self.assertEqual(
             data[169],
              "   :PROPERTIES:")
@@ -536,7 +539,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[172],
-             "** <2012-11-02 Fri>--<2012-11-02 Fri> All Souls' Day")
+             "** <2012-11-02 Fri> All Souls' Day")
         self.assertEqual(
             data[173],
              "   :PROPERTIES:")
@@ -548,7 +551,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[176],
-             "** <2010-11-01 Mon>--<2010-11-01 Mon> All Saints' Day")
+             "** <2010-11-01 Mon> All Saints' Day")
         self.assertEqual(
             data[177],
              "   :PROPERTIES:")
@@ -560,7 +563,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[180],
-             "** <2012-11-01 Thu>--<2012-11-01 Thu> All Saints' Day")
+             "** <2012-11-01 Thu> All Saints' Day")
         self.assertEqual(
             data[181],
              "   :PROPERTIES:")
@@ -572,7 +575,7 @@ class TestCalendar(unittest.TestCase):
              "   :END:")
         self.assertEqual(
             data[184],
-             "** <2011-11-01 Tue>--<2011-11-01 Tue> All Saints' Day")
+             "** <2011-11-01 Tue> All Saints' Day")
         self.assertEqual(
             data[185],
              "   :PROPERTIES:")
@@ -583,8 +586,94 @@ class TestCalendar(unittest.TestCase):
             data[187],
              "   :END:")
         self.assertEqual(
-            data[188:194], ['** <2011-08-22 Mon>-<9999-12-31 Fri> No end time/date',
+            data[188:194], ['** <2011-08-22 Mon 16:10>--<9999-12-31 Fri> No end time/date',
                             '   :PROPERTIES:',
                             '   :DESCRIPTION: No end time/date',
                             '   :ID:          62bf353bf19c0379faf4910741635dfd6a804b11',
                             '   :END:'])
+
+    def __build_ical_str(self, dtstart, dtend, extra):
+        if dtend:
+            dtend = "DTEND" + dtend + "\n"
+
+        return ("BEGIN:VCALENDAR\n"
+                "VERSION:2.0\n"
+                "PRODID:manual\n"
+                + (extra or "") +
+                "BEGIN:VEVENT\n"
+                "CLASS:PUBLIC\n"
+                "DTSTART" + dtstart + "\n"
+                + (dtend or "") +
+                "UID:whatever.ics\n"
+                "DTSTAMP:20190127T140400\n"
+                "DESCRIPTION:whatever\n"
+                "SUMMARY:whatever\n"
+                "END:VEVENT\n"
+                "END:VCALENDAR\n")
+
+    # Several variations need to be tested here:
+    #
+    # - DATE-TIME:
+    #   - [1] UTC
+    #   - [2] VTIMEZONE-specifed
+    #   - [3] Inline (IANA-style, w/o VTIMEZONE)*
+    #   - Floating:
+    #     - [4] Basic case (truly floating)
+    #     - [5] w/ X-WR-TIMEZONE*
+    #   - [6] No end DATE-TIME
+    # - DATE:
+    #   - [7] Basic case (differing dates)
+    #   - [8] One-day, all-day event (collapsed to single org timestamp)
+    #   - [9] No end DATE
+    #
+    # * = not included in RFC5545, but commonly in use.
+    def test_date_handling(self):
+        os.environ['TZ'] = "America/Chicago"
+        time.tzset()
+
+        VTIMEZONE_COMPONENT = ("BEGIN:VTIMEZONE\n"
+                               "TZID:My/Berlin\n"
+                               "TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Berlin\n"
+                               "X-LIC-LOCATION:Europe/Berlin\n"
+                               "BEGIN:DAYLIGHT\n"
+                               "TZOFFSETFROM:+0100\n"
+                               "TZOFFSETTO:+0200\n"
+                               "TZNAME:CEST\n"
+                               "DTSTART:19700329T020000\n"
+                               "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\n"
+                               "END:DAYLIGHT\n"
+                               "BEGIN:STANDARD\n"
+                               "TZOFFSETFROM:+0200\n"
+                               "TZOFFSETTO:+0100\n"
+                               "TZNAME:CET\n"
+                               "DTSTART:19701025T030000\n"
+                               "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\n"
+                               "END:STANDARD\n"
+                               "END:VTIMEZONE\n")
+
+        cases = [(':20181103T201500Z',                     ':20181103T211500Z',                    None,                             '<2018-11-03 Sat 15:15>--<2018-11-03 Sat 16:15>'), # [1]
+                 (':20181103T201500Z',                     ':20181103T201500Z',                    None,                             '<2018-11-03 Sat 15:15>--<2018-11-03 Sat 15:15>'), # [1] (no collapse)
+                 (';TZID=My/Berlin:20181103T201500',       ';TZID=My/Berlin:20181103T211500',      VTIMEZONE_COMPONENT,              '<2018-11-03 Sat 14:15>--<2018-11-03 Sat 15:15>'), # [2]
+                 (';TZID=Europe/Berlin:20181103T201500:',  ';TZID=Europe/Berlin:20181103T211500',  None,                             '<2018-11-03 Sat 14:15>--<2018-11-03 Sat 15:15>'), # [3]
+                 (';TZID=Europe/Berlin:20181103T201500',   ';TZID=Europe/Berlin:20181103T211500',  'X-WR-TIMEZONE:America/Denver\n', '<2018-11-03 Sat 14:15>--<2018-11-03 Sat 15:15>'), # [3] (X-WR-TIMEZONE ignored)
+                 (':20181103T201500',                      ':20181103T211500',                     None,                             '<2018-11-03 Sat 20:15>--<2018-11-03 Sat 21:15>'), # [4]
+                 (':20181103T201500',                      ':20181103T211500',                     'X-WR-TIMEZONE:Europe/Berlin\n',  '<2018-11-03 Sat 14:15>--<2018-11-03 Sat 15:15>'), # [5]
+                 (':20181103T201500',                      None,                                   'X-WR-TIMEZONE:Europe/Berlin\n',  '<2018-11-03 Sat 14:15>--<9999-12-31 Fri>'),       # [6]
+                 (':20210201',                             ':20210204',                            None,                             '<2021-02-01 Mon>--<2021-02-03 Wed>'),             # [7]
+                 (':20210201',                             ':20210204',                            'X-WR-TIMEZONE:Europe/Berlin\n',  '<2021-02-01 Mon>--<2021-02-03 Wed>'),             # [7] (X-WR-TIMEZONE ignored)
+                 (':20210201',                             ':20210202',                            'X-WR-TIMEZONE:Europe/Berlin\n',  '<2021-02-01 Mon>'),                               # [8]
+                 (':20210201',                             None,                                   'X-WR-TIMEZONE:Europe/Berlin\n',  '<2021-02-01 Mon>--<9999-12-31 Fri>')]             # [9]
+
+        for (dtstart, dtend, extra, output) in cases:
+            with tempfile.NamedTemporaryFile("wt") as tmp:
+                tmp.write(self.__build_ical_str(dtstart, dtend, extra))
+                tmp.seek(0)
+
+                print("+++ Testing: " + dtstart + " / " + str(dtend) + " / " + str(extra)[:10] + " +++")
+
+                argv = "-s -cf " + tmp.name
+                memacs = CalendarMemacs(argv=argv.split())
+                data = memacs.test_get_entries()
+
+                m = re.search("<.*>", data[0]).group(0)
+                self.assertEqual(output, m)
