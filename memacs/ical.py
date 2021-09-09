@@ -129,7 +129,7 @@ class CalendarMemacs(Memacs):
 
     def __get_org_datetime_range(self, dtstart, dtend):
         """
-        @return tuple of strings: range in Org format, range for hashing
+        @return string (range in Org format)
         """
         assert isinstance(dtstart, datetime.date)
         assert isinstance(dtend,   datetime.date)
@@ -146,15 +146,10 @@ class CalendarMemacs(Memacs):
         dtstart = dtstart.timetuple()
         dtend   = dtend.timetuple()
 
-        # Naive (non-collapsed) range is used for hashing purposes to
-        # maintain compatibility with hashes generated before
-        # collapsing of matching start / end dates was implemented.
-        naive_range = OrgFormat.daterange_autodetect_time(dtstart, dtend)
-
         if dates_only and dtstart == dtend:
-            return OrgFormat.date(dtstart), naive_range
+            return OrgFormat.date(dtstart)
         else:
-            return naive_range, naive_range
+            return OrgFormat.daterange_autodetect_time(dtstart, dtend)
 
     def __handle_vevent(self, component):
         """
@@ -175,12 +170,10 @@ class CalendarMemacs(Memacs):
         ## notice: end date/time is optional; no end date results in end date 9999-12-31
         if component.has_key('DTEND'):
             dtend = self.__parse_ical_dt(component.get('DTEND'))
-            orgdate, hashdate = self.__get_org_datetime_range(dtstart, dtend)
+            orgdate = self.__get_org_datetime_range(dtstart, dtend)
         else:
             have_time = isinstance(dtstart, datetime.datetime)
             orgdate = OrgFormat.date(dtstart.timetuple(), show_time=have_time) + "--<9999-12-31 Fri>"
-            # Best effort attempt to match old hashing format
-            hashdate = OrgFormat.date(dtstart.timetuple(), show_time=False) + "-<9999-12-31 Fri>"
 
         logging.debug(orgdate + " " + summary)
 
@@ -192,10 +185,7 @@ class CalendarMemacs(Memacs):
         # not implemented due to org-mode datestime-range cannot be repeated
         # component.get('rrule')
 
-        # we need to set data_for_hashing=summary to really get a other sha1
-        data_for_hashing = hashdate + summary
-
-        org_properties = OrgProperties(data_for_hashing=data_for_hashing)
+        org_properties = OrgProperties(data_for_hashing=component.get('UID'))
 
         if location != None:
             org_properties.add("LOCATION", location)
