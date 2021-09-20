@@ -1,5 +1,5 @@
 # -*- coding: utf-8 mode: org -*-
-# Time-stamp: <2017-12-26 16:22:51 vk>
+# Time-stamp: <2021-09-20 09:11:10 vk>
 # This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * memacs-ical
@@ -32,3 +32,8 @@ A lot of Calendar-Services like i.e. Google give you a *private* url of your cal
 
 - Repeating events
   Because Org-mode doesn't support repeating events in datetime ranges
+
+- Append mode of Memacs: since appointments do not feature a unique
+  identifier, we could not come up with a set of values that uniquely
+  identify the very same appointment. Therefore, running this module
+  in append mode will result in duplication on event changes.
