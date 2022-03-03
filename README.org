@@ -77,7 +77,7 @@ In case you prefer to set the environment "the old way", you can do it manually:
 
 The basic concept of using a Memacs module is following:
 
-1. Choose a Memacs modules you want to use and set it up:
+1. Choose a Memacs module you want to use and set it up:
    - Read the module descripion files in the ~docs~ folder.
    - Each [[#memacs-modules][module]] shares global options but also comes with its very
      own set of custom arguments.
