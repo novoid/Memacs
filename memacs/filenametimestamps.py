@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2022-05-15 12:41:44 vk>
+# Time-stamp: <2022-05-15 16:18:39 vk>
 
 import codecs
 import logging
@@ -34,7 +34,7 @@ class FileNameTimeStamps(Memacs):
                                        "multiple folders can be specified: " +
                                        "-f /path1 -f /path2")
 
-        self._parser.add_argument("-x", "--exclude", dest="exclude_folder", nargs='*',
+        self._parser.add_argument("-x", "--exclude", dest="exclude_folder", action="append", nargs='*',
                                   help="path to excluding folder, for more excludes " +
                                   "use this: -x /path/exclude -x /path/exclude")
 
@@ -95,7 +95,7 @@ class FileNameTimeStamps(Memacs):
                                    "[" + str(self._args.filelist) + "] is not an existing file")
 
         if self._args.filenametimestamps_folder:
-            for f in self._args.filenametimestamps_folder:
+            for f in self._args.filenametimestamps_folder[0]:
                 if not os.path.isdir(f):
                     self._parser.error("Check the folderlist argument: " +
                                        "[" + str(f) + "] and probably more aren't folders")
@@ -106,8 +106,9 @@ class FileNameTimeStamps(Memacs):
         @param return: true  - if ignore_dir should be ignored
                        false - otherwise
         """
+        ## [item for ... ] -> flatten out list of lists to a single list
         if self._args.exclude_folder and \
-           ignore_dir in self._args.exclude_folder:
+           ignore_dir in [item for sublist in self._args.exclude_folder for item in sublist]:
             logging.info("ignoring ignore_dir: " + ignore_dir)
             return True
         else:
@@ -408,7 +409,7 @@ class FileNameTimeStamps(Memacs):
 
         if self._args.filenametimestamps_folder:
 
-            for folder in self._args.filenametimestamps_folder:
+            for folder in [item for sublist in self._args.filenametimestamps_folder for item in sublist]:
                 self.__handle_folder(folder)
 
         elif self._args.filelist:
