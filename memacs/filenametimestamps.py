@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2020-05-31 19:15:55 vk>
+# Time-stamp: <2022-05-15 12:41:44 vk>
 
 import codecs
 import logging
@@ -28,13 +28,13 @@ class FileNameTimeStamps(Memacs):
 
         self._parser.add_argument("-f", "--folder",
                                   dest="filenametimestamps_folder",
-                                  action="append",
+                                  action="append", nargs='*',
                                   help="path to a folder to search for " +
                                        "filenametimestamps, " +
                                        "multiple folders can be specified: " +
                                        "-f /path1 -f /path2")
 
-        self._parser.add_argument("-x", "--exclude", dest="exclude_folder",
+        self._parser.add_argument("-x", "--exclude", dest="exclude_folder", nargs='*',
                                   help="path to excluding folder, for more excludes " +
                                   "use this: -x /path/exclude -x /path/exclude")
 
