@@ -30,6 +30,8 @@ Your agenda automatically gets populated with entries similar to the example sho
 
 [[file:https://github.com/novoid/screencasts/raw/master/memacs/2012-04-08_Memacs_2008-09-15_archive.png]]
 
+You can see some demo data using the modulees for SMS, filenamedatestamps, Twitter, RSS, imap, phonecalls, and git.
+
 - *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org mode]]
 - *skills necessary*: creating/modifying shell script code; creating
   scheduled tasks
