@@ -28,7 +28,7 @@ are called *Memacs modules* or short /module/.
 
 Your agenda automatically gets populated with entries similar to the example shown in the screenshot from [[http://arxiv.org/abs/1304.1332][the white paper]]:
 
-https://github.com/novoid/screencasts/raw/master/memacs/2012-04-08_Memacs_2008-09-15_archive.png
+[[file:https://github.com/novoid/screencasts/raw/master/memacs/2012-04-08_Memacs_2008-09-15_archive.png]]
 
 - *target group*: Users of  [[http://en.wikipedia.org/wiki/Emacs][Emacs]] and [[http://orgmode.org/][Org mode]]
 - *skills necessary*: creating/modifying shell script code; creating
