@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-04-04 16:18:15 vk>
+# Time-stamp: <2022-07-14 15:47:29 vk>
 
 from memacs.csv import Csv
 
-PROG_VERSION_NUMBER = "0.1"
-PROG_VERSION_DATE = "2012-02-24"
+PROG_VERSION_NUMBER = "0.2"
+PROG_VERSION_DATE = "2022-07-14"
 PROG_SHORT_DESCRIPTION = "Memacs for csv files"
 PROG_TAG = "csv"
 PROG_DESCRIPTION = """
@@ -15,7 +15,7 @@ This Memacs module will parse csv files
 # set CONFIG_PARSER_NAME only, when you want to have a config file
 # otherwise you can comment it out
 # CONFIG_PARSER_NAME="memacs-example"
-COPYRIGHT_YEAR = "2012-2013"
+COPYRIGHT_YEAR = "2012 and higher"
 COPYRIGHT_AUTHORS = """Karl Voit <tools@Karl-Voit.at>,
 Armin Wieser <armin.wieser@gmail.com>"""
 
