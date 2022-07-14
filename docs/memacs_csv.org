@@ -21,6 +21,11 @@ Because memacs_csv is general for the whole of memacs (not for a specific dataso
 
 ** Example
 
+   To get familiar with the anticipated formatting of files to
+   process, the clone of the project from GitHub includes test data in
+   path =Memacs/memacs/tests/data/= like =example1.csv= and
+   =example2.csv= showcased below.
+
 #+BEGIN_EXAMPLE
 memacs_csv.py -f memacs/tests/data/example1.csv \
               --fieldnames "date,text,value,currency," \
