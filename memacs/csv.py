@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2022-07-14 15:59:14 vk>
+# Time-stamp: <2022-07-14 16:04:14 vk>
 
 import argparse
 import datetime
@@ -59,7 +59,8 @@ class Csv(Memacs):
             action="store", help='format of the timestamp, i.e. ' +
             '"%%d.%%m.%%Y %%H:%%M:%%S" for "14.02.2012 10:22:37" ' +
             'see http://docs.python.org/library/time.html#time.strftime' +
-            'for possible formats, default unix timestamp')
+            'for possible formats. Default is the current local format, ' +
+            'so please do specify format in order to be unambiguous.')
 
         self._parser.add_argument(
             "--output-format", dest="output_format", required=True,
