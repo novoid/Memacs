@@ -180,12 +180,13 @@ Those modules are *not* adopted to the new unified framework yet:
 
 - [[tmp/emails/maildir/memacs-maildir.org][maildir]]
 - [[tmp/emails/mbox/memacs-mbox.org][mbox]] (also useful for newsgroups)
-  - see also [[emails/mbox/works-for-me-hack/memacs-mbox.org]]
+  - see also [[tmp/emails/mbox/works-for-me-hack/memacs-mbox.org]]
+
 - *bank account*:
   - [[http://www.easybank.at][easybank.at]]: see [[tmp/bank_statements/easybank.at/memacs-easybank.org]]
 
 - *newsgroups*
-  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[emails/mbox/works-for-me-hack/memacs-mbox.org]]
+  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[tmp/emails/mbox/works-for-me-hack/memacs-mbox.org]]
 
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
