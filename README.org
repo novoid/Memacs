@@ -178,14 +178,14 @@ This module is an example for developers: [[docs/memacs_csv.org]]
 
 Those modules are *not* adopted to the new unified framework yet:
 
-- [[tmp/emails/maildir/memacs_maildir.org][maildir]]
-- [[tmp/emails/mbox/memacs_mbox.org][mbox]] (also useful for newsgroups)
-  - see also [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
+- [[tmp/emails/maildir/memacs-maildir.org][maildir]]
+- [[tmp/emails/mbox/memacs-mbox.org][mbox]] (also useful for newsgroups)
+  - see also [[emails/mbox/works-for-me-hack/memacs-mbox.org]]
 - *bank account*:
-  - [[http://www.easybank.at][easybank.at]]: see [[tmp/bank_statements/easybank.at/memacs_easybank.org]]
+  - [[http://www.easybank.at][easybank.at]]: see [[tmp/bank_statements/easybank.at/memacs-easybank.org]]
 
 - *newsgroups*
-  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[emails/mbox/works-for-me-hack/memacs_mbox.org]]
+  - *[[http://en.wikipedia.org/wiki/Slrn][slrn]]*: see [[emails/mbox/works-for-me-hack/memacs-mbox.org]]
 
 Following modules exist as a rough idea only and might get implemented
 some day (by you?):
@@ -193,13 +193,13 @@ some day (by you?):
 - *[[http://karl-voit.at/tagstore/][tagstore]]*: see [[tmp/tagstore/memacs-tagstore.org]]
 
 - *calendar*:
-  - [[http://www.jpilot.org/][JPilot]]-datebook: see [[calendar/memacs_jpilot-datebook.org]]
+  - [[http://www.jpilot.org/][JPilot]]-datebook: see [[tmp/calendars/memacs-jpilot-datebook.org]]
 
 - *tasks*:
-  - [[http://www.jpilot.org/][JPilot]]-todos: see [[tasklists/jpilot-todos/memacs_jpilot-todos.org]]
+  - [[http://www.jpilot.org/][JPilot]]-todos: see [[tmp/tasklists/jpilot-todos/memacs-jpilot-todos.org]]
 
 - *blog_systems*:
-  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see [[blog_systems/serendipity/memacs_serendipity.org]]
+  - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see [[tmp/blog_systems/serendipity/memacs-serendipity.org]]
 
 ** Changelog
 
