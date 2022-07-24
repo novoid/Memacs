@@ -24,7 +24,7 @@ def parse_org_contact_file(orgfile):
     contacts = {}
     current_name = ''
 
-    HEADER_REGEX = re.compile('^(\*+)\s+(.*?)(\s+(:\S+:)+)?$')
+    HEADER_REGEX = re.compile('^(\*+)\s+([^\s:]([^:]*)[^\s:])(\s+(:[^\s]+:)+)?')
     PHONE = '\s+([\+\d\-/ ]{7,})$'
     PHONE_REGEX = re.compile(':(PHONE|oldPHONE|MOBILE|oldMOBILE|HOMEPHONE|oldHOMEPHONE|WORKPHONE|oldWORKPHONE):' + PHONE)
 
