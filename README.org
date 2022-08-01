@@ -100,7 +100,27 @@ The basic concept of using a Memacs module is following:
      - Windows: [[https://docs.microsoft.com/en-us/windows/desktop/taskschd/task-scheduler-start-page][Task Scheduler]]
      - GNU/Linux: [[https://en.wikipedia.org/wiki/Cron][cron job]] or via [[https://wiki.archlinux.org/index.php/Systemd/Timers][systemd]]
      - macOS: [[http://www.launchd.info/][launchd]]
-3. Think of another Memacs module you might want to try ;-)
+3. For an update from a running instance of Emacs, independent of a
+   recurrent schedule (e.g., Memacs' photo module after returning from
+   an excursion), you may add a key binding to Emacs, e.g. =C-c m p=
+   to your configuration
+
+   #+begin_src emacs-lisp
+     (defun mp-update-memacs-photos ()
+       "An extra (i.e., not cron-scheduled) run of Memacs' photo module."
+       (interactive)
+	 (shell-command
+	   (format "~/org/update-memacs-photos.sh")
+	 )
+     )
+
+     (global-set-key (kbd "C-c m p") 'mp-update-memacs-photos)
+   #+end_src
+
+   The script called requires the provision of the executable bit.
+   Additional background of this technique is compiled by Mickey
+   Petersen in [[https://www.masteringemacs.org/article/mastering-key-bindings-emacs][Mastering Key Bindings in Emacs]].
+4. Think of another Memacs module you might want to try ;-)
 
 Please make sure you also read the [[docs/FAQs_and_Best_Practices.org][FAQ's and best practices]], as it
 contains many tips and tricks on how to meet your requirements and on
