@@ -4,8 +4,9 @@
 
 * memacs-ical
 
-[[http://en.wikipedia.org/wiki/ICalendar][ICalendar]] is a widely used format for defining calendars.
-A lot of Calendar-Services like i.e. Google give you a *private* url of your calendar, which you can easily use with this module.
+[[http://en.wikipedia.org/wiki/ICalendar][ICalendar]] is a widely used format for defining calendars.  A lot of
+Calendar-Services like i.e. Google give you a *private* url of your
+calendar, which you can easily use with this module.
 
 ** Options
 
@@ -14,9 +15,14 @@ A lot of Calendar-Services like i.e. Google give you a *private* url of your cal
 - ~-x~, ~--exclude~, path to one or more folders separated with ~|~
 
 ** Requirements
-- icalendar Python package
-  install it with
-  : $ easy install icalendar
+- =icalendar= Python package installed e.g., with =easy_install= (by
+  [[https://packaging.python.org/en/latest/key_projects/#easy-install][setuptools]]), or with [[https://pypi.org/project/icalendar/][pip]]:
+
+  #+begin_src shell
+    easy_install icalendar
+    pip install icalendar
+  #+end_src
+
 
 ** Example Invocation:
 
