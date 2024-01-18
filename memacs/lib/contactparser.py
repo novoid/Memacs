@@ -1,5 +1,16 @@
 import logging
 import re
+from bbdb.database import BBDB
+
+
+def sanitize_phonenumber(phonenumber):
+    """
+    Convert phonenumber to digits only
+    """
+
+    sanitized_phonenumber = phonenumber.strip().replace('-','').replace('/','').replace(' ','').replace('+','00')
+
+    return sanitized_phonenumber
 
 
 def parse_org_contact_file(orgfile):
@@ -52,7 +63,7 @@ def parse_org_contact_file(orgfile):
 
             phone_components = re.match(PHONE_REGEX, line)
             if phone_components:
-                phonenumber = phone_components.group(2).strip().replace('-','').replace('/','').replace(' ','').replace('+','00')
+                phonenumber = sanitize_phonenumber(phone_components.group(2))
                 contacts[phonenumber] = current_name
             elif line == ':END:':
                 status = headersearch
@@ -66,4 +77,32 @@ def parse_org_contact_file(orgfile):
             continue
 
     logging.info("found %s suitable contacts while parsing \"%s\"" % (str(len(contacts)), orgfile))
+    return contacts
+
+
+def parse_bbdb_file(bbdbfile):
+    """
+    Parses the given bbdb file for contact entries.
+
+    The return format is a follows:
+    numbers = {'004369912345678':'First2 Last1', '0316987654':'First2 Last2', ...}
+
+    @param bbdbfile: file name of a Org-mode file to parse
+    @param return: list of dict-entries containing the numbers to name dict
+    """
+
+    contacts = {}
+
+    bb = BBDB.fromfile(bbdbfile)
+    bd = bb.model_dump()
+    records = bd["records"]
+
+    for record in records:
+        if len(record["phone"]) > 0:
+            current_name = f"{record['firstname']} {record['lastname']}"
+            for number in record["phone"]:
+                phonenumber = sanitize_phonenumber(record["phone"][number])
+                contacts[phonenumber] = current_name
+
+    logging.info("found %s suitable contacts while parsing \"%s\"" % (str(len(contacts)), bbdbfile))
     return contacts
