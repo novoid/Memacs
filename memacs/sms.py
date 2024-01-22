@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-11-06 15:27:28 vk>
+# Time-stamp: <2024-01-18 14:13:58 (klaus)>
 
 import codecs  ## Unicode conversion
 import html.parser  ## un-escaping HTML entities like emojis
@@ -15,6 +15,7 @@ from orgformat import OrgFormat
 from xml.sax._exceptions import SAXParseException
 
 from memacs.lib.contactparser import parse_org_contact_file
+from memacs.lib.contactparser import parse_bbdb_file
 from memacs.lib.memacs import Memacs
 from memacs.lib.orgproperty import OrgProperties
 from memacs.lib.reader import CommonReader
@@ -215,6 +216,10 @@ class SmsMemacs(Memacs):
             action="store", required=False,
             help="path to Org-contacts file for phone number lookup. Phone numbers have to match.")
 
+        self._parser.add_argument(
+            "--bbdbfile", dest="bbdbfile",
+            action="store", required=False,
+            help="path to bbdb file for phone number lookup. Phone numbers have to match.")
 
 
     def _parser_parse_args(self):
@@ -233,7 +238,11 @@ class SmsMemacs(Memacs):
                     os.access(self._args.orgcontactsfile, os.R_OK)):
                 self._parser.error("Org-contacts file not found or not readable")
             self._numberdict = parse_org_contact_file(self._args.orgcontactsfile)
-
+        elif self._args.bbdbfile:
+            if not (os.path.exists(self._args.bbdbfile) or \
+                    os.access(self._args.bbdbfile, os.R_OK)):
+                self._parser.error("bbdb file not found or not readable")
+            self._numberdict = parse_bbdb_file(self._args.bbdbfile)
 
     def _main(self):
         """

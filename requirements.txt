@@ -9,3 +9,4 @@ Pillow
 pylast
 pytz
 twython
+pybbdb
