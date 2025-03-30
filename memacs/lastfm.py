@@ -79,7 +79,7 @@ class LastFM(Memacs):
 
             user = network.get_user(options['username'])
 
-            self._handle_recent_tracks(user.get_recent_tracks(limit=100))
+            self._handle_recent_tracks(user.get_recent_tracks(limit=None))
 
         except pylast.WSError as e:
             logging.error('an issue with the network web service occured: %s' % e)
