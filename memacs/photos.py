@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2019-11-06 15:26:47 vk>
+# Time-stamp: <2026-04-18 13:29:13 (klaus)>
 
-import imghdr
 import logging
 import os
 import time
@@ -70,6 +69,33 @@ class PhotosMemacs(Memacs):
         if not os.path.exists(self._args.photo_folder):
             self._parser.error("photo folder does not exist")
 
+    def check_image_header(self, filename):
+        """
+        recognizes image file format based on their first few bytes
+
+        this is a replacement function for imghdr.what() which was deprecated.
+        Code based on that function
+        (https://github.com/python/cpython/blob/3.12/Lib/imghdr.py) and
+        discussion on https://stackoverflow.com/a/14644881
+        """
+        with open(filename, "rb") as imgfile:
+            data = imgfile.read(11)
+
+        filetype = None
+
+        if data[6:10] in (b"JFIF", b"EXIF"):
+            filetype = "jpeg"
+        if data[:4] in (b"\xff\xd8\xff\xe0", b"\xff\xd8\xff\xe1"):
+            filetype = "jpeg"
+        if data.startswith(b"\211PNG\r\n\032\n"):
+            filetype = "png"
+        if data[:6] in (b"GIF87a", b"GIF89a"):
+            filetype = "gif"
+        if data[:2] in (b"MM", b"II"):
+            filetype = "tiff"
+
+        return filetype
+
     def __handle_file(self, photo_file, filename):
         """
         checks if file is an image, try to get exif data and
@@ -79,7 +105,7 @@ class PhotosMemacs(Memacs):
         logging.debug("handling file %s", filename)
 
         # check if file is an image:
-        if imghdr.what(filename) != None:
+        if self.check_image_header(filename) is not None:
             datetime = get_exif_datetime(filename)
             if datetime == None:
                 logging.debug("skipping: %s has no EXIF information", filename)
