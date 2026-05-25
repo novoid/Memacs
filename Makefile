@@ -8,10 +8,10 @@ whitespace:
 	@find .  -name "*.py" -exec remove-trailing-whitespace.py {} \; 
 
 test:
-	@nosetests
+	@uv run --group dev pytest memacs/tests memacs/lib/tests
 
 quiettest:
-	@nosetests >/dev/null 2>&1 || echo "!!!!!!!!!!!! \n nosetests has errors\n!!!!!!!!!!!!\n"
+	@uv run --group dev pytest memacs/tests memacs/lib/tests >/dev/null 2>&1 || echo "!!!!!!!!!!!! \n pytest has errors\n!!!!!!!!!!!!\n"
 
 todo:
 	@echo "TODO:"
@@ -36,18 +36,19 @@ clean:
 	@find  -name "#*" -exec rm {} \;
 	@find  -name ".#*" -exec rm {} \;
 	@rm -rf core
-	@rm -rf MANIFEST build/ dist 
+	@rm -rf build/ dist/ memacs.egg-info/
 
 countorgmodeentries:
 	@echo "number of orgmode-entries in ~/orgmode/memacs/*.org_archive:"
 	@grep -Hnr "\*\*" ~/orgmode/memacs/*.org_archive | wc
 
-upload:
-	python setup.py sdist upload
+build:
+	@uv build
+
+upload: build
+	@uv publish
 
 pipcheckouttest:
-	mkdir -p /tmp/memacs-test
-	virtualenv /tmp/memacs-test --no-site-packages
-	source /tmp/memacs-test/bin/activate
-	pip install memacs
-	deactivate
+	@rm -rf /tmp/memacs-test
+	@uv venv /tmp/memacs-test
+	@uv pip install --python /tmp/memacs-test/bin/python memacs

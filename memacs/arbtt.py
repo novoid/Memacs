@@ -3,10 +3,10 @@
 # Time-stamp: <2017-02-07 19:25 manu>
 
 import calendar
-import distutils.spawn
 import io
 import logging
 import os.path
+import shutil
 import subprocess
 import sys
 import time
@@ -195,8 +195,8 @@ class Arbtt(Memacs):
         """
         get's automatically called from Memacs class
         """
-        # check if arbtt is installed
-        if distutils.spawn.find_executable(ARBTT_STATS) is None:
+        # check if arbtt is installed (only needed when we actually invoke it)
+        if not self._args.csv and shutil.which(ARBTT_STATS) is None:
             logging.error(ARBTT_STATS + ': command not found')
             sys.exit(1)
 

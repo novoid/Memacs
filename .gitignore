@@ -10,4 +10,5 @@ build/
 memacs.egg-info/
 .tox/
 venv
+.venv/
 tmp/filenametimestamps/2019-10-09_testdata

@@ -1,9 +1,11 @@
-#PYTHONPATH=. python3 -m pytest .
+#!/bin/sh
+# Run the full unit test suite via uv.
+# Requires `uv` on PATH (https://docs.astral.sh/uv/).
 
-## activate Python3 virtualenv:                                                                                                                                                                                                        
-. /home/vk/src/memacs/venv/bin/activate 
+set -e
 
-cd memacs
-PYTHONPATH=.. pytest --exitfirst
+cd "$(dirname "$0")"
+
+uv run --group dev pytest --exitfirst memacs/tests memacs/lib/tests "$@"
 
 #end

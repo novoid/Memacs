@@ -2,13 +2,21 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: <2019-11-06 15:26:47 vk>
 
-import imghdr
 import logging
 import os
 import time
 
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from PIL.ExifTags import TAGS
+
+
+def _is_image_file(path):
+    try:
+        with Image.open(path) as img:
+            img.verify()
+    except (OSError, UnidentifiedImageError):
+        return False
+    return True
 from orgformat import OrgFormat
 
 from memacs.lib.memacs import Memacs
@@ -79,7 +87,7 @@ class PhotosMemacs(Memacs):
         logging.debug("handling file %s", filename)
 
         # check if file is an image:
-        if imghdr.what(filename) != None:
+        if _is_image_file(filename):
             datetime = get_exif_datetime(filename)
             if datetime == None:
                 logging.debug("skipping: %s has no EXIF information", filename)

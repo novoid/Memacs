@@ -88,10 +88,10 @@ class WhatsApp(Memacs):
     def _is_ignored(self, msg):
         """check for ignored message type"""
 
-        if msg['type'] is 'INCOMING' and self._args.ignore_incoming:
+        if msg['type'] == 'INCOMING' and self._args.ignore_incoming:
             return True
 
-        if msg['type'] is 'OUTGOING' and self._args.ignore_outgoing:
+        if msg['type'] == 'OUTGOING' and self._args.ignore_outgoing:
             return True
 
         group_message_regex = r'-[0-9]{10}'

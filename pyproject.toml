@@ -1,0 +1,85 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "memacs"
+version = "2022.08.06"
+description = "Visualize your (digital) life in Emacs Org mode by converting data to Org mode format"
+readme = { file = "README.org", content-type = "text/plain" }
+requires-python = ">=3.9"
+license = "GPL-2.0-or-later"
+license-files = ["license.txt"]
+authors = [
+    { name = "Karl Voit", email = "tools@Karl-Voit.at" },
+]
+keywords = ["quantified self", "emacs", "org-mode", "org mode"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "orgformat>=2019.11.6.1",
+    "emoji",
+]
+
+[project.urls]
+Homepage = "https://github.com/novoid/memacs"
+Repository = "https://github.com/novoid/memacs"
+Issues = "https://github.com/novoid/memacs/issues"
+
+[project.scripts]
+memacs_arbtt = "bin.memacs_arbtt:main"
+memacs_battery = "bin.memacs_battery:main"
+memacs_chrome = "bin.memacs_chrome:main"
+memacs_csv = "bin.memacs_csv:main"
+memacs_example = "bin.memacs_example:main"
+memacs_filenametimestamps = "bin.memacs_filenametimestamps:main"
+memacs_firefox = "bin.memacs_firefox:main"
+memacs_git = "bin.memacs_git:main"
+memacs_gpx = "bin.memacs_gpx:main"
+memacs_ical = "bin.memacs_ical:main"
+memacs_imap = "bin.memacs_imap:main"
+memacs_kodi = "bin.memacs_kodi:main"
+memacs_lastfm = "bin.memacs_lastfm:main"
+memacs_mumail = "bin.memacs_mumail:main"
+memacs_phonecalls = "bin.memacs_phonecalls:main"
+memacs_phonecalls_superbackup = "bin.memacs_phonecalls_superbackup:main"
+memacs_photos = "bin.memacs_photos:main"
+memacs_rss = "bin.memacs_rss:main"
+memacs_simplephonelogs = "bin.memacs_simplephonelogs:main"
+memacs_sms = "bin.memacs_sms:main"
+memacs_sms_superbackup = "bin.memacs_sms_superbackup:main"
+memacs_svn = "bin.memacs_svn:main"
+memacs_twitter = "bin.memacs_twitter:main"
+memacs_whatsapp = "bin.memacs_whatsapp:main"
+
+# PEP 735 dependency groups.
+# Install one or more with: `uv sync --group gps --group rss`
+# Install everything (incl. dev) with: `uv sync --all-groups`
+[dependency-groups]
+gps = ["gpxpy", "geocoder"]
+rss = ["feedparser"]
+ical = ["icalendar", "pytz"]
+lastfm = ["pylast"]
+battery = ["batinfo"]
+twitter = ["python-dateutil", "twython"]
+photos = ["Pillow"]
+contacts = ["pybbdb"]
+dev = ["pytest"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["memacs", "bin"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "memacs",
+    "bin",
+    "README.org",
+    "INSTALL.org",
+    "license.txt",
+    "docs",
+]

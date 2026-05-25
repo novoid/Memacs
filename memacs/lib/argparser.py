@@ -161,7 +161,7 @@ class MemacsArgumentParser(ArgumentParser):
                            args.autotagfile)
 
         if args.timestamp_delta:
-            timestamp_components = re.match('[+-]\d\d?', args.timestamp_delta)
+            timestamp_components = re.match(r'[+-]\d\d?', args.timestamp_delta)
             if not timestamp_components:
                 self.error("format of \"--add-to-time-stamps\" is not recognized. Should be similar " + \
                            "to ,e.g., \"+1\" or \"-3\".")
