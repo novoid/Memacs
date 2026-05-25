@@ -1,0 +1,83 @@
+## Time-stamp: <2026-05-25 vk>
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+* memacs_podcastaddict
+
+** Data Source
+
+[[https://podcastaddict.com/][Podcast Addict]] is a popular Android podcatcher app. It can write a
+periodic auto-backup of its database to a user-configurable directory
+on the device (Settings → Backup / Restore).
+
+Each backup is a ZIP archive named e.g.
+=PodcastAddict_autoBackup_20260523_210009.backup= that contains a
+SQLite database =podcastAddict.db=. This module reads the most
+recently-modified ~*.backup~ file in a directory and emits one
+Org-mode entry per *finished* episode (~seen_status = 1~ with a
+non-zero ~playbackDate~).
+
+** Options
+
+- ~-d~, ~--backup-dir~ — path to the directory holding the
+  ~PodcastAddict_autoBackup_*.backup~ files (required). The newest
+  file by modification time is used.
+- Standard Memacs options (~-o~, ~-a~, ~-s~, ~-v~, ~--tag~, ...) are
+  inherited from the framework.
+
+** Dependencies
+
+- [[https://pypi.org/project/pypandoc/][pypandoc]] (Python wrapper)
+- the [[https://pandoc.org/][pandoc]] binary on ~PATH~ (e.g. ~apt install pandoc~,
+  ~brew install pandoc~)
+
+Pandoc is used to convert each episode's HTML shownotes into Org-mode
+markup faithfully (links, bold, italics, paragraphs, lists, ...).
+
+Install both with:
+
+: uv sync --group podcastaddict
+
+** Automatic appending
+
+The ~:ID:~ property is derived from the episode's database ~_id~ and
+~playbackDate~. When invoked with ~-a~ / ~--append~, only entries
+whose ID is not already in the output file are appended.
+
+** Output format
+
+The heading carries the finishing time-stamp (local time, converted
+from ~playbackDate~), the episode name (linked to its URL if known),
+the podcast name (linked to its homepage if known), and the optional
+season/episode number ("SxxExx", "Exx", or "Sxx" depending on which
+fields PodcastAddict has). The body contains the transcript link
+(when present, with format preference srt → html → json → other)
+followed by the HTML shownotes converted to Org.
+
+** Example Invocation
+
+: uv run memacs_podcastaddict \
+:     --backup-dir /path/to/Android/backups/PodcastAddict \
+:     --output /home/user/orgmode/memacs/podcastaddict.org_archive \
+:     --append
+
+** Example Orgmode entry
+
+#+BEGIN_SRC org
+,** <2024-11-01 Fri 17:42> [[https://minkorrekt.de/mi319-bildungswesen/][Mi319 – "Bildungswesen"]] ([[http://www.minkorrekt.de][Methodisch inkorrekt!]] E326)
+   :PROPERTIES:
+   :PODCAST:    Methodisch inkorrekt!
+   :DURATION:   02:10:20
+   :URL:        https://minkorrekt.de/mi319-bildungswesen/
+   :ID:         b04a7857858505b86ef1b5eb3d8eecacc2a252e3
+   :END:
+
+   Description:
+
+   ... direkt aus der Literatur der Wissenschaft.
+
+   *Inhalt*\\
+   00:00:00 Intro\\
+   00:03:15 Begrüßung\\
+   00:10:49 Abgelehntes Paper
+   ...
+#+END_SRC

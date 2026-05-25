@@ -56,7 +56,11 @@ To install only what you need instead of everything, pick groups:
 : uv sync --group rss --group ical
 
 Available dependency groups: ~gps~, ~rss~, ~ical~, ~lastfm~,
-~battery~, ~twitter~, ~photos~, ~contacts~, ~dev~.
+~battery~, ~twitter~, ~photos~, ~contacts~, ~podcastaddict~, ~dev~.
+
+The ~podcastaddict~ module additionally needs the [[https://pandoc.org/][pandoc]] binary on
+~PATH~ (e.g. ~apt install pandoc~ or ~brew install pandoc~) for the
+HTML-to-Org conversion of shownotes.
 
 *** Updating
 

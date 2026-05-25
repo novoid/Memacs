@@ -49,6 +49,7 @@ memacs_mumail = "bin.memacs_mumail:main"
 memacs_phonecalls = "bin.memacs_phonecalls:main"
 memacs_phonecalls_superbackup = "bin.memacs_phonecalls_superbackup:main"
 memacs_photos = "bin.memacs_photos:main"
+memacs_podcastaddict = "bin.memacs_podcastaddict:main"
 memacs_rss = "bin.memacs_rss:main"
 memacs_simplephonelogs = "bin.memacs_simplephonelogs:main"
 memacs_sms = "bin.memacs_sms:main"
@@ -69,6 +70,7 @@ battery = ["batinfo"]
 twitter = ["python-dateutil", "twython"]
 photos = ["Pillow"]
 contacts = ["pybbdb"]
+podcastaddict = ["pypandoc"]
 dev = ["pytest"]
 
 [tool.hatch.build.targets.wheel]

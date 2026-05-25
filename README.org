@@ -72,8 +72,9 @@ For contributors, or to get everything pre-wired:
 : uv run memacs_rss --help
 
 The dependency groups defined in ~pyproject.toml~ are: =gps=, =rss=,
-=ical=, =lastfm=, =battery=, =twitter=, =photos=, =contacts=, =dev=.
-Install a subset with e.g. ~uv sync --group rss --group ical~.
+=ical=, =lastfm=, =battery=, =twitter=, =photos=, =contacts=,
+=podcastaddict=, =dev=. Install a subset with e.g.
+~uv sync --group rss --group ical~.
 
 *** Installing with pip
 
@@ -201,6 +202,7 @@ to =tsfile:= images]] independent of their location. Awesome stuff.
 - [[docs/memacs_mumail.org][mu]]
 - [[docs/memacs_phonecalls.org][phonecalls]]
 - [[docs/memacs_photos.org][photos]]
+- [[docs/memacs_podcastaddict.org][podcastaddict]]
 - [[docs/memacs_rss.org][rss]]
 - [[docs/memacs_simplephonelogs.org][simplephonelogs]]
 - [[docs/memacs_sms.org][sms]]
@@ -240,6 +242,12 @@ some day (by you?):
 ** Changelog
 
 - Version 2026.05.25
+  - Features
+    - New module: [[file:docs/memacs_podcastaddict.org][memacs_podcastaddict]]. Reads
+      PodcastAddict Android backup files (~*.backup~ ZIP archives
+      containing the app's SQLite database) and emits an Org-mode
+      entry per finished podcast episode. HTML shownotes are
+      converted to Org via [[https://pandoc.org/][pandoc]] (~pypandoc~).
   - Build system
     - Migrated from ~setup.py~ + ~requirements.txt~ to ~pyproject.toml~
       with the [[https://hatch.pypa.io/][hatchling]] build backend, managed by [[https://docs.astral.sh/uv/][uv]].
