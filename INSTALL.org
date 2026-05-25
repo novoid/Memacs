@@ -1,68 +1,84 @@
-## Time-stamp: <2014-12-21 13:02:43 vk>
+## Time-stamp: <2026-05-25 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * How to install and set up Memacs
 
-** *Obtain Memacs*
+** *Prerequisites*
 
-- using one of github download mechanisms *OR*
-- use ~pip install memacs~ which handles dependencies
-  - you might as well want to use [[http://pypi.python.org/pypi/virtualenv][virtualenv]] before
-- make sure that you have *Python v2.7* installed
+- *Python 3.9 or newer*
+- [[https://docs.astral.sh/uv/][uv]] (recommended) for managing the Python environment and dependencies.
+  Install uv with the official one-liner:
+  : curl -LsSf https://astral.sh/uv/install.sh | sh
+  See the [[https://docs.astral.sh/uv/getting-started/installation/][uv install docs]] for other platforms.
 
-*** Installing Using virtualenv and PIP (recommended!)
+** *Obtain and install Memacs*
 
-I installed [[https://pypi.python.org/pypi/memacs][Memacs using PIP]] with the following commands:
+There are two recommended workflows depending on whether you just want
+to /use/ Memacs or also /hack on/ it.
 
-First, I created a virtualenv environment using a local installation
-of Python 3 (you can use the Python installation of your site of
-course):
-: ~/.local/lib/python3.5/site-packages/virtualenv.py -p /home/karl/bin/Python-3.5.3/bin/python memacs
+*** As a tool (just run the modules)
 
-I entered the folder ~cd memacs~ and activated the environment
-~. bin/activate~.
-After that, I installed Memacs using PIP with ~pip install memacs~
+If Memacs is published to PyPI, you can install all the ~memacs_*~
+console scripts globally with uv:
 
-Within this activated virtualenv, PYTHONPATH is set correctly and I am
-able to start any module directly like
-: ~/src/memacs/bin/memacs_rss.py -u ...
+: uv tool install memacs
 
-Summary:
-: ~/.local/lib/python3.5/site-packages/virtualenv.py -p /home/karl/bin/Python-3.5.3/bin/python memacs
-: cd memacs
-: . bin/activate
-: pip install memacs
-: ~/src/memacs/bin/memacs_rss.py --help
+This makes commands like ~memacs_rss~, ~memacs_csv~, ~memacs_git~,
+... available on your ~PATH~ without activating any virtualenv. Update
+later with:
 
-You don't have to activate the virtualenv for further calls. Just
-start the modules located in the bin-folder of Memacs.
+: uv tool upgrade memacs
 
-**** Updating PIP-Memacs
+Note that ~uv tool install~ only pulls Memacs' core dependencies. Each
+module may need additional packages (see ~pyproject.toml~ →
+~[dependency-groups]~). To include them:
 
-: cd memacs
-: . bin/activate
-: pip install memacs --upgrade
+: uv tool install memacs --with feedparser --with icalendar
 
-*** Installing on OS X with homebrew without virtualenv
+*** From a git checkout (recommended for everyone right now)
 
-If you decide not to use virtualenv (not recommended), you are
-probably interested in [[https://github.com/novoid/Memacs/issues/8#issuecomment-16441471][a comment of a user who described the manualprocess here]] .
+This is the path most users will want today, and the only path for
+contributors.
+
+: git clone https://github.com/novoid/Memacs.git
+: cd Memacs
+: uv sync --all-groups
+
+That single ~uv sync~ command creates ~.venv/~, resolves all
+dependencies (incl. every module's optional deps and dev tools), and
+installs Memacs itself in editable mode. Run any module via:
+
+: uv run memacs_rss --help
+: uv run memacs_csv --help
+
+To install only what you need instead of everything, pick groups:
+
+: uv sync --group rss --group ical
+
+Available dependency groups: ~gps~, ~rss~, ~ical~, ~lastfm~,
+~battery~, ~twitter~, ~photos~, ~contacts~, ~dev~.
+
+*** Updating
+
+- ~uv tool upgrade memacs~ for tool installs.
+- ~git pull && uv sync --all-groups~ for git checkouts.
 
 ** *Choose* the *modules* you want to use
 
-- read the files in the ~docs~ folder
-- start the modules from the ~bin~ folder of Memacs
+- Read the files in the ~docs~ folder.
+- Each module is launched via its ~memacs_<name>~ console script
+  (e.g., ~memacs_rss~). If you cloned the repo, you can also still
+  invoke the ~.py~ files directly from ~bin/~ under ~uv run~.
 
 ** *Set up one module* after another
 
-- please make sure you read [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]
+- Please read [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]
   - it contains many tips and tricks on how to meet your
-    requirements and on how to choose a reasonable setup
-- start the module of your choice with the argument ~--help~
-  - modules are located in the ~bin~ sub-folder
-  - for example: ~/memacs/bin % ./memacs_svn.py --help~
-  - each module has some general arguments and module-specific arguments
-- you probably want to *develop and test a module invocation* in the
-  command line and when it works:
-- set up a periodical invocation
-  - read the [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#invocation][Invocation]] section of [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]]
+    requirements and on how to choose a reasonable setup.
+- Start the module of your choice with ~--help~ to see its options:
+  : uv run memacs_svn --help
+  Each module has some general arguments and module-specific arguments.
+- You probably want to *develop and test a module invocation* on the
+  command line, and when it works:
+- Set up a periodical invocation
+  - read the [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org#invocation][Invocation]] section of [[https://github.com/novoid/Memacs/blob/master/docs/FAQs_and_Best_Practices.org][docs/FAQs_and_Best_Practices.org]].

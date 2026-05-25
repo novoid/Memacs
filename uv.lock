@@ -422,7 +422,7 @@ wheels = [
 
 [[package]]
 name = "memacs"
-version = "2022.8.6"
+version = "2026.5.25"
 source = { editable = "." }
 dependencies = [
     { name = "emoji" },

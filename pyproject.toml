@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "memacs"
-version = "2022.08.06"
+version = "2026.05.25"
 description = "Visualize your (digital) life in Emacs Org mode by converting data to Org mode format"
 readme = { file = "README.org", content-type = "text/plain" }
 requires-python = ">=3.9"

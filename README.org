@@ -51,34 +51,49 @@ You can see some demo data using the modulees for SMS, filenamedatestamps, Twitt
 
 ** Installation
 
-*** Install using Pip
+Memacs requires *Python 3.9 or newer*. Project management is handled
+by [[https://docs.astral.sh/uv/][uv]]. See [[file:INSTALL.org][INSTALL.org]] for the long-form walkthrough.
 
-The easiest way of installing Memacs is by using `pip`:
+*** Install with uv (recommended)
 
-: pip install memacs[all]
+For end users who just want to run the modules:
 
-This gets you the whole set of modules with all dependencies on your system.
+: uv tool install memacs
 
-If you would like to define the dependencies more fine-grained, you
-can use one or more of the extras: =gps=, =rss=, =ical=, =lastfm=,
-=battery=, or =twitter= like the following example:
+This installs all ~memacs_*~ commands globally on your ~PATH~. Add
+module-specific deps with ~--with~ (e.g.
+~uv tool install memacs --with feedparser --with icalendar~).
 
-: pip install memacs[gps,rss]
+For contributors, or to get everything pre-wired:
 
-*** Manual Setup from Git
+: git clone https://github.com/novoid/Memacs.git
+: cd Memacs
+: uv sync --all-groups
+: uv run memacs_rss --help
 
-In case you prefer to set the environment "the old way", you can do it manually:
+The dependency groups defined in ~pyproject.toml~ are: =gps=, =rss=,
+=ical=, =lastfm=, =battery=, =twitter=, =photos=, =contacts=, =dev=.
+Install a subset with e.g. ~uv sync --group rss --group ical~.
 
-- clone or download repository from github
-- make sure to use *Python version 3*
-- create a virtualenv or
-- export/set ~PYTHONPATH~
+*** Installing with pip
 
-: PYTHONPATH=/path/to/memacs
+Plain ~pip install memacs~ still works and pulls in the core
+dependencies, but be aware: the per-module extras (~gps~, ~rss~, ...)
+were moved from ~setup.py~'s ~extras_require~ to PEP 735
+~[dependency-groups]~ in ~pyproject.toml~. That means *the old
+~pip install memacs[rss]~ syntax no longer works.* If you install via
+pip, install module dependencies yourself (e.g. ~pip install feedparser~).
+For the original "install everything" experience, use the uv workflow
+above.
 
-- install dependencies
+*** Development
 
-: pip install -r requirements.txt
+See [[file:AGENTS.md][AGENTS.md]] for the framework overview and module-authoring
+conventions. To run the full test suite:
+
+: ./run_all_unit_tests.sh
+
+(equivalent to ~uv run --group dev pytest --exitfirst memacs/tests memacs/lib/tests~).
 
 ** Getting Started
 
@@ -223,6 +238,26 @@ some day (by you?):
   - [[http://en.wikipedia.org/wiki/Serendipity_(weblog_software)][Serendipity]]: see [[tmp/blog_systems/serendipity/memacs-serendipity.org]]
 
 ** Changelog
+
+- Version 2026.05.25
+  - Build system
+    - Migrated from ~setup.py~ + ~requirements.txt~ to ~pyproject.toml~
+      with the [[https://hatch.pypa.io/][hatchling]] build backend, managed by [[https://docs.astral.sh/uv/][uv]].
+    - Minimum supported Python is now *3.9*.
+    - Optional per-module dependencies moved from setuptools extras to
+      PEP 735 ~[dependency-groups]~. Downstream pip users must now
+      install module deps manually; see Installation.
+  - Compatibility
+    - Python 3.13 fixes: replaced removed stdlib modules ~distutils~
+      (arbtt module) and ~imghdr~ (photos module).
+    - Cleaned up ~SyntaxWarning~s for invalid escape sequences and the
+      deprecated ~is~-with-string-literal idiom.
+  - Tooling
+    - ~run_all_unit_tests.sh~ now drives pytest via ~uv run~.
+    - ~Makefile~ ~test~/~upload~ targets updated for uv / ~uv build~ /
+      ~uv publish~.
+    - Added [[file:AGENTS.md][AGENTS.md]] documenting the Memacs framework for
+      human contributors and AI agents.
 
 - Version 2020.06.05.1
   - Features
